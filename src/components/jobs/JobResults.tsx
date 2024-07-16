@@ -1,9 +1,22 @@
 import JobItem from "@/components/jobs/JobItem";
+import Link from "next/link";
+import prisma from "@/lib/prisma";
 
-export default function JobResults() {
-  return <div className="w-2/5 space-y-4">
-    {[1,2,3,4,5,6,7,8,9,10].map((n) => (
-      <JobItem key={n} />
-    ))}
-  </div>;
+export default async function JobResults() {
+  const jobs = await prisma.job.findMany({
+    where: {
+      approved: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return (
+    <div className="w-2/5 space-y-4">
+      {jobs.map((job) => (
+        <Link href={`/jobs/${job.slug}`} key={job.id} className="block">
+          <JobItem job={job} />
+        </Link>
+      ))}
+    </div>
+  );
 }

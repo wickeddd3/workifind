@@ -2,48 +2,63 @@ import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { Banknote, Briefcase, Clock, Globe2, MapPin } from "lucide-react";
 import Badge from "@/components/Badge";
+import { Job } from "@prisma/client";
+import { formatMoney, relativeDate } from "@/lib/utils";
 
-export default function JobItem() {
+interface JobItemProps {
+  job: Job;
+}
+
+export default function JobItem({
+  job: {
+    title,
+    companyName,
+    type,
+    locationType,
+    location,
+    salary,
+    companyLogoUrl,
+    createdAt,
+  },
+}: JobItemProps) {
   return (
-    <article className="flex gap-3 rounded-lg border p-3 hover:bg-muted/60 cursor-pointer">
+    <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
         <Image
-          src={companyLogoPlaceholder}
-          alt={`${"companyName"} logo`}
+          src={companyLogoUrl || companyLogoPlaceholder}
+          alt={`${companyName} logo`}
           width={100}
           height={70}
           className="self-center rounded-lg"
         />
         <div>
-          <h2 className="text-xl font-medium">
-            Full-Stack Developer at Stripe
-          </h2>
-          <p className="text-muted-foreground">Stripe</p>
+          <h2 className="text-xl font-medium">{title}</h2>
+          <p className="text-muted-foreground">{companyName}</p>
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">
           <p className="flex items-center gap-1.5 text-sm">
             <MapPin size={16} className="shrink-0" />
-            Remote
+            {locationType}
           </p>
           <p className="flex items-center gap-1.5 text-sm">
             <Globe2 size={16} className="shrink-0" />
-            San Francisco, California, United States
+            {location}
           </p>
           <p className="flex items-center gap-1.5 text-sm">
             <Banknote size={16} className="shrink-0" />
-            $150,000.00
+            {formatMoney(salary)}
           </p>
           <p className="flex items-center gap-1.5 text-sm sm:hidden">
             <Clock size={16} className="shrink-0" />
-            3h ago
+            {relativeDate(createdAt)}
           </p>
         </div>
       </div>
       <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">
-        <Badge>Full-time</Badge>
+        <Badge>{type}</Badge>
         <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <Clock size={16} />
-          3h ago
+          {relativeDate(createdAt)}
         </span>
       </div>
     </article>

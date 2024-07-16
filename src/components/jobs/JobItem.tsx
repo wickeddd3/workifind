@@ -1,9 +1,16 @@
 import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
-import { Banknote, Briefcase, Clock, Globe2, MapPin } from "lucide-react";
+import {
+  Banknote,
+  Clock,
+  Globe2,
+  MapPin,
+  SquareArrowOutUpRight,
+} from "lucide-react";
 import Badge from "@/components/Badge";
 import { Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
+import Link from "next/link";
 
 interface JobItemProps {
   job: Job;
@@ -11,6 +18,7 @@ interface JobItemProps {
 
 export default function JobItem({
   job: {
+    slug,
     title,
     companyName,
     type,
@@ -29,7 +37,7 @@ export default function JobItem({
           alt={`${companyName} logo`}
           width={100}
           height={70}
-          className="max-h-[100px] self-center rounded-lg object-contain"
+          className="rounded-lg"
         />
         <div>
           <h2 className="text-xl font-medium">{title}</h2>
@@ -63,6 +71,13 @@ export default function JobItem({
           <Clock size={16} />
           {relativeDate(createdAt)}
         </span>
+      </div>
+      <div className="flex shrink-0 sm:hidden">
+        <Link href={`/jobs/${slug}`}>
+          <span>
+            <SquareArrowOutUpRight size={16} />
+          </span>
+        </Link>
       </div>
     </article>
   );

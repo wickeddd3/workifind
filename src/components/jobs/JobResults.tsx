@@ -11,7 +11,7 @@ export default async function JobResults() {
   });
 
   return (
-    <div className="w-2/5 space-y-4">
+    <div className="w-full space-y-4 md:w-2/5">
       {jobs.map((job) => (
         <Link href={`/jobs/${job.slug}`} key={job.id} className="block">
           <JobItem job={job} />

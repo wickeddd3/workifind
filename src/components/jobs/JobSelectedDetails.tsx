@@ -12,6 +12,7 @@ interface JobSelectedDetailsProps {
 
 export default function JobSelectedDetails({
   job: {
+    slug,
     title,
     description,
     companyName,
@@ -38,12 +39,14 @@ export default function JobSelectedDetails({
         )}
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-bold">{title}</h1>
+            <Link href={`/jobs/${slug}`}>
+              <h1 className="text-3xl font-bold hover:underline">{title}</h1>
+            </Link>
             <p className="text-xl font-semibold">
               {applicationUrl ? (
                 <Link
                   href={new URL(applicationUrl).origin}
-                  className="text-green-500 hover:underline"
+                  className="hover:underline"
                 >
                   {companyName}
                 </Link>

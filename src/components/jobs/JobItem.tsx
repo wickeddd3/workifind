@@ -29,7 +29,7 @@ export default function JobItem({
           alt={`${companyName} logo`}
           width={100}
           height={70}
-          className="self-center rounded-lg"
+          className="max-h-[100px] self-center rounded-lg object-contain"
         />
         <div>
           <h2 className="text-xl font-medium">{title}</h2>
@@ -48,10 +48,13 @@ export default function JobItem({
             <Banknote size={16} className="shrink-0" />
             {formatMoney(salary)}
           </p>
-          <p className="flex items-center gap-1.5 text-sm sm:hidden">
-            <Clock size={16} className="shrink-0" />
-            {relativeDate(createdAt)}
-          </p>
+          <div className="flex justify-between pt-2 sm:hidden">
+            <Badge>{type}</Badge>
+            <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <Clock size={16} />
+              {relativeDate(createdAt)}
+            </span>
+          </div>
         </div>
       </div>
       <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">

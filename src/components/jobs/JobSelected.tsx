@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 
 export default function JobSelected() {
   return (
-    <section className="sticky top-0 h-fit rounded-xl bg-background p-4 md:w-3/5">
+    <section className="sticky top-0 h-fit rounded-xl bg-background p-4 md:w-3/5 hidden md:block">
       <div className="h-full">
         <section className="w-full grow space-y-5">
           <div className="flex flex-col gap-3">

@@ -1,4 +1,4 @@
-export const jobTypes = [
+export const employmentTypes = [
   "Full-time",
   "Part-time",
   "Contract",
@@ -7,7 +7,7 @@ export const jobTypes = [
   "Volunteer",
 ];
 
-export const jobSetup = ["Remote", "On-site", "Hybrid"];
+export const locationTypes = ["Remote", "On-site", "Hybrid"];
 
 export const jobSalary = [
   {

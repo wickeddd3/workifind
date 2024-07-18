@@ -36,7 +36,7 @@ export default function Navbar() {
           </Link>
         </div>
         <Button asChild>
-          <Link href="/jobs/new">Post a job</Link>
+          <Link href="/employer/jobs/new">Post a job</Link>
         </Button>
       </nav>
     </header>

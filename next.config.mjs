@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "xtg08hkzkg7wv2ci.public.blob.vercel-storage.com",
+        hostname: "gkmp2jrrgr3iczzg.public.blob.vercel-storage.com",
       },
     ],
   },

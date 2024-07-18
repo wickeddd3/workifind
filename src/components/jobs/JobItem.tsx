@@ -21,7 +21,7 @@ export default function JobItem({
     slug,
     title,
     companyName,
-    type,
+    employmentType,
     locationType,
     location,
     salary,
@@ -57,7 +57,7 @@ export default function JobItem({
             {formatMoney(salary)}
           </p>
           <div className="flex justify-between pt-2 sm:hidden">
-            <Badge>{type}</Badge>
+            <Badge>{employmentType}</Badge>
             <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
               <Clock size={16} />
               {relativeDate(createdAt)}
@@ -66,7 +66,7 @@ export default function JobItem({
         </div>
       </div>
       <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">
-        <Badge>{type}</Badge>
+        <Badge>{employmentType}</Badge>
         <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <Clock size={16} />
           {relativeDate(createdAt)}

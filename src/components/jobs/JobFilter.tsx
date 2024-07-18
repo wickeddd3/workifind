@@ -9,12 +9,12 @@ async function filterJobs(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
-  const { q, type, salary, setup } = jobFilterSchema.parse(values);
+  const { q, employmentType, salary, locationType } = jobFilterSchema.parse(values);
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
-    ...(type && { type }),
+    ...(employmentType && { employmentType }),
     ...(salary && { salary }),
-    ...(setup && { setup }),
+    ...(locationType && { locationType }),
   });
 
   redirect(`/jobs?${searchParams.toString()}`);
@@ -46,10 +46,10 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
             </div>
             <div className="flex items-center space-x-2">
               <Select
-                id="type"
-                name="type"
+                id="employmentType"
+                name="employmentType"
                 className="rounded-full md:w-[200px]"
-                defaultValue={defaultValues.type || ""}
+                defaultValue={defaultValues.employmentType || ""}
               >
                 <option value="">Job types</option>
                 {employmentTypes.map((type) => (
@@ -72,10 +72,10 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 ))}
               </Select>
               <Select
-                id="setup"
-                name="setup"
+                id="locationType"
+                name="locationType"
                 className="rounded-full md:w-[200px]"
-                defaultValue={defaultValues.setup || ""}
+                defaultValue={defaultValues.locationType || ""}
               >
                 <option value="">Location type</option>
                 {locationTypes.map((type) => (

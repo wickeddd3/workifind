@@ -6,21 +6,21 @@ import { JobFilterValues } from "@/lib/validation";
 interface PageProps {
   searchParams: {
     q?: string;
-    type?: string;
+    employmentType?: string;
     salary?: string;
-    setup?: string;
+    locationType?: string;
     jobId?: string;
   };
 }
 
 export default function Page({
-  searchParams: { q, type, salary, setup, jobId },
+  searchParams: { q, employmentType, salary, locationType, jobId },
 }: PageProps) {
   const filterValues: JobFilterValues = {
     q,
-    type,
+    employmentType,
     salary,
-    setup,
+    locationType,
   };
 
   return (

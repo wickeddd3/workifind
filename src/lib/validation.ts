@@ -44,7 +44,7 @@ const locationSchema = z
 export const createJobSchema = z
   .object({
     title: requiredString.max(100),
-    type: requiredString.refine(
+    employmentType: requiredString.refine(
       (value) => employmentTypes.includes(value),
       "Invalid job type",
     ),
@@ -63,9 +63,9 @@ export type CreateJobValues = z.infer<typeof createJobSchema>;
 
 export const jobFilterSchema = z.object({
   q: z.string().optional(),
-  type: z.string().optional(),
+  employmentType: z.string().optional(),
   salary: z.string().optional(),
-  setup: z.string().optional(),
+  locationType: z.string().optional(),
 });
 
 export type JobFilterValues = z.infer<typeof jobFilterSchema>;

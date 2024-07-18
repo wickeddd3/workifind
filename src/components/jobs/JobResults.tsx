@@ -9,7 +9,7 @@ interface JobResultsProps {
 }
 
 export default async function JobResults({ filterValues }: JobResultsProps) {
-  const { q, type, salary, setup } = filterValues;
+  const { q, employmentType, salary, locationType } = filterValues;
 
   const searchString = q
     ?.split(" ")
@@ -21,7 +21,7 @@ export default async function JobResults({ filterValues }: JobResultsProps) {
         OR: [
           { title: { search: searchString } },
           { companyName: { search: searchString } },
-          { type: { search: searchString } },
+          { employmentType: { search: searchString } },
           { locationType: { search: searchString } },
           { location: { search: searchString } },
         ],
@@ -31,9 +31,9 @@ export default async function JobResults({ filterValues }: JobResultsProps) {
   const where: Prisma.JobWhereInput = {
     AND: [
       searchFilter,
-      type ? { type } : {},
+      employmentType ? { employmentType } : {},
       // location ? { location } : {},
-      setup ? { locationType: setup } : {},
+      locationType ? { locationType } : {},
       { approved: true },
     ],
   };
@@ -46,9 +46,9 @@ export default async function JobResults({ filterValues }: JobResultsProps) {
   function getLinkUrl(jobId: number): string {
     const searchParams = new URLSearchParams({
       ...(q && { q: q.trim() }),
-      ...(type && { type }),
+      ...(employmentType && { employmentType }),
       ...(salary && { salary }),
-      ...(setup && { setup }),
+      ...(locationType && { locationType }),
       ...(jobId && { jobId: jobId.toString() }),
     });
 

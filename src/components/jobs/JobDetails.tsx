@@ -16,7 +16,7 @@ export default function JobDetails({
     description,
     companyName,
     applicationUrl,
-    type,
+    employmentType,
     locationType,
     location,
     salary,
@@ -55,7 +55,7 @@ export default function JobDetails({
           <div className="flex flex-col gap-2 text-muted-foreground">
             <p className="flex items-center gap-1.5">
               <Briefcase size={16} className="shrink-0" />
-              {type}
+              {employmentType}
             </p>
             <p className="flex items-center gap-1.5">
               <MapPin size={16} className="shrink-0" />

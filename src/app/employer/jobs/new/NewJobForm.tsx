@@ -87,7 +87,7 @@ export default function NewJobForm() {
             />
             <FormField
               control={control}
-              name="type"
+              name="employmentType"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Employment type</FormLabel>

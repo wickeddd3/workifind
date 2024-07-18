@@ -13,7 +13,7 @@ export async function createJobPosting(formData: FormData) {
 
   const {
     title,
-    type,
+    employmentType,
     companyName,
     companyLogo,
     locationType,
@@ -45,7 +45,7 @@ export async function createJobPosting(formData: FormData) {
     data: {
       slug,
       title: title.trim(),
-      type,
+      employmentType,
       companyName: companyName.trim(),
       companyLogoUrl,
       locationType,

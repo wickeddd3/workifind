@@ -20,4 +20,7 @@ npx prisma db push
 
 # update your @prisma/client (run this everytime you update your prisma schema)
 npx prisma generate
+
+# run prisma studio on http://localhost:5000
+npx prisma studio
 ```

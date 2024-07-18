@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Select from "@/components/ui/select";
-import { jobSalary, jobSetup, jobTypes } from "@/lib/filter-types";
+import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
 import { jobFilterSchema, JobFilterValues } from "@/lib/validation";
 import { redirect } from "next/navigation";
 
@@ -52,7 +52,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 defaultValue={defaultValues.type || ""}
               >
                 <option value="">Job types</option>
-                {jobTypes.map((type) => (
+                {employmentTypes.map((type) => (
                   <option key={type} value={type}>
                     {type}
                   </option>
@@ -77,10 +77,10 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 className="rounded-full md:w-[200px]"
                 defaultValue={defaultValues.setup || ""}
               >
-                <option value="">Job setup</option>
-                {jobSetup.map((setup) => (
-                  <option key={setup} value={setup}>
-                    {setup}
+                <option value="">Location type</option>
+                {locationTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
                   </option>
                 ))}
               </Select>

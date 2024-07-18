@@ -1,7 +1,7 @@
 const placeholderJobs = [
   {
     title: "Full-Stack Developer at Stripe",
-    type: "Full-time",
+    employmentType: "Full-time",
     companyName: "Stripe",
     locationType: "Remote",
     location: "San Francisco, California, United States",
@@ -52,7 +52,7 @@ Stripe is an equal opportunity employer. We value diversity and are committed to
   },
   {
     title: "Full-Stack Developer at Vercel",
-    type: "Full-time",
+    employmentType: "Full-time",
     companyName: "Vercel",
     locationType: "Hybrid",
     location: "San Francisco, California, United States",
@@ -107,7 +107,7 @@ Join us at Vercel and be a part of shaping the future of web development!
   },
   {
     title: "ChatGPT Backend Developer at OpenAI",
-    type: "Part-time",
+    employmentType: "Part-time",
     companyName: "OpenAI",
     locationType: "On-site",
     location: "San Francisco, California, United States",
@@ -159,7 +159,7 @@ If you're passionate about AI and want to contribute to cutting-edge technology 
   },
   {
     title: "Intern at Coding in Flow",
-    type: "Internship",
+    employmentType: "Internship",
     companyName: "Coding in Flow",
     locationType: "Remote",
     applicationUrl: "https://codinginflow.com",
@@ -174,7 +174,7 @@ I might not be able to pay you a lot, but I can offer you a lot of experience an
   },
   {
     title: "Contractor at SmartDiary.co",
-    type: "Contract",
+    employmentType: "Contract",
     companyName: "SmartDiary.co",
     locationType: "Remote",
     applicationUrl: "https://smartdiary.co",
@@ -191,7 +191,7 @@ Try it out for free at [https://smartdiary.co](https://smartdiary.co).
   },
   {
     title: "Software Engineer at Microsoft",
-    type: "Temporary",
+    employmentType: "Temporary",
     companyName: "Microsoft",
     locationType: "On-site",
     location: "Redmond, Washington, United States",
@@ -242,7 +242,7 @@ As a Microsoft contractor, you'll have the opportunity to work on exciting proje
   },
   {
     title: "Full-Stack Developer at Apple",
-    type: "Full-time",
+    employmentType: "Full-time",
     companyName: "Apple Inc.",
     locationType: "Hybrid",
     location: "Cupertino, California, United States",
@@ -295,7 +295,7 @@ Join Apple and be a part of a team that's dedicated to making a difference in th
   },
   {
     title: "Junior Web Developer at Shopify",
-    type: "Part-time",
+    employmentType: "Part-time",
     companyName: "Shopify",
     locationType: "Hybrid",
     location: "Ottawa, Ontario, Canada",

@@ -15,6 +15,41 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum Role {
+  EMPLOYER
+  APPLICANT
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  authId            String    @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  role              Role      @default(APPLICANT)
+  employer          Employer?
+  jobs              Job[]
+
+  @@map("users")
+}
+
+model Employer {
+  id                Int       @id @default(autoincrement())
+  companyName       String
+  companyEmail      String?
+  companyWebsite    String?
+  companyLogoUrl    String?
+  industry          String?
+  location          String?
+  about             String?
+  pitch             String?
+  user              User      @relation(fields: [userId], references: [id])
+  userId            Int       @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("employers")
+}
+
 model Job {
   id                Int       @id @default(autoincrement())
   slug              String    @unique
@@ -24,11 +59,9 @@ model Job {
   location          String?
   description       String?
   salary            Int
-  companyName       String
-  applicationEmail  String?
-  applicationUrl    String?
-  companyLogoUrl    String?
   approved          Boolean   @default(false)
+  author            User      @relation(fields: [authorId], references: [id])
+  authorId          Int
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 

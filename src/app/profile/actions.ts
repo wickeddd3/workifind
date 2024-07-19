@@ -1,7 +1,7 @@
 "use server";
 
 import { toSlug } from "@/lib/utils";
-import { createEmployerProfileSchema } from "@/lib/validation";
+import { createApplicantProfileSchema, createEmployerProfileSchema } from "@/lib/validation";
 import { nanoid } from "nanoid";
 import { put } from "@vercel/blob";
 import path from "path";
@@ -26,8 +26,6 @@ export async function createEmployerProfile(
       },
     });
 
-    console.log(user);
-
     if (!user) return { error: "Error occurred while creating the user" };
 
     const values = Object.fromEntries(formData.entries());
@@ -42,7 +40,7 @@ export async function createEmployerProfile(
       about,
       pitch,
     } = createEmployerProfileSchema.parse(values);
-    console.log(values);
+
     const slug = `${toSlug(companyName)}-${nanoid(10)}`;
 
     let companyLogoUrl: string | undefined = undefined;
@@ -56,11 +54,11 @@ export async function createEmployerProfile(
           addRandomSuffix: false,
         },
       );
-      console.log(blob.url)
+
       companyLogoUrl = blob.url;
     }
 
-    const employer = await prisma.employer.create({
+    await prisma.employer.create({
       data: {
         userId: user.id,
         companyName: companyName.trim(),
@@ -73,7 +71,56 @@ export async function createEmployerProfile(
         pitch: pitch?.trim(),
       },
     });
-    console.log(employer)
+
+    redirect("/profile");
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
+}
+
+export async function createApplicantProfile(
+  formData: FormData,
+): Promise<FormState> {
+  try {
+    const { userId } = auth();
+
+    if (!userId) return { error: "Auth id missing" };
+
+    const user = await prisma.user.create({
+      data: {
+        authId: userId,
+        role: "APPLICANT",
+      },
+    });
+
+    if (!user) return { error: "Error occurred while creating the user" };
+
+    const values = Object.fromEntries(formData.entries());
+
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      location,
+      about,
+    } = createApplicantProfileSchema.parse(values);
+
+    await prisma.applicant.create({
+      data: {
+        userId: user.id,
+        firstName: firstName?.trim(),
+        lastName: lastName?.trim(),
+        email: email?.trim(),
+        phoneNumber: phoneNumber?.trim(),
+        location: location?.trim(),
+        about: about?.trim(),
+      },
+    });
 
     redirect("/profile");
   } catch (error) {

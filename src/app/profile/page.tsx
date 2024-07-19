@@ -1,8 +1,10 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import ApplicantNewProfileForm from "@/components/applicant/ApplicantNewProfileForm";
 import EmployerNewProfileForm from "@/components/employer/EmployerNewProfileForm";
 
 export default function Page() {
   return (
-    <main className="m-auto my-10 max-w-3xl space-y-5">
+    <main className="m-auto my-10 max-w-3xl space-y-6">
       <div className="space-y-1">
         <h1 className="text-lg font-bold">Profile setup</h1>
         <h2 className="text-md">Choose account type</h2>
@@ -12,39 +14,19 @@ export default function Page() {
         </p>
       </div>
       <hr />
-      <div className="space-y-6 rounded-lg border p-4">
-        <div className="flex items-center justify-around">
-          <div className="flex items-center gap-x-3">
-            <input
-              id="push-everything"
-              name="push-notifications"
-              type="radio"
-              className="h-5 w-5 border-gray-300 cursor-pointer"
-            />
-            <label
-              htmlFor="push-everything"
-              className="block text-sm uppercase font-bold leading-6 text-gray-900 cursor-pointer"
-            >
-              Employer
-            </label>
-          </div>
-          <div className="flex items-center gap-x-3">
-            <input
-              id="push-email"
-              name="push-notifications"
-              type="radio"
-              className="h-5 w-5 border-gray-300 cursor-pointer"
-            />
-            <label
-              htmlFor="push-email"
-              className="block text-sm uppercase font-bold leading-6 text-gray-900 cursor-pointer"
-            >
-              Applicant
-            </label>
-          </div>
-        </div>
-      </div>
-      <EmployerNewProfileForm />
+      <Tabs defaultValue="applicant" className="w-full">
+        <TabsList className="w-full">
+          <TabsTrigger value="applicant" className="w-full uppercase font-bold tracking-wider">Applicant</TabsTrigger>
+          <span className="text-sm font-semibold tracking-tighter px-6">OR</span>
+          <TabsTrigger value="employer" className="w-full uppercase font-bold tracking-wider">Employer</TabsTrigger>
+        </TabsList>
+        <TabsContent value="applicant">
+          <ApplicantNewProfileForm />
+        </TabsContent>
+        <TabsContent value="employer">
+          <EmployerNewProfileForm />
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }

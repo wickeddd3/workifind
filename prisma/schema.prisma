@@ -27,6 +27,7 @@ model User {
   updatedAt         DateTime  @updatedAt
   role              Role      @default(APPLICANT)
   employer          Employer?
+  applicant         Applicant?
   jobs              Job[]
 
   @@map("users")
@@ -66,4 +67,20 @@ model Job {
   updatedAt         DateTime  @updatedAt
 
   @@map("jobs")
+}
+
+model Applicant {
+  id                Int       @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  email             String
+  phoneNumber       String?
+  location          String?
+  about             String?
+  user              User      @relation(fields: [userId], references: [id])
+  userId            Int       @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("applicants")
 }

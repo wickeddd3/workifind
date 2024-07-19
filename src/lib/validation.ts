@@ -1,4 +1,5 @@
 import { z } from "zod";
+import validator from "validator";
 import { employmentTypes, locationTypes } from "@/lib/job-types";
 import { industryTypes } from "@/lib/company-types";
 
@@ -87,4 +88,17 @@ export const createEmployerProfileSchema = z.object({
 
 export type CreateEmployerProfileValues = z.infer<
   typeof createEmployerProfileSchema
+>;
+
+export const createApplicantProfileSchema = z.object({
+  firstName: requiredString.max(100),
+  lastName: requiredString.max(100),
+  email: z.string().max(100).email(),
+  phoneNumber: z.string().refine(validator.isMobilePhone).optional().or(z.literal("")),
+  location: z.string().max(100).optional(),
+  about: z.string().max(8000).optional(),
+});
+
+export type CreateApplicantProfileValues = z.infer<
+  typeof createApplicantProfileSchema
 >;

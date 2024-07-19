@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { employmentTypes, locationTypes } from "@/lib/job-types";
+import { industryTypes } from "@/lib/company-types";
 
 const requiredString = z.string().min(1, "Required");
 const numericRequiredString = requiredString.regex(/^\d+$/, "Must be a number");
@@ -69,3 +70,21 @@ export const jobFilterSchema = z.object({
 });
 
 export type JobFilterValues = z.infer<typeof jobFilterSchema>;
+
+export const createEmployerProfileSchema = z.object({
+  companyName: requiredString.max(100),
+  companyEmail: z.string().max(100).email().optional().or(z.literal("")),
+  companyWebsite: z.string().max(100).optional().or(z.literal("")),
+  companyLogo: companyLogoSchema,
+  industry: requiredString.refine(
+    (value) => industryTypes.includes(value),
+    "Invalid industry",
+  ),
+  location: z.string().max(100).optional(),
+  about: z.string().max(8000).optional(),
+  pitch: z.string().max(8000).optional(),
+});
+
+export type CreateEmployerProfileValues = z.infer<
+  typeof createEmployerProfileSchema
+>;

@@ -19,7 +19,7 @@ import {
   CreateApplicantProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createApplicantProfile } from "@/app/profile/actions";
+import { createApplicantProfile } from "@/components/setup/actions";
 
 export default function ApplicantNewProfileForm() {
   const form = useForm<CreateApplicantProfileValues>({

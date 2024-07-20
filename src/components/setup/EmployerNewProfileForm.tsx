@@ -21,7 +21,7 @@ import {
   CreateEmployerProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEmployerProfile } from "@/app/profile/actions";
+import { createEmployerProfile } from "@/components/setup/actions";
 
 export default function EmployerNewProfileForm() {
   const form = useForm<CreateEmployerProfileValues>({

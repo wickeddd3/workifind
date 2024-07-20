@@ -20,17 +20,19 @@ import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
 import { createJobPosting } from "@/app/employer/jobs/new/actions";
 
-export default function NewJobForm() {
+interface NewJobFormProps {
+  userId: number;
+}
+
+export default function NewJobForm({ userId }: NewJobFormProps) {
   const form = useForm<CreateJobValues>({
     resolver: zodResolver(createJobSchema),
   });
 
   const {
     handleSubmit,
-    watch,
     trigger,
     control,
-    setValue,
     setFocus,
     formState: { isSubmitting },
   } = form;
@@ -45,17 +47,17 @@ export default function NewJobForm() {
     });
 
     try {
-      await createJobPosting(formData);
+      await createJobPosting(userId, formData);
     } catch (error) {
       alert("Something went wrong, please try again.");
     }
   }
 
   return (
-    <main className="m-auto my-10 max-w-3xl space-y-10">
-      <div className="space-y-5 text-center">
-        <h1>Find your perfect developer</h1>
-        <p className="text-muted-foreground">
+    <main className="m-auto my-10 max-w-3xl space-y-6">
+      <div>
+        <h1 className="text-md font-semibold">Create a new job post</h1>
+        <p className="text-sm text-muted-foreground">
           Get your job posting seen by thousands of job seekers.
         </p>
       </div>
@@ -109,44 +111,10 @@ export default function NewJobForm() {
             />
             <FormField
               control={control}
-              name="companyName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Company</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="companyLogo"
-              render={({ field: { value, ...fieldValue } }) => (
-                <FormItem>
-                  <FormLabel>Company logo</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...fieldValue}
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        fieldValue.onChange(file);
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
               name="locationType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Location</FormLabel>
+                  <FormLabel>Work setup</FormLabel>
                   <FormControl>
                     <Select
                       {...field}
@@ -185,51 +153,6 @@ export default function NewJobForm() {
                 </FormItem>
               )}
             />
-            <div className="space-y-2">
-              <Label htmlFor="applicationEmail">How to apply</Label>
-              <div className="flex justify-between">
-                <FormField
-                  control={control}
-                  name="applicationEmail"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormControl>
-                        <div className="flex items-center">
-                          <Input
-                            id="applicationEmail"
-                            placeholder="Email"
-                            type="email"
-                            {...field}
-                          />
-                          <span className="mx-2">or</span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={control}
-                  name="applicationUrl"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormControl>
-                        <Input
-                          placeholder="Website"
-                          type="url"
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e);
-                            trigger("applicationEmail");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
             <FormField
               control={control}
               name="description"
@@ -241,9 +164,7 @@ export default function NewJobForm() {
                   <FormControl>
                     <RichTextEditor
                       initialState={value}
-                      onChange={(draft) =>
-                        onChange(draftToMarkdown(draft))
-                      }
+                      onChange={(draft) => onChange(draftToMarkdown(draft))}
                       ref={ref}
                     />
                   </FormControl>

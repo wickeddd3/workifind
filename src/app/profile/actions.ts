@@ -1,7 +1,10 @@
 "use server";
 
 import { toSlug } from "@/lib/utils";
-import { createEmployerProfileSchema } from "@/lib/validation";
+import {
+  createApplicantProfileSchema,
+  createEmployerProfileSchema,
+} from "@/lib/validation";
 import { nanoid } from "nanoid";
 import { put } from "@vercel/blob";
 import path from "path";
@@ -58,6 +61,40 @@ export async function updateEmployerProfile(
         location: location?.trim(),
         about: about?.trim(),
         pitch: pitch?.trim(),
+      },
+    });
+
+    redirect("/profile");
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
+}
+
+export async function updateApplicantProfile(
+  id: number,
+  formData: FormData,
+): Promise<FormState> {
+  try {
+    if (!id) return { error: "Applicant id missing" };
+
+    const values = Object.fromEntries(formData.entries());
+
+    const { firstName, lastName, email, phoneNumber, location, about } =
+      createApplicantProfileSchema.parse(values);
+
+    await prisma.applicant.update({
+      where: { id },
+      data: {
+        firstName: firstName.trim(),
+        lastName: lastName?.trim(),
+        email: email?.trim(),
+        phoneNumber: phoneNumber?.trim(),
+        location: location?.trim(),
+        about: about?.trim(),
       },
     });
 

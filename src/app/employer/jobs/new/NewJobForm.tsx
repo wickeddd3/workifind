@@ -233,17 +233,18 @@ export default function NewJobForm() {
             <FormField
               control={control}
               name="description"
-              render={({ field }) => (
+              render={({ field: { value, onChange, ref } }) => (
                 <FormItem>
                   <Label onClick={() => setFocus("description")}>
                     Description
                   </Label>
                   <FormControl>
                     <RichTextEditor
+                      initialState={value}
                       onChange={(draft) =>
-                        field.onChange(draftToMarkdown(draft))
+                        onChange(draftToMarkdown(draft))
                       }
-                      ref={field.ref}
+                      ref={ref}
                     />
                   </FormControl>
                   <FormMessage />

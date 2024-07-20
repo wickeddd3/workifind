@@ -71,7 +71,11 @@ export default function EmployerNewProfileForm() {
               <FormItem>
                 <FormLabel>Company name</FormLabel>
                 <FormControl>
-                  <Input id="companyName" placeholder="e.g. Meta Platforms, Inc." {...field} />
+                  <Input
+                    id="companyName"
+                    placeholder="e.g. Meta Platforms, Inc."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -102,7 +106,12 @@ export default function EmployerNewProfileForm() {
               <FormItem>
                 <FormLabel>Company website</FormLabel>
                 <FormControl>
-                  <Input id="companyWebsite" placeholder="Website" type="url" {...field} />
+                  <Input
+                    id="companyWebsite"
+                    placeholder="Website"
+                    type="url"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -168,13 +177,14 @@ export default function EmployerNewProfileForm() {
           <FormField
             control={control}
             name="about"
-            render={({ field }) => (
+            render={({ field: { value, onChange, ref } }) => (
               <FormItem>
                 <Label onClick={() => setFocus("about")}>About</Label>
                 <FormControl>
                   <RichTextEditor
-                    onChange={(draft) => field.onChange(draftToMarkdown(draft))}
-                    ref={field.ref}
+                    initialState={value}
+                    onChange={(draft) => onChange(draftToMarkdown(draft))}
+                    ref={ref}
                   />
                 </FormControl>
                 <FormMessage />
@@ -184,13 +194,14 @@ export default function EmployerNewProfileForm() {
           <FormField
             control={control}
             name="pitch"
-            render={({ field }) => (
+            render={({ field: { value, onChange, ref } }) => (
               <FormItem>
                 <Label onClick={() => setFocus("pitch")}>Pitch</Label>
                 <FormControl>
                   <RichTextEditor
-                    onChange={(draft) => field.onChange(draftToMarkdown(draft))}
-                    ref={field.ref}
+                    initialState={value}
+                    onChange={(draft) => onChange(draftToMarkdown(draft))}
+                    ref={ref}
                   />
                 </FormControl>
                 <FormMessage />

@@ -137,13 +137,14 @@ export default function ApplicantNewProfileForm() {
           <FormField
             control={control}
             name="about"
-            render={({ field }) => (
+            render={({ field: { value, onChange, ref } }) => (
               <FormItem>
                 <Label onClick={() => setFocus("about")}>About</Label>
                 <FormControl>
                   <RichTextEditor
-                    onChange={(draft) => field.onChange(draftToMarkdown(draft))}
-                    ref={field.ref}
+                    initialState={value}
+                    onChange={(draft) => onChange(draftToMarkdown(draft))}
+                    ref={ref}
                   />
                 </FormControl>
                 <FormMessage />

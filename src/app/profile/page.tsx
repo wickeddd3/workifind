@@ -26,6 +26,14 @@ export default async function Page() {
     });
   });
 
+  const getApplicantProfile = cache(async (userId: number | undefined) => {
+    if (!userId) return null;
+
+    return await prisma.applicant.findUnique({
+      where: { userId },
+    });
+  });
+
   if (!user) {
     return <ProfileSetup />;
   }
@@ -36,6 +44,7 @@ export default async function Page() {
   }
 
   if (user && user?.role === "APPLICANT") {
-    return <ApplicantProfile />;
+    const applicant = await getApplicantProfile(user.id);
+    return applicant && <ApplicantProfile applicant={applicant} />;
   }
 }

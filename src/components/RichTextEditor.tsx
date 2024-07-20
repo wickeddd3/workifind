@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { forwardRef } from "react";
+import { EditorState, ContentState } from "draft-js";
 import { EditorProps } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -11,10 +12,21 @@ const Editor = dynamic(
   { ssr: false },
 );
 
-export default forwardRef<Object, EditorProps>(
+interface RichTextEditorProps extends EditorProps {
+  initialState?: string;
+}
+
+export default forwardRef<Object, RichTextEditorProps>(
   function RichTextEditor(props, ref) {
+    const editorState = props.initialState
+      ? EditorState.createWithContent(
+          ContentState.createFromText(props.initialState),
+        )
+      : EditorState.createEmpty();
+
     return (
       <Editor
+        editorState={editorState}
         editorClassName={cn(
           "border rounded-md px-3 min-h-[150px] cursor-text ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
           props.editorClassName,

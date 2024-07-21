@@ -21,7 +21,7 @@ import {
   CreateEmployerProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateEmployerProfile } from "@/app/profile/actions";
+import { updateEmployerProfile } from "@/app/employer/profile/actions";
 import { Employer } from "@prisma/client";
 
 interface EmployerProfileProps {

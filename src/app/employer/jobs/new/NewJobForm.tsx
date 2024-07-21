@@ -54,7 +54,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
   }
 
   return (
-    <main className="m-auto my-10 max-w-3xl space-y-6">
+    <main className="m-auto space-y-6 px-4">
       <div>
         <h1 className="text-md font-semibold">Create a new job post</h1>
         <p className="text-sm text-muted-foreground">

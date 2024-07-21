@@ -24,8 +24,11 @@ export default function Navbar() {
           <Link href="/professionals" className="flex items-center gap-3">
             <span className="text-sm tracking-wide">Professionals</span>
           </Link>
-          <Link href="/profile" className="flex items-center gap-3">
-            <span className="text-sm tracking-wide">Profile</span>
+          <Link href="/employer/profile" className="flex items-center gap-3">
+            <span className="text-sm tracking-wide">Employer Profile</span>
+          </Link>
+          <Link href="/applicant/profile" className="flex items-center gap-3">
+            <span className="text-sm tracking-wide">Applicant Profile</span>
           </Link>
         </div>
         <div className="flex gap-2">

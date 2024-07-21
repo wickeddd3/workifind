@@ -1,10 +1,28 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/workifind-logo.svg";
 import { Button } from "@/components/ui/button";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useUser } from "@/contexts/UserContext";
+import { useMemo } from "react";
 
 export default function Navbar() {
+  const { user } = useUser();
+
+  const profileRoute = useMemo(() => {
+    if (user?.role === "APPLICANT") {
+      return "/applicant/profile";
+    }
+    if (user?.role === "EMPLOYER") {
+      return "employer/profile";
+    }
+    return "/";
+  }, [user]);
+
+  const isEmployer = useMemo(() => user?.role === "EMPLOYER", [user]);
+
   return (
     <header className="shadow-sm">
       <nav className="m-auto flex max-w-7xl items-center justify-between px-3 py-1">
@@ -24,17 +42,18 @@ export default function Navbar() {
           <Link href="/professionals" className="flex items-center gap-3">
             <span className="text-sm tracking-wide">Professionals</span>
           </Link>
-          <Link href="/employer/profile" className="flex items-center gap-3">
-            <span className="text-sm tracking-wide">Employer Profile</span>
-          </Link>
-          <Link href="/applicant/profile" className="flex items-center gap-3">
-            <span className="text-sm tracking-wide">Applicant Profile</span>
-          </Link>
+          {user && (
+            <Link href={profileRoute} className="flex items-center gap-3">
+              <span className="text-sm tracking-wide">Profile</span>
+            </Link>
+          )}
         </div>
         <div className="flex gap-2">
-          <Button asChild>
-            <Link href="/employer/jobs/new">Post a job</Link>
-          </Button>
+          {isEmployer && (
+            <Button asChild>
+              <Link href="/employer/jobs/new">Post a job</Link>
+            </Button>
+          )}
           <SignedOut>
             <SignInButton />
           </SignedOut>

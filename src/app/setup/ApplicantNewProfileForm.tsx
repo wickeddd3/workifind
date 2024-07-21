@@ -13,13 +13,13 @@ import { useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
-import LoadingButton from "../LoadingButton";
+import LoadingButton from "@/components/LoadingButton";
 import {
   createApplicantProfileSchema,
   CreateApplicantProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createApplicantProfile } from "@/components/setup/actions";
+import { createApplicantProfile } from "@/app/setup/actions";
 
 export default function ApplicantNewProfileForm() {
   const form = useForm<CreateApplicantProfileValues>({

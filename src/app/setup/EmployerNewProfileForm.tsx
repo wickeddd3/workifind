@@ -15,13 +15,13 @@ import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import Select from "@/components/ui/select";
 import { industryTypes } from "@/lib/company-types";
-import LoadingButton from "../LoadingButton";
+import LoadingButton from "@/components/LoadingButton";
 import {
   createEmployerProfileSchema,
   CreateEmployerProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEmployerProfile } from "@/components/setup/actions";
+import { createEmployerProfile } from "@/app/setup/actions";
 
 export default function EmployerNewProfileForm() {
   const form = useForm<CreateEmployerProfileValues>({

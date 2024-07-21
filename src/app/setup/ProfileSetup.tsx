@@ -1,6 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ApplicantNewProfileForm from "@/components/setup/ApplicantNewProfileForm";
-import EmployerNewProfileForm from "@/components/setup/EmployerNewProfileForm";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ApplicantNewProfileForm from "@/app/setup/ApplicantNewProfileForm";
+import EmployerNewProfileForm from "@/app/setup/EmployerNewProfileForm";
 
 export default function ProfileSetup() {
   return (
@@ -16,9 +16,21 @@ export default function ProfileSetup() {
       <hr />
       <Tabs defaultValue="applicant" className="w-full">
         <TabsList className="w-full">
-          <TabsTrigger value="applicant" className="w-full uppercase font-bold tracking-wider">Applicant</TabsTrigger>
-          <span className="text-sm font-semibold tracking-tighter px-6">OR</span>
-          <TabsTrigger value="employer" className="w-full uppercase font-bold tracking-wider">Employer</TabsTrigger>
+          <TabsTrigger
+            value="applicant"
+            className="w-full font-bold uppercase tracking-wider"
+          >
+            Applicant
+          </TabsTrigger>
+          <span className="px-6 text-sm font-semibold tracking-tighter">
+            OR
+          </span>
+          <TabsTrigger
+            value="employer"
+            className="w-full font-bold uppercase tracking-wider"
+          >
+            Employer
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="applicant">
           <ApplicantNewProfileForm />
@@ -28,5 +40,5 @@ export default function ProfileSetup() {
         </TabsContent>
       </Tabs>
     </main>
-  )
+  );
 }

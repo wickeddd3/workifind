@@ -1,34 +1,24 @@
-import { cache } from "react";
-import prisma from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import EmployerEditProfile from "@/app/employer/profile/EmployerEditProfile";
+import { useUser } from "@/contexts/UserContext";
+import { getEmployer } from "@/actions/employers";
 
-export default async function Page() {
-  const { userId } = auth();
+export default function Page() {
+  const { user } = useUser();
+  const [employer, setEmployer] = useState(null);
 
-  if (!userId) return null;
+  const handleGetEmployer = useCallback(
+    async (id: number) => await getEmployer(id),
+    [],
+  );
 
-  const user = await prisma.user.findUnique({
-    where: {
-      authId: userId || "",
-    },
-    include: {
-      employer: true,
-      applicant: true,
-    },
-  });
+  useEffect(() => {
+    if (user && user?.id) {
+      handleGetEmployer(user.id).then(setEmployer);
+    }
+  }, [user, handleGetEmployer]);
 
-  if (!user) return null;
-
-  const getEmployerProfile = cache(async (userId: number | undefined) => {
-    return await prisma.employer.findUnique({
-      where: { userId },
-    });
-  });
-
-  const employer = await getEmployerProfile(user.id);
-
-  if (!employer) return null;
-
-  return <EmployerEditProfile employer={employer} />;
+  return employer && <EmployerEditProfile employer={employer} />;
 }

@@ -16,7 +16,7 @@ export default function Navbar() {
       return "/applicant/profile";
     }
     if (user?.role === "EMPLOYER") {
-      return "employer/profile";
+      return "/employer/profile";
     }
     return "/";
   }, [user]);

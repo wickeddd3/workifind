@@ -24,8 +24,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const response = await fetch("/api/getUser");
 
       if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
+        const { user } = await response.json();
+        setUser(user);
       } else {
         setUser(null);
       }

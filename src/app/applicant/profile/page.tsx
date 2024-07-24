@@ -1,34 +1,24 @@
-import { cache } from "react";
-import prisma from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import ApplicantEditProfile from "@/app/applicant/profile/ApplicantEditProfile";
+import { useUser } from "@/contexts/UserContext";
+import { getApplicant } from "@/actions/applicants";
 
-export default async function Page() {
-  const { userId } = auth();
+export default function Page() {
+  const { user } = useUser();
+  const [applicant, setApplicant] = useState(null);
 
-  if (!userId) return null;
+  const handleGetApplicant = useCallback(
+    async (id: number) => await getApplicant(id),
+    [],
+  );
 
-  const user = await prisma.user.findUnique({
-    where: {
-      authId: userId || "",
-    },
-    include: {
-      employer: true,
-      applicant: true,
-    },
-  });
+  useEffect(() => {
+    if (user && user?.id) {
+      handleGetApplicant(user.id).then(setApplicant);
+    }
+  }, [user, handleGetApplicant]);
 
-  if (!user) return null;
-
-  const getApplicantProfile = cache(async (userId: number | undefined) => {
-    return await prisma.applicant.findUnique({
-      where: { userId },
-    });
-  });
-
-  const applicant = await getApplicantProfile(user.id);
-
-  if (!applicant) return null;
-
-  return <ApplicantEditProfile applicant={applicant} />;
+  return applicant && <ApplicantEditProfile applicant={applicant} />;
 }

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lintfix": "eslint --fix ./src/**/* --ext .ts,tsx,.js,.jsx,.css,md,json --format stylish",
+    "lintfix": "eslint --fix ./src/**/* --ext .ts,tsx,.js,.jsx --format stylish",
     "seed": "node scripts/seed.js",
     "postinstall": "prisma generate"
   },

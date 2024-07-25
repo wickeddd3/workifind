@@ -16,7 +16,7 @@ interface RichTextEditorProps extends EditorProps {
   initialState?: string;
 }
 
-export default forwardRef<Object, RichTextEditorProps>(
+export default forwardRef<unknown, RichTextEditorProps>(
   function RichTextEditor(props, ref) {
     const editorState = props.initialState
       ? EditorState.createWithContent(

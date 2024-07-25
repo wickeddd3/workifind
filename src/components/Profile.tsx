@@ -42,7 +42,7 @@ export function NavigationList({ children }: NavigationListProps) {
 
 interface NavigationListItemProps {
   icon: ReactNode;
-  title: String;
+  title: string;
   href: string;
 }
 

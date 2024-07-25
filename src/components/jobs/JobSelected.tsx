@@ -2,6 +2,7 @@ import { cache } from "react";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import JobSelectedDetails from "@/components/jobs/JobSelectedDetails";
+import JobSelectedEmptyPlaceholder from "@/components/jobs/JobSelectedEmptyPlaceholder";
 
 interface PageProps {
   jobId: number | undefined;
@@ -23,9 +24,13 @@ export default async function JobSelected({ jobId }: PageProps) {
   const job = await getJob(jobId);
 
   return (
-    <section className="sticky top-0 hidden h-fit rounded-xl bg-background p-4 md:block md:w-3/5">
-      <div className="h-full m-auto">
-        {job ? <JobSelectedDetails job={job} /> : <p className="text-center font-semibold">no selected job</p>}
+    <section className="sticky top-0 hidden h-fit rounded-xl bg-background md:block md:w-3/5">
+      <div className="m-auto h-full">
+        {job ? (
+          <JobSelectedDetails job={job} />
+        ) : (
+          <JobSelectedEmptyPlaceholder />
+        )}
       </div>
     </section>
   );

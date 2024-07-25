@@ -1,11 +1,13 @@
 interface IconNoSelectedProps {
   width?: number;
   height?: number;
+  className?: string;
 }
 
 export default function IconNoSelected({
   width = 200,
   height = 200,
+  className = "",
 }: IconNoSelectedProps) {
   return (
     <svg
@@ -13,6 +15,7 @@ export default function IconNoSelected({
       viewBox="0 0 500 500"
       width={width}
       height={height}
+      className={className}
     >
       <g id="freepik--Floor--inject-69">
         <path

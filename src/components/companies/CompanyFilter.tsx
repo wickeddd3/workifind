@@ -1,3 +1,5 @@
+import IconSearch from "@/components/icons/IconSearch";
+
 export default function CompanyFilter() {
   return (
     <section className="flex min-h-[340px] items-center justify-between rounded-2xl bg-gray-50 px-8 py-12">
@@ -15,7 +17,10 @@ export default function CompanyFilter() {
         />
       </div>
       <div className="flex flex-none items-center justify-center px-14">
-        <div className="h-[220px] w-[220px] rounded-full bg-gray-200"></div>
+        <div className="relative flex items-center justify-center">
+          <div className="absolute h-[180px] w-[180px] rounded-full bg-white shadow-md"></div>
+          <IconSearch width={240} height={240} className="z-10" />
+        </div>
       </div>
     </section>
   );

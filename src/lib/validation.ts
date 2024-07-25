@@ -93,3 +93,9 @@ export const createApplicantProfileSchema = z.object({
 export type CreateApplicantProfileValues = z.infer<
   typeof createApplicantProfileSchema
 >;
+
+export const companyFilterSchema = z.object({
+  q: z.string().optional(),
+});
+
+export type CompanyFilterValues = z.infer<typeof companyFilterSchema>;

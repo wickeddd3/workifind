@@ -20,7 +20,7 @@ export default async function JobResults({ filterValues }: JobResultsProps) {
     ? {
         OR: [
           { title: { search: searchString } },
-          { companyName: { search: searchString } },
+          // { companyName: { search: searchString } },
           { employmentType: { search: searchString } },
           { locationType: { search: searchString } },
           { location: { search: searchString } },

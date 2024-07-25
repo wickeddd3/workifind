@@ -1,4 +1,18 @@
 import IconSearch from "@/components/icons/IconSearch";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import { companyFilterSchema } from "@/lib/validation";
+
+async function searchCompanies(formData: FormData) {
+  "use server";
+
+  const values = Object.fromEntries(formData.entries());
+  const { q } = companyFilterSchema.parse(values);
+  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
+
+  redirect(`/companies/search?${searchParams.toString()}`);
+}
 
 export default function CompanyFilter() {
   return (
@@ -10,11 +24,20 @@ export default function CompanyFilter() {
         <h5 className="text-xl font-medium text-gray-700">
           Explore list of companies you can apply with
         </h5>
-        <input
-          type="text"
-          placeholder="Search by company name"
-          className="p-3"
-        />
+        <form
+          action={searchCompanies}
+          key="company-filter"
+          className="flex w-full gap-2"
+        >
+          <Input
+            id="q"
+            name="q"
+            type="text"
+            placeholder="Search by company name"
+            className="w-full"
+          />
+          <Button>Search</Button>
+        </form>
       </div>
       <div className="flex flex-none items-center justify-center px-14">
         <div className="relative flex items-center justify-center">

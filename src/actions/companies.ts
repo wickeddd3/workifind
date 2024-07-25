@@ -1,4 +1,4 @@
-import { baseUrl } from "@/actions/baseUrl";
+import { baseUrl } from "@/lib/baseUrl";
 
 export async function getInitialCompanies(initialNumber?: number | string) {
   const params = {

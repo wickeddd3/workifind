@@ -20,28 +20,28 @@ export default function JobItem({
   job: {
     slug,
     title,
-    companyName,
+    // companyName,
     employmentType,
     locationType,
     location,
     salary,
-    companyLogoUrl,
+    // companyLogoUrl,
     createdAt,
   },
 }: JobItemProps) {
   return (
     <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
-        <Image
+        {/* <Image
           src={companyLogoUrl || companyLogoPlaceholder}
           alt={`${companyName} logo`}
           width={100}
           height={70}
           className="rounded-lg"
-        />
+        /> */}
         <div>
           <h2 className="text-xl font-medium">{title}</h2>
-          <p className="text-muted-foreground">{companyName}</p>
+          {/* <p className="text-muted-foreground">{companyName}</p> */}
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">
           <p className="flex items-center gap-1.5 text-sm">

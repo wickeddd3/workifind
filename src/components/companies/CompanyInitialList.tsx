@@ -1,7 +1,13 @@
-import Image from "next/image";
-import imageLogoPlaceholder from "@/assets/workifind-logo.svg";
+import { Employer } from "@prisma/client";
+import CompanyInitialListItem from "./CompanyInitialListItem";
 
-export default function CompanyInitialList() {
+interface CompanyInitialListProps {
+  companies: Employer[];
+}
+
+export default function CompanyInitialList({
+  companies,
+}: CompanyInitialListProps) {
   return (
     <section className="flex flex-col space-y-2 py-6">
       <h1 className="text-2xl font-semibold text-gray-900">
@@ -11,21 +17,9 @@ export default function CompanyInitialList() {
         Learn about new jobs and company culture.
       </h5>
       <div className="flex py-4">
-        <div className="flex flex-col space-y-2 rounded-lg bg-gray-50 p-4 shadow-sm">
-          <Image
-            src={imageLogoPlaceholder}
-            width={100}
-            height={100}
-            alt="Company logo"
-          />
-          <h3 className="text-md font-semibold">Accenture</h3>
-          <h4 className="text-sm font-light">
-            Information & Communication Technology
-          </h4>
-          <span className="flex w-fit rounded-xl bg-gray-300 px-2">
-            <span className="w-full p-1 text-xs font-semibold">8 jobs</span>
-          </span>
-        </div>
+        {companies.map((company) => (
+          <CompanyInitialListItem company={company} key={company.id} />
+        ))}
       </div>
     </section>
   );

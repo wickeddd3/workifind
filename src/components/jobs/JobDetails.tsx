@@ -14,20 +14,20 @@ export default function JobDetails({
   job: {
     title,
     description,
-    companyName,
-    applicationUrl,
+    // companyName,
+    // applicationUrl,
     employmentType,
     locationType,
     location,
     salary,
-    companyLogoUrl,
+    // companyLogoUrl,
     createdAt,
   },
 }: JobDetailsProps) {
   return (
     <section className="w-full grow space-y-5">
       <div className="flex flex-col gap-3">
-        {companyLogoUrl && (
+        {/* {companyLogoUrl && (
           <Image
             src={companyLogoUrl}
             alt="Company logo"
@@ -35,11 +35,11 @@ export default function JobDetails({
             height={140}
             className="rounded-xl"
           />
-        )}
+        )} */}
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-bold">{title}</h1>
-            <p className="text-xl font-semibold">
+            {/* <p className="text-xl font-semibold">
               {applicationUrl ? (
                 <Link
                   href={new URL(applicationUrl).origin}
@@ -50,7 +50,7 @@ export default function JobDetails({
               ) : (
                 <span>{companyName}</span>
               )}
-            </p>
+            </p> */}
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
             <p className="flex items-center gap-1.5">

@@ -9,7 +9,7 @@ export default function CompanyInitialList({
   companies,
 }: CompanyInitialListProps) {
   return (
-    <section className="flex flex-col space-y-2 py-6">
+    <section className="flex w-full flex-col space-y-2 py-6">
       <h1 className="text-2xl font-semibold text-gray-900">
         Explore companies
       </h1>

@@ -36,7 +36,7 @@ export default function CompanyFilter() {
             placeholder="Search by company name"
             className="w-full"
           />
-          <Button>Search</Button>
+          <Button className="bg-[#3366FF] hover:bg-[#254EDB]">Search</Button>
         </form>
       </div>
       <div className="flex flex-none items-center justify-center px-14">

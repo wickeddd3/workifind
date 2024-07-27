@@ -9,7 +9,8 @@ async function filterJobs(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
-  const { q, employmentType, salary, locationType } = jobFilterSchema.parse(values);
+  const { q, employmentType, salary, locationType } =
+    jobFilterSchema.parse(values);
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
     ...(employmentType && { employmentType }),
@@ -26,7 +27,7 @@ interface JobFilterProps {
 
 export default function JobFilter({ defaultValues }: JobFilterProps) {
   return (
-    <aside className="bg-gray-50 px-3 py-10 md:w-full">
+    <aside className="bg-gray-50 px-3 py-14 md:w-full">
       <div className="mx-auto max-w-4xl">
         <form
           action={filterJobs}
@@ -38,17 +39,19 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Input
                 id="q"
                 name="q"
-                placeholder="Title, company, etc."
-                className="w-full"
+                placeholder="Search by job title"
+                className="text-md w-full px-4 py-6"
                 defaultValue={defaultValues.q}
               />
-              <Button>Search</Button>
+              <Button className="size-30 bg-[#3366FF] text-sm font-semibold tracking-wider hover:bg-[#254EDB]">
+                Search
+              </Button>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Select
                 id="employmentType"
                 name="employmentType"
-                className="rounded-full md:w-[200px]"
+                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
                 defaultValue={defaultValues.employmentType || ""}
               >
                 <option value="">Job types</option>
@@ -61,7 +64,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Select
                 id="salary"
                 name="salary"
-                className="rounded-full md:w-[200px]"
+                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
                 defaultValue={defaultValues.salary || ""}
               >
                 <option value="">Job salary</option>
@@ -74,7 +77,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Select
                 id="locationType"
                 name="locationType"
-                className="rounded-full md:w-[200px]"
+                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
                 defaultValue={defaultValues.locationType || ""}
               >
                 <option value="">Location type</option>

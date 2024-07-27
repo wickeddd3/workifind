@@ -40,7 +40,7 @@ export default function JobItem({
           className="rounded-lg"
         /> */}
         <div>
-          <h2 className="text-xl font-medium">{title}</h2>
+          <h2 className="text-md font-medium">{title}</h2>
           {/* <p className="text-muted-foreground">{companyName}</p> */}
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">

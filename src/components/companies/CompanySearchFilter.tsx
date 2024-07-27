@@ -40,7 +40,7 @@ export default function CompanySearchFilter({
           className="w-full"
           defaultValue={q}
         />
-        <Button>Search</Button>
+        <Button className="bg-[#3366FF] hover:bg-[#254EDB]">Search</Button>
       </form>
     </section>
   );

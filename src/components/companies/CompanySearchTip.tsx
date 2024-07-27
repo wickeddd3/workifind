@@ -8,17 +8,17 @@ interface TipProps {
 export default function CompanySearchTip() {
   const tips = [
     {
-      icon: <HandHeart size={120} color="#4ca08f" strokeWidth={1} />,
+      icon: <HandHeart size={120} color="#3366FF" strokeWidth={1} />,
       title: "Culture and values",
       description: "Find out about the company culture",
     },
     {
-      icon: <Gift size={120} color="#4ca08f" strokeWidth={1} />,
+      icon: <Gift size={120} color="#3366FF" strokeWidth={1} />,
       title: "Perks and benefits",
       description: "Find perks that matter to you",
     },
     {
-      icon: <MapPinnedIcon size={120} color="#4ca08f" strokeWidth={1} />,
+      icon: <MapPinnedIcon size={120} color="#3366FF" strokeWidth={1} />,
       title: "Where it's located",
       description: "Find location match your preference",
     },
@@ -29,7 +29,7 @@ export default function CompanySearchTip() {
       <div className="flex flex-col items-center justify-center space-y-4 p-4">
         {icon}
         <h4 className="text-xl font-medium text-gray-900">{title}</h4>
-        <p className="text-md text-gray-800">{description}</p>
+        <p className="text-md text-center text-gray-800">{description}</p>
       </div>
     );
   };

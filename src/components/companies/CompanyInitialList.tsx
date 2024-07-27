@@ -1,5 +1,5 @@
 import { Employer } from "@prisma/client";
-import CompanyInitialListItem from "./CompanyInitialListItem";
+import CompanyInitialListItem from "@/components/companies/CompanyInitialListItem";
 
 interface CompanyInitialListProps {
   companies: Employer[];

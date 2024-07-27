@@ -99,3 +99,9 @@ export const companyFilterSchema = z.object({
 });
 
 export type CompanyFilterValues = z.infer<typeof companyFilterSchema>;
+
+export const professionalFilterSchema = z.object({
+  q: z.string().optional(),
+});
+
+export type ProfessionalFilterValues = z.infer<typeof professionalFilterSchema>;

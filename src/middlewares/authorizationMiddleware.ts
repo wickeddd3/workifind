@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { SignedInAuthObject } from "@clerk/backend/internal";
+import { getUserById } from "@/actions/user";
 
 const employerPaths = ["/employer"];
 const applicantPaths = ["/applicant"];
@@ -8,9 +9,9 @@ const noRolePaths = ["/setup"];
 
 export async function authorizationMiddleware(
   request: NextRequest,
-  user: SignedInAuthObject | null,
+  authUser: SignedInAuthObject | null,
 ) {
-  const userId = user?.userId;
+  const authUserId = authUser?.userId;
   const pathname = request.nextUrl.pathname;
   const loggedInAsEmployer = employerPaths.some((path) =>
     pathname.startsWith(path),
@@ -25,19 +26,16 @@ export async function authorizationMiddleware(
   if (!loggedInAsEmployer && !loggedInAsApplicant && !loggedInWithNoRole) {
     NextResponse.next();
   } else {
-    if (!userId) {
+    if (!authUserId) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
     try {
-      const response = await fetch(`${request.nextUrl.origin}/api/getUser`, {
-        method: "POST",
-        body: JSON.stringify({userId}),
-      });
-      const {user} = await response.json();
-
-      if (loggedInWithNoRole && !user) {
+      const user = await getUserById(authUserId);
+      if ((loggedInAsEmployer || loggedInAsApplicant) && !user) {
         return NextResponse.redirect(new URL("/setup", request.url));
+      } else if (loggedInWithNoRole && !user) {
+        return NextResponse.next();
       }
 
       const role = user?.role;

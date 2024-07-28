@@ -21,66 +21,81 @@ enum Role {
 }
 
 model User {
-  id                Int       @id @default(autoincrement())
-  authId            String    @unique
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  role              Role      @default(APPLICANT)
-  employer          Employer?
-  applicant         Applicant?
-  jobs              Job[]
+  id                                Int               @id @default(autoincrement())
+  authId                            String            @unique
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
+  role                              Role              @default(APPLICANT)
+  employer                          Employer?
+  applicant                         Applicant?
+  jobs                              Job[]
 
   @@map("users")
 }
 
 model Employer {
-  id                Int       @id @default(autoincrement())
-  companyName       String
-  companyEmail      String?
-  companyWebsite    String?
-  companyLogoUrl    String?
-  industry          String?
-  location          String?
-  about             String?
-  pitch             String?
-  user              User      @relation(fields: [userId], references: [id])
-  userId            Int       @unique
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id                                Int               @id @default(autoincrement())
+  slug                              String            @unique
+  companyName                       String
+  companyEmail                      String?
+  companyWebsite                    String?
+  companyLogoUrl                    String?
+  industry                          String?
+  location                          String?
+  about                             String?
+  pitch                             String?
+  perks                             String[]          @default([])
+  user                              User              @relation(fields: [userId], references: [id])
+  userId                            Int               @unique
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
+  jobs Job[]
 
   @@map("employers")
 }
 
 model Job {
-  id                Int       @id @default(autoincrement())
-  slug              String    @unique
-  title             String
-  employmentType    String
-  locationType      String
-  location          String?
-  description       String?
-  salary            Int
-  approved          Boolean   @default(false)
-  author            User      @relation(fields: [authorId], references: [id])
-  authorId          Int
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id                                Int               @id @default(autoincrement())
+  slug                              String            @unique
+  title                             String
+  employmentType                    String
+  locationType                      String
+  location                          String?
+  description                       String?
+  salaryStart                       Int
+  salaryEnd                         Int
+  approved                          Boolean           @default(true)
+  author                            User              @relation(fields: [authorId], references: [id])
+  authorId                          Int
+  employer                          Employer          @relation(fields: [employerId], references: [id])
+  employerId                        Int
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
 
   @@map("jobs")
 }
 
 model Applicant {
-  id                Int       @id @default(autoincrement())
-  firstName         String
-  lastName          String
-  email             String
-  phoneNumber       String?
-  location          String?
-  about             String?
-  user              User      @relation(fields: [userId], references: [id])
-  userId            Int       @unique
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id                                Int               @id @default(autoincrement())
+  firstName                         String
+  lastName                          String
+  email                             String
+  phoneNumber                       String?
+  location                          String?
+  about                             String?
+  profession                        String
+  experienced                       Boolean           @default(false)
+  skills                            String[]          @default([])
+  languages                         String[]          @default([])
+  availability                      String
+  preferredEmploymentTypes          String[]          @default([])
+  preferredLocationTypes            String[]          @default([])
+  preferredLocations                String[]          @default([])
+  salaryExpectation                 Int
+  user                              User              @relation(fields: [userId], references: [id])
+  userId                            Int               @unique
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
 
   @@map("applicants")
 }

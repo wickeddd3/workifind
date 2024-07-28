@@ -1,5 +1,6 @@
 "use client";
 
+import { getUser } from "@/actions/user";
 import { User } from "@prisma/client";
 import {
   createContext,
@@ -19,19 +20,21 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch("/api/getUser");
+  const handleFetchUser = async () => {
+    const user = await getUser();
 
-      if (response.ok) {
-        const { user } = await response.json();
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    };
-    fetchUser();
-  }, []);
+    if (user) {
+      setUser(user);
+    } else {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!user) {
+      handleFetchUser();
+    }
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

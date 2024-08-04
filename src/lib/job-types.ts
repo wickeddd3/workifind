@@ -71,3 +71,11 @@ export const jobSalary = [
     name: "150k+",
   },
 ];
+
+export const availability = [
+  "Now",
+  "2 weeks",
+  "4 weeks",
+  "8 weeks",
+  "12+ weeks",
+];

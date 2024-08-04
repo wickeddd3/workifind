@@ -4,7 +4,11 @@ import { employmentTypes, locationTypes } from "@/lib/job-types";
 import { industryTypes } from "@/lib/company-types";
 
 const requiredString = z.string().min(1, "Required");
-const numericRequiredString = requiredString.regex(/^\d+$/, "Must be a number");
+const requiredBoolean = z.boolean({
+  required_error: "Required",
+  invalid_type_error: "Must be a boolean",
+});
+const requiredNumeric = z.number().positive().lte(999999999);
 
 const companyLogoSchema = z
   .custom<File | undefined>()
@@ -41,10 +45,7 @@ export const createJobSchema = z
       "Invalid job type",
     ),
     description: z.string().max(5000).optional(),
-    salary: numericRequiredString.max(
-      9,
-      "Number can't be longer than 9 digits",
-    ),
+    salary: requiredNumeric,
   })
   .and(locationSchema);
 
@@ -71,6 +72,7 @@ export const createEmployerProfileSchema = z.object({
   location: z.string().max(100).optional(),
   about: z.string().max(8000).optional(),
   pitch: z.string().max(8000).optional(),
+  perks: z.string().array(),
 });
 
 export type CreateEmployerProfileValues = z.infer<
@@ -88,6 +90,15 @@ export const createApplicantProfileSchema = z.object({
     .or(z.literal("")),
   location: z.string().max(100).optional(),
   about: z.string().max(8000).optional(),
+  profession: requiredString.max(100),
+  experienced: requiredBoolean,
+  skills: z.array(z.string()).optional(),
+  languages: z.array(z.string()).optional(),
+  availability: requiredString.max(100),
+  preferredEmploymentTypes: z.array(z.string()).optional(),
+  preferredLocationTypes: z.array(z.string()).optional(),
+  preferredLocations: z.array(z.string()).optional(),
+  salaryExpectation: z.preprocess((val) => Number(val), requiredNumeric),
 });
 
 export type CreateApplicantProfileValues = z.infer<

@@ -72,7 +72,7 @@ export const createEmployerProfileSchema = z.object({
   location: z.string().max(100).optional(),
   about: z.string().max(8000).optional(),
   pitch: z.string().max(8000).optional(),
-  perks: z.string().array(),
+  perks: z.array(z.string()).optional(),
 });
 
 export type CreateEmployerProfileValues = z.infer<

@@ -16,7 +16,7 @@ import path from "path";
 type FormState = { error?: string } | undefined;
 
 export async function getEmployer(id: number) {
-  const response = await fetch(`/api/employers/${id}`);
+  const response = await fetch(`${baseUrl}/api/employers/${id}`);
 
   if (response.status === 200) {
     const responseBody = await response.json();

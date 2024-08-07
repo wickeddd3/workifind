@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
@@ -21,11 +21,26 @@ import {
   CreateEmployerProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEmployerProfile } from "@/app/setup/actions";
+import { createEmployerProfile } from "@/actions/employers";
+import { objectToFormData } from "@/lib/form-data";
+import { Button } from "@/components/ui/button";
+import { PlusIcon, XIcon } from "lucide-react";
 
 export default function EmployerNewProfileForm() {
+  const defaultValues: CreateEmployerProfileValues = {
+    companyName: "",
+    companyEmail: "",
+    companyWebsite: "",
+    industry: "",
+    location: "",
+    about: "",
+    pitch: "",
+    perks: [],
+  };
+
   const form = useForm<CreateEmployerProfileValues>({
     resolver: zodResolver(createEmployerProfileSchema),
+    defaultValues,
   });
 
   const {
@@ -35,19 +50,18 @@ export default function EmployerNewProfileForm() {
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: CreateEmployerProfileValues) {
-    const formData = new FormData();
+  const {
+    fields: perksFields,
+    append: perksAppend,
+    remove: perksRemove,
+  } = useFieldArray({
+    control: control,
+    name: "perks" as const,
+  });
 
-    Object.entries(values).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value);
-      }
-    });
-    try {
-      await createEmployerProfile(formData);
-    } catch (error) {
-      alert("Something went wrong, please try again.");
-    }
+  async function onSubmit(values: CreateEmployerProfileValues) {
+    const formData = objectToFormData(values);
+    await createEmployerProfile(formData);
   }
 
   return (
@@ -146,7 +160,7 @@ export default function EmployerNewProfileForm() {
               <FormItem>
                 <FormLabel>Industry</FormLabel>
                 <FormControl>
-                  <Select {...field} id="industry" defaultValue="">
+                  <Select {...field} id="industry">
                     <option value="" hidden>
                       Select an option
                     </option>
@@ -174,6 +188,45 @@ export default function EmployerNewProfileForm() {
               </FormItem>
             )}
           />
+          <div className="flex flex-col gap-3">
+            <FormLabel>Perks</FormLabel>
+            {perksFields.map((field, index) => (
+              <FormItem
+                key={field.id}
+                className="flex flex-row items-center space-y-0"
+              >
+                <FormControl>
+                  <Controller
+                    control={control}
+                    name={`perks.${index}`}
+                    render={({ field }) => (
+                      <Input {...field} id={`perks-${index}`} />
+                    )}
+                  />
+                </FormControl>
+                <Button
+                  variant="link"
+                  size="icon"
+                  type="button"
+                  onClick={() => perksRemove(index)}
+                >
+                  <XIcon size="16px" />
+                </Button>
+              </FormItem>
+            ))}
+            <div>
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                className="flex items-center gap-2 px-0"
+                onClick={() => perksAppend("")}
+              >
+                <PlusIcon size="16px" />
+                <span className="text-xs">Add perks</span>
+              </Button>
+            </div>
+          </div>
           <FormField
             control={control}
             name="about"

@@ -18,15 +18,27 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
-import { createJobPosting } from "@/app/employer/jobs/new/actions";
+import { objectToFormData } from "@/lib/form-data";
+import { createJobPost } from "@/actions/jobs";
 
 interface NewJobFormProps {
   userId: number;
 }
 
 export default function NewJobForm({ userId }: NewJobFormProps) {
+  const defaultValues: CreateJobValues = {
+    title: "",
+    employmentType: "",
+    description: "",
+    salaryStart: 0,
+    salaryEnd: 0,
+    location: "",
+    locationType: "",
+  };
+
   const form = useForm<CreateJobValues>({
     resolver: zodResolver(createJobSchema),
+    defaultValues,
   });
 
   const {
@@ -38,19 +50,8 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
   } = form;
 
   async function onSubmit(values: CreateJobValues) {
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value);
-      }
-    });
-
-    try {
-      await createJobPosting(userId, formData);
-    } catch (error) {
-      alert("Something went wrong, please try again.");
-    }
+    const formData = objectToFormData(values);
+    await createJobPost(userId, formData);
   }
 
   return (
@@ -94,7 +95,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                 <FormItem>
                   <FormLabel>Employment type</FormLabel>
                   <FormControl>
-                    <Select {...field} defaultValue="">
+                    <Select {...field}>
                       <option value="" hidden>
                         Select an option
                       </option>
@@ -118,7 +119,6 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                   <FormControl>
                     <Select
                       {...field}
-                      defaultValue=""
                       onChange={(e) => {
                         field.onChange(e);
                         if (e.currentTarget.value === "Remote") {
@@ -172,19 +172,49 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={control}
-              name="salary"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Salary</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="number" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col space-y-4">
+              <FormLabel>Salary range</FormLabel>
+              <div className="flex justify-between space-x-4">
+                <FormField
+                  control={control}
+                  name="salaryStart"
+                  render={({ field }) => (
+                    <FormItem className="grow">
+                      <FormLabel>Minimum salary</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={control}
+                  name="salaryEnd"
+                  render={({ field }) => (
+                    <FormItem className="grow">
+                      <FormLabel>Maximum salary</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
             <LoadingButton type="submit" loading={isSubmitting}>
               Submit
             </LoadingButton>

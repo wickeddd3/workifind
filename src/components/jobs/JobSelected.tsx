@@ -13,6 +13,9 @@ const getJob = cache(async (id: number | undefined) => {
 
   const job = await prisma.job.findUnique({
     where: { id },
+    include: {
+      employer: true,
+    },
   });
 
   if (!job) notFound();

@@ -1,13 +1,14 @@
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
+import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Markdown from "@/components/Markdown";
-import { Job } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 
 interface JobSelectedDetailsProps {
-  job: Job;
+  job: Job & { employer: Employer };
 }
 
 export default function JobSelectedDetails({
@@ -15,28 +16,34 @@ export default function JobSelectedDetails({
     slug,
     title,
     description,
-    // companyName,
-    // applicationUrl,
     employmentType,
     locationType,
     location,
-    salary,
-    // companyLogoUrl,
+    salaryStart,
+    salaryEnd,
     createdAt,
+    employer: { companyName, companyLogoUrl },
   },
 }: JobSelectedDetailsProps) {
+  const salary = () => {
+    if (salaryStart === salaryEnd) {
+      return formatMoney(salaryStart);
+    }
+    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+  };
+
   return (
     <section className="w-full grow space-y-5">
       <div className="flex flex-col gap-3">
-        {/* {companyLogoUrl && (
+        {companyName && (
           <Image
-            src={companyLogoUrl}
-            alt="Company logo"
+            src={companyLogoUrl || companyLogoPlaceholder}
+            alt={`${companyName} logo`}
             width={140}
             height={140}
             className="rounded-xl"
           />
-        )} */}
+        )}
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <Link href={`/jobs/${slug}`}>
@@ -70,7 +77,7 @@ export default function JobSelectedDetails({
             </p>
             <p className="flex items-center gap-1.5">
               <Banknote size={16} className="shrink-0" />
-              {formatMoney(salary)}
+              {salary()}
             </p>
             <p className="flex items-center gap-1.5 text-sm">
               {`Posted ${relativeDate(createdAt)}`}

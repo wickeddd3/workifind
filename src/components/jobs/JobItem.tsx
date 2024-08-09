@@ -8,40 +8,49 @@ import {
   SquareArrowOutUpRight,
 } from "lucide-react";
 import Badge from "@/components/Badge";
-import { Job } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import Link from "next/link";
 
 interface JobItemProps {
-  job: Job;
+  job: Job & { employer: Employer };
 }
 
 export default function JobItem({
   job: {
     slug,
     title,
-    // companyName,
     employmentType,
     locationType,
     location,
-    salary,
-    // companyLogoUrl,
+    salaryStart,
+    salaryEnd,
     createdAt,
+    employer: { companyName, companyLogoUrl },
   },
 }: JobItemProps) {
+  const salary = () => {
+    if (salaryStart === salaryEnd) {
+      return formatMoney(salaryStart);
+    }
+    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+  };
+
   return (
     <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
-        {/* <Image
-          src={companyLogoUrl || companyLogoPlaceholder}
-          alt={`${companyName} logo`}
-          width={100}
-          height={70}
-          className="rounded-lg"
-        /> */}
+        {companyName && (
+          <Image
+            src={companyLogoUrl || companyLogoPlaceholder}
+            alt={`${companyName} logo`}
+            width={100}
+            height={70}
+            className="rounded-lg"
+          />
+        )}
         <div>
           <h2 className="text-md font-medium">{title}</h2>
-          {/* <p className="text-muted-foreground">{companyName}</p> */}
+          <p className="text-muted-foreground">{companyName}</p>
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">
           <p className="flex items-center gap-1.5 text-sm">
@@ -54,7 +63,7 @@ export default function JobItem({
           </p>
           <p className="flex items-center gap-1.5 text-sm">
             <Banknote size={16} className="shrink-0" />
-            {formatMoney(salary)}
+            {salary()}
           </p>
           <div className="flex justify-between pt-2 sm:hidden">
             <Badge>{employmentType}</Badge>

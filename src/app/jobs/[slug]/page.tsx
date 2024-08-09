@@ -10,6 +10,9 @@ interface PageProps {
 const getJob = cache(async (slug: string) => {
   const job = await prisma.job.findUnique({
     where: { slug },
+    include: {
+      employer: true,
+    },
   });
 
   if (!job) notFound();

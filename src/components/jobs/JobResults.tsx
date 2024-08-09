@@ -41,6 +41,9 @@ export default async function JobResults({ filterValues }: JobResultsProps) {
   const jobs = await prisma.job.findMany({
     where,
     orderBy: { createdAt: "desc" },
+    include: {
+      employer: true,
+    },
   });
 
   function getLinkUrl(jobId: number): string {

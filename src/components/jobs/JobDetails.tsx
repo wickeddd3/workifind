@@ -1,41 +1,47 @@
-import { Job } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import Markdown from "@/components/Markdown";
 import { Button } from "@/components/ui/button";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { formatMoney, relativeDate } from "@/lib/utils";
 
 interface JobDetailsProps {
-  job: Job;
+  job: Job & { employer: Employer };
 }
 
 export default function JobDetails({
   job: {
     title,
     description,
-    // companyName,
-    // applicationUrl,
     employmentType,
     locationType,
     location,
-    salary,
-    // companyLogoUrl,
+    salaryStart,
+    salaryEnd,
     createdAt,
+    employer: { companyName, companyLogoUrl },
   },
 }: JobDetailsProps) {
+  const salary = () => {
+    if (salaryStart === salaryEnd) {
+      return formatMoney(salaryStart);
+    }
+    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+  };
+
   return (
     <section className="w-full grow space-y-5">
       <div className="flex flex-col gap-3">
-        {/* {companyLogoUrl && (
+        {companyName && (
           <Image
-            src={companyLogoUrl}
-            alt="Company logo"
+            src={companyLogoUrl || companyLogoPlaceholder}
+            alt={`${companyName} logo`}
             width={140}
             height={140}
             className="rounded-xl"
           />
-        )} */}
+        )}
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-bold">{title}</h1>
@@ -67,7 +73,7 @@ export default function JobDetails({
             </p>
             <p className="flex items-center gap-1.5">
               <Banknote size={16} className="shrink-0" />
-              {formatMoney(salary)}
+              {salary()}
             </p>
             <p className="flex items-center gap-1.5 text-sm">
               {relativeDate(createdAt)}

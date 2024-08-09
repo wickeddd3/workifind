@@ -45,9 +45,18 @@ export const createJobSchema = z
       "Invalid job type",
     ),
     description: z.string().max(5000).optional(),
-    salary: requiredNumeric,
+    salaryStart: z
+      .number()
+      .min(0, { message: "Minimum salary must be greater than or equal to 0" }),
+    salaryEnd: z
+      .number()
+      .min(0, { message: "Maximum salary must be greater than or equal to 0" }),
   })
-  .and(locationSchema);
+  .and(locationSchema)
+  .refine((data) => Number(data.salaryEnd) >= Number(data.salaryStart), {
+    message: "Maximum salary must be greater than or equal to minimum salary",
+    path: ["salaryEnd"],
+  });
 
 export type CreateJobValues = z.infer<typeof createJobSchema>;
 

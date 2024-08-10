@@ -36,3 +36,16 @@ export async function searchCompanies(q: string) {
 
   return null;
 }
+
+export async function getCompany(slug: string) {
+  const response = await fetch(`${baseUrl}/api/companies/${slug}`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { company } = responseBody;
+
+    return company;
+  }
+
+  return null;
+}

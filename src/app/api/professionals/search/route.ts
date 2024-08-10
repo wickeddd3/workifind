@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const professionals = await prisma.applicant.findMany({
       orderBy: { createdAt: "desc" },
       where: {
-        firstName: {
+        profession: {
           contains: queryParam,
           mode: "insensitive",
         },

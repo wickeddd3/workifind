@@ -1,5 +1,6 @@
 import { Applicant } from "@prisma/client";
 import ProfessionalInitialListItem from "@/components/professionals/ProfessionalInitialListItem";
+import Link from "next/link";
 
 interface ProfessionalInitialListProps {
   professionals: Applicant[];
@@ -18,10 +19,12 @@ export default function ProfessionalInitialList({
       </h5>
       <div className="flex py-4">
         {professionals.map((professional) => (
-          <ProfessionalInitialListItem
-            professional={professional}
+          <Link
+            href={`/professionals/${professional.id}`}
             key={professional.id}
-          />
+          >
+            <ProfessionalInitialListItem professional={professional} />
+          </Link>
         ))}
       </div>
     </section>

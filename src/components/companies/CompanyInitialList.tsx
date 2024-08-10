@@ -1,5 +1,6 @@
 import { Employer } from "@prisma/client";
 import CompanyInitialListItem from "@/components/companies/CompanyInitialListItem";
+import Link from "next/link";
 
 interface CompanyInitialListProps {
   companies: Employer[];
@@ -18,7 +19,9 @@ export default function CompanyInitialList({
       </h5>
       <div className="flex py-4">
         {companies.map((company) => (
-          <CompanyInitialListItem company={company} key={company.id} />
+          <Link href={`/companies/${company.slug}`} key={company.slug}>
+            <CompanyInitialListItem company={company} />
+          </Link>
         ))}
       </div>
     </section>

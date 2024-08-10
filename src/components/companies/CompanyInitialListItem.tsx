@@ -10,7 +10,7 @@ export default function CompanyInitialListItem({
   company: { companyLogoUrl, companyName, industry },
 }: CompanyInitialListItemProps) {
   return (
-    <div className="flex flex-col space-y-2 rounded-lg bg-gray-50 p-4 shadow-sm min-w-[250px]">
+    <div className="flex min-w-[250px] flex-col space-y-2 rounded-lg bg-gray-50 p-4 shadow-sm hover:bg-gray-100">
       <Image
         src={companyLogoUrl || imageLogoPlaceholder}
         width={100}

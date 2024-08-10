@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import EmployerEditProfile from "@/app/employer/profile/EmployerEditProfile";
 import { useUser } from "@/contexts/UserContext";
 import { getEmployer } from "@/actions/employers";
+import EmployerDetails from "@/components/employer/EmployerDetails";
 
 export default function Page() {
   const { user } = useUser();
@@ -20,5 +20,5 @@ export default function Page() {
     }
   }, [user, handleGetEmployer]);
 
-  return employer && <EmployerEditProfile employer={employer} />;
+  return employer && <EmployerDetails employer={employer} />;
 }

@@ -1,9 +1,18 @@
+import { getCompany } from "@/actions/companies";
 import CompanyDetails from "@/components/companies/CompanyDetails";
 
-export default function Page() {
+interface PageProps {
+  params: { slug: string };
+}
+
+export default async function Page({ params: { slug } }: PageProps) {
+  const company = await getCompany(slug);
+
   return (
-    <main className="m-auto mb-10 max-w-3xl space-y-6">
-      <CompanyDetails />
+    <main className="mx-auto max-w-4xl p-4">
+      <div className="h-full">
+        {company && <CompanyDetails company={company} />}
+      </div>
     </main>
   );
 }

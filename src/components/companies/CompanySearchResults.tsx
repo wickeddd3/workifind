@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface CompanySearchResultsProps {
   filterValues: CompanyFilterValues;
-} 
+}
 
 export default async function CompanySearchResults({
   filterValues,
@@ -18,7 +18,7 @@ export default async function CompanySearchResults({
   return (
     <div className="flex flex-col space-y-4">
       {companies.map((company: Employer) => (
-        <Link href={`/companies/${company.id}`} key={company.id}>
+        <Link href={`/companies/${company.slug}`} key={company.slug}>
           <CompanySearchResultItem company={company} />
         </Link>
       ))}

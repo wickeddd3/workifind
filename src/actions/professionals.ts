@@ -36,3 +36,16 @@ export async function searchProfessionals(q: string) {
 
   return null;
 }
+
+export async function getProfessional(id: number) {
+  const response = await fetch(`${baseUrl}/api/professionals/${id}`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { professional } = responseBody;
+
+    return professional;
+  }
+
+  return null;
+}

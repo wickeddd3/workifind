@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import ApplicantEditProfile from "@/app/applicant/profile/ApplicantEditProfile";
+import ApplicantDetails from "@/components/applicant/ApplicantDetails";
 import { useUser } from "@/contexts/UserContext";
 import { getApplicant } from "@/actions/applicants";
 
@@ -20,5 +20,5 @@ export default function Page() {
     }
   }, [user, handleGetApplicant]);
 
-  return applicant && <ApplicantEditProfile applicant={applicant} />;
+  return applicant && <ApplicantDetails applicant={applicant} />;
 }

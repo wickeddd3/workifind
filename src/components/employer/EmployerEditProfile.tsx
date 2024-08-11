@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
@@ -21,8 +21,11 @@ import {
   CreateEmployerProfileValues,
 } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateEmployerProfile } from "@/app/employer/profile/actions";
+import { updateEmployerProfile } from "@/actions/employers";
 import { Employer } from "@prisma/client";
+import { objectToFormData } from "@/lib/form-data";
+import { Button } from "@/components/ui/button";
+import { PlusIcon, XIcon } from "lucide-react";
 
 interface EmployerProfileProps {
   employer: Employer;
@@ -38,19 +41,23 @@ export default function EmployerEditProfile({
     location,
     about,
     pitch,
+    perks,
   },
 }: EmployerProfileProps) {
+  const defaultValues: CreateEmployerProfileValues = {
+    companyName,
+    companyEmail: companyEmail ?? "",
+    companyWebsite: companyWebsite ?? "",
+    industry: industry ?? "",
+    location: location ?? "",
+    about: about ?? "",
+    pitch: pitch ?? "",
+    perks: perks ?? [],
+  };
+
   const form = useForm<CreateEmployerProfileValues>({
     resolver: zodResolver(createEmployerProfileSchema),
-    defaultValues: {
-      companyName,
-      companyEmail: companyEmail ?? "",
-      companyWebsite: companyWebsite ?? "",
-      industry: industry ?? "",
-      location: location ?? "",
-      about: about ?? "",
-      pitch: pitch ?? "",
-    },
+    defaultValues,
   });
 
   const {
@@ -60,20 +67,18 @@ export default function EmployerEditProfile({
     formState: { isSubmitting },
   } = form;
 
+  const {
+    fields: perksFields,
+    append: perksAppend,
+    remove: perksRemove,
+  } = useFieldArray({
+    control: control,
+    name: "perks" as const,
+  });
+
   async function onSubmit(values: CreateEmployerProfileValues) {
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value);
-      }
-    });
-
-    try {
-      await updateEmployerProfile(id, formData);
-    } catch (error) {
-      alert("Something went wrong, please try again.");
-    }
+    const formData = objectToFormData(values);
+    await updateEmployerProfile(id, formData);
   }
 
   return (
@@ -199,6 +204,45 @@ export default function EmployerEditProfile({
               </FormItem>
             )}
           />
+          <div className="flex flex-col gap-3">
+            <FormLabel>Perks</FormLabel>
+            {perksFields.map((field, index) => (
+              <FormItem
+                key={field.id}
+                className="flex flex-row items-center space-y-0"
+              >
+                <FormControl>
+                  <Controller
+                    control={control}
+                    name={`perks.${index}`}
+                    render={({ field }) => (
+                      <Input {...field} id={`perks-${index}`} />
+                    )}
+                  />
+                </FormControl>
+                <Button
+                  variant="link"
+                  size="icon"
+                  type="button"
+                  onClick={() => perksRemove(index)}
+                >
+                  <XIcon size="16px" />
+                </Button>
+              </FormItem>
+            ))}
+            <div>
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                className="flex items-center gap-2 px-0"
+                onClick={() => perksAppend("")}
+              >
+                <PlusIcon size="16px" />
+                <span className="text-xs">Add perks</span>
+              </Button>
+            </div>
+          </div>
           <FormField
             control={control}
             name="about"

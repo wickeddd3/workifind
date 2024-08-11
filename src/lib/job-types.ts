@@ -72,7 +72,7 @@ export const jobSalary = [
   },
 ];
 
-export const availability = [
+export const availabilityTypes = [
   "Now",
   "2 weeks",
   "4 weeks",

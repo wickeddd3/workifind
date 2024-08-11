@@ -22,7 +22,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { objectToFormData } from "@/lib/form-data";
 import { createApplicantProfile } from "@/actions/applicants";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { availability, employmentTypes, locationTypes } from "@/lib/job-types";
+import {
+  availabilityTypes,
+  employmentTypes,
+  locationTypes,
+} from "@/lib/job-types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
@@ -333,11 +337,11 @@ export default function ApplicantNewProfileForm() {
                     onValueChange={(value) => field.onChange(value)}
                     className="flex flex-wrap gap-6"
                   >
-                    {availability.map((item) => (
-                      <div key={item} className="flex items-center space-x-2">
-                        <RadioGroupItem value={item} id={item} />
-                        <Label htmlFor={item} className="font-normal">
-                          {item}
+                    {availabilityTypes.map((type) => (
+                      <div key={type} className="flex items-center space-x-2">
+                        <RadioGroupItem value={type} id={type} />
+                        <Label htmlFor={type} className="font-normal">
+                          {type}
                         </Label>
                       </div>
                     ))}

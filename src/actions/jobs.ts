@@ -198,3 +198,26 @@ export async function deleteJob(id: number | string, slug: number | string) {
 
   return null;
 }
+
+export async function deleteJobPost(
+  userId: number | string,
+  jobSlug: number | string,
+) {
+  try {
+    // Check userId
+    if (!userId) return { error: "User ID missing, not authenticated" };
+
+    // Check job post slug
+    if (!jobSlug) return { error: "Job post slug missing" };
+
+    // Delete job
+    await deleteJob(userId, jobSlug);
+    revalidatePath("/employer/jobs");
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
+}

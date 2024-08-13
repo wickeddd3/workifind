@@ -52,7 +52,7 @@ export default function EmployerJobItem({
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuGroup>
-              <Link href={`/employer/jobs/${id}`}>
+              <Link href={`/employer/jobs/${slug}`}>
                 <DropdownMenuItem className="cursor-pointer">
                   <Pencil className="mr-2 h-4 w-4" />
                   <span>Edit</span>

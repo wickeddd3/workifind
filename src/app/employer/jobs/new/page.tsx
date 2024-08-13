@@ -1,20 +1,10 @@
-import { Metadata } from "next";
-import NewJobForm from "@/app/employer/jobs/new/NewJobForm";
-import { auth } from "@clerk/nextjs/server";
-import prisma from "@/lib/prisma";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Post a new job",
-};
+import NewJobForm from "@/components/employer/NewJobForm";
+import { useUser } from "@/contexts/UserContext";
 
-export default async function Page() {
-  const { userId } = auth();
-
-  const user = await prisma.user.findUnique({
-    where: {
-      authId: userId || "",
-    },
-  });
+export default function Page() {
+  const { user } = useUser();
 
   return user && <NewJobForm userId={user.id} />;
 }

@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formatMoney } from "@/lib/utils";
 import Link from "next/link";
+import { deleteJobPost } from "@/actions/jobs";
 
 interface EmployerJobItemProps {
   job: Job;
 }
 
 export default function EmployerJobItem({
-  job: { id, slug, title, employmentType, locationType },
+  job: { slug, title, employmentType, locationType },
   job,
 }: EmployerJobItemProps) {
   const salary = (job: Job) => {
@@ -36,6 +37,11 @@ export default function EmployerJobItem({
       return formatMoney(salaryStart);
     }
     return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+  };
+
+  const handleDeleteJob = async (job: Job) => {
+    const { authorId, slug } = job;
+    await deleteJobPost(authorId, slug);
   };
 
   return (
@@ -58,7 +64,10 @@ export default function EmployerJobItem({
                   <span>Edit</span>
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => handleDeleteJob(job)}
+              >
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete</span>
               </DropdownMenuItem>

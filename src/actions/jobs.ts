@@ -183,3 +183,18 @@ export async function getEmployerJob(
 
   return null;
 }
+
+export async function deleteJob(id: number | string, slug: number | string) {
+  const response = await fetch(`${baseUrl}/api/jobs/employer/${id}/${slug}`, {
+    method: "DELETE",
+  });
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { job } = responseBody;
+
+    return job;
+  }
+
+  return null;
+}

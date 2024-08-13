@@ -92,6 +92,60 @@ export async function updateJob(
 
   return null;
 }
+
+export async function updateJobPost(
+  userId: number,
+  jobSlug: string,
+  formData: FormData,
+): Promise<FormState> {
+  try {
+    // Check userId
+    if (!userId) return { error: "User ID missing, not authenticated" };
+
+    // Check job post slug
+    if (!jobSlug) return { error: "Job post slug missing" };
+
+    // Get form data value
+    const rawData = Object.fromEntries(formData.entries());
+
+    // Transform form data
+    const transformedData = {
+      ...rawData,
+      salaryStart:
+        typeof rawData.salaryStart === "string" && rawData.salaryStart
+          ? parseInt(rawData.salaryStart)
+          : 0,
+      salaryEnd:
+        typeof rawData.salaryEnd === "string" && rawData.salaryEnd
+          ? parseInt(rawData.salaryEnd)
+          : 0,
+    };
+
+    // Validate form data value
+    const parsedData = createJobSchema.safeParse(transformedData);
+    if (!parsedData.success) {
+      console.error("Validation Errors:", parsedData.error.format());
+      return { error: "Validation failed" };
+    }
+    const validatedData = parsedData.data;
+
+    // Create slug based on job title
+    const slug = `${toSlug(validatedData.title)}-${nanoid(10)}`;
+
+    // Prepare form data
+    const form = {
+      ...validatedData,
+      slug,
+      title: validatedData.title?.trim(),
+      location: validatedData.location?.trim(),
+      description: validatedData.description?.trim(),
+    };
+
+    // Update job post
+    await updateJob(userId, jobSlug, form);
+
+    // Redirect to employer jobs page
+    revalidatePath("/employer/jobs");
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {

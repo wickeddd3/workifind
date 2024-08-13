@@ -81,3 +81,16 @@ export async function createJobPost(
     return { error: message };
   }
 }
+
+export async function getEmployerJobs(id: number) {
+  const response = await fetch(`${baseUrl}/api/jobs/employer/${id}`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { jobs } = responseBody;
+
+    return jobs;
+  }
+
+  return null;
+}

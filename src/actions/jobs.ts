@@ -3,6 +3,7 @@ import { toSlug } from "@/lib/utils";
 import { createJobSchema, CreateJobValues } from "@/lib/validation";
 import { nanoid } from "nanoid";
 import { getEmployer } from "@/actions/employers";
+import { revalidatePath } from "next/cache";
 
 type FormState = { error?: string } | undefined;
 
@@ -73,6 +74,18 @@ export async function createJobPost(
 
     // Create job post
     await createJob(userId, employer.id, form);
+
+    // Redirect to employer jobs page
+    revalidatePath("/employer/jobs");
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
+}
+
 export async function updateJob(
   id: number | string,
   slug: number | string,

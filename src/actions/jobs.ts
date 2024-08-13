@@ -167,3 +167,19 @@ export async function getEmployerJobs(id: number) {
 
   return null;
 }
+
+export async function getEmployerJob(
+  id: number | string,
+  slug: number | string,
+) {
+  const response = await fetch(`${baseUrl}/api/jobs/employer/${id}/${slug}`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { job } = responseBody;
+
+    return job;
+  }
+
+  return null;
+}

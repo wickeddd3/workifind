@@ -73,6 +73,25 @@ export async function createJobPost(
 
     // Create job post
     await createJob(userId, employer.id, form);
+export async function updateJob(
+  id: number | string,
+  slug: number | string,
+  form: CreateJobValues,
+) {
+  const response = await fetch(`${baseUrl}/api/jobs/employer/${id}/${slug}`, {
+    method: "PUT",
+    body: JSON.stringify({ form }),
+  });
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { job } = responseBody;
+
+    return job;
+  }
+
+  return null;
+}
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {

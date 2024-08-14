@@ -25,8 +25,13 @@ import { createEmployerProfile } from "@/actions/employers";
 import { objectToFormData } from "@/lib/form-data";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function EmployerNewProfileForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateEmployerProfileValues = {
     companyName: "",
     companyEmail: "",
@@ -61,7 +66,13 @@ export default function EmployerNewProfileForm() {
 
   async function onSubmit(values: CreateEmployerProfileValues) {
     const formData = objectToFormData(values);
-    await createEmployerProfile(formData);
+    const createdEmployerProfile = await createEmployerProfile(formData);
+    if (createdEmployerProfile) {
+      router.push("/employer/profile");
+      toast({
+        title: "Your employer profile has been created",
+      });
+    }
   }
 
   return (

@@ -6,7 +6,6 @@ import {
   createApplicantProfileSchema,
   CreateApplicantProfileValues,
 } from "@/lib/validation";
-import { redirect } from "next/navigation";
 import { baseUrl } from "@/lib/baseUrl";
 
 type FormState = { error?: string } | undefined;
@@ -132,10 +131,9 @@ export async function createApplicantProfile(
     };
 
     // Step 6: Create Applicant Profile
-    await createApplicant(user.id, form);
+    const createdApplicant = await createApplicant(user.id, form);
 
-    // Step 7: Redirect to Profile Page
-    redirect("/applicant/profile");
+    return createdApplicant;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {
@@ -211,10 +209,9 @@ export async function updateApplicantProfile(
     };
 
     // Step 5: Update Applicant Profile
-    await updateApplicant(id, form);
+    const updatedApplicant = await updateApplicant(id, form);
 
-    // Step 6: Redirect to Profile Page
-    redirect("/applicant/profile");
+    return updatedApplicant;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {

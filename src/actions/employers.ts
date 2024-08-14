@@ -7,7 +7,6 @@ import {
 } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import { createUser } from "@/actions/user";
-import { redirect } from "next/navigation";
 import { toSlug } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { put } from "@vercel/blob";
@@ -129,10 +128,9 @@ export async function createEmployerProfile(
     };
 
     // Step 8: Create Employer Profile
-    await createEmployer(user.id, form);
+    const createdEmployer = await createEmployer(user.id, form);
 
-    // Step 9: Redirect to Profile Page
-    redirect("/employer/profile");
+    return createdEmployer;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {
@@ -201,10 +199,9 @@ export async function updateEmployerProfile(
     };
 
     // Step 7: Update Employer Profile
-    await updateEmployer(id, form);
+    const updatedEmployer = await updateEmployer(id, form);
 
-    // Step 8: Redirect to Profile Page
-    redirect("/employer/profile");
+    return updatedEmployer;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {

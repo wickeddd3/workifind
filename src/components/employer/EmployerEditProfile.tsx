@@ -26,6 +26,8 @@ import { Employer } from "@prisma/client";
 import { objectToFormData } from "@/lib/form-data";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EmployerProfileProps {
   employer: Employer;
@@ -44,6 +46,9 @@ export default function EmployerEditProfile({
     perks,
   },
 }: EmployerProfileProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateEmployerProfileValues = {
     companyName,
     companyEmail: companyEmail ?? "",
@@ -78,7 +83,13 @@ export default function EmployerEditProfile({
 
   async function onSubmit(values: CreateEmployerProfileValues) {
     const formData = objectToFormData(values);
-    await updateEmployerProfile(id, formData);
+    const updatedEmployerProfile = await updateEmployerProfile(id, formData);
+    if (updatedEmployerProfile) {
+      router.push("/employer/profile");
+      toast({
+        title: "Your employer profile has been updated",
+      });
+    }
   }
 
   return (

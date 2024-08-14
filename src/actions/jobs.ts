@@ -3,7 +3,6 @@ import { toSlug } from "@/lib/utils";
 import { createJobSchema, CreateJobValues } from "@/lib/validation";
 import { nanoid } from "nanoid";
 import { getEmployer } from "@/actions/employers";
-import { revalidatePath } from "next/cache";
 
 type FormState = { error?: string } | undefined;
 
@@ -73,10 +72,9 @@ export async function createJobPost(
     };
 
     // Create job post
-    await createJob(userId, employer.id, form);
+    const createdJob = await createJob(userId, employer.id, form);
 
-    // Redirect to employer jobs page
-    revalidatePath("/employer/jobs");
+    return createdJob;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {
@@ -155,10 +153,9 @@ export async function updateJobPost(
     };
 
     // Update job post
-    await updateJob(userId, jobSlug, form);
+    const updatedJob = await updateJob(userId, jobSlug, form);
 
-    // Redirect to employer jobs page
-    revalidatePath("/employer/jobs");
+    return updatedJob;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {
@@ -224,8 +221,9 @@ export async function deleteJobPost(
     if (!jobSlug) return { error: "Job post slug missing" };
 
     // Delete job
-    await deleteJob(userId, jobSlug);
-    revalidatePath("/employer/jobs");
+    const deletedJob = await deleteJob(userId, jobSlug);
+
+    return deletedJob;
   } catch (error) {
     let message = "Unexpected error";
     if (error instanceof Error) {

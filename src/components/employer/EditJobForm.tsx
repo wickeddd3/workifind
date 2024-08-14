@@ -21,6 +21,8 @@ import LoadingButton from "@/components/LoadingButton";
 import { objectToFormData } from "@/lib/form-data";
 import { updateJobPost } from "@/actions/jobs";
 import { Job } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface NewJobFormProps {
   userId: number;
@@ -41,6 +43,9 @@ export default function EditJobForm({
     locationType,
   },
 }: NewJobFormProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateJobValues = {
     title,
     employmentType,
@@ -66,7 +71,13 @@ export default function EditJobForm({
 
   async function onSubmit(values: CreateJobValues) {
     const formData = objectToFormData(values);
-    await updateJobPost(userId, slug, formData);
+    const updatedJob = await updateJobPost(userId, slug, formData);
+    if (updatedJob) {
+      router.push("/employer/jobs");
+      toast({
+        title: "Job was successfully updated.",
+      });
+    }
   }
 
   return (

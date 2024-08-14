@@ -19,6 +19,8 @@ import {
 import { formatMoney } from "@/lib/utils";
 import Link from "next/link";
 import { deleteJobPost } from "@/actions/jobs";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EmployerJobItemProps {
   job: Job;
@@ -28,6 +30,9 @@ export default function EmployerJobItem({
   job: { slug, title, employmentType, locationType },
   job,
 }: EmployerJobItemProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const salary = (job: Job) => {
     const { salaryStart, salaryEnd } = job;
     if (!salaryStart && !salaryEnd) {
@@ -41,7 +46,13 @@ export default function EmployerJobItem({
 
   const handleDeleteJob = async (job: Job) => {
     const { authorId, slug } = job;
-    await deleteJobPost(authorId, slug);
+    const deletedJob = await deleteJobPost(authorId, slug);
+    if (deletedJob) {
+      router.refresh();
+      toast({
+        title: "Job was successfully deleted.",
+      });
+    }
   };
 
   return (

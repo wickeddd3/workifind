@@ -20,12 +20,17 @@ import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
 import { objectToFormData } from "@/lib/form-data";
 import { createJobPost } from "@/actions/jobs";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface NewJobFormProps {
   userId: number;
 }
 
 export default function NewJobForm({ userId }: NewJobFormProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateJobValues = {
     title: "",
     employmentType: "",
@@ -51,7 +56,13 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
 
   async function onSubmit(values: CreateJobValues) {
     const formData = objectToFormData(values);
-    await createJobPost(userId, formData);
+    const createdJob = await createJobPost(userId, formData);
+    if (createdJob) {
+      router.push("/employer/jobs");
+      toast({
+        title: "New job was successfully created.",
+      });
+    }
   }
 
   return (

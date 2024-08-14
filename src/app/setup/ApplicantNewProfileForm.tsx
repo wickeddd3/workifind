@@ -30,8 +30,13 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ApplicantNewProfileForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateApplicantProfileValues = {
     firstName: "",
     lastName: "",
@@ -91,7 +96,13 @@ export default function ApplicantNewProfileForm() {
 
   async function onSubmit(values: CreateApplicantProfileValues) {
     const formData = objectToFormData(values);
-    await createApplicantProfile(formData);
+    const createdApplicant = await createApplicantProfile(formData);
+    if (createdApplicant) {
+      router.push("/applicant/profile");
+      toast({
+        title: "Your applicant profile has been created",
+      });
+    }
   }
 
   return (

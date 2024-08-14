@@ -31,6 +31,8 @@ import {
   locationTypes,
 } from "@/lib/job-types";
 import { Checkbox } from "../ui/checkbox";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ApplicantProfileProps {
   applicant: Applicant;
@@ -56,6 +58,9 @@ export default function ApplicantEditProfile({
     salaryExpectation,
   },
 }: ApplicantProfileProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const defaultValues: CreateApplicantProfileValues = {
     firstName,
     lastName,
@@ -115,7 +120,13 @@ export default function ApplicantEditProfile({
 
   async function onSubmit(values: CreateApplicantProfileValues) {
     const formData = objectToFormData(values);
-    await updateApplicantProfile(id, formData);
+    const updatedApplicant = await updateApplicantProfile(id, formData);
+    if (updatedApplicant) {
+      router.push("/applicant/profile");
+      toast({
+        title: "Your applicant profile has been updated",
+      });
+    }
   }
 
   return (

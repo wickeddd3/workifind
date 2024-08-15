@@ -65,6 +65,7 @@ model Job {
   minSalary                         Int
   maxSalary                         Int
   approved                          Boolean           @default(true)
+  closed                            Boolean           @default(false)
   author                            User              @relation(fields: [authorId], references: [id])
   authorId                          Int
   employer                          Employer          @relation(fields: [employerId], references: [id])

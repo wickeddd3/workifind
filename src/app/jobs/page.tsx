@@ -1,7 +1,7 @@
-import JobFilter from '@/components/jobs/JobFilter';
-import JobResults from '@/components/jobs/JobResults';
-import JobSelected from '@/components/jobs/JobSelected';
-import { JobFilterValues } from '@/lib/validation';
+import JobFilter from "@/components/jobs/JobFilter";
+import JobResults from "@/components/jobs/JobResults";
+import JobSelected from "@/components/jobs/JobSelected";
+import { JobFilterValues } from "@/lib/validation";
 
 interface PageProps {
   searchParams: {

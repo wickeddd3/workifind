@@ -8,8 +8,16 @@ export default function EmployerProfileLayout({
   children: ReactNode;
 }) {
   const menu = [
-    { icon: <CircleUserRound size={20} />, title: "Profile", href: "/employer/profile" },
-    { icon: <BriefcaseBusiness size={20} />, title: "Jobs", href: "/employer/jobs" },
+    {
+      icon: <CircleUserRound size={20} />,
+      title: "Profile",
+      href: "/employer/profile",
+    },
+    {
+      icon: <BriefcaseBusiness size={20} />,
+      title: "Jobs",
+      href: "/employer/jobs",
+    },
   ];
 
   return (

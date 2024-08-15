@@ -25,7 +25,7 @@ export default function Navbar() {
     <header>
       <nav className="m-auto flex max-w-7xl items-center justify-between px-3 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="text-2xl font-mono font-semibold tracking-wider">
+          <span className="font-mono text-2xl font-semibold tracking-wider">
             workifind
           </span>
         </Link>

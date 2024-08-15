@@ -27,7 +27,7 @@ interface JobFilterProps {
 
 export default function JobFilter({ defaultValues }: JobFilterProps) {
   return (
-    <aside className="bg-custom-job-filter-svg bg-gray-50 bg-cover bg-center bg-no-repeat px-3 py-14 md:w-full">
+    <aside className="bg-gray-50 bg-custom-job-filter-svg bg-cover bg-center bg-no-repeat px-3 py-14 md:w-full">
       <div className="mx-auto max-w-4xl">
         <form
           action={filterJobs}

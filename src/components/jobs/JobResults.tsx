@@ -1,10 +1,10 @@
-import JobItem from '@/components/jobs/JobItem';
-import Link from 'next/link';
-import prisma from '@/lib/prisma';
-import { JobFilterValues } from '@/lib/validation';
-import { Prisma } from '@prisma/client';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import JobItem from "@/components/jobs/JobItem";
+import Link from "next/link";
+import prisma from "@/lib/prisma";
+import { JobFilterValues } from "@/lib/validation";
+import { Prisma } from "@prisma/client";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface JobResultsProps {
   filterValues: JobFilterValues;
@@ -23,9 +23,9 @@ export default async function JobResults({
   const skip = (page - 1) * jobsPerPage;
 
   const searchString = q
-    ?.split(' ')
+    ?.split(" ")
     .filter((word) => word.length > 0)
-    .join(' & ');
+    .join(" & ");
 
   const searchFilter: Prisma.JobWhereInput = searchString
     ? {
@@ -50,7 +50,7 @@ export default async function JobResults({
 
   const jobsPromise = await prisma.job.findMany({
     where,
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
     include: {
       employer: true,
     },
@@ -137,8 +137,8 @@ function Pagination({
       <Link
         href={generatePageLink(currentPage - 1)}
         className={cn(
-          'flex items-center gap-2 font-semibold',
-          currentPage <= 1 && 'invisible'
+          "flex items-center gap-2 font-semibold",
+          currentPage <= 1 && "invisible",
         )}
       >
         <ArrowLeft size={16} />
@@ -150,8 +150,8 @@ function Pagination({
       <Link
         href={generatePageLink(currentPage + 1)}
         className={cn(
-          'flex items-center gap-2 font-semibold',
-          currentPage >= totalPages && 'invisible'
+          "flex items-center gap-2 font-semibold",
+          currentPage >= totalPages && "invisible",
         )}
       >
         Next page

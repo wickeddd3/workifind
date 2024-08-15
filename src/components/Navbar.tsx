@@ -10,6 +10,9 @@ export default function Navbar() {
   const { user } = useUser();
 
   const profileRoute = useMemo(() => {
+    if (!user) {
+      return "/setup";
+    }
     if (user?.role === "APPLICANT") {
       return "/applicant/profile";
     }
@@ -41,11 +44,9 @@ export default function Navbar() {
               Professionals
             </span>
           </Link>
-          {user && (
-            <Link href={profileRoute} className="flex items-center gap-3">
-              <span className="text-sm font-medium tracking-wide">Profile</span>
-            </Link>
-          )}
+          <Link href={profileRoute} className="flex items-center gap-3">
+            <span className="text-sm font-medium tracking-wide">Profile</span>
+          </Link>
         </div>
         <div className="flex gap-2">
           {isEmployer && (

@@ -62,8 +62,8 @@ model Job {
   locationType                      String
   location                          String?
   description                       String?
-  salaryStart                       Int
-  salaryEnd                         Int
+  minSalary                         Int
+  maxSalary                         Int
   approved                          Boolean           @default(true)
   author                            User              @relation(fields: [authorId], references: [id])
   authorId                          Int

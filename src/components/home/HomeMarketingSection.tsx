@@ -3,10 +3,10 @@ import IllustrationJobOffer from "@/components/illustrations/IllustrationJobOffe
 
 export default function HomeMarketingSection() {
   return (
-    <section className="flex w-full flex-wrap items-center justify-between">
-      <div className="h-[300px] w-[48%]">
-        <div className="flex w-full items-center justify-end rounded-2xl bg-gray-50 p-8">
-          <h1 className="text-wrap px-4 font-mono text-3xl font-semibold tracking-wider text-gray-800">
+    <section className="flex w-full flex-wrap items-center justify-between gap-4">
+      <div className="w-full md:min-h-[300px] xl:w-[47%]">
+        <div className="flex w-full flex-wrap items-center justify-center rounded-2xl bg-gray-50 p-8 md:flex-nowrap lg:justify-between">
+          <h1 className="text-wrap px-4 text-center font-mono text-xl font-semibold tracking-wider text-gray-800 md:text-start md:text-3xl">
             Search for better career and salary
           </h1>
           <div className="relative flex items-center justify-center">
@@ -15,9 +15,9 @@ export default function HomeMarketingSection() {
           </div>
         </div>
       </div>
-      <div className="h-[300px] w-[48%]">
-        <div className="flex w-full items-center justify-end rounded-2xl bg-gray-50 p-8">
-          <h1 className="text-wrap px-4 font-mono text-3xl font-semibold tracking-wider text-gray-800">
+      <div className="w-full md:min-h-[300px] xl:w-[47%]">
+        <div className="flex w-full flex-wrap items-center justify-center rounded-2xl bg-gray-50 p-8 md:flex-nowrap lg:justify-between">
+          <h1 className="text-wrap px-4 text-center font-mono text-xl font-semibold tracking-wider text-gray-800 md:text-start md:text-3xl">
             Hire professionals that match your preference
           </h1>
           <div className="relative flex items-center justify-center">

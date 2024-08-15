@@ -1,36 +1,36 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Select from "@/components/ui/select";
+import useSearchHistory from "@/hooks/useSearchHistory";
 import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
-import { jobFilterSchema, JobFilterValues } from "@/lib/validation";
-import { redirect } from "next/navigation";
-
-async function filterJobs(formData: FormData) {
-  "use server";
-
-  const values = Object.fromEntries(formData.entries());
-  const { q, employmentType, salary, locationType } =
-    jobFilterSchema.parse(values);
-  const searchParams = new URLSearchParams({
-    ...(q && { q: q.trim() }),
-    ...(employmentType && { employmentType }),
-    ...(salary && { salary }),
-    ...(locationType && { locationType }),
-  });
-
-  redirect(`/jobs?${searchParams.toString()}`);
-}
+import { JobFilterValues } from "@/lib/validation";
+import { filterJobs } from "@/actions/search";
+import { useRouter } from "next/navigation";
 
 interface JobFilterProps {
   defaultValues: JobFilterValues;
 }
 
 export default function JobFilter({ defaultValues }: JobFilterProps) {
+  const router = useRouter();
+
+  const { saveSearchFilter } = useSearchHistory({
+    localStorageName: "workifind.search-history",
+  });
+
+  async function handleFilterJobs(formData: FormData) {
+    const { searchFilter, searchTitle } = await filterJobs(formData);
+    router.push(searchFilter);
+    saveSearchFilter({ searchFilter, searchTitle });
+  }
+
   return (
     <aside className="bg-gray-50 bg-custom-job-filter-svg bg-cover bg-center bg-no-repeat px-3 py-14 md:w-full">
       <div className="mx-auto max-w-4xl">
         <form
-          action={filterJobs}
+          action={handleFilterJobs}
           key={JSON.stringify(defaultValues)}
           className="w-full"
         >

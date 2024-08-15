@@ -34,14 +34,14 @@ export default function EmployerJobItem({
   const { toast } = useToast();
 
   const salary = (job: Job) => {
-    const { salaryStart, salaryEnd } = job;
-    if (!salaryStart && !salaryEnd) {
+    const { minSalary, maxSalary } = job;
+    if (!minSalary && !maxSalary) {
       return null;
     }
-    if (salaryStart === salaryEnd) {
-      return formatMoney(salaryStart);
+    if (minSalary === maxSalary) {
+      return formatMoney(minSalary);
     }
-    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
   };
 
   const handleDeleteJob = async (job: Job) => {

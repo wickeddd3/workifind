@@ -19,17 +19,17 @@ export default function JobSelectedDetails({
     employmentType,
     locationType,
     location,
-    salaryStart,
-    salaryEnd,
+    minSalary,
+    maxSalary,
     createdAt,
     employer: { companyName, companyLogoUrl },
   },
 }: JobSelectedDetailsProps) {
   const salary = () => {
-    if (salaryStart === salaryEnd) {
-      return formatMoney(salaryStart);
+    if (minSalary === maxSalary) {
+      return formatMoney(minSalary);
     }
-    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
   };
 
   return (

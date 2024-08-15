@@ -35,8 +35,8 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
     title: "",
     employmentType: "",
     description: "",
-    salaryStart: 0,
-    salaryEnd: 0,
+    minSalary: 0,
+    maxSalary: 0,
     location: "",
     locationType: "",
   };
@@ -188,7 +188,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
               <div className="flex justify-between space-x-4">
                 <FormField
                   control={control}
-                  name="salaryStart"
+                  name="minSalary"
                   render={({ field }) => (
                     <FormItem className="grow">
                       <FormLabel>Minimum salary</FormLabel>
@@ -207,7 +207,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                 />
                 <FormField
                   control={control}
-                  name="salaryEnd"
+                  name="maxSalary"
                   render={({ field }) => (
                     <FormItem className="grow">
                       <FormLabel>Maximum salary</FormLabel>

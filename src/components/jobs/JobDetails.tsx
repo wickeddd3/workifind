@@ -17,17 +17,17 @@ export default function JobDetails({
     employmentType,
     locationType,
     location,
-    salaryStart,
-    salaryEnd,
+    minSalary,
+    maxSalary,
     createdAt,
     employer: { companyName, companyLogoUrl },
   },
 }: JobDetailsProps) {
   const salary = () => {
-    if (salaryStart === salaryEnd) {
-      return formatMoney(salaryStart);
+    if (minSalary === maxSalary) {
+      return formatMoney(minSalary);
     }
-    return `${formatMoney(salaryStart)} - ${formatMoney(salaryEnd)}`;
+    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
   };
 
   return (

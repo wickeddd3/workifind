@@ -41,13 +41,13 @@ export async function createJobPost(
     // Transform form data
     const transformedData = {
       ...rawData,
-      salaryStart:
-        typeof rawData.salaryStart === "string" && rawData.salaryStart
-          ? parseInt(rawData.salaryStart)
+      minSalary:
+        typeof rawData.minSalary === "string" && rawData.minSalary
+          ? parseInt(rawData.minSalary)
           : 0,
-      salaryEnd:
-        typeof rawData.salaryEnd === "string" && rawData.salaryEnd
-          ? parseInt(rawData.salaryEnd)
+      maxSalary:
+        typeof rawData.maxSalary === "string" && rawData.maxSalary
+          ? parseInt(rawData.maxSalary)
           : 0,
     };
 
@@ -122,13 +122,13 @@ export async function updateJobPost(
     // Transform form data
     const transformedData = {
       ...rawData,
-      salaryStart:
-        typeof rawData.salaryStart === "string" && rawData.salaryStart
-          ? parseInt(rawData.salaryStart)
+      minSalary:
+        typeof rawData.minSalary === "string" && rawData.minSalary
+          ? parseInt(rawData.minSalary)
           : 0,
-      salaryEnd:
-        typeof rawData.salaryEnd === "string" && rawData.salaryEnd
-          ? parseInt(rawData.salaryEnd)
+      maxSalary:
+        typeof rawData.maxSalary === "string" && rawData.maxSalary
+          ? parseInt(rawData.maxSalary)
           : 0,
     };
 

@@ -37,8 +37,8 @@ export default function EditJobForm({
     title,
     employmentType,
     description,
-    salaryStart,
-    salaryEnd,
+    minSalary,
+    maxSalary,
     location,
     locationType,
   },
@@ -51,8 +51,8 @@ export default function EditJobForm({
     employmentType,
     locationType,
     description: description ?? "",
-    salaryStart: salaryStart ?? 0,
-    salaryEnd: salaryEnd ?? 0,
+    minSalary: minSalary ?? 0,
+    maxSalary: maxSalary ?? 0,
     location: location ?? "",
   };
 
@@ -203,7 +203,7 @@ export default function EditJobForm({
               <div className="flex justify-between space-x-4">
                 <FormField
                   control={control}
-                  name="salaryStart"
+                  name="minSalary"
                   render={({ field }) => (
                     <FormItem className="grow">
                       <FormLabel>Minimum salary</FormLabel>
@@ -222,7 +222,7 @@ export default function EditJobForm({
                 />
                 <FormField
                   control={control}
-                  name="salaryEnd"
+                  name="maxSalary"
                   render={({ field }) => (
                     <FormItem className="grow">
                       <FormLabel>Maximum salary</FormLabel>

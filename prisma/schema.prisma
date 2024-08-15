@@ -49,7 +49,7 @@ model Employer {
   userId                            Int               @unique
   createdAt                         DateTime          @default(now())
   updatedAt                         DateTime          @updatedAt
-  jobs Job[]
+  jobs                              Job[]
 
   @@map("employers")
 }
@@ -71,6 +71,8 @@ model Job {
   employerId                        Int
   createdAt                         DateTime          @default(now())
   updatedAt                         DateTime          @updatedAt
+  jobApplications                   JobApplication[]
+  savedJobs                         SavedJob[]
 
   @@map("jobs")
 }
@@ -96,6 +98,33 @@ model Applicant {
   userId                            Int               @unique
   createdAt                         DateTime          @default(now())
   updatedAt                         DateTime          @updatedAt
+  jobApplications                   JobApplication[]
+  savedJobs                         SavedJob[]
 
   @@map("applicants")
+}
+
+model JobApplication {
+  id                                Int               @id @default(autoincrement())
+  pitch                             String
+  applicant                         Applicant         @relation(fields: [applicantId], references: [id])
+  applicantId                       Int
+  job                               Job               @relation(fields: [jobId], references: [id])
+  jobId                             Int
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
+
+  @@map("jobApplications")
+}
+
+model SavedJob {
+  id                                Int               @id @default(autoincrement())
+  applicant                         Applicant         @relation(fields: [applicantId], references: [id])
+  applicantId                       Int
+  job                               Job               @relation(fields: [jobId], references: [id])
+  jobId                             Int
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
+
+  @@map("savedJobs")
 }

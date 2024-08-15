@@ -6,10 +6,14 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@next/next/recommended"
+    "plugin:@next/next/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "prettier/prettier": "error",
+    "react/jsx-no-literals": ["error", { "noStrings": true }],
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
@@ -22,5 +26,12 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["node_modules/", "build/", ".next", "**/*.ico", "**/*.css", "src/lib/prisma.ts"]
+  "ignorePatterns": [
+    "node_modules/",
+    "build/",
+    ".next",
+    "**/*.ico",
+    "**/*.css",
+    "src/lib/prisma.ts"
+  ]
 }

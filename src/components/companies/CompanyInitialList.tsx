@@ -1,13 +1,16 @@
 import { Employer } from "@prisma/client";
 import CompanyInitialListItem from "@/components/companies/CompanyInitialListItem";
 import Link from "next/link";
+import ViewMoreButton from "@/components/ViewMoreButton";
 
 interface CompanyInitialListProps {
   companies: Employer[];
+  hasSeeMoreButton: boolean;
 }
 
 export default function CompanyInitialList({
-  companies,
+  companies = [],
+  hasSeeMoreButton = false,
 }: CompanyInitialListProps) {
   return (
     <section className="flex w-full flex-col space-y-2 py-6">
@@ -24,6 +27,7 @@ export default function CompanyInitialList({
           </Link>
         ))}
       </div>
+      {hasSeeMoreButton && <ViewMoreButton text="See more" route="" />}
     </section>
   );
 }

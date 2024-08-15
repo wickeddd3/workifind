@@ -37,8 +37,8 @@ export default function HomeSearchHistory() {
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-grow flex-wrap gap-4 py-4">
           {history.map(
-            (item: { title: string; query: string; created: Date }) => (
-              <Link href={item?.query} key={item?.query}>
+            (item: { title: string; query: string; created: Date }, index) => (
+              <Link href={item?.query} key={`${item?.query}-${index}`}>
                 <span className="flex cursor-pointer items-center justify-between gap-4 rounded-lg bg-gray-100 px-3 py-1 hover:bg-gray-200">
                   <SearchIcon size={14} />
                   <span className="text-sm font-medium">{item?.title}</span>

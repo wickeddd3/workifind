@@ -1,6 +1,10 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { toSlug } from "@/lib/utils";
-import { createJobSchema, CreateJobValues } from "@/lib/validation";
+import {
+  applyJobSchema,
+  createJobSchema,
+  CreateJobValues,
+} from "@/lib/validation";
 import { nanoid } from "nanoid";
 import { getEmployer } from "@/actions/employers";
 
@@ -232,6 +236,7 @@ export async function deleteJobPost(
     return { error: message };
   }
 }
+
 export async function getJob(slug: number | string) {
   const response = await fetch(`${baseUrl}/api/jobs/${slug}`);
 
@@ -243,4 +248,56 @@ export async function getJob(slug: number | string) {
   }
 
   return null;
+}
+
+export async function applyToJob(
+  applicantId: number,
+  jobId: number,
+  formData: FormData,
+  role: string,
+  slug: string,
+): Promise<FormState> {
+  try {
+    // Check userId
+    if (!applicantId)
+      return { error: "Applicant ID missing, not authenticated" };
+
+    // Check jobId
+    if (!jobId) return { error: "Job ID missing" };
+
+    // Check role
+    if (role !== "APPLICANT")
+      return { error: "Role not allowed to apply to the job" };
+
+    // Get form data value
+    const rawData = Object.fromEntries(formData.entries());
+
+    // Validate form data value
+    const parsedData = applyJobSchema.safeParse(rawData);
+    if (!parsedData.success) {
+      console.error("Validation Errors:", parsedData.error.format());
+      return { error: "Validation failed" };
+    }
+    const validatedData = parsedData.data;
+
+    // Save job application
+    const response = await fetch(`${baseUrl}/api/jobs/${slug}/apply`, {
+      method: "POST",
+      body: JSON.stringify({ applicantId, jobId, form: validatedData }),
+    });
+
+    // Return saved job application
+    if (response.status === 200) {
+      const responseBody = await response.json();
+      const { jobApplication } = responseBody;
+
+      return jobApplication;
+    }
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
 }

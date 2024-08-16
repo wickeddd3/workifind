@@ -12,6 +12,7 @@ export async function GET(
       where: { slug },
       include: {
         employer: true,
+        jobApplications: true,
       },
     });
 

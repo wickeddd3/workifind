@@ -5,6 +5,7 @@ import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { formatMoney, relativeDate } from "@/lib/utils";
+import ApplyButton from "@/components/jobs/ApplyButton";
 
 interface JobDetailsProps {
   job: Job & { employer: Employer };
@@ -12,6 +13,7 @@ interface JobDetailsProps {
 
 export default function JobDetails({
   job: {
+    slug,
     title,
     description,
     employmentType,
@@ -80,7 +82,7 @@ export default function JobDetails({
             </p>
           </div>
           <div className="flex space-x-4">
-            <Button>Apply</Button>
+            <ApplyButton href={`/jobs/${slug}/apply`} />
             <Button>Save</Button>
           </div>
         </div>

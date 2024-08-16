@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Markdown from "@/components/Markdown";
 import { Employer, Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
+import ApplyButton from "@/components/jobs/ApplyButton";
 
 interface JobSelectedDetailsProps {
   job: Job & { employer: Employer };
@@ -84,7 +85,7 @@ export default function JobSelectedDetails({
             </p>
           </div>
           <div className="flex space-x-4">
-            <Button>Apply</Button>
+            <ApplyButton href={`/jobs/${slug}/apply`} />
             <Button>Save</Button>
           </div>
         </div>

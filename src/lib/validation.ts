@@ -125,3 +125,18 @@ export const professionalFilterSchema = z.object({
 });
 
 export type ProfessionalFilterValues = z.infer<typeof professionalFilterSchema>;
+
+export const applyJobSchema = z.object({
+  pitch: z
+    .string()
+    .min(
+      200,
+      "Explain why you are suitable for this role using minimum of 200 characters",
+    )
+    .max(
+      2000,
+      "Explain why you are suitable for this role using maximum of 2000 characters",
+    ),
+});
+
+export type ApplyJobValues = z.infer<typeof applyJobSchema>;

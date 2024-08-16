@@ -232,3 +232,15 @@ export async function deleteJobPost(
     return { error: message };
   }
 }
+export async function getJob(slug: number | string) {
+  const response = await fetch(`${baseUrl}/api/jobs/${slug}`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { job } = responseBody;
+
+    return job;
+  }
+
+  return null;
+}

@@ -1,6 +1,5 @@
-import { Employer, Job } from "@prisma/client";
+import { Employer, Job, JobApplication } from "@prisma/client";
 import Markdown from "@/components/Markdown";
-import { Button } from "@/components/ui/button";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
@@ -8,12 +7,11 @@ import { formatMoney, relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 
 interface JobDetailsProps {
-  job: Job & { employer: Employer };
+  job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
 }
 
 export default function JobDetails({
   job: {
-    slug,
     title,
     description,
     employmentType,
@@ -24,6 +22,7 @@ export default function JobDetails({
     createdAt,
     employer: { companyName, companyLogoUrl },
   },
+  job,
 }: JobDetailsProps) {
   const salary = () => {
     if (minSalary === maxSalary) {
@@ -81,10 +80,7 @@ export default function JobDetails({
               {relativeDate(createdAt)}
             </p>
           </div>
-          <div className="flex space-x-4">
-            <ApplyButton href={`/jobs/${slug}/apply`} />
-            <Button>Save</Button>
-          </div>
+          <ApplyButton job={job} />
         </div>
       </div>
       <div>{description && <Markdown>{description}</Markdown>}</div>

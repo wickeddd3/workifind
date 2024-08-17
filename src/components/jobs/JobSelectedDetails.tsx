@@ -2,14 +2,13 @@ import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Markdown from "@/components/Markdown";
-import { Employer, Job } from "@prisma/client";
+import { Employer, Job, JobApplication } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 
 interface JobSelectedDetailsProps {
-  job: Job & { employer: Employer };
+  job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
 }
 
 export default function JobSelectedDetails({
@@ -25,6 +24,7 @@ export default function JobSelectedDetails({
     createdAt,
     employer: { companyName, companyLogoUrl },
   },
+  job,
 }: JobSelectedDetailsProps) {
   const salary = () => {
     if (minSalary === maxSalary) {
@@ -84,10 +84,7 @@ export default function JobSelectedDetails({
               {`Posted ${relativeDate(createdAt)}`}
             </p>
           </div>
-          <div className="flex space-x-4">
-            <ApplyButton href={`/jobs/${slug}/apply`} />
-            <Button>Save</Button>
-          </div>
+          <ApplyButton job={job} />
         </div>
       </div>
       <div>{description && <Markdown>{description}</Markdown>}</div>

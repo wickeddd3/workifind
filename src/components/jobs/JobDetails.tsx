@@ -5,6 +5,7 @@ import Image from "next/image";
 import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
+import SaveJobButton from "@/components/jobs/SaveJobButton";
 
 interface JobDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
@@ -80,7 +81,10 @@ export default function JobDetails({
               {relativeDate(createdAt)}
             </p>
           </div>
-          <ApplyButton job={job} />
+          <div className="flex items-center gap-4">
+            <ApplyButton job={job} />
+            <SaveJobButton job={job} />
+          </div>
         </div>
       </div>
       <div>{description && <Markdown>{description}</Markdown>}</div>

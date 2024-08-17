@@ -10,6 +10,9 @@ export async function GET(
   try {
     const applicant = await prisma.applicant.findUnique({
       where: { userId: parseInt(id) },
+      include: {
+        savedJobs: true,
+      },
     });
 
     if (!applicant) {

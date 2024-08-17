@@ -1,30 +1,25 @@
 import { cache } from "react";
-import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import JobSelectedDetails from "@/components/jobs/JobSelectedDetails";
 import JobSelectedEmptyPlaceholder from "@/components/jobs/JobSelectedEmptyPlaceholder";
+import { getJob } from "@/actions/jobs";
 
 interface PageProps {
-  jobId: number | undefined;
+  jobSlug: string | undefined;
 }
 
-const getJob = cache(async (id: number | undefined) => {
-  if (!id) return null;
+const handleGetJob = cache(async (slug: string | undefined) => {
+  if (!slug) return null;
 
-  const job = await prisma.job.findUnique({
-    where: { id },
-    include: {
-      employer: true,
-    },
-  });
+  const job = await getJob(slug);
 
   if (!job) notFound();
 
   return job;
 });
 
-export default async function JobSelected({ jobId }: PageProps) {
-  const job = await getJob(jobId);
+export default async function JobSelected({ jobSlug }: PageProps) {
+  const job = await handleGetJob(jobSlug);
 
   return (
     <section className="sticky top-0 hidden h-fit rounded-xl bg-background md:block md:w-3/5">

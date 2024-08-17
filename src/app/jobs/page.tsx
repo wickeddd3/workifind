@@ -9,13 +9,13 @@ interface PageProps {
     employmentType?: string;
     salary?: string;
     locationType?: string;
-    jobId?: string;
+    job?: string;
     page?: string;
   };
 }
 
 export default function Page({
-  searchParams: { q, employmentType, salary, locationType, jobId, page },
+  searchParams: { q, employmentType, salary, locationType, job, page },
 }: PageProps) {
   const filterValues: JobFilterValues = {
     q,
@@ -31,9 +31,9 @@ export default function Page({
         <JobResults
           filterValues={filterValues}
           page={page ? parseInt(page) : undefined}
-          jobId={jobId ? parseInt(jobId) : undefined}
+          jobSlug={job}
         />
-        <JobSelected jobId={jobId ? parseInt(jobId) : undefined} />
+        <JobSelected jobSlug={job} />
       </section>
     </main>
   );

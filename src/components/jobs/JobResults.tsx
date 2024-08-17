@@ -9,13 +9,13 @@ import { cn } from "@/lib/utils";
 interface JobResultsProps {
   filterValues: JobFilterValues;
   page?: number;
-  jobId?: number;
+  jobSlug?: string;
 }
 
 export default async function JobResults({
   filterValues,
   page = 1,
-  jobId,
+  jobSlug,
 }: JobResultsProps) {
   const { q, employmentType, salary, locationType } = filterValues;
 
@@ -62,13 +62,13 @@ export default async function JobResults({
 
   const [jobs, totalResults] = await Promise.all([jobsPromise, countPromise]);
 
-  function getLinkUrl(jobId: number): string {
+  function getLinkUrl(jobSlug: string): string {
     const searchParams = new URLSearchParams({
       ...(q && { q: q.trim() }),
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
-      ...(jobId && { jobId: jobId.toString() }),
+      ...(jobSlug && { job: jobSlug }),
       ...(page && { page: page.toString() }),
     });
 
@@ -79,7 +79,7 @@ export default async function JobResults({
     <div className="w-full space-y-4 md:w-2/5">
       {jobs.map((job) => (
         <Link
-          href={getLinkUrl(job.id)}
+          href={getLinkUrl(job.slug)}
           scroll={false}
           key={job.id}
           className="block"
@@ -99,7 +99,7 @@ export default async function JobResults({
           currentPage={page}
           totalPages={Math.ceil(totalResults / jobsPerPage)}
           filterValues={filterValues}
-          jobId={jobId}
+          jobSlug={jobSlug}
         />
       )}
     </div>
@@ -110,14 +110,14 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   filterValues: JobFilterValues;
-  jobId?: number;
+  jobSlug?: string;
 }
 
 function Pagination({
   currentPage,
   totalPages,
   filterValues: { q, employmentType, salary, locationType },
-  jobId,
+  jobSlug,
 }: PaginationProps) {
   function generatePageLink(page: number) {
     const searchParams = new URLSearchParams({
@@ -125,7 +125,7 @@ function Pagination({
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
-      ...(jobId && { jobId: jobId.toString() }),
+      ...(jobSlug && { job: jobSlug }),
       ...(page && { page: page.toString() }),
     });
 

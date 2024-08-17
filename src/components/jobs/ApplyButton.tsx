@@ -61,7 +61,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
 
   if (isApplicant && applicant && hasApplication) {
     return (
-      <h6 className="flex items-center gap-2 text-sm text-[#3366FF]">
+      <h6 className="flex grow items-center gap-2 text-sm text-[#3366FF]">
         <CircleCheckBig size={16} />
         {applicationCreated}
       </h6>

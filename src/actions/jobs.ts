@@ -301,6 +301,7 @@ export async function applyToJob(
     return { error: message };
   }
 }
+
 export async function saveJob(
   applicantId: number | undefined,
   jobId: number,
@@ -331,6 +332,46 @@ export async function saveJob(
       const { savedJob } = responseBody;
 
       return savedJob;
+    }
+  } catch (error) {
+    let message = "Unexpected error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return { error: message };
+  }
+}
+
+export async function unsaveJob(
+  applicantId: number | undefined,
+  jobId: number,
+  role: string | undefined,
+  slug: string,
+): Promise<FormState> {
+  try {
+    // Check userId
+    if (!applicantId)
+      return { error: "Applicant ID missing, not authenticated" };
+
+    // Check jobId
+    if (!jobId) return { error: "Job ID missing" };
+
+    // Check role
+    if (role !== "APPLICANT")
+      return { error: "Role not allowed to unsave job" };
+
+    // Save job application
+    const response = await fetch(`${baseUrl}/api/jobs/${slug}/unsave`, {
+      method: "POST",
+      body: JSON.stringify({ applicantId, jobId }),
+    });
+
+    // Return unsaved job application
+    if (response.status === 200) {
+      const responseBody = await response.json();
+      const { unsavedJob } = responseBody;
+
+      return unsavedJob;
     }
   } catch (error) {
     let message = "Unexpected error";

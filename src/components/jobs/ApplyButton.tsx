@@ -53,6 +53,8 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     }
   }, [user, handleGetApplicant]);
 
+  if (!user) return;
+
   if (user && applicant && hasApplication) {
     return (
       <h6 className="flex items-center gap-2 text-sm text-[#3366FF]">

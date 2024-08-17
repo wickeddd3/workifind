@@ -34,6 +34,10 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     );
   };
 
+  const isApplicant = useMemo(() => {
+    return user && user?.role === "APPLICANT";
+  }, [user]);
+
   const hasApplication = useMemo(() => {
     return handleCheckIfApplicantHasApplication(job, applicant);
   }, [job, applicant]);
@@ -55,7 +59,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
 
   if (!user) return;
 
-  if (user && applicant && hasApplication) {
+  if (isApplicant && applicant && hasApplication) {
     return (
       <h6 className="flex items-center gap-2 text-sm text-[#3366FF]">
         <CircleCheckBig size={16} />
@@ -64,7 +68,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     );
   }
 
-  if (user && applicant && !hasApplication) {
+  if (isApplicant && applicant && !hasApplication) {
     return (
       <Button
         asChild

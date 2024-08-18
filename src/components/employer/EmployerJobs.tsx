@@ -1,8 +1,8 @@
-import { Job } from "@prisma/client";
+import { Job, JobApplication } from "@prisma/client";
 import EmployerJobItem from "@/components/employer/EmployerJobItem";
 
 interface EmployerJobsProps {
-  jobs: Job[];
+  jobs: (Job & { jobApplications: JobApplication[] })[];
 }
 
 export default function EmployerJobs({ jobs }: EmployerJobsProps) {

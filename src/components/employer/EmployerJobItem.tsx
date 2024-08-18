@@ -85,7 +85,13 @@ export default function EmployerJobItem({
               <Link href={`/jobs/${slug}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">
                   <Fullscreen className="mr-2 h-4 w-4" />
-                  <span>Preview</span>
+                  <span>Public Preview</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href={`/employer/jobs/${slug}/applicants`} target="_blank">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Users className="mr-2 h-4 w-4" />
+                  <span>View Applicants</span>
                 </DropdownMenuItem>
               </Link>
             </DropdownMenuGroup>

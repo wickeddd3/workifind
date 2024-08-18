@@ -1,4 +1,4 @@
-import { Job } from "@prisma/client";
+import { Job, JobApplication } from "@prisma/client";
 import {
   Banknote,
   Briefcase,
@@ -7,6 +7,7 @@ import {
   MapPin,
   Pencil,
   Trash,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,13 +22,14 @@ import Link from "next/link";
 import { deleteJobPost } from "@/actions/jobs";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useMemo } from "react";
 
 interface EmployerJobItemProps {
-  job: Job;
+  job: Job & { jobApplications: JobApplication[] };
 }
 
 export default function EmployerJobItem({
-  job: { slug, title, employmentType, locationType },
+  job: { slug, title, employmentType, locationType, jobApplications },
   job,
 }: EmployerJobItemProps) {
   const router = useRouter();
@@ -54,6 +56,13 @@ export default function EmployerJobItem({
       });
     }
   };
+
+  const totalApplicants = useMemo(() => {
+    if (jobApplications && jobApplications.length > 0) {
+      return `${jobApplications.length} applicants`;
+    }
+    return "0 applicants";
+  }, [jobApplications]);
 
   return (
     <div className="flex flex-col gap-2 rounded-lg bg-gray-50 px-4 py-2 hover:bg-gray-100">
@@ -115,6 +124,12 @@ export default function EmployerJobItem({
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <Banknote size={16} className="shrink-0" />
             {salary(job)}
+          </p>
+        )}
+        {jobApplications && (
+          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Users size={16} className="shrink-0" />
+            {totalApplicants}
           </p>
         )}
       </div>

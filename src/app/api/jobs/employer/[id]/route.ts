@@ -10,6 +10,9 @@ export async function GET(
   try {
     const jobs = await prisma.job.findMany({
       where: { authorId: parseInt(id) },
+      include: {
+        jobApplications: true,
+      },
     });
 
     if (!jobs) {

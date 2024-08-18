@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Profile } from "@/components/Profile";
-import { BriefcaseBusiness, CircleUserRound } from "lucide-react";
+import { Bookmark, BriefcaseBusiness, CircleUserRound } from "lucide-react";
 
 export default function ApplicantProfileLayout({
   children,
@@ -15,8 +15,13 @@ export default function ApplicantProfileLayout({
     },
     {
       icon: <BriefcaseBusiness size={20} />,
-      title: "Jobs",
+      title: "Applied Jobs",
       href: "/applicant/jobs",
+    },
+    {
+      icon: <Bookmark size={20} />,
+      title: "Saved Jobs",
+      href: "/applicant/jobs/saved",
     },
   ];
 

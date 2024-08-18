@@ -82,7 +82,7 @@ export default function EmployerJobItem({
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete</span>
               </DropdownMenuItem>
-              <Link href={`/jobs/${slug}`}>
+              <Link href={`/jobs/${slug}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">
                   <Fullscreen className="mr-2 h-4 w-4" />
                   <span>Preview</span>

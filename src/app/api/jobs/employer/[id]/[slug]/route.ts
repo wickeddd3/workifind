@@ -11,6 +11,10 @@ export async function GET(
   try {
     const job = await prisma.job.findUnique({
       where: { authorId: parseInt(id), slug },
+      include: {
+        employer: true,
+        jobApplications: true,
+      },
     });
 
     if (!job) {

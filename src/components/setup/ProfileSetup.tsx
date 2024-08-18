@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ApplicantNewProfileForm from "@/app/setup/ApplicantNewProfileForm";
-import EmployerNewProfileForm from "@/app/setup/EmployerNewProfileForm";
+import ApplicantNewProfileForm from "@/components/setup/ApplicantNewProfileForm";
+import EmployerNewProfileForm from "@/components/setup/EmployerNewProfileForm";
 
 export default function ProfileSetup() {
   return (

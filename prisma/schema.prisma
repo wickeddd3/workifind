@@ -44,7 +44,7 @@ model Employer {
   location                          String?
   about                             String?
   pitch                             String?
-  perks                             String[]          @default([])
+  perks                             Json
   user                              User              @relation(fields: [userId], references: [id])
   userId                            Int               @unique
   createdAt                         DateTime          @default(now())
@@ -88,12 +88,12 @@ model Applicant {
   about                             String?
   profession                        String
   experienced                       Boolean           @default(false)
-  skills                            String[]          @default([])
-  languages                         String[]          @default([])
+  skills                            Json
+  languages                         Json
   availability                      String
-  preferredEmploymentTypes          String[]          @default([])
-  preferredLocationTypes            String[]          @default([])
-  preferredLocations                String[]          @default([])
+  preferredEmploymentTypes          Json
+  preferredLocationTypes            Json
+  preferredLocations                Json
   salaryExpectation                 Int
   user                              User              @relation(fields: [userId], references: [id])
   userId                            Int               @unique

@@ -13,7 +13,11 @@ export async function GET(
       where: { authorId: parseInt(id), slug },
       include: {
         employer: true,
-        jobApplications: true,
+        jobApplications: {
+          include: {
+            applicant: true,
+          },
+        },
       },
     });
 

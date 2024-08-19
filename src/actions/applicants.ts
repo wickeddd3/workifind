@@ -2,11 +2,9 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { createUser } from "@/actions/user";
-import {
-  createApplicantProfileSchema,
-  CreateApplicantProfileValues,
-} from "@/lib/validation";
+import { createApplicantProfileSchema } from "@/lib/validation";
 import { baseUrl } from "@/lib/baseUrl";
+import { parseField } from "@/lib/utils";
 
 type FormState = { error?: string } | undefined;
 
@@ -16,17 +14,20 @@ export async function getApplicant(id: number) {
   if (response.status === 200) {
     const responseBody = await response.json();
     const { applicant } = responseBody;
-
-    return applicant;
+    return {
+      ...applicant,
+      skills: applicant?.skills.map((item: string) => JSON.parse(item)),
+      languages: applicant?.languages.map((item: string) => JSON.parse(item)),
+      preferredLocations: applicant?.preferredLocations.map((item: string) =>
+        JSON.parse(item),
+      ),
+    };
   }
 
   return null;
 }
 
-export async function createApplicant(
-  userId: number,
-  form: CreateApplicantProfileValues,
-) {
+export async function createApplicant(userId: number, form: object) {
   const response = await fetch(`${baseUrl}/api/applicants/create`, {
     method: "POST",
     body: JSON.stringify({ userId, form }),
@@ -42,10 +43,7 @@ export async function createApplicant(
   return null;
 }
 
-export async function updateApplicant(
-  id: number,
-  form: CreateApplicantProfileValues,
-) {
+export async function updateApplicant(id: number, form: object) {
   const response = await fetch(`${baseUrl}/api/applicants/${id}`, {
     method: "PUT",
     body: JSON.stringify({ form }),
@@ -75,6 +73,7 @@ export async function createApplicantProfile(
 
     // Step 3: Transform Form Data
     const rawData = Object.fromEntries(formData.entries());
+
     const transformedData = {
       ...rawData,
       experienced: rawData?.experienced === "true" ? true : false,
@@ -83,29 +82,19 @@ export async function createApplicantProfile(
         rawData?.salaryExpectation
           ? parseInt(rawData.salaryExpectation)
           : 0,
-      skills:
-        typeof rawData.skills === "string" && rawData.skills
-          ? rawData.skills.split(",").map((s) => s.trim())
-          : [],
-      languages:
-        typeof rawData.languages === "string" && rawData.languages
-          ? rawData.languages.split(",").map((l) => l.trim())
-          : [],
+      skills: parseField(rawData.skills),
+      languages: parseField(rawData.languages),
       preferredEmploymentTypes:
         typeof rawData.preferredEmploymentTypes === "string" &&
         rawData.preferredEmploymentTypes
-          ? rawData.preferredEmploymentTypes.split(",").map((p) => p.trim())
+          ? JSON.parse(rawData.preferredEmploymentTypes)
           : [],
       preferredLocationTypes:
         typeof rawData.preferredLocationTypes === "string" &&
         rawData.preferredLocationTypes
-          ? rawData.preferredLocationTypes.split(",").map((p) => p.trim())
+          ? JSON.parse(rawData.preferredLocationTypes)
           : [],
-      preferredLocations:
-        typeof rawData.preferredLocations === "string" &&
-        rawData.preferredLocations
-          ? rawData.preferredLocations.split(",").map((p) => p.trim())
-          : [],
+      preferredLocations: parseField(rawData.preferredLocations),
     };
 
     // Step 4: Validate Data
@@ -119,7 +108,7 @@ export async function createApplicantProfile(
     const validatedData = parsedData.data;
 
     // Step 5: Prepare Form Data
-    const form: CreateApplicantProfileValues = {
+    const form = {
       ...validatedData,
       firstName: validatedData.firstName?.trim(),
       lastName: validatedData.lastName?.trim(),
@@ -128,6 +117,13 @@ export async function createApplicantProfile(
       location: validatedData.location?.trim(),
       about: validatedData.about?.trim(),
       profession: validatedData.profession?.trim(),
+      skills: validatedData.skills?.map((skill) => JSON.stringify(skill)),
+      languages: validatedData.languages?.map((language) =>
+        JSON.stringify(language),
+      ),
+      preferredLocations: validatedData.preferredLocations?.map(
+        (preferredLocation) => JSON.stringify(preferredLocation),
+      ),
     };
 
     // Step 6: Create Applicant Profile
@@ -161,29 +157,19 @@ export async function updateApplicantProfile(
         rawData?.salaryExpectation
           ? parseInt(rawData.salaryExpectation)
           : 0,
-      skills:
-        typeof rawData.skills === "string" && rawData.skills
-          ? rawData.skills.split(",").map((s) => s.trim())
-          : [],
-      languages:
-        typeof rawData.languages === "string" && rawData.languages
-          ? rawData.languages.split(",").map((l) => l.trim())
-          : [],
+      skills: parseField(rawData.skills),
+      languages: parseField(rawData.languages),
       preferredEmploymentTypes:
         typeof rawData.preferredEmploymentTypes === "string" &&
         rawData.preferredEmploymentTypes
-          ? rawData.preferredEmploymentTypes.split(",").map((p) => p.trim())
+          ? JSON.parse(rawData.preferredEmploymentTypes)
           : [],
       preferredLocationTypes:
         typeof rawData.preferredLocationTypes === "string" &&
         rawData.preferredLocationTypes
-          ? rawData.preferredLocationTypes.split(",").map((p) => p.trim())
+          ? JSON.parse(rawData.preferredLocationTypes)
           : [],
-      preferredLocations:
-        typeof rawData.preferredLocations === "string" &&
-        rawData.preferredLocations
-          ? rawData.preferredLocations.split(",").map((p) => p.trim())
-          : [],
+      preferredLocations: parseField(rawData.preferredLocations),
     };
 
     // Step 3: Validate Data
@@ -197,7 +183,7 @@ export async function updateApplicantProfile(
     const validatedData = parsedData.data;
 
     // Step 4: Prepare Form Data
-    const form: CreateApplicantProfileValues = {
+    const form = {
       ...validatedData,
       firstName: validatedData.firstName?.trim(),
       lastName: validatedData.lastName?.trim(),
@@ -206,6 +192,13 @@ export async function updateApplicantProfile(
       location: validatedData.location?.trim(),
       about: validatedData.about?.trim(),
       profession: validatedData.profession?.trim(),
+      skills: validatedData.skills?.map((skill) => JSON.stringify(skill)),
+      languages: validatedData.languages?.map((language) =>
+        JSON.stringify(language),
+      ),
+      preferredLocations: validatedData.preferredLocations?.map(
+        (preferredLocation) => JSON.stringify(preferredLocation),
+      ),
     };
 
     // Step 5: Update Applicant Profile

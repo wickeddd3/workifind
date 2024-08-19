@@ -1,13 +1,10 @@
 "use server";
 
 import { baseUrl } from "@/lib/baseUrl";
-import {
-  createEmployerProfileSchema,
-  CreateEmployerProfileValues,
-} from "@/lib/validation";
+import { createEmployerProfileSchema } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import { createUser } from "@/actions/user";
-import { toSlug } from "@/lib/utils";
+import { parseField, toSlug } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { put } from "@vercel/blob";
 import path from "path";
@@ -21,16 +18,16 @@ export async function getEmployer(id: number) {
     const responseBody = await response.json();
     const { employer } = responseBody;
 
-    return employer;
+    return {
+      ...employer,
+      perks: employer?.perks.map((item: string) => JSON.parse(item)),
+    };
   }
 
   return null;
 }
 
-export async function createEmployer(
-  userId: number,
-  form: CreateEmployerProfileValues,
-) {
+export async function createEmployer(userId: number, form: object) {
   const response = await fetch(`${baseUrl}/api/employers/create`, {
     method: "POST",
     body: JSON.stringify({ userId, form }),
@@ -46,10 +43,7 @@ export async function createEmployer(
   return null;
 }
 
-export async function updateEmployer(
-  id: number,
-  form: CreateEmployerProfileValues,
-) {
+export async function updateEmployer(id: number, form: object) {
   const response = await fetch(`${baseUrl}/api/employers/${id}`, {
     method: "PUT",
     body: JSON.stringify({ form }),
@@ -79,12 +73,10 @@ export async function createEmployerProfile(
 
     // Step 3: Transform Form Data
     const rawData = Object.fromEntries(formData.entries());
+
     const transformedData = {
       ...rawData,
-      perks:
-        typeof rawData.perks === "string" && rawData.perks
-          ? rawData.perks.split(",").map((s) => s.trim())
-          : [],
+      perks: parseField(rawData.perks),
     };
 
     // Step 4: Validate Data
@@ -123,7 +115,7 @@ export async function createEmployerProfile(
       location: validatedData.location?.trim(),
       about: validatedData.about?.trim(),
       pitch: validatedData.pitch?.trim(),
-      perks: validatedData.perks,
+      perks: validatedData.perks?.map((item) => JSON.stringify(item)),
       industry: validatedData.industry,
     };
 
@@ -152,10 +144,7 @@ export async function updateEmployerProfile(
     const rawData = Object.fromEntries(formData.entries());
     const transformedData = {
       ...rawData,
-      perks:
-        typeof rawData.perks === "string" && rawData.perks
-          ? rawData.perks.split(",").map((s) => s.trim())
-          : [],
+      perks: parseField(rawData.perks),
     };
 
     // Step 3: Validate Data
@@ -194,7 +183,7 @@ export async function updateEmployerProfile(
       location: validatedData.location?.trim(),
       about: validatedData.about?.trim(),
       pitch: validatedData.pitch?.trim(),
-      perks: validatedData.perks,
+      perks: validatedData.perks?.map((item) => JSON.stringify(item)),
       industry: validatedData.industry,
     };
 

@@ -35,7 +35,9 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ApplicantProfileProps {
-  applicant: Applicant;
+  applicant: Applicant & { skills: { name: string }[] } & {
+    languages: { name: string }[];
+  } & { preferredLocations: { name: string }[] };
 }
 
 export default function ApplicantEditProfile({
@@ -60,7 +62,6 @@ export default function ApplicantEditProfile({
 }: ApplicantProfileProps) {
   const router = useRouter();
   const { toast } = useToast();
-
   const defaultValues: CreateApplicantProfileValues = {
     firstName,
     lastName,
@@ -290,7 +291,7 @@ export default function ApplicantEditProfile({
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`skills.${index}`}
+                    name={`skills.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`skills-${index}`} />
                     )}
@@ -312,7 +313,7 @@ export default function ApplicantEditProfile({
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => skillsAppend("")}
+                onClick={() => skillsAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add skill</span>
@@ -329,7 +330,7 @@ export default function ApplicantEditProfile({
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`languages.${index}`}
+                    name={`languages.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`languages-${index}`} />
                     )}
@@ -351,7 +352,7 @@ export default function ApplicantEditProfile({
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => languagesAppend("")}
+                onClick={() => languagesAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add language</span>
@@ -465,7 +466,7 @@ export default function ApplicantEditProfile({
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`preferredLocations.${index}`}
+                    name={`preferredLocations.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`preferredLocations-${index}`} />
                     )}
@@ -487,7 +488,7 @@ export default function ApplicantEditProfile({
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => preferredLocationsAppend("")}
+                onClick={() => preferredLocationsAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add location</span>

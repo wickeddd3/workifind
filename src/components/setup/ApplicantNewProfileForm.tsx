@@ -267,7 +267,7 @@ export default function ApplicantNewProfileForm() {
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`skills.${index}`}
+                    name={`skills.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`skills-${index}`} />
                     )}
@@ -289,7 +289,7 @@ export default function ApplicantNewProfileForm() {
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => skillsAppend("")}
+                onClick={() => skillsAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add skill</span>
@@ -306,7 +306,7 @@ export default function ApplicantNewProfileForm() {
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`languages.${index}`}
+                    name={`languages.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`languages-${index}`} />
                     )}
@@ -328,7 +328,7 @@ export default function ApplicantNewProfileForm() {
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => languagesAppend("")}
+                onClick={() => languagesAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add language</span>
@@ -378,6 +378,7 @@ export default function ApplicantNewProfileForm() {
                     >
                       <FormControl>
                         <Checkbox
+                          id={`locationTypes-${item}`}
                           checked={(field.value || []).includes(item)}
                           onCheckedChange={(checked) => {
                             const newValue = checked
@@ -389,7 +390,12 @@ export default function ApplicantNewProfileForm() {
                           }}
                         />
                       </FormControl>
-                      <FormLabel className="font-normal">{item}</FormLabel>
+                      <FormLabel
+                        className="font-normal"
+                        htmlFor={`locationTypes-${item}`}
+                      >
+                        {item}
+                      </FormLabel>
                     </div>
                   ))}
                 </div>
@@ -413,6 +419,7 @@ export default function ApplicantNewProfileForm() {
                     >
                       <FormControl>
                         <Checkbox
+                          id={`employmentTypes-${item}`}
                           checked={(field.value || []).includes(item)}
                           onCheckedChange={(checked) => {
                             const newValue = checked
@@ -424,7 +431,12 @@ export default function ApplicantNewProfileForm() {
                           }}
                         />
                       </FormControl>
-                      <FormLabel className="font-normal">{item}</FormLabel>
+                      <FormLabel
+                        className="font-normal"
+                        htmlFor={`employmentTypes-${item}`}
+                      >
+                        {item}
+                      </FormLabel>
                     </div>
                   ))}
                 </div>
@@ -442,7 +454,7 @@ export default function ApplicantNewProfileForm() {
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`preferredLocations.${index}`}
+                    name={`preferredLocations.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`preferredLocations-${index}`} />
                     )}
@@ -464,7 +476,7 @@ export default function ApplicantNewProfileForm() {
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => preferredLocationsAppend("")}
+                onClick={() => preferredLocationsAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add location</span>

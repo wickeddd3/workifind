@@ -3,7 +3,9 @@ import { BadgeCheck, Briefcase, Mail, MapPin, Phone } from "lucide-react";
 import { Applicant } from "@prisma/client";
 
 interface ProfessionalDetailsProps {
-  professional: Applicant;
+  professional: Applicant & { skills: { name: string }[] } & {
+    languages: { name: string }[];
+  } & { preferredLocations: { name: string }[] };
 }
 
 export default function ProfessionalDetails({
@@ -70,13 +72,13 @@ export default function ProfessionalDetails({
           <div className="flex flex-col space-y-4">
             <h1 className="text-lg font-medium">Skills</h1>
             <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
+              {skills.map((skill, index) => (
                 <span
                   className="flex w-fit rounded-full bg-gray-100 px-2"
-                  key={skill}
+                  key={`${skill.name}-${index}`}
                 >
                   <span className="w-full p-2 text-sm font-semibold">
-                    {skill}
+                    {skill?.name}
                   </span>
                 </span>
               ))}
@@ -86,7 +88,9 @@ export default function ProfessionalDetails({
         {languages && languages.length > 0 && (
           <div className="flex flex-col space-y-4">
             <h1 className="text-lg font-medium">Languages</h1>
-            <span className="text-sm">{languages.join(", ")}</span>
+            <span className="text-sm">
+              {languages?.map((item) => item?.name).join(", ")}
+            </span>
           </div>
         )}
         <div className="flex flex-col space-y-4">
@@ -127,9 +131,9 @@ export default function ProfessionalDetails({
                 <h1 className="text-md font-medium">
                   Preferred location types
                 </h1>
-                {preferredLocations.map((location) => (
-                  <span className="text-sm" key={location}>
-                    {location}
+                {preferredLocations.map((location, index) => (
+                  <span className="text-sm" key={`${location}-${index}`}>
+                    {location?.name}
                   </span>
                 ))}
               </div>

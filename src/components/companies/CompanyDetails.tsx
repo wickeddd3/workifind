@@ -6,7 +6,7 @@ import { Employer } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface CompanyDetailsProps {
-  company: Employer;
+  company: Employer & { perks: { name: string }[] };
 }
 
 export default function CompanyDetails({
@@ -118,8 +118,8 @@ export default function CompanyDetails({
               <div className="flex flex-col space-y-4">
                 <h1 className="text-lg font-medium">Perks</h1>
                 <ul className="list-inside">
-                  {perks.map((item) => (
-                    <li key={item}>{item}</li>
+                  {perks.map((item, index) => (
+                    <li key={`${item}${index}`}>{item?.name}</li>
                   ))}
                 </ul>
               </div>

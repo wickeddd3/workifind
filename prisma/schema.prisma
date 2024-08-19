@@ -91,8 +91,8 @@ model Applicant {
   skills                            Json
   languages                         Json
   availability                      String
-  preferredEmploymentTypes          Json
-  preferredLocationTypes            Json
+  preferredEmploymentTypes          String[]
+  preferredLocationTypes            String[]
   preferredLocations                Json
   salaryExpectation                 Int
   user                              User              @relation(fields: [userId], references: [id])

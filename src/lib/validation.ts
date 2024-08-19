@@ -69,6 +69,10 @@ export const jobFilterSchema = z.object({
 
 export type JobFilterValues = z.infer<typeof jobFilterSchema>;
 
+export const employerPerkSchema = z.object({
+  name: z.string(),
+});
+
 export const createEmployerProfileSchema = z.object({
   companyName: requiredString.max(100),
   companyEmail: z.string().max(100).email().optional().or(z.literal("")),
@@ -81,12 +85,24 @@ export const createEmployerProfileSchema = z.object({
   location: z.string().max(100).optional(),
   about: z.string().max(8000).optional(),
   pitch: z.string().max(8000).optional(),
-  perks: z.array(z.string()).optional(),
+  perks: z.array(employerPerkSchema).optional(),
 });
 
 export type CreateEmployerProfileValues = z.infer<
   typeof createEmployerProfileSchema
 >;
+
+export const applicantSkillSchema = z.object({
+  name: z.string(),
+});
+
+export const applicantLanguageSchema = z.object({
+  name: z.string(),
+});
+
+export const applicantLocationSchema = z.object({
+  name: z.string(),
+});
 
 export const createApplicantProfileSchema = z.object({
   firstName: requiredString.max(100),
@@ -101,12 +117,12 @@ export const createApplicantProfileSchema = z.object({
   about: z.string().max(8000).optional(),
   profession: requiredString.max(100),
   experienced: requiredBoolean,
-  skills: z.array(z.string()).optional(),
-  languages: z.array(z.string()).optional(),
+  skills: z.array(applicantSkillSchema).optional(),
+  languages: z.array(applicantLanguageSchema).optional(),
   availability: requiredString.max(100),
   preferredEmploymentTypes: z.array(z.string()).optional(),
   preferredLocationTypes: z.array(z.string()).optional(),
-  preferredLocations: z.array(z.string()).optional(),
+  preferredLocations: z.array(applicantLocationSchema).optional(),
   salaryExpectation: z.preprocess((val) => Number(val), requiredNumeric),
 });
 

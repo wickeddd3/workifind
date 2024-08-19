@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 interface EmployerProfileProps {
-  employer: Employer;
+  employer: Employer & { perks: { name: string }[] };
 }
 
 export default function EmployerEditProfile({
@@ -82,7 +82,7 @@ export default function EmployerEditProfile({
   });
 
   async function onSubmit(values: CreateEmployerProfileValues) {
-    const formData = objectToFormData(values);
+    const formData = objectToFormData(values, ["companyLogo"]);
     const updatedEmployerProfile = await updateEmployerProfile(id, formData);
     if (updatedEmployerProfile) {
       router.push("/employer/profile");
@@ -225,7 +225,7 @@ export default function EmployerEditProfile({
                 <FormControl>
                   <Controller
                     control={control}
-                    name={`perks.${index}`}
+                    name={`perks.${index}.name`}
                     render={({ field }) => (
                       <Input {...field} id={`perks-${index}`} />
                     )}
@@ -247,7 +247,7 @@ export default function EmployerEditProfile({
                 variant="link"
                 size="sm"
                 className="flex items-center gap-2 px-0"
-                onClick={() => perksAppend("")}
+                onClick={() => perksAppend({ name: "" })}
               >
                 <PlusIcon size="16px" />
                 <span className="text-xs">Add perks</span>

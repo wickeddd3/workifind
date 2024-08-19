@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 
 interface CompanyDetailsProps {
-  employer: Employer;
+  employer: Employer & { perks: { name: string }[] };
 }
 
 export default function EmployerDetails({
@@ -122,8 +122,8 @@ export default function EmployerDetails({
               <div className="flex flex-col space-y-4">
                 <h1 className="text-lg font-medium">Perks</h1>
                 <ul className="list-inside">
-                  {perks.map((item) => (
-                    <li key={item}>{item}</li>
+                  {perks.map((item, index) => (
+                    <li key={`${item}-${index}`}>{item?.name}</li>
                   ))}
                 </ul>
               </div>

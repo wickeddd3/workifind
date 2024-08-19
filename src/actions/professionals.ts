@@ -44,7 +44,16 @@ export async function getProfessional(id: number) {
     const responseBody = await response.json();
     const { professional } = responseBody;
 
-    return professional;
+    return {
+      ...professional,
+      skills: professional?.skills.map((item: string) => JSON.parse(item)),
+      languages: professional?.languages.map((item: string) =>
+        JSON.parse(item),
+      ),
+      preferredLocations: professional?.preferredLocations.map((item: string) =>
+        JSON.parse(item),
+      ),
+    };
   }
 
   return null;

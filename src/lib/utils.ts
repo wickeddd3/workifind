@@ -27,3 +27,17 @@ export function toSlug(str: string) {
     .replace(/ /g, "-")
     .replace(/[^\w-]+/g, "");
 }
+
+export function parseField(field: FormDataEntryValue) {
+  if (typeof field === "string" && field) {
+    try {
+      return JSON.parse(field).filter(
+        (item: { name: string }) => item.name && item.name.trim() !== "",
+      );
+    } catch (e) {
+      console.error(`Failed to parse field: ${field}`, e);
+      return [];
+    }
+  }
+  return [];
+}

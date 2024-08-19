@@ -44,7 +44,10 @@ export async function getCompany(slug: string) {
     const responseBody = await response.json();
     const { company } = responseBody;
 
-    return company;
+    return {
+      ...company,
+      perks: company?.perks.map((item: string) => JSON.parse(item)),
+    };
   }
 
   return null;

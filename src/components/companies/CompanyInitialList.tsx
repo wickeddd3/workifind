@@ -5,7 +5,7 @@ import ViewMoreButton from "@/components/ViewMoreButton";
 
 interface CompanyInitialListProps {
   companies: Employer[];
-  hasSeeMoreButton: boolean;
+  hasSeeMoreButton?: boolean;
 }
 
 export default function CompanyInitialList({

@@ -13,20 +13,24 @@ import {
 interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
+  userLoading: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [userLoading, setUserLoading] = useState(true);
 
   const handleFetchUser = async () => {
     const user = await getUser();
-
+    setUserLoading(true);
     if (user) {
       setUser(user);
+      setUserLoading(false);
     } else {
       setUser(null);
+      setUserLoading(false);
     }
   };
 
@@ -37,7 +41,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, userLoading }}>
       {children}
     </UserContext.Provider>
   );

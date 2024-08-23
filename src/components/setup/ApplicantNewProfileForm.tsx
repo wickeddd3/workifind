@@ -52,7 +52,7 @@ export default function ApplicantNewProfileForm() {
     preferredEmploymentTypes: [],
     preferredLocationTypes: [],
     preferredLocations: [],
-    salaryExpectation: 0,
+    salaryExpectation: "",
   };
 
   const form = useForm<CreateApplicantProfileValues>({
@@ -213,11 +213,7 @@ export default function ApplicantNewProfileForm() {
                 <FormItem className="grow">
                   <FormLabel>Salary expectation</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                    />
+                    <Input {...field} type="number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

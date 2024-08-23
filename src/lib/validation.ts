@@ -142,7 +142,14 @@ export const createApplicantProfileSchema = z.object({
   preferredEmploymentTypes: z.array(z.string()).optional(),
   preferredLocationTypes: z.array(z.string()).optional(),
   preferredLocations: z.array(applicantLocationSchema).optional(),
-  salaryExpectation: z.preprocess((val) => Number(val), requiredNumeric),
+  salaryExpectation: z
+    .union([
+      z.string().optional(),
+      requiredNumeric.nonnegative(
+        "Salary expectation must be a non-negative number",
+      ),
+    ])
+    .transform((val) => (val === "" ? 0 : val)),
 });
 
 export type CreateApplicantProfileValues = z.infer<

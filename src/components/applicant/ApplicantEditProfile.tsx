@@ -237,11 +237,7 @@ export default function ApplicantEditProfile({
                 <FormItem className="grow">
                   <FormLabel>Salary expectation</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                    />
+                    <Input type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

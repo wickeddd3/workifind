@@ -1,4 +1,4 @@
-interface IconNoSelectedProps {
+interface IllustrationProps {
   width?: number;
   height?: number;
   className?: string;
@@ -8,7 +8,7 @@ export default function IllustrationJobOffer({
   width = 200,
   height = 200,
   className = "",
-}: IconNoSelectedProps) {
+}: IllustrationProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

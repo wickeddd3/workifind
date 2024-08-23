@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useUser } from "@/contexts/UserContext";
 import { useMemo } from "react";
+import { clerkSignInUrl } from "@/lib/clerk";
 
 export default function Navbar() {
   const { user } = useUser();
@@ -55,7 +56,9 @@ export default function Navbar() {
             </Button>
           )}
           <SignedOut>
-            <SignInButton />
+            <Button asChild className="bg-[#3366FF] hover:bg-[#254EDB]">
+              <a href={clerkSignInUrl}>Sign In</a>
+            </Button>
           </SignedOut>
           <SignedIn>
             <UserButton />

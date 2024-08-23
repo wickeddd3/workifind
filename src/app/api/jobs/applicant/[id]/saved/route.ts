@@ -11,7 +11,11 @@ export async function GET(
     const savedJobs = await prisma.savedJob.findMany({
       where: { applicantId: parseInt(id) },
       include: {
-        job: true,
+        job: {
+          include: {
+            employer: true,
+          },
+        },
       },
     });
 

@@ -1,53 +1,66 @@
-import ViewMoreButton from "@/components/ViewMoreButton";
+"use client";
+
+import { getApplicant } from "@/actions/applicants";
+import { getApplicantSavedJobs } from "@/actions/savedJobs";
+import { useUser } from "@/contexts/UserContext";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import SavedJobs from "@/components/home/saved/SavedJobs";
+import SavedJobsEmptyPlaceholder from "@/components/home/saved/SavedJobsEmptyPlaceholder";
+import { Applicant, Employer, Job, SavedJob } from "@prisma/client";
+import SavedJobsUnauthenticated from "@/components/home/saved/SavedJobsUnauthenticated";
+import SavedJobsLoadingPlaceholder from "@/components/home/saved/SavedJobsLoadingPlaceholder";
 
 export default function HomeInitialSavedJobs() {
-  const savedJobs = [
-    {
-      title: "Senior Frontend Developer | Work from Home",
-      companyName: "Accenture Philippines",
+  const { user, userLoading } = useUser();
+  const [applicant, setApplicant] = useState<Applicant | null>(null);
+  const [savedJobs, setSavedJobs] = useState<
+    (SavedJob & { job: Job & { employer: Employer } })[]
+  >([]);
+
+  const hasJobs = useMemo(() => savedJobs && savedJobs.length > 0, [savedJobs]);
+  const isApplicant = useMemo(() => user && user.role === "APPLICANT", [user]);
+
+  const handleGetApplicant = useCallback(
+    async (id: number) => await getApplicant(id),
+    [],
+  );
+
+  const handleGetSavedJobs = useCallback(
+    async (id: number) => await getApplicantSavedJobs(id),
+    [],
+  );
+
+  const handleGetApplicantSavedJobs = useCallback(
+    async (userId: number) => {
+      const applicant = await handleGetApplicant(userId);
+      setApplicant(applicant);
+      if (applicant) {
+        const savedJobs = await handleGetSavedJobs(applicant.id);
+        setSavedJobs(savedJobs);
+      }
     },
-    {
-      title: "Frontend Developer (Angular)",
-      companyName: "Accenture Philippines",
-    },
-    {
-      title: "Front End Web Developer | Hybrid | Night Shift",
-      companyName: "Accenture Philippines",
-    },
-    {
-      title: "Software Application Developer (Web)",
-      companyName: "Accenture Philippines",
-    },
-    {
-      title: "Software Engineer (Front-End)",
-      companyName: "Accenture Philippines",
-    },
-    {
-      title:
-        "React Developer (ReactJS / React Native / Node.js) (WFH - Work From Home)",
-      companyName: "Accenture Philippines",
-    },
-  ];
+    [handleGetApplicant, handleGetSavedJobs],
+  );
+
+  useEffect(() => {
+    if (user && user?.id) {
+      handleGetApplicantSavedJobs(user.id);
+    }
+  }, [user, handleGetApplicantSavedJobs]);
+
   return (
     <section className="w-full py-8">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold text-gray-900">Saved jobs</h1>
-        <div className="flex w-full flex-wrap justify-between gap-4">
-          {savedJobs.map((job) => (
-            <div
-              key={job.title}
-              className="flex h-[100px] w-full cursor-pointer flex-col justify-center rounded-xl border-2 border-gray-100 bg-white p-4 hover:bg-gray-50 md:w-[48%]"
-            >
-              <h2 className="truncate text-lg font-medium">{job.title}</h2>
-              <h3 className="text-md truncate font-medium text-muted-foreground">
-                {job.companyName}
-              </h3>
-            </div>
-          ))}
-        </div>
-        <ViewMoreButton text="View all" route="" />
-      </div>
-      {/* <p>Sign in to manage your Applicant Profile, save searches and view your saved jobs.</p> */}
+      {user && isApplicant && applicant && hasJobs && (
+        <SavedJobs savedJobs={savedJobs} />
+      )}
+      {user && isApplicant && applicant && !hasJobs && (
+        <SavedJobsEmptyPlaceholder />
+      )}
+      {user && !isApplicant && (
+        <SavedJobsEmptyPlaceholder message="Only applicant can only save jobs" />
+      )}
+      {!user && !userLoading && <SavedJobsUnauthenticated />}
+      {userLoading && <SavedJobsLoadingPlaceholder />}
     </section>
   );
 }

@@ -51,8 +51,8 @@ export default function EditJobForm({
     employmentType,
     locationType,
     description: description ?? "",
-    minSalary: minSalary ?? 0,
-    maxSalary: maxSalary ?? 0,
+    minSalary: minSalary ?? "",
+    maxSalary: maxSalary ?? "",
     location: location ?? "",
   };
 
@@ -208,13 +208,7 @@ export default function EditJobForm({
                     <FormItem className="grow">
                       <FormLabel>Minimum salary</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                        />
+                        <Input type="number" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -227,13 +221,7 @@ export default function EditJobForm({
                     <FormItem className="grow">
                       <FormLabel>Maximum salary</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                        />
+                        <Input type="number" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

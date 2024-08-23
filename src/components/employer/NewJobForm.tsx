@@ -35,8 +35,8 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
     title: "",
     employmentType: "",
     description: "",
-    minSalary: 0,
-    maxSalary: 0,
+    minSalary: "",
+    maxSalary: "",
     location: "",
     locationType: "",
   };
@@ -193,13 +193,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                     <FormItem className="grow">
                       <FormLabel>Minimum salary</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                        />
+                        <Input type="number" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -212,13 +206,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
                     <FormItem className="grow">
                       <FormLabel>Maximum salary</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                        />
+                        <Input type="number" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -46,17 +46,36 @@ export const createJobSchema = z
     ),
     description: z.string().max(5000).optional(),
     minSalary: z
-      .number()
-      .min(0, { message: "Minimum salary must be greater than or equal to 0" }),
+      .union([
+        z.string().optional(),
+        z.number().nonnegative("Minimum salary must be a non-negative number"),
+      ])
+      .transform((val) => (val === "" ? 0 : val)),
     maxSalary: z
-      .number()
-      .min(0, { message: "Maximum salary must be greater than or equal to 0" }),
+      .union([
+        z.string().optional(),
+        z.number().nonnegative("Maximum salary must be a non-negative number"),
+      ])
+      .transform((val) => (val === "" ? 0 : val)),
   })
   .and(locationSchema)
-  .refine((data) => Number(data.maxSalary) >= Number(data.minSalary), {
-    message: "Maximum salary must be greater than or equal to minimum salary",
-    path: ["maxSalary"],
-  });
+  .refine(
+    (data) => {
+      const { minSalary, maxSalary } = data;
+      if (minSalary === 0 && maxSalary === 0) {
+        return true; // Skip validation if both are 0
+      }
+      if (Number(minSalary) <= Number(maxSalary)) {
+        return true; // Skip validation if minSalary is less than or equal to maxSalary
+      }
+      return false;
+    },
+    {
+      message:
+        "Both minimum and maximum salary must be filled or both should be empty and maximum salary must be greater than or equal to minimum salary",
+      path: ["minSalary"],
+    },
+  );
 
 export type CreateJobValues = z.infer<typeof createJobSchema>;
 

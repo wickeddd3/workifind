@@ -31,9 +31,36 @@ export default async function JobResults({
     ? {
         OR: [
           { title: { search: searchString } },
-          { employmentType: { search: searchString } },
-          { locationType: { search: searchString } },
           { location: { search: searchString } },
+        ],
+      }
+    : {};
+
+  const salaryInt = parseInt(salary || "");
+
+  const salaryFilter: Prisma.JobWhereInput = salaryInt
+    ? {
+        OR: [
+          {
+            minSalary: {
+              lte: salaryInt, // Find jobs where minSalary is less than or equal to the input salary
+            },
+            maxSalary: {
+              gte: salaryInt, // And maxSalary is greater than or equal to the input salary
+            },
+          },
+          {
+            minSalary: 0, // Handle cases where minSalary is not set (optional)
+            maxSalary: {
+              gte: salaryInt, // maxSalary is greater than or equal to the input salary
+            },
+          },
+          {
+            minSalary: {
+              lte: salaryInt, // Find jobs where minSalary is less than or equal to the input salary
+            },
+            maxSalary: 0, // Handle cases where maxSalary is not set (optional)
+          },
         ],
       }
     : {};
@@ -41,8 +68,8 @@ export default async function JobResults({
   const where: Prisma.JobWhereInput = {
     AND: [
       searchFilter,
+      salaryFilter,
       employmentType ? { employmentType } : {},
-      // location ? { location } : {},
       locationType ? { locationType } : {},
       { approved: true },
     ],

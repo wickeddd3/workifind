@@ -1,7 +1,13 @@
+"use client";
+
 import { Employer } from "@prisma/client";
 import CompanyInitialListItem from "@/components/companies/CompanyInitialListItem";
-import Link from "next/link";
 import ViewMoreButton from "@/components/ViewMoreButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 interface CompanyInitialListProps {
   companies: Employer[];
@@ -21,11 +27,21 @@ export default function CompanyInitialList({
         Learn about new jobs and company culture.
       </h5>
       <div className="flex py-4">
-        {companies.map((company) => (
-          <Link href={`/companies/${company.slug}`} key={company.slug}>
-            <CompanyInitialListItem company={company} />
-          </Link>
-        ))}
+        <Swiper
+          slidesPerView={4}
+          spaceBetween={15}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="w-full [&_>_.swiper-wrapper]:py-8"
+        >
+          {companies.map((company) => (
+            <SwiperSlide key={company.slug}>
+              <CompanyInitialListItem company={company} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
       {hasSeeMoreButton && <ViewMoreButton text="See more" route="" />}
     </section>

@@ -47,6 +47,25 @@ export async function searchCompanies({
   return null;
 }
 
+export async function searchCompaniesCount(q: string) {
+  const params = {
+    q: q?.toString() || "",
+  };
+  const queryParams = new URLSearchParams(params).toString();
+
+  const response = await fetch(
+    `${baseUrl}/api/companies/search/count?${queryParams}`,
+  );
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { companiesCount } = responseBody;
+    return companiesCount;
+  }
+
+  return null;
+}
+
 export async function getCompany(slug: string) {
   const response = await fetch(`${baseUrl}/api/companies/${slug}`);
 

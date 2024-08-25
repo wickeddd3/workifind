@@ -33,7 +33,7 @@ export default function ProfessionalFilter() {
             id="q"
             name="q"
             type="text"
-            placeholder="Search by company name"
+            placeholder="Search by profession"
             className="w-full"
           />
           <Button className="bg-[#3366FF] hover:bg-[#254EDB]">Search</Button>

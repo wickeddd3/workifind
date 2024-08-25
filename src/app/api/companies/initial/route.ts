@@ -5,7 +5,7 @@ import { type NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const takeParam = searchParams.get("take") ?? "0";
-  const take = parseInt(takeParam) || 5;
+  const take = parseInt(takeParam) || 8;
 
   try {
     const employers = await prisma.employer.findMany({

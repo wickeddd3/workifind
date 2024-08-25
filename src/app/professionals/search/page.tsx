@@ -5,10 +5,11 @@ import { ProfessionalFilterValues } from "@/lib/validation";
 interface PageProps {
   searchParams: {
     q?: string;
+    page?: string;
   };
 }
 
-export default function Page({ searchParams: { q } }: PageProps) {
+export default function Page({ searchParams: { q, page } }: PageProps) {
   const filterValues: ProfessionalFilterValues = {
     q,
   };
@@ -16,7 +17,10 @@ export default function Page({ searchParams: { q } }: PageProps) {
   return (
     <main className="m-auto mb-10 max-w-2xl space-y-6">
       <ProfessionalSearchFilter filterValues={filterValues} />
-      <ProfessionalSearchResults filterValues={filterValues} />
+      <ProfessionalSearchResults
+        filterValues={filterValues}
+        page={page ? parseInt(page) : undefined}
+      />
     </main>
   );
 }

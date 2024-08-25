@@ -47,6 +47,25 @@ export async function searchProfessionals({
   return null;
 }
 
+export async function searchProfessionalsCount(q: string) {
+  const params = {
+    q: q?.toString() || "",
+  };
+  const queryParams = new URLSearchParams(params).toString();
+
+  const response = await fetch(
+    `${baseUrl}/api/professionals/search/count?${queryParams}`,
+  );
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { professionalsCount } = responseBody;
+    return professionalsCount;
+  }
+
+  return null;
+}
+
 export async function getProfessional(id: number) {
   const response = await fetch(`${baseUrl}/api/professionals/${id}`);
 

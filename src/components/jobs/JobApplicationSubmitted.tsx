@@ -2,8 +2,8 @@
 
 import { Employer, Job } from "@prisma/client";
 import Image from "next/image";
-import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import Link from "next/link";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface JobApplicationSubmittedProps {
   job: Job & { employer: Employer };
@@ -22,7 +22,7 @@ export default function JobApplicationForm({
         {companyName && (
           <div className="rounded-xl border-2 border-gray-200">
             <Image
-              src={companyLogoUrl || companyLogoPlaceholder}
+              src={companyLogoUrl || noCompanyLogo}
               alt={`${companyName} logo`}
               width={140}
               height={140}

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import {
   Banknote,
   Clock,
@@ -11,6 +10,7 @@ import Badge from "@/components/Badge";
 import { Employer, Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import Link from "next/link";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface JobItemProps {
   job: Job & { employer: Employer };
@@ -41,7 +41,7 @@ export default function JobItem({
       <div className="flex-grow space-y-3">
         {companyName && (
           <Image
-            src={companyLogoUrl || companyLogoPlaceholder}
+            src={companyLogoUrl || noCompanyLogo}
             alt={`${companyName} logo`}
             width={100}
             height={70}

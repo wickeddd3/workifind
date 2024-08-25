@@ -1,7 +1,7 @@
 import Image from "next/image";
-import imageLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { Employer } from "@prisma/client";
 import Link from "next/link";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface CompanyInitialListItemProps {
   company: Employer;
@@ -14,9 +14,9 @@ export default function CompanyInitialListItem({
     <Link href={`/companies/${slug}`}>
       <div className="flex h-[224px] min-w-[250px] flex-col space-y-2 rounded-lg bg-gray-50 p-4 shadow-sm hover:bg-gray-100">
         <Image
-          src={companyLogoUrl || imageLogoPlaceholder}
-          width={100}
-          height={100}
+          src={companyLogoUrl || noCompanyLogo}
+          width={80}
+          height={80}
           alt="Company logo"
         />
         <div className="flex flex-col gap-2">

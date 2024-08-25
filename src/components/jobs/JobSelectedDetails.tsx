@@ -1,12 +1,12 @@
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
-import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import Link from "next/link";
 import Markdown from "@/components/Markdown";
 import { Employer, Job, JobApplication } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface JobSelectedDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
@@ -39,7 +39,7 @@ export default function JobSelectedDetails({
       <div className="flex flex-col gap-3">
         {companyName && (
           <Image
-            src={companyLogoUrl || companyLogoPlaceholder}
+            src={companyLogoUrl || noCompanyLogo}
             alt={`${companyName} logo`}
             width={140}
             height={140}

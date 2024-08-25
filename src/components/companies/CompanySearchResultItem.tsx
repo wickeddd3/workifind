@@ -1,6 +1,6 @@
 import Image from "next/image";
-import imageLogoPlaceholder from "@/assets/workifind-logo.svg";
 import { Employer } from "@prisma/client";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface CompanySearchResultItemProps {
   company: Employer;
@@ -12,7 +12,7 @@ export default function CompanySearchResultItem({
   return (
     <article className="flex cursor-pointer items-center space-x-4 rounded-md border-2 border-gray-100 p-2 hover:bg-gray-50">
       <Image
-        src={companyLogoUrl || imageLogoPlaceholder}
+        src={companyLogoUrl || noCompanyLogo}
         width={120}
         height={100}
         alt={companyName}

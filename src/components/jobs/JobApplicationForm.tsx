@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Applicant, Employer, Job } from "@prisma/client";
 import Image from "next/image";
-import companyLogoPlaceholder from "@/assets/workifind-logo.svg";
 import {
   Form,
   FormControl,
@@ -25,6 +24,7 @@ import { useUser } from "@/contexts/UserContext";
 import { getApplicant } from "@/actions/applicants";
 import { BadgeCheck, Briefcase, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import { noCompanyLogo } from "@/lib/logo";
 
 interface JobApplicationFormProps {
   job: Job & { employer: Employer };
@@ -102,7 +102,7 @@ export default function JobApplicationForm({
         {companyName && (
           <div className="rounded-xl border-2 border-gray-200">
             <Image
-              src={companyLogoUrl || companyLogoPlaceholder}
+              src={companyLogoUrl || noCompanyLogo}
               alt={`${companyName} logo`}
               width={140}
               height={140}

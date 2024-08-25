@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
 
   try {
     const employersCount = await prisma.employer.count({
-      orderBy: { createdAt: "desc" },
       where: {
         companyName: {
           contains: queryParam,

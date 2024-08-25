@@ -18,9 +18,19 @@ export async function getInitialProfessionals(initialNumber?: number | string) {
   return null;
 }
 
-export async function searchProfessionals(q: string) {
+export async function searchProfessionals({
+  query,
+  take,
+  skip,
+}: {
+  query: string;
+  take: number;
+  skip: number;
+}) {
   const params = {
-    q: q?.toString() || "",
+    q: query?.toString() || "",
+    take: take?.toString() ?? "10",
+    skip: skip?.toString() ?? "0",
   };
   const queryParams = new URLSearchParams(params).toString();
 

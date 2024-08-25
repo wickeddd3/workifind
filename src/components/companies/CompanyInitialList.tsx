@@ -43,7 +43,9 @@ export default function CompanyInitialList({
           ))}
         </Swiper>
       </div>
-      {hasSeeMoreButton && <ViewMoreButton text="See more" route="" />}
+      {hasSeeMoreButton && (
+        <ViewMoreButton text="See more" route="/companies" />
+      )}
     </section>
   );
 }

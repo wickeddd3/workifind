@@ -16,7 +16,7 @@ export default function ProfessionalSearchResultItem({
   },
 }: ProfessionalSearchResultItemProps) {
   return (
-    <article className="flex cursor-pointer items-center space-x-4 rounded-md border-2 border-gray-100 p-2 hover:bg-gray-50">
+    <article className="flex cursor-pointer items-center space-x-4 rounded-md border-2 border-gray-100 p-4 hover:bg-gray-50">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           <h3 className="text-md font-semibold">{`${firstName} ${lastName}`}</h3>

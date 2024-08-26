@@ -10,7 +10,6 @@ import Badge from "@/components/Badge";
 import { Employer, Job } from "@prisma/client";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import Link from "next/link";
-import { noCompanyLogo } from "@/lib/logo";
 
 interface JobItemProps {
   job: Job & { employer: Employer };
@@ -39,9 +38,9 @@ export default function JobItem({
   return (
     <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
-        {companyName && (
+        {companyLogoUrl && (
           <Image
-            src={companyLogoUrl || noCompanyLogo}
+            src={companyLogoUrl}
             alt={`${companyName} logo`}
             width={100}
             height={70}

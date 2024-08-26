@@ -1,15 +1,24 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import ApplicantJobApplications from "@/components/applicant/ApplicantJobApplications";
 import { getApplicantJobApplications } from "@/actions/jobApplications";
 import { getApplicant } from "@/actions/applicants";
+import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
+import { Job, JobApplication } from "@prisma/client";
 
 export default function Page() {
   const { user } = useUser();
   const [applicant, setApplicant] = useState(null);
-  const [jobApplications, setJobApplications] = useState(null);
+  const [jobApplications, setJobApplications] = useState<
+    (JobApplication & { job: Job })[] | null
+  >(null);
+
+  const hasEmptyJobApplications = useMemo(
+    () => jobApplications && jobApplications.length === 0,
+    [jobApplications],
+  );
 
   const handleGetApplicant = useCallback(
     async (id: number) => await getApplicant(id),
@@ -40,9 +49,13 @@ export default function Page() {
   }, [user, handleGetApplicantJobApplications]);
 
   return (
-    applicant &&
-    jobApplications && (
-      <ApplicantJobApplications jobApplications={jobApplications} />
-    )
+    <>
+      {applicant && jobApplications && (
+        <ApplicantJobApplications jobApplications={jobApplications} />
+      )}
+      {applicant && hasEmptyJobApplications && (
+        <ApplicantJobsEmptyPlaceholder message="No job applications found" />
+      )}
+    </>
   );
 }

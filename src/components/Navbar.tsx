@@ -6,6 +6,7 @@ import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 import { useUser } from "@/contexts/UserContext";
 import { useMemo } from "react";
 import Image from "next/image";
+import PostJobButton from "@/components/jobs/PostJobButton";
 
 export default function Navbar() {
   const { user } = useUser();
@@ -22,8 +23,6 @@ export default function Navbar() {
     }
     return "/";
   }, [user]);
-
-  const isEmployer = useMemo(() => user?.role === "EMPLOYER", [user]);
 
   return (
     <header>
@@ -53,11 +52,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex gap-2">
-          {isEmployer && (
-            <Button asChild className="bg-[#3366FF] hover:bg-[#254EDB]">
-              <Link href="/employer/jobs/new">Post a job</Link>
-            </Button>
-          )}
+          <PostJobButton />
           <SignedOut>
             <SignInButton>
               <Button className="bg-[#3366FF] hover:bg-[#254EDB]">

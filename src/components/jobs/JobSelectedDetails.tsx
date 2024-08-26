@@ -35,7 +35,7 @@ export default function JobSelectedDetails({
   };
 
   return (
-    <section className="w-full grow space-y-5">
+    <section className="w-full grow space-y-5 px-4">
       <div className="flex flex-col gap-3">
         {companyName && (
           <Image

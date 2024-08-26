@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 import { useUser } from "@/contexts/UserContext";
 import { useMemo } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const { user } = useUser();
@@ -28,9 +29,12 @@ export default function Navbar() {
     <header>
       <nav className="m-auto flex max-w-7xl items-center justify-between px-3 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="font-mono text-2xl font-semibold tracking-wider">
-            workifind
-          </span>
+          <Image
+            src="/workifind-logo.png"
+            width={140}
+            height={40}
+            alt="workifind logo"
+          />
         </Link>
         <div className="hidden gap-6 md:flex">
           <Link href="/jobs" className="flex items-center gap-3">

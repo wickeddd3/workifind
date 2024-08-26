@@ -49,27 +49,35 @@ export default function JobSelectedDetails({
             </Link>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
-            <p className="flex items-center gap-1.5">
-              <Briefcase size={16} className="shrink-0" />
-              {employmentType}
-            </p>
-            <p className="flex items-center gap-1.5">
-              <MapPin size={16} className="shrink-0" />
-              {locationType}
-            </p>
-            <p className="flex items-center gap-1.5">
-              <Globe2 size={16} className="shrink-0" />
-              {location}
-            </p>
+            {employmentType && (
+              <p className="flex items-center gap-1.5">
+                <Briefcase size={16} className="shrink-0" />
+                {employmentType}
+              </p>
+            )}
+            {locationType && (
+              <p className="flex items-center gap-1.5">
+                <MapPin size={16} className="shrink-0" />
+                {locationType}
+              </p>
+            )}
+            {location && (
+              <p className="flex items-center gap-1.5">
+                <Globe2 size={16} className="shrink-0" />
+                {location}
+              </p>
+            )}
             {hasJobSalary(job) && (
               <p className="flex items-center gap-1.5">
                 <Banknote size={16} className="shrink-0" />
                 {getJobSalary(job)}
               </p>
             )}
-            <p className="flex items-center gap-1.5 text-sm">
-              {`Posted ${relativeDate(createdAt)}`}
-            </p>
+            {createdAt && (
+              <p className="flex items-center gap-1.5 text-sm">
+                {`Posted ${relativeDate(createdAt)}`}
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-4">
             <ApplyButton job={job} />

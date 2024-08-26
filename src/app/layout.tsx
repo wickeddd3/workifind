@@ -26,12 +26,14 @@ export default function RootLayout({
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      signInFallbackRedirectUrl={
+      signInForceRedirectUrl={
         process.env.NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL
       }
-      signUpFallbackRedirectUrl={
+      signUpForceRedirectUrl={
         process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL
       }
+      signInUrl="https://workifind.vercel.app/sign-in"
+      signUpUrl="https://workifind.vercel.app/sign-up"
     >
       <html lang="en">
         <body className={`${inter.className} min-w-[350px]`}>

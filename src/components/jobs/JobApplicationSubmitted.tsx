@@ -18,17 +18,15 @@ export default function JobApplicationForm({
 }: JobApplicationSubmittedProps) {
   return (
     <section className="w-full grow space-y-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center gap-8">
         {companyName && (
-          <div className="rounded-xl border-2 border-gray-200">
-            <Image
-              src={companyLogoUrl || noCompanyLogo}
-              alt={`${companyName} logo`}
-              width={140}
-              height={140}
-              className="rounded-xl"
-            />
-          </div>
+          <Image
+            src={companyLogoUrl || noCompanyLogo}
+            alt={`${companyName} logo`}
+            width={140}
+            height={140}
+            className="rounded-xl"
+          />
         )}
         <div className="flex flex-col gap-2">
           <h6 className="sm:text-md text-sm font-normal text-muted-foreground">

@@ -7,6 +7,7 @@ import { getApplicantJobApplications } from "@/actions/jobApplications";
 import { getApplicant } from "@/actions/applicants";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
 import { Job, JobApplication } from "@prisma/client";
+import ApplicantJobsLoadingPlaceholder from "@/components/applicant/ApplicantJobsLoadingPlaceholder";
 
 export default function Page() {
   const { user } = useUser();
@@ -52,6 +53,9 @@ export default function Page() {
     <>
       {applicant && jobApplications && (
         <ApplicantJobApplications jobApplications={jobApplications} />
+      )}
+      {!applicant && !hasEmptyJobApplications && (
+        <ApplicantJobsLoadingPlaceholder />
       )}
       {applicant && hasEmptyJobApplications && (
         <ApplicantJobsEmptyPlaceholder message="No job applications found" />

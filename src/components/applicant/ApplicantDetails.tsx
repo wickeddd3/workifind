@@ -60,7 +60,10 @@ export default function ApplicantDetails({
             <span className="text-sm">{phoneNumber}</span>
           </p>
         )}
-        <Button className="w-fit px-8 text-sm" asChild>
+        <Button
+          className="w-fit bg-[#3366FF] px-8 text-sm hover:bg-[#3366FF]"
+          asChild
+        >
           <Link href="/applicant/profile/edit">Edit Profile</Link>
         </Button>
       </div>

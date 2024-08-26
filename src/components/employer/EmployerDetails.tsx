@@ -60,7 +60,10 @@ export default function EmployerDetails({
             </Link>
           </h6>
         )}
-        <Button className="w-fit px-8 text-sm" asChild>
+        <Button
+          className="w-fit bg-[#3366FF] px-8 text-sm hover:bg-[#3366FF]"
+          asChild
+        >
           <Link href="/employer/profile/edit">Edit Profile</Link>
         </Button>
       </div>

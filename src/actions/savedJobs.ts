@@ -12,3 +12,18 @@ export async function getApplicantSavedJobs(id: number) {
 
   return null;
 }
+
+export async function getApplicantInitialSavedJobs(id: number) {
+  const response = await fetch(
+    `${baseUrl}/api/jobs/applicant/${id}/saved/initial`,
+  );
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { savedJobs } = responseBody;
+
+    return savedJobs;
+  }
+
+  return null;
+}

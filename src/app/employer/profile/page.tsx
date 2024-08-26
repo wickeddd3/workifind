@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import { getEmployer } from "@/actions/employers";
 import EmployerDetails from "@/components/employer/EmployerDetails";
+import EmployerDetailsLoadingPlaceholder from "@/components/employer/EmployerDetailsLoadingPlaceholder";
 
 export default function Page() {
   const { user } = useUser();
@@ -20,5 +21,9 @@ export default function Page() {
     }
   }, [user, handleGetEmployer]);
 
-  return employer && <EmployerDetails employer={employer} />;
+  return employer ? (
+    <EmployerDetails employer={employer} />
+  ) : (
+    <EmployerDetailsLoadingPlaceholder />
+  );
 }

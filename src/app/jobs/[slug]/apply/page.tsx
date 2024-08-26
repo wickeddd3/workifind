@@ -2,7 +2,8 @@
 
 import { getApplicant } from "@/actions/applicants";
 import { getJob } from "@/actions/jobs";
-import JobApplicationForm from "@/components/jobs/JobApplicationForm";
+import JobApplicationForm from "@/components/jobs/JobApplication/JobApplicationForm";
+import LoadingPlaceholder from "@/components/jobs/JobApplication/LoadingPlaceholder";
 import { useUser } from "@/contexts/UserContext";
 import { Applicant, Job, JobApplication } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -63,6 +64,7 @@ export default function Page({ params: { slug } }: PageProps) {
     <main className="mx-auto max-w-4xl p-4">
       <div className="h-full">
         {job && !hasApplication && <JobApplicationForm job={job} />}
+        {!job && <LoadingPlaceholder />}
       </div>
     </main>
   );

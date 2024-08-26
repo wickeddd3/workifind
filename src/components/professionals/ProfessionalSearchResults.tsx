@@ -8,6 +8,7 @@ import { ProfessionalFilterValues } from "@/lib/validation";
 import { Applicant } from "@prisma/client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import ProfessionalSearchEmptyPlaceholder from "@/components/professionals/ProfessionalSearchEmptyPlaceholder";
 
 interface ProfessionalSearchResultsProps {
   filterValues: ProfessionalFilterValues;
@@ -44,9 +45,7 @@ export default async function ProfessionalSearchResults({
           </Link>
         ))}
       </div>
-      {professionals.length === 0 && (
-        <p className="m-auto text-center">No professionals found.</p>
-      )}
+      {professionals.length === 0 && <ProfessionalSearchEmptyPlaceholder />}
       {professionals.length > 0 && (
         <Pagination
           currentPage={page}

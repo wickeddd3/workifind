@@ -5,7 +5,7 @@ import Image from "next/image";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
-import { noCompanyLogo } from "@/lib/logo";
+import Link from "next/link";
 
 interface JobDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
@@ -21,7 +21,7 @@ export default function JobDetails({
     minSalary,
     maxSalary,
     createdAt,
-    employer: { companyName, companyLogoUrl },
+    employer: { slug: companySlug, companyName, companyLogoUrl },
   },
   job,
 }: JobDetailsProps) {
@@ -35,9 +35,9 @@ export default function JobDetails({
   return (
     <section className="w-full grow space-y-5">
       <div className="flex flex-col gap-3">
-        {companyName && (
+        {companyLogoUrl && (
           <Image
-            src={companyLogoUrl || noCompanyLogo}
+            src={companyLogoUrl}
             alt={`${companyName} logo`}
             width={140}
             height={140}
@@ -47,18 +47,11 @@ export default function JobDetails({
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-bold">{title}</h1>
-            {/* <p className="text-xl font-semibold">
-              {applicationUrl ? (
-                <Link
-                  href={new URL(applicationUrl).origin}
-                  className="hover:underline"
-                >
-                  {companyName}
-                </Link>
-              ) : (
-                <span>{companyName}</span>
-              )}
-            </p> */}
+            <Link href={`/companies/${companySlug}`}>
+              <h3 className="text-xl font-medium text-muted-foreground hover:underline">
+                {companyName}
+              </h3>
+            </Link>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
             <p className="flex items-center gap-1.5">

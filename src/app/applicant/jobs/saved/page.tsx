@@ -7,6 +7,7 @@ import { getApplicant } from "@/actions/applicants";
 import { getApplicantSavedJobs } from "@/actions/savedJobs";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
 import { Job, SavedJob } from "@prisma/client";
+import ApplicantJobsLoadingPlaceholder from "@/components/applicant/ApplicantJobsLoadingPlaceholder";
 
 export default function Page() {
   const { user } = useUser();
@@ -51,6 +52,7 @@ export default function Page() {
   return (
     <>
       {applicant && savedJobs && <ApplicantSavedJobs savedJobs={savedJobs} />}
+      {!applicant && !hasEmptySavedJobs && <ApplicantJobsLoadingPlaceholder />}
       {applicant && hasEmptySavedJobs && (
         <ApplicantJobsEmptyPlaceholder message="No saved jobs found" />
       )}

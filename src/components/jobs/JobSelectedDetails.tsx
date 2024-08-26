@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "@/components/Markdown";
 import { Employer, Job, JobApplication } from "@prisma/client";
-import { formatMoney, relativeDate } from "@/lib/utils";
+import { relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
+import { getJobSalary, hasJobSalary } from "@/lib/salary";
 
 interface JobSelectedDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
@@ -19,20 +20,11 @@ export default function JobSelectedDetails({
     employmentType,
     locationType,
     location,
-    minSalary,
-    maxSalary,
     createdAt,
     employer: { slug: companySlug, companyName, companyLogoUrl },
   },
   job,
 }: JobSelectedDetailsProps) {
-  const salary = () => {
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
   return (
     <section className="w-full grow space-y-5 px-4">
       <div className="flex flex-col gap-3">
@@ -69,10 +61,12 @@ export default function JobSelectedDetails({
               <Globe2 size={16} className="shrink-0" />
               {location}
             </p>
-            <p className="flex items-center gap-1.5">
-              <Banknote size={16} className="shrink-0" />
-              {salary()}
-            </p>
+            {hasJobSalary(job) && (
+              <p className="flex items-center gap-1.5">
+                <Banknote size={16} className="shrink-0" />
+                {getJobSalary(job)}
+              </p>
+            )}
             <p className="flex items-center gap-1.5 text-sm">
               {`Posted ${relativeDate(createdAt)}`}
             </p>

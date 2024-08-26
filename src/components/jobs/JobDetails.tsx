@@ -2,10 +2,11 @@ import { Employer, Job, JobApplication } from "@prisma/client";
 import Markdown from "@/components/Markdown";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
-import { formatMoney, relativeDate } from "@/lib/utils";
+import { relativeDate } from "@/lib/utils";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
 import Link from "next/link";
+import { getJobSalary, hasJobSalary } from "@/lib/salary";
 
 interface JobDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };
@@ -18,20 +19,11 @@ export default function JobDetails({
     employmentType,
     locationType,
     location,
-    minSalary,
-    maxSalary,
     createdAt,
     employer: { slug: companySlug, companyName, companyLogoUrl },
   },
   job,
 }: JobDetailsProps) {
-  const salary = () => {
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
   return (
     <section className="w-full grow space-y-5">
       <div className="flex flex-col gap-3">
@@ -66,10 +58,12 @@ export default function JobDetails({
               <Globe2 size={16} className="shrink-0" />
               {location}
             </p>
-            <p className="flex items-center gap-1.5">
-              <Banknote size={16} className="shrink-0" />
-              {salary()}
-            </p>
+            {hasJobSalary(job) && (
+              <p className="flex items-center gap-1.5">
+                <Banknote size={16} className="shrink-0" />
+                {getJobSalary(job)}
+              </p>
+            )}
             <p className="flex items-center gap-1.5 text-sm">
               {relativeDate(createdAt)}
             </p>

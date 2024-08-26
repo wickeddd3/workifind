@@ -8,8 +8,9 @@ import {
 } from "lucide-react";
 import Badge from "@/components/Badge";
 import { Employer, Job } from "@prisma/client";
-import { formatMoney, relativeDate } from "@/lib/utils";
+import { relativeDate } from "@/lib/utils";
 import Link from "next/link";
+import { getJobSalary, hasJobSalary } from "@/lib/salary";
 
 interface JobItemProps {
   job: Job & { employer: Employer };
@@ -22,19 +23,11 @@ export default function JobItem({
     employmentType,
     locationType,
     location,
-    minSalary,
-    maxSalary,
     createdAt,
     employer: { companyName, companyLogoUrl },
   },
+  job,
 }: JobItemProps) {
-  const salary = () => {
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
   return (
     <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
@@ -60,10 +53,12 @@ export default function JobItem({
             <Globe2 size={16} className="shrink-0" />
             {location}
           </p>
-          <p className="flex items-center gap-1.5 text-sm">
-            <Banknote size={16} className="shrink-0" />
-            {salary()}
-          </p>
+          {hasJobSalary(job) && (
+            <p className="flex items-center gap-1.5">
+              <Banknote size={16} className="shrink-0" />
+              {getJobSalary(job)}
+            </p>
+          )}
           <div className="flex justify-between pt-2 sm:hidden">
             <Badge>{employmentType}</Badge>
             <span className="flex items-center gap-1.5 text-sm text-muted-foreground">

@@ -5,6 +5,7 @@ import { CompanyFilterValues } from "@/lib/validation";
 import { Employer } from "@prisma/client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import CompanySearchEmptyPlaceholder from "@/components/companies/CompanySearchEmptyPlaceholder";
 
 interface CompanySearchResultsProps {
   filterValues: CompanyFilterValues;
@@ -38,9 +39,7 @@ export default async function CompanySearchResults({
           </Link>
         ))}
       </div>
-      {companies.length === 0 && (
-        <p className="m-auto text-center">No companies found.</p>
-      )}
+      {companies.length === 0 && <CompanySearchEmptyPlaceholder />}
       {companies.length > 0 && (
         <Pagination
           currentPage={page}

@@ -32,8 +32,8 @@ export default function RootLayout({
       signUpForceRedirectUrl={
         process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL
       }
-      signInUrl="https://workifind.vercel.app/sign-in"
-      signUpUrl="https://workifind.vercel.app/sign-up"
+      signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}
+      signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
     >
       <html lang="en">
         <body className={`${inter.className} min-w-[350px]`}>

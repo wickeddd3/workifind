@@ -1,7 +1,7 @@
 "use client";
 
 import { getApplicant } from "@/actions/applicants";
-import { getApplicantSavedJobs } from "@/actions/savedJobs";
+import { getApplicantInitialSavedJobs } from "@/actions/savedJobs";
 import { useUser } from "@/contexts/UserContext";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import SavedJobs from "@/components/home/saved/SavedJobs";
@@ -26,7 +26,7 @@ export default function HomeInitialSavedJobs() {
   );
 
   const handleGetSavedJobs = useCallback(
-    async (id: number) => await getApplicantSavedJobs(id),
+    async (id: number) => await getApplicantInitialSavedJobs(id),
     [],
   );
 

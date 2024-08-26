@@ -3,6 +3,7 @@
 import { getApplicant } from "@/actions/applicants";
 import { getJob } from "@/actions/jobs";
 import JobApplicationSubmitted from "@/components/jobs/JobApplicationSubmitted";
+import JobApplicationSubmittedLoadingPlaceholder from "@/components/jobs/JobApplicationSubmittedLoadingPlaceholder";
 import { useUser } from "@/contexts/UserContext";
 import { Applicant, Job, JobApplication } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -62,7 +63,11 @@ export default function Page({ params: { slug } }: PageProps) {
   return (
     <main className="mx-auto max-w-4xl p-4">
       <div className="h-full">
-        {job && hasApplication && <JobApplicationSubmitted job={job} />}
+        {job && hasApplication ? (
+          <JobApplicationSubmitted job={job} />
+        ) : (
+          <JobApplicationSubmittedLoadingPlaceholder />
+        )}
       </div>
     </main>
   );

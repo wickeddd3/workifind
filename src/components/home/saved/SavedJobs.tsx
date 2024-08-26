@@ -11,7 +11,7 @@ export default function SavedJobs({ savedJobs }: SavedJobsProps) {
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-gray-900">Saved jobs</h1>
       <SavedJobList savedJobs={savedJobs} />
-      <ViewMoreButton text="View all" route="" />
+      <ViewMoreButton text="View all" route="/applicant/jobs/saved" />
     </div>
   );
 }

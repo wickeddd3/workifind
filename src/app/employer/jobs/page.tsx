@@ -6,6 +6,7 @@ import { getEmployerJobs } from "@/actions/jobs";
 import EmployerJobs from "@/components/employer/EmployerJobs";
 import { Job, JobApplication } from "@prisma/client";
 import EmployerJobsEmptyPlaceholder from "@/components/employer/EmployerJobsEmptyPlaceholder";
+import EmployerJobsLoadingPlaceholder from "@/components/employer/EmployerJobsLoadingPlaceholder";
 
 export default function Page() {
   const { user } = useUser();
@@ -29,6 +30,7 @@ export default function Page() {
   return (
     <>
       {jobs && <EmployerJobs jobs={jobs} />}
+      {!jobs && <EmployerJobsLoadingPlaceholder />}
       {hasEmptyJobs && <EmployerJobsEmptyPlaceholder message="No jobs found" />}
     </>
   );

@@ -57,7 +57,7 @@ export default function HomeInitialSavedJobs() {
         <SavedJobsEmptyPlaceholder />
       )}
       {user && !isApplicant && (
-        <SavedJobsEmptyPlaceholder message="Only applicant can only save jobs" />
+        <SavedJobsEmptyPlaceholder message="Only applicant can save jobs" />
       )}
       {!user && !userLoading && <SavedJobsUnauthenticated />}
       {userLoading && <SavedJobsLoadingPlaceholder />}

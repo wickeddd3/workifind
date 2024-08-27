@@ -198,6 +198,18 @@ export async function getEmployerJobs({
   return null;
 }
 
+export async function getEmployerJobsCount(id: number) {
+  const response = await fetch(`${baseUrl}/api/jobs/employer/${id}/count`);
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { jobsCount } = responseBody;
+    return jobsCount;
+  }
+
+  return null;
+}
+
 export async function getEmployerJob(
   id: number | string,
   slug: number | string,

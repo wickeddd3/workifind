@@ -28,3 +28,17 @@ export async function getApplicantJobApplications({
 
   return null;
 }
+
+export async function getApplicantJobApplicationsCount(id: number) {
+  const response = await fetch(
+    `${baseUrl}/api/jobs/applicant/${id}/applications/count`,
+  );
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { jobApplicationsCount } = responseBody;
+    return jobApplicationsCount;
+  }
+
+  return null;
+}

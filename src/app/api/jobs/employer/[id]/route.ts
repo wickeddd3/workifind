@@ -1,11 +1,17 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } },
 ) {
   const id = params.id;
+  const searchParams = request.nextUrl.searchParams;
+  const takeParam = searchParams.get("take");
+  const skipParam = searchParams.get("skip");
+  const take = takeParam ? parseInt(takeParam) : 5;
+  const skip = skipParam ? parseInt(skipParam) : 0;
 
   try {
     const jobs = await prisma.job.findMany({
@@ -13,6 +19,8 @@ export async function GET(
       include: {
         jobApplications: true,
       },
+      take,
+      skip,
     });
 
     if (!jobs) {

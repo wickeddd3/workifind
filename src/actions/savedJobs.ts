@@ -29,6 +29,20 @@ export async function getApplicantSavedJobs({
   return null;
 }
 
+export async function getApplicantSavedJobsCount(id: number) {
+  const response = await fetch(
+    `${baseUrl}/api/jobs/applicant/${id}/saved/count`,
+  );
+
+  if (response.status === 200) {
+    const responseBody = await response.json();
+    const { savedJobsCount } = responseBody;
+    return savedJobsCount;
+  }
+
+  return null;
+}
+
 export async function getApplicantInitialSavedJobs(id: number) {
   const response = await fetch(
     `${baseUrl}/api/jobs/applicant/${id}/saved/initial`,

@@ -1,8 +1,22 @@
 import { baseUrl } from "@/lib/baseUrl";
 
-export async function getApplicantJobApplications(id: number) {
+export async function getApplicantJobApplications({
+  id,
+  take,
+  skip,
+}: {
+  id: number;
+  take: number;
+  skip: number;
+}) {
+  const params = {
+    take: take?.toString() ?? "5",
+    skip: skip?.toString() ?? "0",
+  };
+  const queryParams = new URLSearchParams(params).toString();
+
   const response = await fetch(
-    `${baseUrl}/api/jobs/applicant/${id}/applications`,
+    `${baseUrl}/api/jobs/applicant/${id}/applications?${queryParams}`,
   );
 
   if (response.status === 200) {

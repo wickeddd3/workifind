@@ -16,6 +16,37 @@ export const metadata: Metadata = {
     template: "%s | workifind",
   },
   description: "Find your dream job",
+  generator: "Next.js",
+  applicationName: "workifind",
+  referrer: "origin-when-cross-origin",
+  keywords: ["Next.js", "React", "Typescript"],
+  authors: [
+    { name: "Philip", url: "https://philip-andrew-portfolio.netlify.app" },
+  ],
+  creator: "Philip Andrew",
+  publisher: "Philip Andrew",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://workifind.vercel.app"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en-US",
+      "de-DE": "/de-DE",
+    },
+  },
+  openGraph: {
+    title: "workifind",
+    description: "Find your dream job",
+    url: "https://workifind.vercel.app",
+    siteName: "workifind",
+    images: "/og-image.png",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

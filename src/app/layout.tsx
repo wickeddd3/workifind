@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,7 +8,18 @@ import { UserProvider } from "@/contexts/UserContext";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const open_sans = Open_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-open-sans",
+  weight: "300",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -67,7 +78,9 @@ export default function RootLayout({
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
     >
       <html lang="en">
-        <body className={`${inter.className} min-w-[350px]`}>
+        <body
+          className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
+        >
           <UserProvider>
             <Navbar />
             {children}

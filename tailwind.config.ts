@@ -97,6 +97,7 @@ const config = {
       },
       backgroundImage: {
         "custom-job-filter-svg": "url('/scattered-forcefields.svg')",
+        "colored-shapes": "url('/colored-shapes.svg')",
       },
     },
   },

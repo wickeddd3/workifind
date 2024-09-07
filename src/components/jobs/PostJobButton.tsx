@@ -11,7 +11,10 @@ export default function PostJobButton() {
 
   return (
     isEmployer && (
-      <Button asChild className="bg-[#3366FF] hover:bg-[#254EDB]">
+      <Button
+        asChild
+        className="rounded-full bg-indigo-600 font-extrabold text-gray-50 hover:bg-indigo-700"
+      >
         <Link href="/employer/jobs/new">Post a job</Link>
       </Button>
     )

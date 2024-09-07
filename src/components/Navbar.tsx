@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+  SignUpButton,
+} from "@clerk/nextjs";
 import { useUser } from "@/contexts/UserContext";
 import { useMemo } from "react";
 import PostJobButton from "@/components/jobs/PostJobButton";
@@ -40,28 +46,39 @@ export default function Navbar() {
         </Link>
         <div className="hidden gap-6 md:flex">
           <Link href="/jobs" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide">Find jobs</span>
+            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+              Find jobs
+            </span>
           </Link>
           <Link href="/companies" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide">Companies</span>
+            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+              Companies
+            </span>
           </Link>
           <Link href="/professionals" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide">
+            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
               Professionals
             </span>
           </Link>
           <Link href={profileRoute} className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide">Profile</span>
+            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+              Profile
+            </span>
           </Link>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:gap-4">
           <PostJobButton />
           <SignedOut>
             <SignInButton>
-              <Button className="bg-[#3366FF] hover:bg-[#254EDB]">
-                Sign In
+              <Button className="rounded-full bg-gray-50 font-extrabold text-gray-800 hover:bg-gray-50 hover:text-indigo-600">
+                Log In
               </Button>
             </SignInButton>
+            <SignUpButton>
+              <Button className="rounded-full bg-indigo-600 font-extrabold text-gray-50 hover:bg-indigo-700">
+                Sign Up
+              </Button>
+            </SignUpButton>
           </SignedOut>
           <SignedIn>
             <UserButton />

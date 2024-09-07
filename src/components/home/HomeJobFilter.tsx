@@ -29,9 +29,9 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
   }
 
   return (
-    <aside className="bg-colored-shapes h-full w-full bg-fixed bg-right bg-no-repeat py-8 md:py-12">
-      <div className="mx-auto h-full w-full max-w-7xl">
-        <div className="flex w-full flex-col gap-4 px-3 md:gap-6 lg:w-3/5">
+    <aside className="h-full w-full py-8 md:py-12">
+      <div className="mx-auto flex h-full w-full max-w-7xl">
+        <div className="flex w-full flex-col gap-4 px-3 lg:w-3/5 lg:gap-14">
           <div className="flex w-full flex-col gap-4">
             <div className="flex items-center gap-2">
               <BriefcaseBusiness size={20} color="#4635c1" />
@@ -175,7 +175,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
             </form>
           </div>
         </div>
-        <div className="h-full w-full lg:w-2/5"></div>
+        <div className="bg-colored-shapes hidden h-[540px] w-full bg-left bg-no-repeat lg:block lg:w-2/5"></div>
       </div>
     </aside>
   );

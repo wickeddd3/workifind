@@ -31,7 +31,7 @@ export default function ProfessionalSearchTip() {
       <div className="flex flex-col items-center justify-center space-y-4 p-4">
         {icon}
         <h4 className="text-xl font-medium text-gray-900">{title}</h4>
-        <p className="text-md text-center text-gray-800">{description}</p>
+        <p className="text-center text-md text-gray-800">{description}</p>
       </div>
     );
   };

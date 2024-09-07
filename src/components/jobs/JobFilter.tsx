@@ -40,7 +40,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 id="q"
                 name="q"
                 placeholder="Search by job title"
-                className="text-md w-full px-4 py-6"
+                className="w-full px-4 py-6 text-md"
                 defaultValue={defaultValues.q}
               />
               <Button className="size-30 bg-[#3366FF] text-sm font-semibold tracking-wider hover:bg-[#254EDB]">
@@ -51,7 +51,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Select
                 id="employmentType"
                 name="employmentType"
-                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
+                className="h-12 w-full rounded-full px-4 text-md md:w-[200px]"
                 defaultValue={defaultValues.employmentType || ""}
               >
                 <option value="">Job types</option>
@@ -64,7 +64,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Select
                 id="salary"
                 name="salary"
-                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
+                className="h-12 w-full rounded-full px-4 text-md md:w-[200px]"
                 defaultValue={defaultValues.salary || ""}
               >
                 <option value="">Job salary</option>
@@ -77,7 +77,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
               <Select
                 id="locationType"
                 name="locationType"
-                className="text-md h-12 w-full rounded-full px-4 md:w-[200px]"
+                className="h-12 w-full rounded-full px-4 text-md md:w-[200px]"
                 defaultValue={defaultValues.locationType || ""}
               >
                 <option value="">Location type</option>

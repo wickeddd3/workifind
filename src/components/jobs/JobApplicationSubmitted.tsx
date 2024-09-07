@@ -29,7 +29,7 @@ export default function JobApplicationForm({
           />
         )}
         <div className="flex flex-col gap-2">
-          <h6 className="sm:text-md text-sm font-normal text-muted-foreground">
+          <h6 className="text-sm font-normal text-muted-foreground sm:text-md">
             Applied in
           </h6>
           <h1 className="text-xl font-semibold text-gray-900 sm:text-3xl">

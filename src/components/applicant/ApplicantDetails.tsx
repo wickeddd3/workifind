@@ -71,7 +71,7 @@ export default function ApplicantDetails({
         {about && (
           <div className="flex flex-col space-y-4">
             <h1 className="text-lg font-medium">About me</h1>
-            <div className="text-md text-justify">
+            <div className="text-justify text-md">
               {about && <Markdown>{about}</Markdown>}
             </div>
           </div>

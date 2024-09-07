@@ -175,7 +175,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
             </form>
           </div>
         </div>
-        <div className="bg-colored-shapes hidden h-[540px] w-full bg-left bg-no-repeat lg:block lg:w-2/5"></div>
+        <div className="hidden h-[540px] w-full bg-colored-shapes bg-left bg-no-repeat lg:block lg:w-2/5"></div>
       </div>
     </aside>
   );

@@ -26,18 +26,18 @@ export default function CompanyInitialList({
       <h5 className="text-lg font-normal text-gray-700">
         Learn about new jobs and company culture.
       </h5>
-      <div className="flex py-4">
+      <div className="flex gap-4 py-4">
         <Swiper
-          slidesPerView={4}
+          slidesPerView="auto"
           spaceBetween={15}
           pagination={{
             clickable: true,
           }}
           modules={[Pagination]}
-          className="w-full [&_>_.swiper-wrapper]:py-8"
+          className="w-full [&_>_.swiper-pagination_>_.swiper-pagination-bullet-active]:bg-indigo-500 [&_>_.swiper-wrapper]:py-10"
         >
           {companies.map((company) => (
-            <SwiperSlide key={company.slug}>
+            <SwiperSlide style={{ width: "300px" }} key={company.slug}>
               <CompanyInitialListItem company={company} />
             </SwiperSlide>
           ))}

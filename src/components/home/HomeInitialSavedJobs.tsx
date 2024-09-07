@@ -49,7 +49,7 @@ export default function HomeInitialSavedJobs() {
   }, [user, handleGetApplicantSavedJobs]);
 
   return (
-    <section className="w-full py-8">
+    <section className="w-full py-2 md:py-4">
       {user && isApplicant && applicant && hasJobs && (
         <SavedJobs savedJobs={savedJobs} />
       )}

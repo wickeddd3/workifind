@@ -12,10 +12,16 @@ export default function ViewMoreButton({
   route = "",
 }: ViewMoreButtonProps) {
   return (
-    <Button variant="outline" className="flex w-fit gap-4 px-8 py-6" asChild>
-      <Link href={route}>
-        <span className="text-lg font-semibold tracking-wider">{text}</span>
-        <ArrowRight size={20} />
+    <Button
+      variant="outline"
+      className="flex w-fit gap-4 px-3 py-0 md:px-6 md:py-3"
+      asChild
+    >
+      <Link href={route} className="flex items-center justify-center">
+        <span className="text-xs font-medium tracking-wider md:text-sm lg:text-md">
+          {text}
+        </span>
+        <ArrowRight size={16} />
       </Link>
     </Button>
   );

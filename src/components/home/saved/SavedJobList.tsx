@@ -7,7 +7,7 @@ interface SavedJobListProps {
 
 export default function SavedJobList({ savedJobs }: SavedJobListProps) {
   return (
-    <div className="flex w-full flex-wrap justify-between gap-4">
+    <div className="flex w-full flex-wrap justify-between gap-3">
       {savedJobs.map((savedJob) => (
         <SavedJobListItem savedJob={savedJob} key={savedJob.id} />
       ))}

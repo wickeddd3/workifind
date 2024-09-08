@@ -17,7 +17,7 @@ export default function JobApplicationForm({
   },
 }: JobApplicationSubmittedProps) {
   return (
-    <section className="w-full grow space-y-8">
+    <section className="h-full min-h-screen w-full grow space-y-8">
       <div className="flex flex-wrap items-center gap-8">
         {companyName && (
           <Image
@@ -29,17 +29,17 @@ export default function JobApplicationForm({
           />
         )}
         <div className="flex flex-col gap-2">
-          <h6 className="text-sm font-normal text-muted-foreground sm:text-md">
+          <h6 className="text-xs font-normal text-gray-500 md:text-sm lg:text-md">
             Applied in
           </h6>
-          <h1 className="text-xl font-semibold text-gray-900 sm:text-3xl">
+          <h1 className="text-md font-bold text-gray-900 md:text-xl lg:text-2xl">
             {title}
           </h1>
-          <h1 className="text-md font-normal text-gray-800 sm:text-xl">
+          <h2 className="text-sm font-semibold text-gray-600 md:text-md lg:text-lg">
             {companyName}
-          </h1>
+          </h2>
           <Link href={`/jobs/${slug}`}>
-            <h6 className="text-sm font-medium underline">
+            <h6 className="text-xs font-medium underline md:text-sm lg:text-md">
               View job description
             </h6>
           </Link>
@@ -52,7 +52,7 @@ export default function JobApplicationForm({
           height={100}
           alt="Job submitted"
         />
-        <h3 className="text-center text-xl font-semibold sm:text-3xl">
+        <h3 className="text-balance text-center text-lg font-semibold text-gray-900 sm:text-xl md:text-2xl lg:text-3xl">
           Job application successfully submitted !
         </h3>
       </div>

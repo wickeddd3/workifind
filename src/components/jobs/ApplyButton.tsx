@@ -61,8 +61,8 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
 
   if (isApplicant && applicant && hasApplication) {
     return (
-      <h6 className="flex grow items-center gap-2 text-sm text-[#3366FF]">
-        <CircleCheckBig size={16} />
+      <h6 className="flex grow items-center gap-2 text-xs text-indigo-600 md:text-sm">
+        <CircleCheckBig size={18} />
         {applicationCreated}
       </h6>
     );
@@ -72,7 +72,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     return (
       <Button
         asChild
-        className="w-fit bg-[#3366FF] px-8 hover:bg-[#3366FF]"
+        className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
         size="sm"
       >
         <Link href={`/jobs/${job.slug}/apply`}>Apply</Link>

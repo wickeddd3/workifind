@@ -79,7 +79,7 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
   if (isApplicant && applicant) {
     return (
       <Button
-        className="w-fit bg-[#3366FF] px-8 hover:bg-[#3366FF]"
+        className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
         size="sm"
         onClick={handleSaveOrUnsaveJob}
       >

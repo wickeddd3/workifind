@@ -10,7 +10,7 @@ export default function LoadingPlaceholder() {
           <p className="h-4 w-1/4 rounded bg-gray-200"></p>
         </div>
       </div>
-      <div className="flex flex-col space-y-3 rounded-xl bg-gray-50 p-8">
+      <div className="flex flex-col space-y-3 rounded-xl bg-gray-50 p-4 md:p-8">
         <div className="flex w-2/4 items-center justify-between gap-4">
           <p className="h-9 w-full rounded bg-gray-200"></p>
           <span className="h-5 w-5 rounded-full bg-gray-200"></span>

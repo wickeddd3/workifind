@@ -30,7 +30,7 @@ export default function JobApplicationForm({ job }: JobApplicationFormProps) {
   }, [user, handleGetApplicant]);
 
   return user && job && applicant ? (
-    <section className="w-full grow space-y-8">
+    <section className="flex h-full w-full flex-col gap-4 md:gap-8">
       {job && <JobDetails job={job} />}
       {applicant && <ApplicantDetails applicant={applicant} />}
       {job && user && applicant && (

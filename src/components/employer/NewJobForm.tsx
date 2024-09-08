@@ -215,7 +215,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
               </div>
             </div>
             <LoadingButton type="submit" loading={isSubmitting}>
-              Submit
+              Create job post
             </LoadingButton>
           </form>
         </Form>

@@ -230,7 +230,7 @@ export default function EditJobForm({
               </div>
             </div>
             <LoadingButton type="submit" loading={isSubmitting}>
-              Submit
+              Update job post
             </LoadingButton>
           </form>
         </Form>

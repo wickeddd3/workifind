@@ -22,7 +22,7 @@ export default async function JobSelected({ jobSlug }: PageProps) {
   const job = await handleGetJob(jobSlug);
 
   return (
-    <section className="sticky top-0 hidden h-fit rounded-xl bg-background md:block md:w-3/5">
+    <section className="sticky top-0 hidden h-fit rounded-xl bg-background py-2 md:block md:w-3/5">
       <div className="m-auto h-full">
         {job ? (
           <JobSelectedDetails job={job} />

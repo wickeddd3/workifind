@@ -103,7 +103,7 @@ export default async function JobResults({
   }
 
   return (
-    <div className="w-full space-y-4 md:w-2/5">
+    <div className="w-full space-y-4 py-2 md:w-2/5">
       {jobs.map((job) => (
         <Link
           href={getLinkUrl(job.slug)}
@@ -164,20 +164,20 @@ function Pagination({
       <Link
         href={generatePageLink(currentPage - 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
           currentPage <= 1 && "invisible",
         )}
       >
         <ArrowLeft size={16} />
         Previous page
       </Link>
-      <span className="font-semibold">
+      <span className="text-xs font-semibold text-gray-950 md:text-sm lg:text-md">
         Page {currentPage} of {totalPages}
       </span>
       <Link
         href={generatePageLink(currentPage + 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
           currentPage >= totalPages && "invisible",
         )}
       >

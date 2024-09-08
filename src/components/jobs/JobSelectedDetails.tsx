@@ -40,41 +40,43 @@ export default function JobSelectedDetails({
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <Link href={`/jobs/${slug}`}>
-              <h1 className="text-3xl font-bold hover:underline">{title}</h1>
+              <h1 className="text-xl font-bold text-gray-900 hover:underline md:text-2xl lg:text-3xl">
+                {title}
+              </h1>
             </Link>
             <Link href={`/companies/${companySlug}`}>
-              <h3 className="text-xl font-medium text-muted-foreground hover:underline">
+              <h3 className="text-sm font-medium text-gray-500 hover:underline md:text-md lg:text-xl">
                 {companyName}
               </h3>
             </Link>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
             {employmentType && (
-              <p className="flex items-center gap-1.5">
+              <p className="flex items-center gap-1.5 text-sm text-gray-500 lg:text-md">
                 <Briefcase size={16} className="shrink-0" />
                 {employmentType}
               </p>
             )}
             {locationType && (
-              <p className="flex items-center gap-1.5">
+              <p className="flex items-center gap-1.5 text-sm text-gray-500 lg:text-md">
                 <MapPin size={16} className="shrink-0" />
                 {locationType}
               </p>
             )}
             {location && (
-              <p className="flex items-center gap-1.5">
+              <p className="flex items-center gap-1.5 text-sm text-gray-500 lg:text-md">
                 <Globe2 size={16} className="shrink-0" />
                 {location}
               </p>
             )}
             {hasJobSalary(job) && (
-              <p className="flex items-center gap-1.5">
+              <p className="flex items-center gap-1.5 text-sm text-gray-500 lg:text-md">
                 <Banknote size={16} className="shrink-0" />
                 {getJobSalary(job)}
               </p>
             )}
             {createdAt && (
-              <p className="flex items-center gap-1.5 text-sm">
+              <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
                 {`Posted ${relativeDate(createdAt)}`}
               </p>
             )}
@@ -85,7 +87,9 @@ export default function JobSelectedDetails({
           </div>
         </div>
       </div>
-      <div>{description && <Markdown>{description}</Markdown>}</div>
+      <div className="text-sm lg:text-md">
+        {description && <Markdown>{description}</Markdown>}
+      </div>
     </section>
   );
 }

@@ -41,32 +41,38 @@ export default function JobItem({
           />
         )}
         <div>
-          <h2 className="text-md font-medium">{title}</h2>
-          <p className="text-muted-foreground">{companyName}</p>
+          <h2 className="text-sm font-semibold text-gray-900 lg:text-md">
+            {title}
+          </h2>
+          <p className="text-sm font-medium text-gray-500 lg:text-md">
+            {companyName}
+          </p>
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">
           {locationType && (
-            <p className="flex items-center gap-1.5 text-sm">
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
               <MapPin size={16} className="shrink-0" />
               {locationType}
             </p>
           )}
           {location && (
-            <p className="flex items-center gap-1.5 text-sm">
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
               <Globe2 size={16} className="shrink-0" />
               {location}
             </p>
           )}
           {hasJobSalary(job) && (
-            <p className="flex items-center gap-1.5">
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
               <Banknote size={16} className="shrink-0" />
               {getJobSalary(job)}
             </p>
           )}
-          <div className="flex justify-between pt-2 sm:hidden">
-            {employmentType && <Badge>{employmentType}</Badge>}
+          <div className="flex justify-between pt-2 md:hidden">
+            {employmentType && (
+              <Badge className="text-xs lg:text-sm">{employmentType}</Badge>
+            )}
             {createdAt && (
-              <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
                 <Clock size={16} />
                 {relativeDate(createdAt)}
               </span>
@@ -74,16 +80,18 @@ export default function JobItem({
           </div>
         </div>
       </div>
-      <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">
-        {employmentType && <Badge>{employmentType}</Badge>}
+      <div className="hidden shrink-0 flex-col items-end justify-between md:flex">
+        {employmentType && (
+          <Badge className="text-xs lg:text-sm">{employmentType}</Badge>
+        )}
         {createdAt && (
-          <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <span className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
             <Clock size={16} />
             {relativeDate(createdAt)}
           </span>
         )}
       </div>
-      <div className="flex shrink-0 sm:hidden">
+      <div className="flex shrink-0 md:hidden">
         <Link href={`/jobs/${slug}`}>
           <span>
             <SquareArrowOutUpRight size={16} />

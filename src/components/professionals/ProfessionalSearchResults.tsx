@@ -34,8 +34,8 @@ export default async function ProfessionalSearchResults({
   ]);
 
   return (
-    <div className="w-full space-y-4">
-      <div className="flex flex-col space-y-4">
+    <div className="flex h-full w-full flex-col gap-6">
+      <div className="flex h-full w-full flex-col gap-4">
         {professionals.map((professional: Applicant) => (
           <Link
             href={`/professionals/${professional.id}`}
@@ -82,20 +82,20 @@ function Pagination({
       <Link
         href={generatePageLink(currentPage - 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-sm font-semibold text-gray-950 md:text-md",
           currentPage <= 1 && "invisible",
         )}
       >
         <ArrowLeft size={16} />
         Previous page
       </Link>
-      <span className="font-semibold">
+      <span className="text-sm font-semibold text-gray-950 md:text-md">
         Page {currentPage} of {totalPages}
       </span>
       <Link
         href={generatePageLink(currentPage + 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-sm font-semibold text-gray-950 md:text-md",
           currentPage >= totalPages && "invisible",
         )}
       >

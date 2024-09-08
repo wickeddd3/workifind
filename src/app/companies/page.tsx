@@ -7,7 +7,7 @@ export default async function Page() {
   const companies = await getInitialCompanies();
 
   return (
-    <main className="m-auto mb-10 max-w-5xl space-y-6">
+    <main className="m-auto flex max-w-7xl flex-col gap-6 px-3 py-12">
       <CompanyFilter />
       {companies && <CompanyInitialList companies={companies} />}
       <CompanySearchTip />

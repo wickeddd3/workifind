@@ -15,7 +15,7 @@ export default function Page({ searchParams: { q, page } }: PageProps) {
   };
 
   return (
-    <main className="m-auto mb-10 max-w-2xl space-y-6">
+    <main className="m-auto mb-10 flex h-full min-h-screen max-w-2xl flex-col gap-6 px-3">
       <CompanySearchFilter filterValues={filterValues} />
       <CompanySearchResults
         filterValues={filterValues}

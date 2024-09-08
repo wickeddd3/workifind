@@ -17,24 +17,24 @@ export default function ProfessionalInitialList({
 }: ProfessionalInitialListProps) {
   return (
     <section className="flex flex-col space-y-2 py-6">
-      <h1 className="text-2xl font-semibold text-gray-900">
+      <h1 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
         Explore professionals
       </h1>
-      <h5 className="text-lg font-normal text-gray-700">
+      <h5 className="text-sm font-normal text-gray-700 md:text-md">
         Learn about new jobs and company culture.
       </h5>
       <div className="flex py-4">
         <Swiper
-          slidesPerView={4}
+          slidesPerView="auto"
           spaceBetween={15}
           pagination={{
             clickable: true,
           }}
           modules={[Pagination]}
-          className="w-full [&_>_.swiper-wrapper]:py-8"
+          className="w-full [&_>_.swiper-pagination_>_.swiper-pagination-bullet-active]:bg-indigo-500 [&_>_.swiper-wrapper]:py-4"
         >
           {professionals.map((professional) => (
-            <SwiperSlide key={professional.id}>
+            <SwiperSlide style={{ width: "276px" }} key={professional.id}>
               <ProfessionalInitialListItem professional={professional} />
             </SwiperSlide>
           ))}

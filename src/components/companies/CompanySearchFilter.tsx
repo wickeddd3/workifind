@@ -24,7 +24,7 @@ export default function CompanySearchFilter({
 
   return (
     <section className="flex flex-col space-y-8 py-6">
-      <h1 className="text-3xl font-medium">
+      <h1 className="text-xl font-medium text-gray-900 md:text-2xl">
         Search results for &quot;{q}&ldquo;
       </h1>
       <form
@@ -40,7 +40,7 @@ export default function CompanySearchFilter({
           className="w-full"
           defaultValue={q}
         />
-        <Button className="bg-[#3366FF] hover:bg-[#254EDB]">Search</Button>
+        <Button className="bg-indigo-600 hover:bg-indigo-700">Search</Button>
       </form>
     </section>
   );

@@ -7,7 +7,7 @@ interface ProfileProps {
 
 export function Profile({ children }: ProfileProps) {
   return (
-    <div className="mx-auto my-0 flex h-full max-w-7xl md:my-10">
+    <div className="mx-auto my-0 flex h-full min-h-screen max-w-7xl md:my-10">
       {children}
     </div>
   );

@@ -23,6 +23,50 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
+export function ApplicantProfileMenu() {
+  return (
+    <>
+      <MenubarItem asChild>
+        <Link
+          href="/applicant/jobs"
+          className="flex w-full cursor-pointer items-center gap-3"
+        >
+          <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+            Applied Jobs
+          </span>
+        </Link>
+      </MenubarItem>
+      <MenubarItem asChild>
+        <Link
+          href="/applicant/jobs/saved"
+          className="flex w-full cursor-pointer items-center gap-3"
+        >
+          <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+            Saved Jobs
+          </span>
+        </Link>
+      </MenubarItem>
+    </>
+  );
+}
+
+export function EmployerProfileMenu() {
+  return (
+    <>
+      <MenubarItem asChild>
+        <Link
+          href="/employer/jobs"
+          className="flex w-full cursor-pointer items-center gap-3"
+        >
+          <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+            My Jobs
+          </span>
+        </Link>
+      </MenubarItem>
+    </>
+  );
+}
+
 export default function Navbar() {
   const { user } = useUser();
 
@@ -38,6 +82,9 @@ export default function Navbar() {
     }
     return "/";
   }, [user]);
+
+  const isEmployer = useMemo(() => user?.role === "EMPLOYER", [user]);
+  const isApplicant = useMemo(() => user?.role === "APPLICANT", [user]);
 
   return (
     <header className="flex h-full w-full items-center justify-center py-2">
@@ -101,6 +148,10 @@ export default function Navbar() {
                   </MenubarShortcut>
                 </Link>
               </MenubarItem>
+              <SignedIn>
+                {isApplicant && <ApplicantProfileMenu />}{" "}
+                {isEmployer && <EmployerProfileMenu />}
+              </SignedIn>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

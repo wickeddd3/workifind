@@ -30,10 +30,10 @@ export default function ApplicantDetails({
   },
 }: ProfessionalDetailsProps) {
   return (
-    <section className="flex flex-col space-y-6 px-4 pb-8">
-      <div className="flex flex-col space-y-2 rounded-xl bg-gray-50 p-8">
+    <section className="flex flex-col space-y-6 px-0 pb-8 md:px-4">
+      <div className="flex flex-col space-y-2 rounded-xl bg-gray-50 p-4 md:p-8">
         <div className="flex w-fit items-center justify-between gap-4">
-          <h2 className="text-2xl font-semibold">{`${firstName} ${lastName}`}</h2>
+          <h2 className="text-2xl font-bold">{`${firstName} ${lastName}`}</h2>
           {experienced && <BadgeCheck size={16} className="shrink-0" />}
         </div>
         {profession && (
@@ -61,31 +61,37 @@ export default function ApplicantDetails({
           </p>
         )}
         <Button
-          className="w-fit bg-[#3366FF] px-8 text-sm hover:bg-[#3366FF]"
+          className="w-fit bg-indigo-600 px-4 text-sm hover:bg-indigo-700 md:px-8"
           asChild
         >
-          <Link href="/applicant/profile/edit">Edit Profile</Link>
+          <Link href="/applicant/profile/edit" className="text-xs md:text-sm">
+            Edit Profile
+          </Link>
         </Button>
       </div>
       <div className="flex flex-col gap-4 px-8">
         {about && (
           <div className="flex flex-col space-y-4">
-            <h1 className="text-lg font-medium">About me</h1>
-            <div className="text-justify text-md">
+            <h1 className="text-md font-bold text-gray-800 md:text-lg">
+              About me
+            </h1>
+            <div className="text-justify text-sm md:text-md">
               {about && <Markdown>{about}</Markdown>}
             </div>
           </div>
         )}
         {skills && skills.length > 0 && (
           <div className="flex flex-col space-y-4">
-            <h1 className="text-lg font-medium">Skills</h1>
+            <h1 className="text-md font-bold text-gray-800 md:text-lg">
+              Skills
+            </h1>
             <div className="flex flex-wrap gap-2">
               {skills.map((skill, index) => (
                 <span
                   className="flex w-fit rounded-full bg-gray-100 px-2"
                   key={`${skill.name}-${index}`}
                 >
-                  <span className="w-full p-2 text-sm font-semibold">
+                  <span className="w-full p-1 text-xs font-semibold text-gray-800 md:p-2 md:text-sm">
                     {skill?.name}
                   </span>
                 </span>
@@ -95,29 +101,35 @@ export default function ApplicantDetails({
         )}
         {languages && languages.length > 0 && (
           <div className="flex flex-col space-y-4">
-            <h1 className="text-lg font-medium">Languages</h1>
-            <span className="text-sm">
+            <h1 className="text-md font-bold text-gray-800 md:text-lg">
+              Languages
+            </h1>
+            <span className="text-sm text-gray-900">
               {languages?.map((item) => item?.name).join(", ")}
             </span>
           </div>
         )}
         <div className="flex flex-col space-y-4">
-          <h1 className="text-lg font-medium">About my next role</h1>
+          <h1 className="text-md font-bold text-gray-800 md:text-lg">
+            About my next role
+          </h1>
           <div className="flex flex-col gap-2 rounded-xl border-2 border-gray-100 p-4">
             {availability && (
               <div className="flex flex-col gap-2">
-                <h1 className="text-md font-medium">Availability</h1>
-                <span className="text-sm">{availability}</span>
+                <h1 className="text-sm font-medium text-gray-900 md:text-md">
+                  Availability
+                </h1>
+                <span className="text-sm text-gray-900">{availability}</span>
               </div>
             )}
             {preferredEmploymentTypes &&
               preferredEmploymentTypes.length > 0 && (
                 <div className="flex flex-col gap-2">
                   <hr />
-                  <h1 className="text-md font-medium">
+                  <h1 className="text-sm font-medium text-gray-900 md:text-md">
                     Preferred employment types
                   </h1>
-                  <span className="text-sm">
+                  <span className="text-sm text-gray-900">
                     {preferredEmploymentTypes.join(", ")}
                   </span>
                 </div>
@@ -125,10 +137,10 @@ export default function ApplicantDetails({
             {preferredLocationTypes && preferredLocationTypes.length > 0 && (
               <div className="flex flex-col gap-2">
                 <hr />
-                <h1 className="text-md font-medium">
+                <h1 className="text-sm font-medium text-gray-900 md:text-md">
                   Preferred location types
                 </h1>
-                <span className="text-sm">
+                <span className="text-sm text-gray-900">
                   {preferredLocationTypes.join(", ")}
                 </span>
               </div>
@@ -136,11 +148,14 @@ export default function ApplicantDetails({
             {preferredLocations && preferredLocations.length > 0 && (
               <div className="flex flex-col gap-2">
                 <hr />
-                <h1 className="text-md font-medium">
+                <h1 className="text-sm font-medium text-gray-900 md:text-md">
                   Preferred location types
                 </h1>
                 {preferredLocations.map((location, index) => (
-                  <span className="text-sm" key={`${location}-${index}`}>
+                  <span
+                    className="text-sm text-gray-900"
+                    key={`${location}-${index}`}
+                  >
                     {location?.name}
                   </span>
                 ))}
@@ -149,8 +164,12 @@ export default function ApplicantDetails({
             {availability && (
               <div className="flex flex-col gap-2">
                 <hr />
-                <h1 className="text-md font-medium">Salary expectation</h1>
-                <span className="text-sm">{salaryExpectation}</span>
+                <h1 className="text-sm font-medium text-gray-900 md:text-md">
+                  Salary expectation
+                </h1>
+                <span className="text-sm text-gray-900">
+                  {salaryExpectation}
+                </span>
               </div>
             )}
           </div>

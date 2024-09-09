@@ -289,7 +289,7 @@ export default function EmployerEditProfile({
             )}
           />
           <LoadingButton type="submit" loading={isSubmitting}>
-            Submit
+            Update profile
           </LoadingButton>
         </form>
       </Form>

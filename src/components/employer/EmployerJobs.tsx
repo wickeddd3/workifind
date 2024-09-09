@@ -18,8 +18,8 @@ export default function EmployerJobs({
   page,
 }: EmployerJobsProps) {
   return (
-    <main className="m-auto space-y-6 px-4">
-      <h1 className="px-4 text-xl font-medium">My jobs</h1>
+    <main className="m-auto space-y-6">
+      <h1 className="px-2 text-xl font-medium">My jobs</h1>
       <div className="flex flex-col gap-4">
         {jobs.map((job) => (
           <EmployerJobItem job={job} key={job.id} />

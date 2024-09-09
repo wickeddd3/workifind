@@ -509,7 +509,7 @@ export default function ApplicantEditProfile({
             )}
           />
           <LoadingButton type="submit" loading={isSubmitting}>
-            Submit
+            Update profile
           </LoadingButton>
         </form>
       </Form>

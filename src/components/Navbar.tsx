@@ -139,7 +139,6 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex gap-2 md:gap-4">
-          <PostJobButton />
           <SignedOut>
             <SignInButton>
               <Button className="rounded-full bg-gray-50 font-extrabold text-gray-800 hover:bg-gray-50 hover:text-indigo-600">
@@ -153,6 +152,7 @@ export default function Navbar() {
             </SignUpButton>
           </SignedOut>
           <SignedIn>
+            <PostJobButton />
             <UserButton />
           </SignedIn>
         </div>

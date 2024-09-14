@@ -18,9 +18,9 @@ export default function ApplicantJobApplications({
   page,
 }: ApplicantJobApplicationsProps) {
   return (
-    <main className="m-auto space-y-6 px-4">
-      <h1 className="px-4 text-xl font-medium">Applied jobs</h1>
-      <div className="flex flex-col gap-4">
+    <main className="m-auto flex flex-col gap-6 px-0 md:px-4">
+      <h1 className="px-4 text-md font-bold md:text-lg">Applied jobs</h1>
+      <div className="flex flex-col gap-2">
         {jobApplications.map((jobApplication) => (
           <ApplicantJobApplicationItem
             jobApplication={jobApplication}
@@ -57,20 +57,20 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
       <Link
         href={generatePageLink(currentPage - 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
           currentPage <= 1 && "invisible",
         )}
       >
         <ArrowLeft size={16} />
         Previous page
       </Link>
-      <span className="font-semibold">
+      <span className="text-xs font-semibold text-gray-950 md:text-sm lg:text-md">
         Page {currentPage} of {totalPages}
       </span>
       <Link
         href={generatePageLink(currentPage + 1)}
         className={cn(
-          "flex items-center gap-2 font-semibold",
+          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
           currentPage >= totalPages && "invisible",
         )}
       >

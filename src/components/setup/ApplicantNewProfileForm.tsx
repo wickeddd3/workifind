@@ -119,7 +119,7 @@ export default function ApplicantNewProfileForm() {
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex justify-between space-x-4">
+          <div className="flex flex-wrap justify-between gap-4">
             <FormField
               control={control}
               name="firstName"
@@ -164,7 +164,7 @@ export default function ApplicantNewProfileForm() {
               </FormItem>
             )}
           />
-          <div className="flex justify-between space-x-4">
+          <div className="flex flex-wrap justify-between gap-4">
             <FormField
               control={control}
               name="email"
@@ -192,7 +192,7 @@ export default function ApplicantNewProfileForm() {
               )}
             />
           </div>
-          <div className="flex justify-between space-x-4">
+          <div className="flex flex-wrap justify-between gap-4">
             <FormField
               control={control}
               name="location"
@@ -368,10 +368,7 @@ export default function ApplicantNewProfileForm() {
                 </div>
                 <div className="flex flex-wrap gap-6">
                   {locationTypes.map((item) => (
-                    <div
-                      key={item}
-                      className="flex flex-row items-start space-x-3 space-y-0"
-                    >
+                    <div key={item} className="flex flex-row items-start gap-3">
                       <FormControl>
                         <Checkbox
                           id={`locationTypes-${item}`}
@@ -409,10 +406,7 @@ export default function ApplicantNewProfileForm() {
                 </div>
                 <div className="flex flex-wrap gap-6">
                   {employmentTypes.map((item) => (
-                    <div
-                      key={item}
-                      className="flex flex-row items-start space-x-3 space-y-0"
-                    >
+                    <div key={item} className="flex flex-row items-start gap-3">
                       <FormControl>
                         <Checkbox
                           id={`employmentTypes-${item}`}

@@ -9,7 +9,7 @@ import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
 import { JobFilterValues } from "@/lib/validation";
 import { filterJobs } from "@/actions/search";
 import { useRouter } from "next/navigation";
-import { BriefcaseBusiness, SearchIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
 interface JobFilterProps {
   defaultValues: JobFilterValues;

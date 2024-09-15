@@ -67,11 +67,11 @@ export default function EmployerJobItem({
   return (
     <div className="flex flex-col gap-2 rounded-lg bg-gray-50 px-4 py-2 hover:bg-gray-100">
       <div className="flex items-center justify-between">
-        <h4 className="text-md font-medium capitalize text-gray-900">
+        <h4 className="text-sm font-semibold capitalize text-gray-900 md:text-md">
           {title}
         </h4>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className="shrink-0">
             <Button variant="outline" size="icon" className="h-8 w-8">
               <EllipsisVertical size={16} className="shrink-0" />
             </Button>
@@ -109,25 +109,25 @@ export default function EmployerJobItem({
       </div>
       <div className="flex flex-col">
         {employmentType && (
-          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Briefcase size={16} className="shrink-0" />
             {employmentType}
           </p>
         )}
         {locationType && (
-          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <MapPin size={16} className="shrink-0" />
             {locationType}
           </p>
         )}
         {salary(job) && (
-          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Banknote size={16} className="shrink-0" />
             {salary(job)}
           </p>
         )}
         {jobApplications && (
-          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Users size={16} className="shrink-0" />
             {totalApplicants}
           </p>

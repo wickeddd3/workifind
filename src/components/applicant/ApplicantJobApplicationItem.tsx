@@ -45,7 +45,7 @@ export default function ApplicantJobApplicationItem({
           {title}
         </h4>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className="shrink-0">
             <Button variant="outline" size="icon" className="h-8 w-8">
               <EllipsisVertical size={16} className="shrink-0" />
             </Button>

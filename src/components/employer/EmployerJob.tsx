@@ -35,30 +35,30 @@ export default function EmployerJob({
   };
 
   return (
-    <main className="m-auto space-y-6 px-4">
+    <main className="m-auto space-y-6 px-0 md:px-4">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-bold">{title}</h1>
+            <h1 className="text-xl font-bold md:text-2xl">{title}</h1>
           </div>
           <div className="flex flex-col gap-2 text-muted-foreground">
-            <p className="flex items-center gap-1.5">
+            <p className="flex items-center gap-1.5 text-sm text-gray-500 md:text-md">
               <Briefcase size={16} className="shrink-0" />
               {employmentType}
             </p>
-            <p className="flex items-center gap-1.5">
+            <p className="flex items-center gap-1.5 text-sm text-gray-500 md:text-md">
               <MapPin size={16} className="shrink-0" />
               {locationType}
             </p>
-            <p className="flex items-center gap-1.5">
+            <p className="flex items-center gap-1.5 text-sm text-gray-500 md:text-md">
               <Globe2 size={16} className="shrink-0" />
               {location}
             </p>
-            <p className="flex items-center gap-1.5">
+            <p className="flex items-center gap-1.5 text-sm text-gray-500 md:text-md">
               <Banknote size={16} className="shrink-0" />
               {salary()}
             </p>
-            <p className="flex items-center gap-1.5 text-sm">
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 md:text-sm">
               {relativeDate(createdAt)}
             </p>
           </div>
@@ -72,19 +72,21 @@ export default function EmployerJob({
         <TabsList className="w-full justify-start rounded-none border-b-2 border-gray-200 bg-white p-0 shadow-none">
           <TabsTrigger
             value="description"
-            className="mr-8 rounded-none font-medium capitalize tracking-wider shadow-none data-[state=active]:font-bold data-[state=active]:text-[#3366FF] data-[state=active]:!shadow-none"
+            className="mr-8 rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-400 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
           >
             Description
           </TabsTrigger>
           <TabsTrigger
             value="applicants"
-            className="rounded-none font-medium capitalize tracking-wider shadow-none data-[state=active]:font-bold data-[state=active]:text-[#3366FF] data-[state=active]:!shadow-none"
+            className="rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-400 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
           >
             Applicants
           </TabsTrigger>
         </TabsList>
         <TabsContent value="description" className="py-6">
-          <div>{description && <Markdown>{description}</Markdown>}</div>
+          <div className="text-sm md:text-md">
+            {description && <Markdown>{description}</Markdown>}
+          </div>
         </TabsContent>
         <TabsContent value="applicants" className="py-6">
           <EmployerJobApplications jobApplications={jobApplications} />

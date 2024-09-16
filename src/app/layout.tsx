@@ -4,6 +4,7 @@ import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "@/contexts/UserContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -84,6 +85,7 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
         >
+          <SpeedInsights />
           <UserProvider>
             <DynamicNavbar />
             {children}

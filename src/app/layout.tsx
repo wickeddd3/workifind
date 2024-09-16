@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "@/contexts/UserContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -82,6 +83,21 @@ export default function RootLayout({
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
     >
       <html lang="en">
+        <head>
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-P6XBN1CMQ5"
+          ></Script>
+          <Script id="google-analytics">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-P6XBN1CMQ5');
+            `}
+          </Script>
+        </head>
         <body
           className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
         >

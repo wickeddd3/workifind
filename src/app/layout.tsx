@@ -5,12 +5,6 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "@/contexts/UserContext";
 
-export function reportWebVitals(metric: { label: string }) {
-  if (metric.label === "web-vital") {
-    console.log(metric);
-  }
-}
-
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",

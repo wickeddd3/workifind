@@ -17,6 +17,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    cssChunking: "loose", // default
+  },
 };
 
 const withBundleAnalyzer = NextBundleAnalyzer({

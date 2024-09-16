@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+import NextBundleAnalyzer from "@next/bundle-analyzer";
+
 const nextConfig = {
   env: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
@@ -16,4 +19,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withBundleAnalyzer = NextBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);

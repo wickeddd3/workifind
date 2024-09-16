@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserProvider } from "@/contexts/UserContext";
-import { Toaster } from "@/components/ui/toaster";
-import "./globals.css";
+
+export function reportWebVitals(metric: { label: string }) {
+  if (metric.label === "web-vital") {
+    console.log(metric);
+  }
+}
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,6 +63,12 @@ export const metadata: Metadata = {
   },
 };
 
+const DynamicNavbar = dynamic(() => import("@/components/Navbar"));
+const DynamicFooter = dynamic(() => import("@/components/Footer"));
+const DynamicToaster = dynamic(() =>
+  import("@/components/ui/toaster").then((mod) => mod.Toaster),
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -82,11 +91,11 @@ export default function RootLayout({
           className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
         >
           <UserProvider>
-            <Navbar />
+            <DynamicNavbar />
             {children}
-            <Footer />
+            <DynamicFooter />
           </UserProvider>
-          <Toaster />
+          <DynamicToaster />
         </body>
       </html>
     </ClerkProvider>

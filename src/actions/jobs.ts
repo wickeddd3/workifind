@@ -1,3 +1,5 @@
+"use server";
+
 import { baseUrl } from "@/lib/baseUrl";
 import { toSlug } from "@/lib/utils";
 import {

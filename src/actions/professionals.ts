@@ -1,3 +1,5 @@
+"use server";
+
 import { baseUrl } from "@/lib/baseUrl";
 
 export async function getInitialProfessionals(initialNumber?: number | string) {

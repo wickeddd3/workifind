@@ -1,3 +1,5 @@
+"use server";
+
 import { jobFilterSchema } from "@/lib/validation";
 
 export async function filterJobs(formData: FormData) {

@@ -5,6 +5,7 @@ import JobResultsPagination from "@/components/jobs/JobResultsPagination";
 import JobSelected from "@/components/jobs/JobSelected";
 import { JobFilterValues } from "@/lib/validation";
 import { filterJobs, filterJobsCount } from "@/app/_services/jobs";
+import { Employer, Job, JobApplication } from "@prisma/client";
 
 interface PageProps {
   searchParams: {
@@ -17,8 +18,13 @@ interface PageProps {
   };
 }
 
+interface JobPost extends Job {
+  employer: Employer;
+  jobApplications: JobApplication[];
+}
+
 export default async function Page({
-  searchParams: { q, employmentType, salary, locationType, job, page },
+  searchParams: { q, employmentType, salary, locationType, job: jobSlug, page },
 }: PageProps) {
   const filterValues: JobFilterValues = {
     q,
@@ -28,7 +34,6 @@ export default async function Page({
   };
   const jobsPerPage = 10;
   const currentPage = page ? parseInt(page) : 1;
-  const jobSlug = job;
   const query = {
     searchQuery: q ?? "",
     employmentType: employmentType ?? "",
@@ -47,6 +52,10 @@ export default async function Page({
   ]);
 
   const hasJobs = jobs && jobs.length > 0;
+  const selectedJob =
+    jobSlug && hasJobs
+      ? jobs.find((job: JobPost) => job.slug === jobSlug)
+      : null;
 
   return (
     <main className="m-auto mb-10 space-y-6">
@@ -70,7 +79,7 @@ export default async function Page({
             </>
           )}
         </div>
-        <JobSelected jobSlug={job} />
+        <JobSelected job={selectedJob} />
       </section>
     </main>
   );

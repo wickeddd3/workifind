@@ -3,30 +3,29 @@ import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const queryParam = searchParams.get("q") ?? "";
-
   try {
-    const employersCount = await prisma.employer.count({
+    // Parse the URL
+    const { searchParams } = new URL(request.url);
+    // Destructure query parameters
+    const { searchQuery = "" } = Object.fromEntries(searchParams);
+    // Count the number of companies that match the search criteria
+    const companiesCount = await prisma.employer.count({
       where: {
         companyName: {
-          contains: queryParam,
+          contains: searchQuery,
           mode: "insensitive",
         },
       },
     });
 
-    if (!employersCount) {
+    if (!companiesCount) {
       return NextResponse.json(
         { error: "No companies count" },
         { status: 404 },
       );
     }
 
-    return NextResponse.json(
-      { companiesCount: employersCount },
-      { status: 200 },
-    );
+    return NextResponse.json(companiesCount, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching companies count" },

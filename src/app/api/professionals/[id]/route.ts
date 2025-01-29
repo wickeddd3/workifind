@@ -5,9 +5,9 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const id = params.id;
-
   try {
+    const id = params.id;
+
     const professional = await prisma.applicant.findUnique({
       where: { id: parseInt(id) },
     });
@@ -19,7 +19,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ professional }, { status: 200 });
+    return NextResponse.json(professional, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching professional data" },

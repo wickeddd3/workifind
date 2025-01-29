@@ -3,11 +3,14 @@ import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const takeParam = searchParams.get("take") ?? "0";
-  const take = parseInt(takeParam) || 8;
-
   try {
+    // Parse the URL
+    const { searchParams } = new URL(request.url);
+    // Destructure query parameters
+    const { size = "" } = Object.fromEntries(searchParams);
+    // Parse size to integer
+    const take = parseInt(size) || 8;
+    // Fetch initial list of professionals
     const professionals = await prisma.applicant.findMany({
       orderBy: { createdAt: "desc" },
       take,
@@ -20,7 +23,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ professionals }, { status: 200 });
+    return NextResponse.json(professionals, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching initial professionals list data" },

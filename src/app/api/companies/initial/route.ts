@@ -3,27 +3,30 @@ import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const takeParam = searchParams.get("take") ?? "0";
-  const take = parseInt(takeParam) || 8;
-
   try {
-    const employers = await prisma.employer.findMany({
+    // Parse the URL
+    const { searchParams } = new URL(request.url);
+    // Destructure query parameters
+    const { size = "" } = Object.fromEntries(searchParams);
+    // Parse size to integer
+    const take = parseInt(size) || 8;
+    // Fetch initial list of companies
+    const companies = await prisma.employer.findMany({
       orderBy: { createdAt: "desc" },
       take,
     });
 
-    if (!employers) {
+    if (!companies) {
       return NextResponse.json(
         { error: "No companies found" },
         { status: 404 },
       );
     }
 
-    return NextResponse.json({ companies: employers }, { status: 200 });
+    return NextResponse.json(companies, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching initial companies list data" },
+      { error: "Error fetching initial company list data" },
       { status: 500 },
     );
   }

@@ -39,7 +39,7 @@ export default function ProfessionalSearchFilter({
           id="q"
           name="q"
           type="text"
-          placeholder="Search by company name"
+          placeholder="Search by profession"
           className="w-full"
           defaultValue={q}
         />

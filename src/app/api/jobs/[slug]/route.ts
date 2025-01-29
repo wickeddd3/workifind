@@ -5,9 +5,9 @@ export async function GET(
   request: Request,
   { params }: { params: { slug: string } },
 ) {
-  const slug = params.slug;
-
   try {
+    const slug = params.slug;
+
     const job = await prisma.job.findUnique({
       where: { slug },
       include: {
@@ -20,7 +20,7 @@ export async function GET(
       return NextResponse.json({ error: "Job not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ job }, { status: 200 });
+    return NextResponse.json(job, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching job data" },

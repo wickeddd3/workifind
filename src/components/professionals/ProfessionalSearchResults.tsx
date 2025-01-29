@@ -11,7 +11,7 @@ export default async function ProfessionalSearchResults({
 }: ProfessionalSearchResultsProps) {
   return (
     <div className="flex h-full w-full flex-col gap-4">
-      {professionals.map((professional: Applicant) => (
+      {professionals.map((professional) => (
         <Link href={`/professionals/${professional.id}`} key={professional.id}>
           <ProfessionalSearchResultItem professional={professional} />
         </Link>

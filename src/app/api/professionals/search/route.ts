@@ -3,24 +3,30 @@ import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const queryParam = searchParams.get("q") ?? "";
-  const takeParam = searchParams.get("take");
-  const skipParam = searchParams.get("skip");
-  const take = takeParam ? parseInt(takeParam) : 10;
-  const skip = skipParam ? parseInt(skipParam) : 0;
-
   try {
+    // Parse the URL
+    const { searchParams } = new URL(request.url);
+    // Destructure query parameters
+    const {
+      searchQuery = "",
+      size = "10",
+      page = "1",
+    } = Object.fromEntries(searchParams);
+    // Calculate the number of rows to skip
+    const rowsToSkip = (parseInt(page) - 1) * parseInt(size);
+    // Parse size to integer
+    const take = size ? parseInt(size) : 10;
+    // Fetch professionals from the database
     const professionals = await prisma.applicant.findMany({
       orderBy: { createdAt: "desc" },
       where: {
         profession: {
-          contains: queryParam,
+          contains: searchQuery,
           mode: "insensitive",
         },
       },
-      take,
-      skip,
+      take, // limit,
+      skip: rowsToSkip, // offset,
     });
 
     if (!professionals) {
@@ -30,7 +36,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ professionals }, { status: 200 });
+    return NextResponse.json(professionals, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error searching professionals" },

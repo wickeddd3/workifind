@@ -1,24 +1,21 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
 import EmployerEditProfile from "@/components/employer/EmployerEditProfile";
-import { useUser } from "@/contexts/UserContext";
-import { getEmployer } from "@/actions/employers";
+import { getEmployerProfileByUserId } from "@/app/_services/employer";
+import { cache } from "react";
+import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Page() {
-  const { user } = useUser();
-  const [employer, setEmployer] = useState(null);
+const handleFetchEmployerProfile = cache(async (userId: string) => {
+  return await getEmployerProfileByUserId(userId);
+});
 
-  const handleGetEmployer = useCallback(
-    async (id: number) => await getEmployer(id),
-    [],
-  );
+export default async function Page() {
+  const { userId } = auth();
 
-  useEffect(() => {
-    if (user && user?.id) {
-      handleGetEmployer(user.id).then(setEmployer);
-    }
-  }, [user, handleGetEmployer]);
+  if (!userId) notFound();
+
+  const employer = await handleFetchEmployerProfile(userId);
+
+  if (!employer) notFound();
 
   return employer && <EmployerEditProfile employer={employer} />;
 }

@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Select from "@/components/ui/select";
-import { createJobSchema, CreateJobValues } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { employmentTypes, locationTypes } from "@/lib/job-types";
@@ -19,20 +18,21 @@ import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
 import { objectToFormData } from "@/lib/form-data";
-import { updateJobPost } from "@/actions/jobs";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { JobSchema, JobSchemaType } from "@/schema/job";
+import { updateJob } from "@/app/_services/employer-jobs";
 
 interface NewJobFormProps {
-  userId: number;
-  slug: string;
+  userId: string;
+  jobId: number;
   job: Job;
 }
 
 export default function EditJobForm({
   userId,
-  slug,
+  jobId,
   job: {
     title,
     employmentType,
@@ -46,7 +46,7 @@ export default function EditJobForm({
   const router = useRouter();
   const { toast } = useToast();
 
-  const defaultValues: CreateJobValues = {
+  const defaultValues: JobSchemaType = {
     title,
     employmentType,
     locationType,
@@ -56,8 +56,8 @@ export default function EditJobForm({
     location: location ?? "",
   };
 
-  const form = useForm<CreateJobValues>({
-    resolver: zodResolver(createJobSchema),
+  const form = useForm<JobSchemaType>({
+    resolver: zodResolver(JobSchema),
     defaultValues,
   });
 
@@ -69,11 +69,11 @@ export default function EditJobForm({
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: CreateJobValues) {
-    const formData = objectToFormData(values);
-    const updatedJob = await updateJobPost(userId, slug, formData);
+  async function onSubmit(values: JobSchemaType) {
+    const updatedJob = await updateJob(userId, jobId, values);
     if (updatedJob) {
       router.push("/employer/jobs");
+      router.refresh();
       toast({
         title: "Job was successfully updated.",
       });

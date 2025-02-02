@@ -14,13 +14,7 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
-import {
-  createApplicantProfileSchema,
-  CreateApplicantProfileValues,
-} from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { objectToFormData } from "@/lib/form-data";
-import { createApplicantProfile } from "@/actions/applicants";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   availabilityTypes,
@@ -32,12 +26,17 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { createApplicantProfile } from "@/app/_services/applicant";
+import {
+  ApplicantProfileSchema,
+  ApplicantProfileSchemaType,
+} from "@/schema/applicant-profile";
 
 export default function ApplicantNewProfileForm() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const defaultValues: CreateApplicantProfileValues = {
+  const defaultValues: ApplicantProfileSchemaType = {
     firstName: "",
     lastName: "",
     email: "",
@@ -55,8 +54,8 @@ export default function ApplicantNewProfileForm() {
     salaryExpectation: "",
   };
 
-  const form = useForm<CreateApplicantProfileValues>({
-    resolver: zodResolver(createApplicantProfileSchema),
+  const form = useForm<ApplicantProfileSchemaType>({
+    resolver: zodResolver(ApplicantProfileSchema),
     defaultValues,
   });
 
@@ -94,9 +93,8 @@ export default function ApplicantNewProfileForm() {
     name: "preferredLocations" as const,
   });
 
-  async function onSubmit(values: CreateApplicantProfileValues) {
-    const formData = objectToFormData(values);
-    const createdApplicant = await createApplicantProfile(formData);
+  async function onSubmit(values: ApplicantProfileSchemaType) {
+    const createdApplicant = await createApplicantProfile(values);
     if (createdApplicant) {
       router.push("/applicant/profile");
       toast({

@@ -1,10 +1,13 @@
-"use client";
-
 import NewJobForm from "@/components/employer/NewJobForm";
-import { useUser } from "@/contexts/UserContext";
+import { currentUser } from "@clerk/nextjs/server";
+import { notFound } from "next/navigation";
 
-export default function Page() {
-  const { user } = useUser();
+export default async function Page() {
+  const user = await currentUser();
+  const role = user?.unsafeMetadata?.role;
+  const isEmployer = role === "EMPLOYER";
 
-  return user && <NewJobForm userId={user.id} />;
+  if (!user) return notFound();
+
+  return isEmployer && <NewJobForm userId={user.id} />;
 }

@@ -62,14 +62,13 @@ export default async function Page({
       <JobFilter defaultValues={filterValues} />
       <section className="m-auto flex h-full max-w-7xl gap-4 px-3 md:flex-row">
         <div className="w-full space-y-4 py-2 md:w-2/5">
-          <JobResults
-            jobs={jobs}
-            filterValues={filterValues}
-            page={currentPage}
-          />
           {hasJobs && (
             <>
-              <JobResultsEmptyPlaceholder />
+              <JobResults
+                jobs={jobs}
+                filterValues={filterValues}
+                page={currentPage}
+              />
               <JobResultsPagination
                 currentPage={currentPage}
                 totalPages={Math.ceil(jobsCount / jobsPerPage)}
@@ -78,6 +77,7 @@ export default async function Page({
               />
             </>
           )}
+          {!hasJobs && <JobResultsEmptyPlaceholder />}
         </div>
         <JobSelected job={selectedJob} />
       </section>

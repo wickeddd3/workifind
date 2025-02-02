@@ -31,7 +31,7 @@ interface EmployerJobItemProps {
 }
 
 export default function EmployerJobItem({
-  job: { slug, title, employmentType, locationType, jobApplications },
+  job: { id, slug, title, employmentType, locationType, jobApplications },
   job,
 }: EmployerJobItemProps) {
   const router = useRouter();
@@ -80,7 +80,7 @@ export default function EmployerJobItem({
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuGroup>
-              <Link href={`/employer/jobs/${slug}`}>
+              <Link href={`/employer/jobs/${id}`}>
                 <DropdownMenuItem className="cursor-pointer">
                   <Pencil className="mr-2 h-4 w-4" />
                   <span>Edit</span>
@@ -99,7 +99,7 @@ export default function EmployerJobItem({
                   <span>Public Preview</span>
                 </DropdownMenuItem>
               </Link>
-              <Link href={`/employer/jobs/${slug}/applicants`} target="_blank">
+              <Link href={`/employer/jobs/${id}/applicants`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">
                   <Users className="mr-2 h-4 w-4" />
                   <span>View Applicants</span>

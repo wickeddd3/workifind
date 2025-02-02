@@ -16,23 +16,22 @@ import { draftToMarkdown } from "markdown-draft-js";
 import Select from "@/components/ui/select";
 import { industryTypes } from "@/lib/company-types";
 import LoadingButton from "@/components/LoadingButton";
-import {
-  createEmployerProfileSchema,
-  CreateEmployerProfileValues,
-} from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createEmployerProfile } from "@/actions/employers";
-import { objectToFormData } from "@/lib/form-data";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  EmployerProfileSchema,
+  EmployerProfileSchemaType,
+} from "@/schema/employer-profile";
+import { createEmployerProfile } from "@/app/_services/employer";
 
 export default function EmployerNewProfileForm() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const defaultValues: CreateEmployerProfileValues = {
+  const defaultValues: EmployerProfileSchemaType = {
     companyName: "",
     companyEmail: "",
     companyWebsite: "",
@@ -43,8 +42,8 @@ export default function EmployerNewProfileForm() {
     perks: [],
   };
 
-  const form = useForm<CreateEmployerProfileValues>({
-    resolver: zodResolver(createEmployerProfileSchema),
+  const form = useForm<EmployerProfileSchemaType>({
+    resolver: zodResolver(EmployerProfileSchema),
     defaultValues,
   });
 
@@ -64,9 +63,8 @@ export default function EmployerNewProfileForm() {
     name: "perks" as const,
   });
 
-  async function onSubmit(values: CreateEmployerProfileValues) {
-    const formData = objectToFormData(values, ["companyLogo"]);
-    const createdEmployerProfile = await createEmployerProfile(formData);
+  async function onSubmit(values: EmployerProfileSchemaType) {
+    const createdEmployerProfile = await createEmployerProfile(values);
     if (createdEmployerProfile) {
       router.push("/employer/profile");
       toast({

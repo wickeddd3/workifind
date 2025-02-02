@@ -37,7 +37,7 @@ export const createEmployerProfile = async (
     };
 
     // Create employer profile
-    const response = await fetch(`${baseUrl}/api/employers/create`, {
+    const response = await fetch(`${baseUrl}/api/employers`, {
       method: "POST",
       body: JSON.stringify({ form }),
     });

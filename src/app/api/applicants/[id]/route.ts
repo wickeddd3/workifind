@@ -5,11 +5,11 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const id = params.id;
-
   try {
+    const userId = params.id;
+
     const applicant = await prisma.applicant.findUnique({
-      where: { userId: parseInt(id) },
+      where: { userId },
       include: {
         savedJobs: true,
       },
@@ -22,7 +22,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ applicant }, { status: 200 });
+    return NextResponse.json(applicant, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching applicant data" },
@@ -35,11 +35,11 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const id = params.id;
-  const requestBody = await request.json();
-  const { form } = requestBody;
-
   try {
+    const id = params.id;
+    const requestBody = await request.json();
+    const { form } = requestBody;
+
     const applicant = await prisma.applicant.update({
       where: { id: parseInt(id) },
       data: {

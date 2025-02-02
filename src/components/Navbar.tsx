@@ -8,9 +8,8 @@ import {
   UserButton,
   SignInButton,
   SignUpButton,
+  useUser,
 } from "@clerk/nextjs";
-import { useUser } from "@/contexts/UserContext";
-import { useMemo } from "react";
 import PostJobButton from "@/components/jobs/PostJobButton";
 import { BriefcaseBusiness, Building2, Menu, User, Users } from "lucide-react";
 import {
@@ -18,10 +17,46 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { ReactNode, useMemo } from "react";
+
+interface ItemLinkProps {
+  title: string;
+  link: string;
+  icon: ReactNode | null;
+}
+
+export const MenubarItemLink = ({
+  title = "",
+  link = "/",
+  icon = null,
+}: ItemLinkProps) => {
+  return (
+    <MenubarItem asChild>
+      <Link
+        href={link}
+        className="flex w-full cursor-pointer items-center gap-3"
+      >
+        <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+          {title}
+        </span>
+        {icon && <MenubarShortcut>{icon}</MenubarShortcut>}
+      </Link>
+    </MenubarItem>
+  );
+};
+
+export const NavbarLink = ({ title = "", link = "/" }: ItemLinkProps) => {
+  return (
+    <Link href={link} className="flex items-center gap-3">
+      <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
+        {title}
+      </span>
+    </Link>
+  );
+};
 
 export function ApplicantProfileMenu() {
   return (
@@ -50,41 +85,78 @@ export function ApplicantProfileMenu() {
   );
 }
 
-export function EmployerProfileMenu() {
-  return (
-    <>
-      <MenubarItem asChild>
-        <Link
-          href="/employer/jobs"
-          className="flex w-full cursor-pointer items-center gap-3"
-        >
-          <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-            My Jobs
-          </span>
-        </Link>
-      </MenubarItem>
-    </>
-  );
-}
-
 export default function Navbar() {
-  const { user } = useUser();
-
+  const { user, isSignedIn } = useUser();
+  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
   const profileRoute = useMemo(() => {
-    if (!user) {
-      return "/setup";
-    }
-    if (user?.role === "APPLICANT") {
+    // if (!currentUser && !currentUserRole) {
+    //   return "/setup";
+    // }
+    if (user && role === "APPLICANT") {
       return "/applicant/profile";
     }
-    if (user?.role === "EMPLOYER") {
+    if (user && role === "EMPLOYER") {
       return "/employer/profile";
     }
-    return "/";
-  }, [user]);
-
-  const isEmployer = useMemo(() => user?.role === "EMPLOYER", [user]);
-  const isApplicant = useMemo(() => user?.role === "APPLICANT", [user]);
+    return "/setup";
+  }, [user, role]);
+  const isEmployer = useMemo(
+    () => isSignedIn && role === "EMPLOYER",
+    [isSignedIn, role],
+  );
+  const isApplicant = useMemo(
+    () => isSignedIn && role === "APPLICANT",
+    [isSignedIn, role],
+  );
+  const menuItems = useMemo(
+    () => [
+      {
+        title: "Find jobs",
+        link: "/jobs",
+        icon: <BriefcaseBusiness size={16} />,
+        isVisible: true,
+      },
+      {
+        title: "Companies",
+        link: "/companies",
+        icon: <Building2 size={16} />,
+        isVisible: true,
+      },
+      {
+        title: "Professionals",
+        link: "/professionals",
+        icon: <Users size={16} />,
+        isVisible: true,
+      },
+      {
+        title: "Profile",
+        link: profileRoute,
+        icon: <User size={16} />,
+        isVisible: isSignedIn,
+      },
+      // employers only
+      {
+        title: "My Jobs",
+        link: "/employer/jobs",
+        icon: null,
+        isVisible: isEmployer,
+      },
+      // applicants only
+      {
+        title: "Applied Jobs",
+        link: "/applicant/jobs",
+        icon: null,
+        isVisible: isApplicant,
+      },
+      {
+        title: "Saved Jobs",
+        link: "/applicant/jobs/saved",
+        icon: null,
+        isVisible: isApplicant,
+      },
+    ],
+    [isSignedIn, isEmployer, isApplicant, profileRoute],
+  );
 
   return (
     <header className="flex h-full w-full items-center justify-center py-2">
@@ -95,63 +167,12 @@ export default function Navbar() {
               <Menu size={18} color="#ffffff" />
             </MenubarTrigger>
             <MenubarContent>
-              <MenubarItem asChild>
-                <Link
-                  href="/jobs"
-                  className="flex w-full cursor-pointer items-center gap-3"
-                >
-                  <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-                    Find jobs
-                  </span>
-                  <MenubarShortcut>
-                    <BriefcaseBusiness size={16} />
-                  </MenubarShortcut>
-                </Link>
-              </MenubarItem>
-              <MenubarItem asChild>
-                <Link
-                  href="/companies"
-                  className="flex w-full cursor-pointer items-center gap-3"
-                >
-                  <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-                    Companies
-                  </span>
-                  <MenubarShortcut>
-                    <Building2 size={16} />
-                  </MenubarShortcut>
-                </Link>
-              </MenubarItem>
-              <MenubarItem asChild>
-                <Link
-                  href="/professionals"
-                  className="flex w-full cursor-pointer items-center gap-3"
-                >
-                  <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-                    Professionals
-                  </span>
-                  <MenubarShortcut>
-                    <Users size={16} />
-                  </MenubarShortcut>
-                </Link>
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem asChild>
-                <Link
-                  href={profileRoute}
-                  className="flex w-full cursor-pointer items-center gap-3"
-                >
-                  <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-                    Profile
-                  </span>
-                  <MenubarShortcut>
-                    <User size={16} />
-                  </MenubarShortcut>
-                </Link>
-              </MenubarItem>
-              <SignedIn>
-                {isApplicant && <ApplicantProfileMenu />}{" "}
-                {isEmployer && <EmployerProfileMenu />}
-              </SignedIn>
+              {menuItems.map(
+                (item) =>
+                  item.isVisible && (
+                    <MenubarItemLink key={item.title} {...item} />
+                  ),
+              )}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
@@ -168,26 +189,10 @@ export default function Navbar() {
           </div>
         </Link>
         <div className="hidden gap-6 md:flex">
-          <Link href="/jobs" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-              Find jobs
-            </span>
-          </Link>
-          <Link href="/companies" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-              Companies
-            </span>
-          </Link>
-          <Link href="/professionals" className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-              Professionals
-            </span>
-          </Link>
-          <Link href={profileRoute} className="flex items-center gap-3">
-            <span className="text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-              Profile
-            </span>
-          </Link>
+          {menuItems.map(
+            (item) =>
+              item.isVisible && <NavbarLink key={item.title} {...item} />,
+          )}
         </div>
         <div className="flex gap-2 md:gap-4">
           <SignedOut>

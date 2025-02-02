@@ -1,24 +1,21 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
 import ApplicantEditProfile from "@/components/applicant/ApplicantEditProfile";
-import { useUser } from "@/contexts/UserContext";
-import { getApplicant } from "@/actions/applicants";
+import { getApplicantProfileByUserId } from "@/app/_services/applicant";
+import { cache } from "react";
+import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Page() {
-  const { user } = useUser();
-  const [applicant, setApplicant] = useState(null);
+const handleFetchApplicantProfile = cache(async (userId: string) => {
+  return await getApplicantProfileByUserId(userId);
+});
 
-  const handleGetApplicant = useCallback(
-    async (id: number) => await getApplicant(id),
-    [],
-  );
+export default async function Page() {
+  const { userId } = auth();
 
-  useEffect(() => {
-    if (user && user?.id) {
-      handleGetApplicant(user.id).then(setApplicant);
-    }
-  }, [user, handleGetApplicant]);
+  if (!userId) notFound();
+
+  const applicant = await handleFetchApplicantProfile(userId);
+
+  if (!applicant) notFound();
 
   return applicant && <ApplicantEditProfile applicant={applicant} />;
 }

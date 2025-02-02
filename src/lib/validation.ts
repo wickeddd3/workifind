@@ -3,7 +3,7 @@ import validator from "validator";
 import { employmentTypes, locationTypes } from "@/lib/job-types";
 import { industryTypes } from "@/lib/company-types";
 
-const requiredString = z.string().min(1, "Required");
+const requiredString = z.string().trim().min(1, "Required");
 const requiredBoolean = z.boolean({
   required_error: "Required",
   invalid_type_error: "Must be a boolean",

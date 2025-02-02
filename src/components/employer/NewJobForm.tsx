@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Select from "@/components/ui/select";
-import { createJobSchema, CreateJobValues } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { employmentTypes, locationTypes } from "@/lib/job-types";
@@ -18,20 +17,20 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
-import { objectToFormData } from "@/lib/form-data";
-import { createJobPost } from "@/actions/jobs";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { JobSchema, JobSchemaType } from "@/schema/job";
+import { createJob } from "@/app/_services/employer-jobs";
 
 interface NewJobFormProps {
-  userId: number;
+  userId: string;
 }
 
 export default function NewJobForm({ userId }: NewJobFormProps) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const defaultValues: CreateJobValues = {
+  const defaultValues: JobSchemaType = {
     title: "",
     employmentType: "",
     description: "",
@@ -41,8 +40,8 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
     locationType: "",
   };
 
-  const form = useForm<CreateJobValues>({
-    resolver: zodResolver(createJobSchema),
+  const form = useForm<JobSchemaType>({
+    resolver: zodResolver(JobSchema),
     defaultValues,
   });
 
@@ -54,11 +53,11 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: CreateJobValues) {
-    const formData = objectToFormData(values);
-    const createdJob = await createJobPost(userId, formData);
+  async function onSubmit(values: JobSchemaType) {
+    const createdJob = await createJob(userId, values);
     if (createdJob) {
       router.push("/employer/jobs");
+      router.refresh();
       toast({
         title: "New job was successfully created.",
       });

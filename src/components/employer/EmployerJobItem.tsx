@@ -1,3 +1,5 @@
+"use client";
+
 import { Job, JobApplication } from "@prisma/client";
 import {
   Banknote,
@@ -19,10 +21,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formatMoney } from "@/lib/utils";
 import Link from "next/link";
-import { deleteJobPost } from "@/actions/jobs";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useMemo } from "react";
+import { deleteJob } from "@/app/_services/employer-jobs";
 
 interface EmployerJobItemProps {
   job: Job & { jobApplications: JobApplication[] };
@@ -47,8 +49,8 @@ export default function EmployerJobItem({
   };
 
   const handleDeleteJob = async (job: Job) => {
-    const { authorId, slug } = job;
-    const deletedJob = await deleteJobPost(authorId, slug);
+    const { userId, id } = job;
+    const deletedJob = await deleteJob(userId, id);
     if (deletedJob) {
       router.refresh();
       toast({

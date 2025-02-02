@@ -1,12 +1,11 @@
-"use client";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useUser } from "@/contexts/UserContext";
-import { getEmployerJobs, getEmployerJobsCount } from "@/actions/jobs";
 import EmployerJobs from "@/components/employer/EmployerJobs";
-import { Job, JobApplication } from "@prisma/client";
 import EmployerJobsEmptyPlaceholder from "@/components/employer/EmployerJobsEmptyPlaceholder";
 import EmployerJobsLoadingPlaceholder from "@/components/employer/EmployerJobsLoadingPlaceholder";
+import EmployerJobsPagination from "@/components/employer/EmployerJobsPagination";
+import { Suspense } from "react";
+import { getJobs, getJobsCount } from "@/app/_services/employer-jobs";
+import { currentUser } from "@clerk/nextjs/server";
+import { notFound } from "next/navigation";
 
 interface PageProps {
   searchParams: {
@@ -14,51 +13,39 @@ interface PageProps {
   };
 }
 
-export default function Page({ searchParams: { page } }: PageProps) {
-  const { user } = useUser();
-  const [jobs, setJobs] = useState<
-    (Job & { jobApplications: JobApplication[] })[] | null
-  >(null);
-  const [totalResults, setTotalResults] = useState(0);
-  const hasEmptyJobs = useMemo(() => jobs && jobs.length === 0, [jobs]);
-  const currentPage = page ? parseInt(page) : 1;
+export default async function Page({ searchParams: { page } }: PageProps) {
+  const user = await currentUser();
+  const role = user?.unsafeMetadata?.role;
+  const userId = user?.id;
+  const isEmployer = role === "EMPLOYER";
+
+  if (!isEmployer || !userId) return notFound();
+
   const jobsPerPage = 5;
-  const skip = (currentPage - 1) * jobsPerPage;
+  const currentPage = page ? parseInt(page) : 1;
 
-  const handleGetJobs = useCallback(
-    async (id: number) => {
-      const [jobs, totalResults] = await Promise.all([
-        getEmployerJobs({
-          id,
-          take: jobsPerPage,
-          skip,
-        }),
-        getEmployerJobsCount(id),
-      ]);
-      setJobs(jobs);
-      setTotalResults(totalResults);
-    },
-    [skip],
-  );
+  const [jobs, jobsCount] = await Promise.all([
+    getJobs({ userId, jobsPerPage, page: currentPage }),
+    getJobsCount(userId),
+  ]);
 
-  useEffect(() => {
-    if (user && user?.id) {
-      handleGetJobs(user.id);
-    }
-  }, [user, handleGetJobs]);
+  const hasJobs = jobs && jobs.length > 0;
 
   return (
-    <>
-      {jobs && (
-        <EmployerJobs
-          jobs={jobs}
-          totalResults={totalResults}
-          jobsPerPage={jobsPerPage}
-          page={currentPage}
-        />
-      )}
-      {!jobs && <EmployerJobsLoadingPlaceholder />}
-      {hasEmptyJobs && <EmployerJobsEmptyPlaceholder message="No jobs found" />}
-    </>
+    <main className="m-auto flex flex-col gap-6 px-0 md:px-4">
+      <h1 className="px-4 text-md font-bold md:text-lg">My jobs</h1>
+      <div className="flex flex-col gap-2">
+        {hasJobs && (
+          <Suspense fallback={<EmployerJobsLoadingPlaceholder />}>
+            <EmployerJobs jobs={jobs} />
+            <EmployerJobsPagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(jobsCount / jobsPerPage)}
+            />
+          </Suspense>
+        )}
+        {!hasJobs && <EmployerJobsEmptyPlaceholder message="No jobs found" />}
+      </div>
+    </main>
   );
 }

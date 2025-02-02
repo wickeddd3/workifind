@@ -16,18 +16,17 @@ import { draftToMarkdown } from "markdown-draft-js";
 import Select from "@/components/ui/select";
 import { industryTypes } from "@/lib/company-types";
 import LoadingButton from "@/components/LoadingButton";
-import {
-  createEmployerProfileSchema,
-  CreateEmployerProfileValues,
-} from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateEmployerProfile } from "@/actions/employers";
 import { Employer } from "@prisma/client";
-import { objectToFormData } from "@/lib/form-data";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  EmployerProfileSchema,
+  EmployerProfileSchemaType,
+} from "@/schema/employer-profile";
+import { updateEmployerProfile } from "@/app/_services/employer";
 
 interface EmployerProfileProps {
   employer: Employer & { perks: { name: string }[] };
@@ -49,7 +48,7 @@ export default function EmployerEditProfile({
   const router = useRouter();
   const { toast } = useToast();
 
-  const defaultValues: CreateEmployerProfileValues = {
+  const defaultValues: EmployerProfileSchemaType = {
     companyName,
     companyEmail: companyEmail ?? "",
     companyWebsite: companyWebsite ?? "",
@@ -60,8 +59,8 @@ export default function EmployerEditProfile({
     perks: perks ?? [],
   };
 
-  const form = useForm<CreateEmployerProfileValues>({
-    resolver: zodResolver(createEmployerProfileSchema),
+  const form = useForm<EmployerProfileSchemaType>({
+    resolver: zodResolver(EmployerProfileSchema),
     defaultValues,
   });
 
@@ -81,9 +80,8 @@ export default function EmployerEditProfile({
     name: "perks" as const,
   });
 
-  async function onSubmit(values: CreateEmployerProfileValues) {
-    const formData = objectToFormData(values, ["companyLogo"]);
-    const updatedEmployerProfile = await updateEmployerProfile(id, formData);
+  async function onSubmit(values: EmployerProfileSchemaType) {
+    const updatedEmployerProfile = await updateEmployerProfile(id, values);
     if (updatedEmployerProfile) {
       router.push("/employer/profile");
       toast({

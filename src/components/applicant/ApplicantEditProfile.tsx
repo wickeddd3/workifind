@@ -14,12 +14,7 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
-import {
-  createApplicantProfileSchema,
-  CreateApplicantProfileValues,
-} from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateApplicantProfile } from "@/actions/applicants";
 import { Applicant } from "@prisma/client";
 import { objectToFormData } from "@/lib/form-data";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
@@ -33,6 +28,11 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { updateApplicantProfile } from "@/app/_services/applicant";
+import {
+  ApplicantProfileSchema,
+  ApplicantProfileSchemaType,
+} from "@/schema/applicant-profile";
 
 interface ApplicantProfileProps {
   applicant: Applicant & { skills: { name: string }[] } & {
@@ -62,7 +62,7 @@ export default function ApplicantEditProfile({
 }: ApplicantProfileProps) {
   const router = useRouter();
   const { toast } = useToast();
-  const defaultValues: CreateApplicantProfileValues = {
+  const defaultValues: ApplicantProfileSchemaType = {
     firstName,
     lastName,
     email,
@@ -80,8 +80,8 @@ export default function ApplicantEditProfile({
     salaryExpectation: salaryExpectation,
   };
 
-  const form = useForm<CreateApplicantProfileValues>({
-    resolver: zodResolver(createApplicantProfileSchema),
+  const form = useForm<ApplicantProfileSchemaType>({
+    resolver: zodResolver(ApplicantProfileSchema),
     defaultValues,
   });
 
@@ -119,10 +119,9 @@ export default function ApplicantEditProfile({
     name: "preferredLocations" as const,
   });
 
-  async function onSubmit(values: CreateApplicantProfileValues) {
-    const formData = objectToFormData(values);
-    const updatedApplicant = await updateApplicantProfile(id, formData);
-    if (updatedApplicant) {
+  async function onSubmit(values: ApplicantProfileSchemaType) {
+    const updatedApplicantProfile = await updateApplicantProfile(id, values);
+    if (updatedApplicantProfile) {
       router.push("/applicant/profile");
       toast({
         title: "Your applicant profile has been updated",

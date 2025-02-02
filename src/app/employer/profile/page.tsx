@@ -1,29 +1,28 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
-import { useUser } from "@/contexts/UserContext";
-import { getEmployer } from "@/actions/employers";
 import EmployerDetails from "@/components/employer/EmployerDetails";
 import EmployerDetailsLoadingPlaceholder from "@/components/employer/EmployerDetailsLoadingPlaceholder";
+import { getEmployerProfileByUserId } from "@/app/_services/employer";
+import { cache, Suspense } from "react";
+import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Page() {
-  const { user } = useUser();
-  const [employer, setEmployer] = useState(null);
+const handleFetchEmployerProfile = cache(async (userId: string) => {
+  return await getEmployerProfileByUserId(userId);
+});
 
-  const handleGetEmployer = useCallback(
-    async (id: number) => await getEmployer(id),
-    [],
-  );
+export default async function Page() {
+  const { userId } = auth();
 
-  useEffect(() => {
-    if (user && user?.id) {
-      handleGetEmployer(user.id).then(setEmployer);
-    }
-  }, [user, handleGetEmployer]);
+  if (!userId) notFound();
 
-  return employer ? (
-    <EmployerDetails employer={employer} />
-  ) : (
-    <EmployerDetailsLoadingPlaceholder />
+  const employer = await handleFetchEmployerProfile(userId);
+
+  if (!employer) notFound();
+
+  return (
+    employer && (
+      <Suspense fallback={<EmployerDetailsLoadingPlaceholder />}>
+        <EmployerDetails employer={employer} />
+      </Suspense>
+    )
   );
 }

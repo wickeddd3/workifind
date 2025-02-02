@@ -3,11 +3,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
-import { useUser } from "@/contexts/UserContext";
+import { useUser } from "@clerk/nextjs";
 
 export default function PostJobButton() {
-  const { user } = useUser();
-  const isEmployer = useMemo(() => user?.role === "EMPLOYER", [user]);
+  const { user, isSignedIn } = useUser();
+  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
+  const isEmployer = useMemo(
+    () => isSignedIn && role === "EMPLOYER",
+    [isSignedIn, role],
+  );
 
   return (
     isEmployer && (

@@ -1,11 +1,79 @@
 import Link from "next/link";
+import { ReactNode } from "react";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
 
+interface HomePageLinkProps {
+  title: string;
+  url: string;
+}
+
+function HomePageLink({ title = "", url = "" }: HomePageLinkProps) {
+  return (
+    <Link
+      href={url}
+      className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
+    >
+      {title}
+    </Link>
+  );
+}
+
+interface SocialPageLinkProps {
+  icon: ReactNode;
+  url: string;
+}
+
+function SocialPageLink({ icon = null, url = "" }: SocialPageLinkProps) {
+  return (
+    <Link href={url} className="rounded-lg p-1 hover:bg-indigo-100">
+      {icon}
+    </Link>
+  );
+}
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const homePages = [
+    {
+      title: "About Us",
+      url: "/",
+    },
+    {
+      title: "Contact",
+      url: "/",
+    },
+    {
+      title: "Terms of Service",
+      url: "/",
+    },
+    {
+      title: "Privacy Policy",
+      url: "/",
+    },
+  ];
+
+  const socialPages = [
+    {
+      icon: <FaSquareFacebook size="1.5em" color="#3a4955" />,
+      url: "/",
+    },
+    {
+      icon: <FaLinkedin size="1.5em" color="#3a4955" />,
+      url: "/",
+    },
+    {
+      icon: <FaInstagram size="1.5em" color="#3a4955" />,
+      url: "/",
+    },
+    {
+      icon: <FaXTwitter size="1.5em" color="#3a4955" />,
+      url: "/",
+    },
+  ];
 
   return (
     <footer className="bg-gray-white">
@@ -28,46 +96,14 @@ export default function Footer() {
           </div>
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-wrap items-center justify-center gap-5">
-              <Link
-                href="/"
-                className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
-              >
-                About Us
-              </Link>
-              <Link
-                href="/"
-                className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
-              >
-                Contact
-              </Link>
-              <Link
-                href="/"
-                className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/"
-                className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
-              >
-                Privacy Policy
-              </Link>
+              {homePages.map(({ title, url }) => (
+                <HomePageLink title={title} url={url} key={title} />
+              ))}
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <Link href="" className="rounded-lg p-1 hover:bg-indigo-100">
-                <FaSquareFacebook size="1.5em" color="#3a4955" />
-              </Link>
-              <Link href="" className="rounded-lg p-1 hover:bg-indigo-100">
-                <FaLinkedin size="1.5em" color="#3a4955" />
-              </Link>
-
-              <Link href="" className="rounded-lg p-1 hover:bg-indigo-100">
-                <FaInstagram size="1.5em" color="#3a4955" />
-              </Link>
-
-              <Link href="" className="rounded-lg p-1 hover:bg-indigo-100">
-                <FaXTwitter size="1.5em" color="#3a4955" />
-              </Link>
+              {socialPages.map(({ icon, url }, index) => (
+                <SocialPageLink icon={icon} url={url} key={index} />
+              ))}
             </div>
           </div>
         </div>

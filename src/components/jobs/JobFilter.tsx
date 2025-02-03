@@ -6,8 +6,7 @@ import { Label } from "@/components/ui/label";
 import Select from "@/components/ui/select";
 import useSearchHistory from "@/hooks/useSearchHistory";
 import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
-import { JobFilterSchemaType } from "@/schema/job-filter";
-import { filterJobs } from "@/actions/search";
+import { JobFilterSchema, JobFilterSchemaType } from "@/schema/job-filter";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 
@@ -23,7 +22,18 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
   });
 
   async function handleFilterJobs(formData: FormData) {
-    const { searchFilter, searchTitle } = await filterJobs(formData);
+    const values = Object.fromEntries(formData.entries());
+    const { q, employmentType, salary, locationType } =
+      JobFilterSchema.parse(values);
+    const searchParams = new URLSearchParams({
+      ...(q && { q: q.trim() }),
+      ...(employmentType && { employmentType }),
+      ...(salary && { salary }),
+      ...(locationType && { locationType }),
+    });
+    const searchFilter = `/jobs?${searchParams.toString()}`;
+    const searchTitle = q?.trim();
+
     router.push(searchFilter);
     saveSearchFilter({ searchFilter, searchTitle });
   }

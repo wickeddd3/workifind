@@ -21,7 +21,7 @@ export const createApplicantProfile = async (
     };
 
     // Create applicant profile
-    const response = await fetch(`${baseUrl}/api/applicants/create`, {
+    const response = await fetch(`${baseUrl}/api/applicants`, {
       method: "POST",
       body: JSON.stringify({ form }),
     });

@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { UserProvider } from "@/contexts/UserContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
@@ -95,11 +94,9 @@ export default function RootLayout({
           className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
         >
           <SpeedInsights />
-          <UserProvider>
-            <DynamicNavbar />
-            {children}
-            <DynamicFooter />
-          </UserProvider>
+          <DynamicNavbar />
+          {children}
+          <DynamicFooter />
           <DynamicToaster />
         </body>
       </html>

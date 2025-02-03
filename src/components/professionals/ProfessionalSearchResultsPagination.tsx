@@ -1,12 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { ProfessionalFilterValues } from "@/lib/validation";
+import { ProfessionalFilterSchemaType } from "@/schema/professional-filter";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  filterValues: ProfessionalFilterValues;
+  filterValues: ProfessionalFilterSchemaType;
 }
 
 export default function ProfessionalSearchResultsPagination({

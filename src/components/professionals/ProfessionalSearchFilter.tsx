@@ -1,23 +1,23 @@
 import { redirect } from "next/navigation";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
-  professionalFilterSchema,
-  ProfessionalFilterValues,
-} from "@/lib/validation";
+  ProfessionalFilterSchema,
+  ProfessionalFilterSchemaType,
+} from "@/schema/professional-filter";
 
 async function searchProfessionals(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
-  const { q } = professionalFilterSchema.parse(values);
+  const { q } = ProfessionalFilterSchema.parse(values);
   const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
 
   redirect(`/professionals/search?${searchParams.toString()}`);
 }
 
 interface ProfessionalSearchFilterProps {
-  filterValues: ProfessionalFilterValues;
+  filterValues: ProfessionalFilterSchemaType;
 }
 
 export default function ProfessionalSearchFilter({

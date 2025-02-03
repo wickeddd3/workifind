@@ -2,7 +2,7 @@ import ProfessionalSearchFilter from "@/components/professionals/ProfessionalSea
 import ProfessionalSearchResults from "@/components/professionals/ProfessionalSearchResults";
 import ProfessionalSearchEmptyPlaceholder from "@/components/professionals/ProfessionalSearchEmptyPlaceholder";
 import ProfessionalSearchResultsPagination from "@/components/professionals/ProfessionalSearchResultsPagination";
-import { ProfessionalFilterValues } from "@/lib/validation";
+import { ProfessionalFilterSchemaType } from "@/schema/professional-filter";
 import {
   searchProfessionals,
   searchProfessionalsCount,
@@ -16,7 +16,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams: { q, page } }: PageProps) {
-  const filterValues: ProfessionalFilterValues = {
+  const filterValues: ProfessionalFilterSchemaType = {
     q,
   };
   const jobsPerPage = 10;

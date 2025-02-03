@@ -1,16 +1,14 @@
-"use client";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useUser } from "@/contexts/UserContext";
 import ApplicantJobApplications from "@/components/applicant/ApplicantJobApplications";
-import {
-  getApplicantJobApplications,
-  getApplicantJobApplicationsCount,
-} from "@/actions/jobApplications";
-import { getApplicant } from "@/actions/applicants";
+import ApplicantJobApplicationsPagination from "@/components/applicant/ApplicantJobApplicationsPagination";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
-import { Job, JobApplication } from "@prisma/client";
 import ApplicantJobsLoadingPlaceholder from "@/components/applicant/ApplicantJobsLoadingPlaceholder";
+import { Suspense } from "react";
+import { currentUser } from "@clerk/nextjs/server";
+import { notFound } from "next/navigation";
+import {
+  getJobApplications,
+  getJobApplicationsCount,
+} from "@/app/_services/applicant-job-applications";
 
 interface PageProps {
   searchParams: {
@@ -18,63 +16,41 @@ interface PageProps {
   };
 }
 
-export default function Page({ searchParams: { page } }: PageProps) {
-  const { user } = useUser();
-  const [applicant, setApplicant] = useState(null);
-  const [jobApplications, setJobApplications] = useState<
-    (JobApplication & { job: Job })[] | null
-  >(null);
-  const [totalResults, setTotalResults] = useState(0);
-  const hasEmptyJobApplications = useMemo(
-    () => jobApplications && jobApplications.length === 0,
-    [jobApplications],
-  );
-  const currentPage = page ? parseInt(page) : 1;
+export default async function Page({ searchParams: { page } }: PageProps) {
+  const user = await currentUser();
+  const role = user?.unsafeMetadata?.role;
+  const userId = user?.id;
+  const isApplicant = role === "APPLICANT";
+
+  if (!isApplicant || !userId) return notFound();
+
   const jobsPerPage = 5;
-  const skip = (currentPage - 1) * jobsPerPage;
+  const currentPage = page ? parseInt(page) : 1;
 
-  const handleGetApplicantJobApplications = useCallback(
-    async (userId: number) => {
-      const applicant = await getApplicant(userId);
-      setApplicant(applicant);
-      if (applicant) {
-        const [jobApplications, totalResults] = await Promise.all([
-          getApplicantJobApplications({
-            id: applicant.id,
-            take: jobsPerPage,
-            skip,
-          }),
-          getApplicantJobApplicationsCount(applicant.id),
-        ]);
-        setJobApplications(jobApplications);
-        setTotalResults(totalResults);
-      }
-    },
-    [skip],
-  );
+  const [jobs, jobsCount] = await Promise.all([
+    getJobApplications({ userId, jobsPerPage, page: currentPage }),
+    getJobApplicationsCount(userId),
+  ]);
 
-  useEffect(() => {
-    if (user && user?.id) {
-      handleGetApplicantJobApplications(user.id);
-    }
-  }, [user, handleGetApplicantJobApplications]);
+  const hasJobs = jobs && jobs.length > 0;
 
   return (
-    <>
-      {applicant && jobApplications && (
-        <ApplicantJobApplications
-          jobApplications={jobApplications}
-          totalResults={totalResults}
-          jobsPerPage={jobsPerPage}
-          page={currentPage}
-        />
-      )}
-      {!applicant && !hasEmptyJobApplications && (
-        <ApplicantJobsLoadingPlaceholder />
-      )}
-      {applicant && hasEmptyJobApplications && (
-        <ApplicantJobsEmptyPlaceholder message="No job applications found" />
-      )}
-    </>
+    <main className="m-auto flex flex-col gap-6 px-0 md:px-4">
+      <h1 className="px-4 text-md font-bold md:text-lg">Applied jobs</h1>
+      <div className="flex flex-col gap-2">
+        {hasJobs && (
+          <Suspense fallback={<ApplicantJobsLoadingPlaceholder />}>
+            <ApplicantJobApplications jobApplications={jobs} />
+            <ApplicantJobApplicationsPagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(jobsCount / jobsPerPage)}
+            />
+          </Suspense>
+        )}
+        {!hasJobs && (
+          <ApplicantJobsEmptyPlaceholder message="No job applications found" />
+        )}
+      </div>
+    </main>
   );
 }

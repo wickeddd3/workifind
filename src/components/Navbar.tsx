@@ -115,24 +115,28 @@ export default function Navbar() {
         link: "/jobs",
         icon: <BriefcaseBusiness size={16} />,
         isVisible: true,
+        desktopView: true,
       },
       {
         title: "Companies",
         link: "/companies",
         icon: <Building2 size={16} />,
         isVisible: true,
+        desktopView: true,
       },
       {
         title: "Professionals",
         link: "/professionals",
         icon: <Users size={16} />,
         isVisible: true,
+        desktopView: true,
       },
       {
         title: "Profile",
         link: profileRoute,
         icon: <User size={16} />,
         isVisible: isSignedIn,
+        desktopView: true,
       },
       // employers only
       {
@@ -140,6 +144,7 @@ export default function Navbar() {
         link: "/employer/jobs",
         icon: null,
         isVisible: isEmployer,
+        desktopView: false,
       },
       // applicants only
       {
@@ -147,12 +152,14 @@ export default function Navbar() {
         link: "/applicant/jobs",
         icon: null,
         isVisible: isApplicant,
+        desktopView: false,
       },
       {
         title: "Saved Jobs",
         link: "/applicant/jobs/saved",
         icon: null,
         isVisible: isApplicant,
+        desktopView: false,
       },
     ],
     [isSignedIn, isEmployer, isApplicant, profileRoute],
@@ -191,7 +198,8 @@ export default function Navbar() {
         <div className="hidden gap-6 md:flex">
           {menuItems.map(
             (item) =>
-              item.isVisible && <NavbarLink key={item.title} {...item} />,
+              item.isVisible &&
+              item.desktopView && <NavbarLink key={item.title} {...item} />,
           )}
         </div>
         <div className="flex gap-2 md:gap-4">

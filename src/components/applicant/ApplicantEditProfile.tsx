@@ -16,7 +16,6 @@ import { draftToMarkdown } from "markdown-draft-js";
 import LoadingButton from "@/components/LoadingButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Applicant } from "@prisma/client";
-import { objectToFormData } from "@/lib/form-data";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { PlusIcon, XIcon } from "lucide-react";

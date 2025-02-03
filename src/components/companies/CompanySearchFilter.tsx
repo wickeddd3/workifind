@@ -1,20 +1,23 @@
 import { redirect } from "next/navigation";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { companyFilterSchema, CompanyFilterValues } from "@/lib/validation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  CompanyFilterSchema,
+  CompanyFilterSchemaType,
+} from "@/schema/company-filter";
 
 async function searchCompanies(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
-  const { q } = companyFilterSchema.parse(values);
+  const { q } = CompanyFilterSchema.parse(values);
   const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
 
   redirect(`/companies/search?${searchParams.toString()}`);
 }
 
 interface CompanySearchFilterProps {
-  filterValues: CompanyFilterValues;
+  filterValues: CompanyFilterSchemaType;
 }
 
 export default function CompanySearchFilter({

@@ -2,13 +2,13 @@ import IconSearch from "@/components/icons/IconSearch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import { companyFilterSchema } from "@/lib/validation";
+import { CompanyFilterSchema } from "@/schema/company-filter";
 
 async function searchCompanies(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
-  const { q } = companyFilterSchema.parse(values);
+  const { q } = CompanyFilterSchema.parse(values);
   const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
 
   redirect(`/companies/search?${searchParams.toString()}`);

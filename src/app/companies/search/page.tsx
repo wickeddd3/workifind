@@ -2,7 +2,7 @@ import CompanySearchFilter from "@/components/companies/CompanySearchFilter";
 import CompanySearchResults from "@/components/companies/CompanySearchResults";
 import CompanySearchEmptyPlaceholder from "@/components/companies/CompanySearchEmptyPlaceholder";
 import CompanySearchResultsPagination from "@/components/companies/CompanySearchResultsPagination";
-import { CompanyFilterValues } from "@/lib/validation";
+import { CompanyFilterSchemaType } from "@/schema/company-filter";
 import {
   searchCompanies,
   searchCompaniesCount,
@@ -16,7 +16,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams: { q, page } }: PageProps) {
-  const filterValues: CompanyFilterValues = {
+  const filterValues: CompanyFilterSchemaType = {
     q,
   };
   const jobsPerPage = 10;

@@ -1,12 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { CompanyFilterValues } from "@/lib/validation";
+import { CompanyFilterSchemaType } from "@/schema/company-filter";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  filterValues: CompanyFilterValues;
+  filterValues: CompanyFilterSchemaType;
 }
 
 export default function CompanySearchResultsPagination({

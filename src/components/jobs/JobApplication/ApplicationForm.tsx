@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Form,
   FormControl,
@@ -12,29 +14,28 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { applyJobSchema, ApplyJobValues } from "@/lib/validation";
-import { objectToFormData } from "@/lib/form-data";
-import { applyToJob } from "@/actions/jobs";
-import { Applicant, Employer, Job, User } from "@prisma/client";
+import { applyToJob } from "@/app/_services/applicant-job-applications";
+import {
+  JobApplicationSchema,
+  JobApplicationSchemaType,
+} from "@/schema/job-application";
 
 interface ApplicationFormProps {
-  job: Job & { employer: Employer };
-  user: User;
-  applicant: Applicant;
+  userId: string;
+  jobId: number;
+  jobSlug: string;
 }
 
 export default function ApplicationForm({
-  job: { id: jobId, slug: jobSlug },
-  user,
-  user: { role: userRole },
-  applicant,
-  applicant: { id: applicantId },
+  userId,
+  jobId,
+  jobSlug,
 }: ApplicationFormProps) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<ApplyJobValues>({
-    resolver: zodResolver(applyJobSchema),
+  const form = useForm<JobApplicationSchemaType>({
+    resolver: zodResolver(JobApplicationSchema),
     defaultValues: { pitch: "" },
   });
 
@@ -44,33 +45,14 @@ export default function ApplicationForm({
     formState: { isSubmitting },
   } = form;
 
-  async function onSubmit(values: ApplyJobValues) {
-    if (!applicant) {
+  async function onSubmit(values: JobApplicationSchemaType) {
+    const createdJob = await applyToJob(userId, jobId, values);
+    if (createdJob) {
+      router.push(`/jobs/${jobSlug}/submitted`);
+      router.refresh();
       toast({
-        title: "Applicant profile missing.",
+        title: "Your job application was successfully submitted",
       });
-    }
-    if (!jobId) {
-      toast({
-        title: "Job info missing",
-      });
-    }
-
-    if (applicant && user && jobId) {
-      const formData = objectToFormData(values);
-      const createdJob = await applyToJob(
-        applicantId,
-        jobId,
-        formData,
-        userRole,
-        jobSlug,
-      );
-      if (createdJob) {
-        router.push(`/jobs/${jobSlug}/submitted`);
-        toast({
-          title: "Your job application was successfully submitted",
-        });
-      }
     }
   }
 

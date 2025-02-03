@@ -29,25 +29,25 @@ export default function Footer() {
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-wrap items-center justify-center gap-5">
               <Link
-                href="/about"
+                href="/"
                 className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
               >
                 About Us
               </Link>
               <Link
-                href="/contact"
+                href="/"
                 className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
               >
                 Contact
               </Link>
               <Link
-                href="/terms"
+                href="/"
                 className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
               >
                 Terms of Service
               </Link>
               <Link
-                href="/privacy"
+                href="/"
                 className="text-xs font-medium text-gray-900 hover:text-indigo-700 md:text-sm"
               >
                 Privacy Policy

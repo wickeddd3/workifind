@@ -3,9 +3,9 @@ import JobResults from "@/components/jobs/JobResults";
 import JobResultsEmptyPlaceholder from "@/components/jobs/JobResultsEmptyPlaceholder";
 import JobResultsPagination from "@/components/jobs/JobResultsPagination";
 import JobSelected from "@/components/jobs/JobSelected";
-import { JobFilterValues } from "@/lib/validation";
 import { filterJobs, filterJobsCount } from "@/app/_services/jobs";
 import { Employer, Job, JobApplication } from "@prisma/client";
+import { JobFilterSchemaType } from "@/schema/job-filter";
 
 interface PageProps {
   searchParams: {
@@ -26,7 +26,7 @@ interface JobPost extends Job {
 export default async function Page({
   searchParams: { q, employmentType, salary, locationType, job: jobSlug, page },
 }: PageProps) {
-  const filterValues: JobFilterValues = {
+  const filterValues: JobFilterSchemaType = {
     q,
     employmentType,
     salary,

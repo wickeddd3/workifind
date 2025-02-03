@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import HomeJobFilter from "@/components/home/HomeJobFilter";
-import { JobFilterValues } from "@/lib/validation";
+import { JobFilterSchemaType } from "@/schema/job-filter";
 
 const DynamicHomeInitialSavedJobs = dynamic(
   () => import("@/components/home/HomeInitialSavedJobs"),
@@ -22,7 +22,7 @@ const DynamicHomeMarketingSection = dynamic(
 );
 
 export default function Page() {
-  const filterValues: JobFilterValues = {
+  const filterValues: JobFilterSchemaType = {
     q: "",
     employmentType: "",
     salary: "",

@@ -1,11 +1,11 @@
 import JobItem from "@/components/jobs/JobItem";
 import Link from "next/link";
-import { JobFilterValues } from "@/lib/validation";
+import { JobFilterSchemaType } from "@/schema/job-filter";
 import { Job, Employer } from "@prisma/client";
 
 interface JobResultsProps {
   jobs: (Job & { employer: Employer })[];
-  filterValues: JobFilterValues;
+  filterValues: JobFilterSchemaType;
   page?: number;
 }
 

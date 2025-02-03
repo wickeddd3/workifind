@@ -6,13 +6,13 @@ import { Label } from "@/components/ui/label";
 import Select from "@/components/ui/select";
 import useSearchHistory from "@/hooks/useSearchHistory";
 import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
-import { JobFilterValues } from "@/lib/validation";
+import { JobFilterSchemaType } from "@/schema/job-filter";
 import { filterJobs } from "@/actions/search";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 
 interface JobFilterProps {
-  defaultValues: JobFilterValues;
+  defaultValues: JobFilterSchemaType;
 }
 
 export default function JobFilter({ defaultValues }: JobFilterProps) {

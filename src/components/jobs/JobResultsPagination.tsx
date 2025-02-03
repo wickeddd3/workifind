@@ -1,12 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { JobFilterValues } from "@/lib/validation";
+import { JobFilterSchemaType } from "@/schema/job-filter";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  filterValues: JobFilterValues;
+  filterValues: JobFilterSchemaType;
   jobSlug?: string;
 }
 

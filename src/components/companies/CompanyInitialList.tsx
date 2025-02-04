@@ -1,6 +1,6 @@
 "use client";
 
-import { Employer } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import CompanyInitialListItem from "@/components/companies/CompanyInitialListItem";
 import ViewMoreButton from "@/components/ViewMoreButton";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 interface CompanyInitialListProps {
-  companies: Employer[];
+  companies: (Employer & { jobs: Job[] })[];
   hasSeeMoreButton?: boolean;
 }
 

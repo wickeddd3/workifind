@@ -1,6 +1,5 @@
 import JobApplicationForm from "@/components/jobs/JobApplication/JobApplicationForm";
-import LoadingPlaceholder from "@/components/jobs/JobApplication/LoadingPlaceholder";
-import { cache, Suspense } from "react";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { findJobBySlug } from "@/app/_services/job";
 import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
@@ -35,9 +34,7 @@ export default async function Page({ params: { slug } }: PageProps) {
   return (
     <main className="mx-auto max-w-4xl p-4">
       <div className="h-full">
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <JobApplicationForm userId={userId} job={job} applicant={applicant} />
-        </Suspense>
+        <JobApplicationForm userId={userId} job={job} applicant={applicant} />
       </div>
     </main>
   );

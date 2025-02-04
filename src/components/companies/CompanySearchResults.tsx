@@ -1,9 +1,9 @@
 import CompanySearchResultItem from "@/components/companies/CompanySearchResultItem";
-import { Employer } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import Link from "next/link";
 
 interface CompanySearchResultsProps {
-  companies: Employer[];
+  companies: (Employer & { jobs: Job[] })[];
 }
 
 export default async function CompanySearchResults({

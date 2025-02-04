@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { Employer } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import { noCompanyLogo } from "@/lib/logo";
 
 interface CompanySearchResultItemProps {
-  company: Employer;
+  company: Employer & { jobs: Job[] };
 }
 
 export default function CompanySearchResultItem({
-  company: { companyName, companyLogoUrl, industry, location },
+  company: { companyName, companyLogoUrl, industry, location, jobs },
 }: CompanySearchResultItemProps) {
   return (
     <article className="flex cursor-pointer items-center space-x-4 rounded-md border border-gray-100 p-2 hover:bg-gray-50">
@@ -28,7 +28,7 @@ export default function CompanySearchResultItem({
         <h5 className="text-xs md:text-sm">{location}</h5>
         <span className="mt-2 flex w-fit rounded-xl bg-gray-100 px-2">
           <span className="w-full p-1 text-xs font-semibold text-gray-800">
-            8 jobs
+            {jobs?.length || 0} jobs
           </span>
         </span>
       </div>

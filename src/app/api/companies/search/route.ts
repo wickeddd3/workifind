@@ -25,6 +25,9 @@ export async function GET(request: NextRequest) {
           mode: "insensitive",
         },
       },
+      include: {
+        jobs: true,
+      },
       take, // limit,
       skip: rowsToSkip, // offset,
     });

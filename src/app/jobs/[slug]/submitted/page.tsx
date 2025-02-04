@@ -1,6 +1,5 @@
 import JobApplicationSubmitted from "@/components/jobs/JobApplicationSubmitted";
-import JobApplicationSubmittedLoadingPlaceholder from "@/components/jobs/JobApplicationSubmittedLoadingPlaceholder";
-import { cache, Suspense } from "react";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { findJobBySlug } from "@/app/_services/job";
 import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
@@ -30,9 +29,7 @@ export default async function Page({ params: { slug } }: PageProps) {
   return (
     <main className="mx-auto max-w-4xl p-4">
       <div className="h-full">
-        <Suspense fallback={<JobApplicationSubmittedLoadingPlaceholder />}>
-          <JobApplicationSubmitted job={job} />
-        </Suspense>
+        <JobApplicationSubmitted job={job} />
       </div>
     </main>
   );

@@ -1,7 +1,6 @@
 import EmployerDetails from "@/components/employer/EmployerDetails";
-import EmployerDetailsLoadingPlaceholder from "@/components/employer/EmployerDetailsLoadingPlaceholder";
 import { getEmployerProfileByUserId } from "@/app/_services/employer";
-import { cache, Suspense } from "react";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 
@@ -18,11 +17,5 @@ export default async function Page() {
 
   if (!employer) notFound();
 
-  return (
-    employer && (
-      <Suspense fallback={<EmployerDetailsLoadingPlaceholder />}>
-        <EmployerDetails employer={employer} />
-      </Suspense>
-    )
-  );
+  return employer && <EmployerDetails employer={employer} />;
 }

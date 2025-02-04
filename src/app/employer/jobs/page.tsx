@@ -1,8 +1,6 @@
 import EmployerJobs from "@/components/employer/EmployerJobs";
 import EmployerJobsEmptyPlaceholder from "@/components/employer/EmployerJobsEmptyPlaceholder";
-import EmployerJobsLoadingPlaceholder from "@/components/employer/EmployerJobsLoadingPlaceholder";
 import EmployerJobsPagination from "@/components/employer/EmployerJobsPagination";
-import { Suspense } from "react";
 import { getJobs, getJobsCount } from "@/app/_services/employer-jobs";
 import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
@@ -36,13 +34,13 @@ export default async function Page({ searchParams: { page } }: PageProps) {
       <h1 className="px-4 text-md font-bold md:text-lg">My jobs</h1>
       <div className="flex flex-col gap-2">
         {hasJobs && (
-          <Suspense fallback={<EmployerJobsLoadingPlaceholder />}>
+          <>
             <EmployerJobs jobs={jobs} />
             <EmployerJobsPagination
               currentPage={currentPage}
               totalPages={Math.ceil(jobsCount / jobsPerPage)}
             />
-          </Suspense>
+          </>
         )}
         {!hasJobs && <EmployerJobsEmptyPlaceholder message="No jobs found" />}
       </div>

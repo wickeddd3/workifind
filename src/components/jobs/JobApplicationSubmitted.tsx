@@ -17,7 +17,7 @@ export default function JobApplicationForm({
   },
 }: JobApplicationSubmittedProps) {
   return (
-    <section className="h-full min-h-screen w-full grow space-y-8">
+    <section className="h-full w-full grow space-y-8">
       <div className="flex flex-wrap items-center gap-8">
         {companyName && (
           <Image

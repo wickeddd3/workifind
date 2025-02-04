@@ -29,7 +29,7 @@ export default function CompanyInitialListItem({
           </h4>
           <span className="flex w-fit rounded-xl bg-gray-200 px-2">
             <span className="w-full p-1 text-xs font-semibold">
-              {jobs.length || 0} jobs
+              {jobs?.length || 0} jobs
             </span>
           </span>
         </div>

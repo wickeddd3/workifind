@@ -13,6 +13,9 @@ export async function GET(request: NextRequest) {
     // Fetch initial list of companies
     const companies = await prisma.employer.findMany({
       orderBy: { createdAt: "desc" },
+      include: {
+        jobs: true,
+      },
       take,
     });
 

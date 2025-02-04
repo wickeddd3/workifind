@@ -1,8 +1,6 @@
 import ApplicantSavedJobs from "@/components/applicant/ApplicantSavedJobs";
 import ApplicantSavedJobsPagination from "@/components/applicant/ApplicantSavedJobsPagination";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
-import ApplicantJobsLoadingPlaceholder from "@/components/applicant/ApplicantJobsLoadingPlaceholder";
-import { Suspense } from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import {
@@ -39,13 +37,13 @@ export default async function Page({ searchParams: { page } }: PageProps) {
       <h1 className="px-4 text-md font-bold md:text-lg">Saved jobs</h1>
       <div className="flex flex-col gap-2">
         {hasJobs && (
-          <Suspense fallback={<ApplicantJobsLoadingPlaceholder />}>
+          <>
             <ApplicantSavedJobs savedJobs={jobs} />
             <ApplicantSavedJobsPagination
               currentPage={currentPage}
               totalPages={Math.ceil(jobsCount / jobsPerPage)}
             />
-          </Suspense>
+          </>
         )}
         {!hasJobs && (
           <ApplicantJobsEmptyPlaceholder message="No saved jobs found" />

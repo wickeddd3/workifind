@@ -21,6 +21,7 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
     () => isSignedIn && role === "APPLICANT",
     [isSignedIn, role],
   );
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   const handleCheckAuthorization = useCallback(async () => {
@@ -28,9 +29,11 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
     try {
       const authorized = await saveJobAuthorize(user.id, job.id);
       setIsAuthorized(authorized);
+      setIsInitialized(true);
     } catch (error) {
       console.error("Error checking authorization:", error);
       setIsAuthorized(false);
+      setIsInitialized(true);
     }
   }, [user, job]);
 
@@ -54,7 +57,7 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
 
   return (
     <>
-      {isAuthorized && (
+      {isInitialized && isAuthorized && (
         <Button
           className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
           size="sm"
@@ -63,7 +66,7 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
           Save
         </Button>
       )}
-      {!isAuthorized && (
+      {isInitialized && !isAuthorized && (
         <Button
           className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
           size="sm"

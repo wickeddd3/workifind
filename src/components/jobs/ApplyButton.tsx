@@ -19,6 +19,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     () => isSignedIn && role === "APPLICANT",
     [isSignedIn, role],
   );
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   const handleCheckAuthorization = useCallback(async () => {
@@ -26,9 +27,11 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
     try {
       const authorized = await applyToJobAuthorize(user.id, job.id);
       setIsAuthorized(authorized);
+      setIsInitialized(true);
     } catch (error) {
       console.error("Error checking authorization:", error);
       setIsAuthorized(false);
+      setIsInitialized(true);
     }
   }, [user, job]);
 
@@ -40,7 +43,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
 
   return (
     <>
-      {isAuthorized && (
+      {isInitialized && isAuthorized && (
         <Button
           asChild
           className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
@@ -49,7 +52,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
           <Link href={`/jobs/${job.slug}/apply`}>Apply</Link>
         </Button>
       )}
-      {!isAuthorized && (
+      {isInitialized && !isAuthorized && (
         <span className="flex items-center gap-2 text-xs text-indigo-600 md:text-sm">
           <CircleCheckBig size={18} />
           Already Applied

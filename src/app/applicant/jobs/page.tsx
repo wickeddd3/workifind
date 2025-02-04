@@ -1,8 +1,6 @@
 import ApplicantJobApplications from "@/components/applicant/ApplicantJobApplications";
 import ApplicantJobApplicationsPagination from "@/components/applicant/ApplicantJobApplicationsPagination";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
-import ApplicantJobsLoadingPlaceholder from "@/components/applicant/ApplicantJobsLoadingPlaceholder";
-import { Suspense } from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import {
@@ -39,13 +37,13 @@ export default async function Page({ searchParams: { page } }: PageProps) {
       <h1 className="px-4 text-md font-bold md:text-lg">Applied jobs</h1>
       <div className="flex flex-col gap-2">
         {hasJobs && (
-          <Suspense fallback={<ApplicantJobsLoadingPlaceholder />}>
+          <>
             <ApplicantJobApplications jobApplications={jobs} />
             <ApplicantJobApplicationsPagination
               currentPage={currentPage}
               totalPages={Math.ceil(jobsCount / jobsPerPage)}
             />
-          </Suspense>
+          </>
         )}
         {!hasJobs && (
           <ApplicantJobsEmptyPlaceholder message="No job applications found" />

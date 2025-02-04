@@ -50,9 +50,9 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
         </Button>
       )}
       {!isAuthorized && (
-        <span className="flex grow items-center gap-2 text-xs text-indigo-600 md:text-sm">
+        <span className="flex items-center gap-2 text-xs text-indigo-600 md:text-sm">
           <CircleCheckBig size={18} />
-          Applied
+          Already Applied
         </span>
       )}
     </>

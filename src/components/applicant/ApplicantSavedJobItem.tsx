@@ -1,3 +1,5 @@
+"use client";
+
 import { Job, SavedJob } from "@prisma/client";
 import {
   Banknote,
@@ -17,6 +19,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formatMoney } from "@/lib/utils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { unsaveJob } from "@/app/_services/applicant-saved-jobs";
+import { useUser } from "@clerk/nextjs";
 
 interface ApplicantSavedJobItemProps {
   savedJob: SavedJob & { job: Job };
@@ -28,6 +34,10 @@ export default function ApplicantSavedJobItem({
     job,
   },
 }: ApplicantSavedJobItemProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const { user } = useUser();
+
   const salary = (job: Job) => {
     const { minSalary, maxSalary } = job;
     if (!minSalary && !maxSalary) {
@@ -37,6 +47,16 @@ export default function ApplicantSavedJobItem({
       return formatMoney(minSalary);
     }
     return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
+  };
+
+  const handleUnsaveJob = async (userId: string, jobId: number) => {
+    const deletedJob = await unsaveJob(userId, jobId);
+    if (deletedJob) {
+      router.refresh();
+      toast({
+        title: "Job was successfully unsaved.",
+      });
+    }
   };
 
   return (
@@ -53,10 +73,15 @@ export default function ApplicantSavedJobItem({
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
-                <BookmarkMinus className="mr-2 h-4 w-4" />
-                <span>Unsave</span>
-              </DropdownMenuItem>
+              {user && (
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => handleUnsaveJob(user.id, job.id)}
+                >
+                  <BookmarkMinus className="mr-2 h-4 w-4" />
+                  <span>Unsave</span>
+                </DropdownMenuItem>
+              )}
               <Link href={`/jobs/${slug}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">
                   <Fullscreen className="mr-2 h-4 w-4" />

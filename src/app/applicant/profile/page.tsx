@@ -1,7 +1,6 @@
 import ApplicantDetails from "@/components/applicant/ApplicantDetails";
-import ApplicantDetailsLoadingPlaceholder from "@/components/applicant/ApplicantDetailsLoadingPlaceholder";
 import { getApplicantProfileByUserId } from "@/app/_services/applicant";
-import { cache, Suspense } from "react";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 
@@ -18,11 +17,5 @@ export default async function Page() {
 
   if (!applicant) notFound();
 
-  return (
-    applicant && (
-      <Suspense fallback={<ApplicantDetailsLoadingPlaceholder />}>
-        <ApplicantDetails applicant={applicant} />
-      </Suspense>
-    )
-  );
+  return applicant && <ApplicantDetails applicant={applicant} />;
 }

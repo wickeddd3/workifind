@@ -91,11 +91,11 @@ export default function RootLayout({
           </Script>
         </head>
         <body
-          className={`${inter.variable} ${open_sans.variable} min-w-[350px]`}
+          className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col`}
         >
           <SpeedInsights />
           <DynamicNavbar />
-          {children}
+          <main className="w-full flex-1">{children}</main>
           <DynamicFooter />
           <DynamicToaster />
         </body>

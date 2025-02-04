@@ -166,8 +166,8 @@ export default function Navbar() {
   );
 
   return (
-    <header className="flex h-full w-full items-center justify-center py-2">
-      <nav className="flex h-full w-full max-w-7xl items-center justify-between rounded-full bg-gray-50 px-3 py-2 shadow-sm lg:py-4">
+    <header className="flex w-full items-center justify-center py-2">
+      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full bg-gray-50 px-3 py-2 shadow-sm lg:py-4">
         <Menubar className="block border-none bg-transparent md:hidden">
           <MenubarMenu>
             <MenubarTrigger className="cursor-pointer rounded-full bg-indigo-600 p-2 shadow-sm hover:bg-indigo-700 data-[state=closed]:bg-indigo-600 data-[state=open]:bg-indigo-700">

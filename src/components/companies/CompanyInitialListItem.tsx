@@ -1,14 +1,14 @@
 import Image from "next/image";
-import { Employer } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import Link from "next/link";
 import { noCompanyLogo } from "@/lib/logo";
 
 interface CompanyInitialListItemProps {
-  company: Employer;
+  company: Employer & { jobs: Job[] };
 }
 
 export default function CompanyInitialListItem({
-  company: { slug, companyLogoUrl, companyName, industry },
+  company: { slug, companyLogoUrl, companyName, industry, jobs },
 }: CompanyInitialListItemProps) {
   return (
     <Link href={`/companies/${slug}`}>
@@ -28,7 +28,9 @@ export default function CompanyInitialListItem({
             {industry}
           </h4>
           <span className="flex w-fit rounded-xl bg-gray-200 px-2">
-            <span className="w-full p-1 text-xs font-semibold">8 jobs</span>
+            <span className="w-full p-1 text-xs font-semibold">
+              {jobs.length || 0} jobs
+            </span>
           </span>
         </div>
       </div>

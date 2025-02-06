@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/config/base-url";
 import { ApplicantProfileSchemaType } from "@/schema/applicant-profile";
 
 export const createApplicantProfile = async (

@@ -17,10 +17,10 @@ import LoadingButton from "@/components/LoadingButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
-  availabilityTypes,
-  employmentTypes,
-  locationTypes,
-} from "@/lib/job-types";
+  AVAILABILITY_TYPES,
+  EMPLOYMENT_TYPES,
+  LOCATION_TYPES,
+} from "@/constants/tags";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
@@ -342,7 +342,7 @@ export default function ApplicantNewProfileForm() {
                     onValueChange={(value) => field.onChange(value)}
                     className="flex flex-wrap gap-6"
                   >
-                    {availabilityTypes.map((type) => (
+                    {AVAILABILITY_TYPES.map((type) => (
                       <div key={type} className="flex items-center space-x-2">
                         <RadioGroupItem value={type} id={type} />
                         <Label htmlFor={type} className="font-normal">
@@ -365,7 +365,7 @@ export default function ApplicantNewProfileForm() {
                   <FormLabel>Preferred location types</FormLabel>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  {locationTypes.map((item) => (
+                  {LOCATION_TYPES.map((item) => (
                     <div key={item} className="flex flex-row items-start gap-3">
                       <FormControl>
                         <Checkbox
@@ -403,7 +403,7 @@ export default function ApplicantNewProfileForm() {
                   <FormLabel>Preferred employment types</FormLabel>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  {employmentTypes.map((item) => (
+                  {EMPLOYMENT_TYPES.map((item) => (
                     <div key={item} className="flex flex-row items-start gap-3">
                       <FormControl>
                         <Checkbox

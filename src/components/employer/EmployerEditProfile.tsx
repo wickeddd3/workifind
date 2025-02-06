@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
 import Select from "@/components/ui/select";
-import { industryTypes } from "@/lib/company-types";
+import { INDUSTRY_TYPES } from "@/constants/tags";
 import LoadingButton from "@/components/LoadingButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Employer } from "@prisma/client";
@@ -189,7 +189,7 @@ export default function EmployerEditProfile({
                     <option value="" hidden>
                       Select an option
                     </option>
-                    {industryTypes.map((type) => (
+                    {INDUSTRY_TYPES.map((type) => (
                       <option key={type} value={type}>
                         {type}
                       </option>

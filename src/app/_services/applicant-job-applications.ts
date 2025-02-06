@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/config/base-url";
 import { JobApplicationSchemaType } from "@/schema/job-application";
 
 export const getJobApplications = async ({

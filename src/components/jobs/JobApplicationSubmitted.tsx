@@ -3,7 +3,7 @@
 import { Employer, Job } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { noCompanyLogo } from "@/lib/logo";
+import { DEFAULT_COMPANY_LOGO } from "@/constants/logo";
 
 interface JobApplicationSubmittedProps {
   job: Job & { employer: Employer };
@@ -21,7 +21,7 @@ export default function JobApplicationForm({
       <div className="flex flex-wrap items-center gap-8">
         {companyName && (
           <Image
-            src={companyLogoUrl || noCompanyLogo}
+            src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
             alt={`${companyName} logo`}
             width={140}
             height={140}

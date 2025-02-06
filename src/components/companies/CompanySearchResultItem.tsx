@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Employer, Job } from "@prisma/client";
-import { noCompanyLogo } from "@/lib/logo";
+import { DEFAULT_COMPANY_LOGO } from "@/constants/logo";
 
 interface CompanySearchResultItemProps {
   company: Employer & { jobs: Job[] };
@@ -12,7 +12,7 @@ export default function CompanySearchResultItem({
   return (
     <article className="flex cursor-pointer items-center space-x-4 rounded-md border border-gray-100 p-2 hover:bg-gray-50">
       <Image
-        src={companyLogoUrl || noCompanyLogo}
+        src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
         width={110}
         height={110}
         alt={companyName}

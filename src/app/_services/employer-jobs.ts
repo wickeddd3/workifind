@@ -1,5 +1,5 @@
-import { baseUrl } from "@/lib/baseUrl";
-import { toSlug } from "@/lib/utils";
+import { baseUrl } from "@/config/base-url";
+import { toSlug } from "@/utils/format-text";
 import { JobSchemaType } from "@/schema/job";
 import { nanoid } from "nanoid";
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { requiredString } from "@/schema/utils";
-import { industryTypes } from "@/lib/company-types";
+import { INDUSTRY_TYPES } from "@/constants/tags";
 
 const CompanyLogoSchema = z
   .custom<File | undefined>()
@@ -22,7 +22,7 @@ export const EmployerProfileSchema = z.object({
   companyWebsite: z.string().trim().max(100).optional().or(z.literal("")),
   companyLogo: CompanyLogoSchema,
   industry: requiredString.refine(
-    (value) => industryTypes.includes(value),
+    (value) => INDUSTRY_TYPES.includes(value),
     "Invalid industry",
   ),
   location: z.string().trim().max(100).optional(),

@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { formatMoney } from "@/lib/utils";
+import { formatMoney } from "@/utils/format-money";
 import Link from "next/link";
 
 interface ApplicantJobApplicationItemProps {

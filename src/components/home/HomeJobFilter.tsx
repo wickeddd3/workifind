@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Select from "@/components/ui/select";
 import useSearchHistory from "@/hooks/useSearchHistory";
-import { jobSalary, locationTypes, employmentTypes } from "@/lib/job-types";
+import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
 import { JobFilterSchema, JobFilterSchemaType } from "@/schema/job-filter";
 import { useRouter } from "next/navigation";
 import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
@@ -120,7 +120,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       defaultValue={defaultValues.employmentType || ""}
                     >
                       <option value="">Select job type</option>
-                      {employmentTypes.map((type) => (
+                      {EMPLOYMENT_TYPES.map((type) => (
                         <option key={type} value={type}>
                           {type}
                         </option>
@@ -141,7 +141,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       defaultValue={defaultValues.salary || ""}
                     >
                       <option value="">Select job salary</option>
-                      {jobSalary.map((salary) => (
+                      {JOB_SALARY.map((salary) => (
                         <option key={salary.value} value={salary.value}>
                           {salary.name}
                         </option>
@@ -162,7 +162,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       defaultValue={defaultValues.locationType || ""}
                     >
                       <option value="">Select location type</option>
-                      {locationTypes.map((type) => (
+                      {LOCATION_TYPES.map((type) => (
                         <option key={type} value={type}>
                           {type}
                         </option>

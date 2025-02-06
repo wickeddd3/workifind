@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { employmentTypes, locationTypes } from "@/lib/job-types";
+import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
 import { requiredString } from "@/schema/utils";
 
 const LocationSchema = z
   .object({
     locationType: requiredString.refine(
-      (value) => locationTypes.includes(value),
+      (value) => LOCATION_TYPES.includes(value),
       "Invalid location type",
     ),
     location: z.string().max(100).optional(),
@@ -23,7 +23,7 @@ export const JobSchema = z
   .object({
     title: requiredString.max(100),
     employmentType: requiredString.refine(
-      (value) => employmentTypes.includes(value),
+      (value) => EMPLOYMENT_TYPES.includes(value),
       "Invalid job type",
     ),
     description: z.string().max(5000).optional(),

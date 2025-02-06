@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/config/base-url";
 
 export const getSavedJobs = async ({
   userId,

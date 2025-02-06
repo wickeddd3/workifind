@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/config/base-url";
 
 export const findJobBySlug = async (slug: string) => {
   const response = await fetch(`${baseUrl}/api/jobs/${slug}`);

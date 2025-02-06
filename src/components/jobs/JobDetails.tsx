@@ -2,11 +2,11 @@ import { Employer, Job, JobApplication } from "@prisma/client";
 import Markdown from "@/components/Markdown";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
-import { relativeDate } from "@/lib/utils";
+import { relativeDate } from "@/utils/format-date";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
 import Link from "next/link";
-import { getJobSalary, hasJobSalary } from "@/lib/salary";
+import { getJobSalary, hasJobSalary } from "@/utils/salary";
 
 interface JobDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };

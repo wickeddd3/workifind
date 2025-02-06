@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import Select from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { employmentTypes, locationTypes } from "@/lib/job-types";
+import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
 import { Label } from "@/components/ui/label";
 import RichTextEditor from "@/components/RichTextEditor";
 import { draftToMarkdown } from "markdown-draft-js";
@@ -124,7 +124,7 @@ export default function EditJobForm({
                       <option value="" hidden>
                         Select an option
                       </option>
-                      {employmentTypes.map((type) => (
+                      {EMPLOYMENT_TYPES.map((type) => (
                         <option key={type} value={type}>
                           {type}
                         </option>
@@ -154,7 +154,7 @@ export default function EditJobForm({
                       <option value="" hidden>
                         Select an option
                       </option>
-                      {locationTypes.map((locationType) => (
+                      {LOCATION_TYPES.map((locationType) => (
                         <option key={locationType} value={locationType}>
                           {locationType}
                         </option>

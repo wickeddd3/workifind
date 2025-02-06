@@ -1,6 +1,6 @@
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/config/base-url";
 import { EmployerProfileSchemaType } from "@/schema/employer-profile";
-import { toSlug } from "@/lib/utils";
+import { toSlug } from "@/utils/format-text";
 import { nanoid } from "nanoid";
 import { removeObjectProperty } from "@/utils/object-manipulation";
 

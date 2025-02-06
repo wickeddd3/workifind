@@ -20,10 +20,10 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 import {
-  availabilityTypes,
-  employmentTypes,
-  locationTypes,
-} from "@/lib/job-types";
+  EMPLOYMENT_TYPES,
+  AVAILABILITY_TYPES,
+  LOCATION_TYPES,
+} from "@/constants/tags";
 import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
@@ -366,7 +366,7 @@ export default function ApplicantEditProfile({
                     onValueChange={(value) => field.onChange(value)}
                     className="flex flex-wrap gap-6"
                   >
-                    {availabilityTypes.map((type) => (
+                    {AVAILABILITY_TYPES.map((type) => (
                       <div key={type} className="flex items-center space-x-2">
                         <RadioGroupItem value={type} id={type} />
                         <Label htmlFor={type} className="font-normal">
@@ -389,7 +389,7 @@ export default function ApplicantEditProfile({
                   <FormLabel>Preferred location types</FormLabel>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  {locationTypes.map((item) => (
+                  {LOCATION_TYPES.map((item) => (
                     <div
                       key={item}
                       className="flex flex-row items-start space-x-3 space-y-0"
@@ -424,7 +424,7 @@ export default function ApplicantEditProfile({
                   <FormLabel>Preferred employment types</FormLabel>
                 </div>
                 <div className="flex flex-wrap gap-6">
-                  {employmentTypes.map((item) => (
+                  {EMPLOYMENT_TYPES.map((item) => (
                     <div
                       key={item}
                       className="flex flex-row items-start space-x-3 space-y-0"

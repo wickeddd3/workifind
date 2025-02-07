@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Select from "@/components/ui/select";
+import SimpleSelect from "@/components/ui/simple-select";
 import useSearchHistory from "@/hooks/useSearchHistory";
 import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
 import { JobFilterSchema, JobFilterSchemaType } from "@/schema/job-filter";
@@ -58,7 +58,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 >
                   Job type
                 </Label>
-                <Select
+                <SimpleSelect
                   id="employmentType"
                   name="employmentType"
                   className="h-10 w-full pr-12 text-sm"
@@ -70,13 +70,13 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                       {type}
                     </option>
                   ))}
-                </Select>
+                </SimpleSelect>
               </div>
               <div className="col-span-2 flex w-full flex-col gap-3 sm:col-span-1">
                 <Label htmlFor="salary" className="font-medium text-gray-500">
                   Job salary
                 </Label>
-                <Select
+                <SimpleSelect
                   id="salary"
                   name="salary"
                   className="h-10 w-full pr-12 text-sm"
@@ -88,7 +88,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                       {salary.name}
                     </option>
                   ))}
-                </Select>
+                </SimpleSelect>
               </div>
               <div className="col-span-2 flex w-full flex-col gap-3 sm:col-span-1">
                 <Label
@@ -97,7 +97,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                 >
                   Location type
                 </Label>
-                <Select
+                <SimpleSelect
                   id="locationType"
                   name="locationType"
                   className="h-10 w-full pr-12 text-sm"
@@ -109,7 +109,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                       {type}
                     </option>
                   ))}
-                </Select>
+                </SimpleSelect>
               </div>
               <div className="col-span-2 flex w-full flex-col gap-3 sm:col-span-1 md:col-span-2 lg:col-span-1">
                 <Label htmlFor="q" className="font-medium text-gray-500">

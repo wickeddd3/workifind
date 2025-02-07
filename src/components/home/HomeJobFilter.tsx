@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Select from "@/components/ui/select";
+import SimpleSelect from "@/components/ui/simple-select";
 import useSearchHistory from "@/hooks/useSearchHistory";
 import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
 import { JobFilterSchema, JobFilterSchemaType } from "@/schema/job-filter";
@@ -113,7 +113,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     >
                       Job type
                     </Label>
-                    <Select
+                    <SimpleSelect
                       id="employmentType"
                       name="employmentType"
                       className="h-10 w-full pr-12 text-sm"
@@ -125,7 +125,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                           {type}
                         </option>
                       ))}
-                    </Select>
+                    </SimpleSelect>
                   </div>
                   <div className="flex w-full flex-col gap-3">
                     <Label
@@ -134,7 +134,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     >
                       Job salary
                     </Label>
-                    <Select
+                    <SimpleSelect
                       id="salary"
                       name="salary"
                       className="h-10 w-full pr-12 text-sm"
@@ -146,7 +146,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                           {salary.name}
                         </option>
                       ))}
-                    </Select>
+                    </SimpleSelect>
                   </div>
                   <div className="flex w-full flex-col gap-3">
                     <Label
@@ -155,7 +155,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     >
                       Location type
                     </Label>
-                    <Select
+                    <SimpleSelect
                       id="locationType"
                       name="locationType"
                       className="h-10 w-full pr-12 text-sm"
@@ -167,7 +167,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                           {type}
                         </option>
                       ))}
-                    </Select>
+                    </SimpleSelect>
                   </div>
                 </div>
                 <div className="flex w-full flex-col items-end justify-between gap-2 md:flex-row">

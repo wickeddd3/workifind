@@ -86,15 +86,46 @@ export const INDUSTRY_TYPES = [
 ];
 
 export const EMPLOYMENT_TYPES = [
-  "Full-time",
-  "Part-time",
-  "Contract",
-  "Temporary",
-  "Internship",
-  "Volunteer",
+  {
+    label: "Full-time",
+    value: "Full-time",
+  },
+  {
+    label: "Part-time",
+    value: "Part-time",
+  },
+  {
+    label: "Contract",
+    value: "Contract",
+  },
+  {
+    label: "Temporary",
+    value: "Temporary",
+  },
+  {
+    label: "Internship",
+    value: "Internship",
+  },
+  {
+    label: "Volunteer",
+    value: "Volunteer",
+  },
 ];
 
-export const LOCATION_TYPES = ["Remote", "On-site", "Hybrid"];
+export const LOCATION_TYPES = [
+  {
+    label: "Remote",
+    value: "Remote",
+  },
+  {
+    label: "On-site",
+    value: "On-site",
+  },
+  {
+    label: "Hybrid",
+    value: "Hybrid",
+  },
+];
 
 export const AVAILABILITY_TYPES = [
   {

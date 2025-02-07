@@ -93,6 +93,9 @@ export default function ApplicantNewProfileForm() {
     }
   }
 
+  const locationTypes = LOCATION_TYPES.map((type) => type.value);
+  const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
+
   return (
     <div className="space-y-6 rounded-lg border p-4">
       <div>
@@ -183,13 +186,13 @@ export default function ApplicantNewProfileForm() {
           />
           <CheckboxGroupField
             control={control}
-            options={LOCATION_TYPES}
+            options={locationTypes}
             name="preferredLocationTypes"
             label="Preferred location types"
           />
           <CheckboxGroupField
             control={control}
-            options={EMPLOYMENT_TYPES}
+            options={employmentTypes}
             name="preferredEmploymentTypes"
             label="Preferred employment types"
           />

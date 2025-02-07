@@ -122,6 +122,9 @@ export default function ApplicantEditProfile({
     }
   }
 
+  const locationTypes = LOCATION_TYPES.map((type) => type.value);
+  const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
+
   return (
     <main className="m-auto space-y-6 px-4">
       <div>
@@ -210,13 +213,13 @@ export default function ApplicantEditProfile({
           />
           <CheckboxGroupField
             control={control}
-            options={LOCATION_TYPES}
+            options={locationTypes}
             name="preferredLocationTypes"
             label="Preferred location types"
           />
           <CheckboxGroupField
             control={control}
-            options={EMPLOYMENT_TYPES}
+            options={employmentTypes}
             name="preferredEmploymentTypes"
             label="Preferred employment types"
           />

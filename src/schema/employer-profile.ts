@@ -22,7 +22,7 @@ export const EmployerProfileSchema = z.object({
   companyWebsite: z.string().trim().max(100).optional().or(z.literal("")),
   companyLogo: CompanyLogoSchema,
   industry: requiredString.refine(
-    (value) => INDUSTRY_TYPES.includes(value),
+    (value) => INDUSTRY_TYPES.map((type) => type.value).includes(value),
     "Invalid industry",
   ),
   location: z.string().trim().max(100).optional(),

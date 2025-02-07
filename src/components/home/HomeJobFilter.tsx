@@ -121,8 +121,8 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     >
                       <option value="">Select job type</option>
                       {EMPLOYMENT_TYPES.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
+                        <option key={type.value} value={type.value}>
+                          {type.label}
                         </option>
                       ))}
                     </SimpleSelect>
@@ -163,8 +163,8 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     >
                       <option value="">Select location type</option>
                       {LOCATION_TYPES.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
+                        <option key={type.value} value={type.value}>
+                          {type.label}
                         </option>
                       ))}
                     </SimpleSelect>

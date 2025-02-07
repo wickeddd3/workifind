@@ -35,7 +35,7 @@ export default function ApplicantNewProfileForm() {
     location: "",
     about: "",
     profession: "",
-    experienced: false,
+    experienced: "No experience",
     skills: [],
     languages: [],
     availability: "",

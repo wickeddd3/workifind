@@ -49,7 +49,7 @@ model Applicant {
   location                 String?
   about                    String?
   profession               String
-  experienced              Boolean          @default(false)
+  experienced              String
   skills                   Json
   languages                Json
   availability             String

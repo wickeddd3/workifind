@@ -1,24 +1,15 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { Label } from "@/components/ui/label";
-import RichTextEditor from "@/components/RichTextEditor";
-import { draftToMarkdown } from "markdown-draft-js";
-import Select from "@/components/ui/select";
-import { INDUSTRY_TYPES } from "@/constants/tags";
+import { Form } from "@/components/ui/form";
+import { TextInputField } from "@/components/common/TextInputField";
+import { FileUploadField } from "@/components/common/FileUploadField";
+import { SelectField } from "@/components/common/SelectField";
+import { DynamicListField } from "@/components/common/DynamicListField";
+import { RichTextField } from "@/components/common/RichEditorTextField";
 import LoadingButton from "@/components/LoadingButton";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { PlusIcon, XIcon } from "lucide-react";
+import { INDUSTRY_TYPES } from "@/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -50,7 +41,6 @@ export default function EmployerNewProfileForm() {
   const {
     handleSubmit,
     control,
-    setFocus,
     formState: { isSubmitting },
   } = form;
 
@@ -58,9 +48,9 @@ export default function EmployerNewProfileForm() {
     fields: perksFields,
     append: perksAppend,
     remove: perksRemove,
-  } = useFieldArray({
+  } = useFieldArray<EmployerProfileSchemaType, "perks">({
     control: control,
-    name: "perks" as const,
+    name: "perks",
   });
 
   async function onSubmit(values: EmployerProfileSchemaType) {
@@ -87,189 +77,48 @@ export default function EmployerNewProfileForm() {
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          <FormField
+          <TextInputField
             control={control}
             name="companyName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company name</FormLabel>
-                <FormControl>
-                  <Input
-                    id="companyName"
-                    placeholder="e.g. Meta Platforms, Inc."
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Company Name"
+            placeholder="e.g. Meta Platforms, Inc."
           />
-          <FormField
+          <TextInputField
             control={control}
+            type="email"
             name="companyEmail"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company email</FormLabel>
-                <FormControl>
-                  <Input
-                    id="companyEmail"
-                    placeholder="Email"
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Company Email"
+            placeholder="Email"
           />
-          <FormField
+          <TextInputField
             control={control}
+            type="url"
             name="companyWebsite"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company website</FormLabel>
-                <FormControl>
-                  <Input
-                    id="companyWebsite"
-                    placeholder="Website"
-                    type="url"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Company Website"
+            placeholder="Website"
           />
-          <FormField
+          <FileUploadField
             control={control}
             name="companyLogo"
-            render={({ field: { value, ...fieldValue } }) => (
-              <FormItem>
-                <FormLabel>Company logo</FormLabel>
-                <FormControl>
-                  <Input
-                    {...fieldValue}
-                    id="companyLogo"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      fieldValue.onChange(file);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Company Logo"
           />
-          <FormField
+          <SelectField
             control={control}
             name="industry"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Industry</FormLabel>
-                <FormControl>
-                  <Select {...field} id="industry">
-                    <option value="" hidden>
-                      Select an option
-                    </option>
-                    {INDUSTRY_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Industry"
+            options={INDUSTRY_TYPES}
           />
-          <FormField
+          <TextInputField control={control} name="location" label="Location" />
+          <DynamicListField
             control={control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Location</FormLabel>
-                <FormControl>
-                  <Input id="location" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            name="perks"
+            label="Perks"
+            fields={perksFields}
+            append={() => perksAppend({ name: "" })}
+            remove={(index) => perksRemove(index)}
           />
-          <div className="flex flex-col gap-3">
-            <FormLabel>Perks</FormLabel>
-            {perksFields.map((field, index) => (
-              <FormItem
-                key={field.id}
-                className="flex flex-row items-center space-y-0"
-              >
-                <FormControl>
-                  <Controller
-                    control={control}
-                    name={`perks.${index}.name`}
-                    render={({ field }) => (
-                      <Input {...field} id={`perks-${index}`} />
-                    )}
-                  />
-                </FormControl>
-                <Button
-                  variant="link"
-                  size="icon"
-                  type="button"
-                  onClick={() => perksRemove(index)}
-                >
-                  <XIcon size="16px" />
-                </Button>
-              </FormItem>
-            ))}
-            <div>
-              <Button
-                type="button"
-                variant="link"
-                size="sm"
-                className="flex items-center gap-2 px-0"
-                onClick={() => perksAppend({ name: "" })}
-              >
-                <PlusIcon size="16px" />
-                <span className="text-xs">Add perks</span>
-              </Button>
-            </div>
-          </div>
-          <FormField
-            control={control}
-            name="about"
-            render={({ field: { value, onChange, ref } }) => (
-              <FormItem>
-                <Label onClick={() => setFocus("about")}>About</Label>
-                <FormControl>
-                  <RichTextEditor
-                    initialState={value}
-                    onChange={(draft) => onChange(draftToMarkdown(draft))}
-                    ref={ref}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="pitch"
-            render={({ field: { value, onChange, ref } }) => (
-              <FormItem>
-                <Label onClick={() => setFocus("pitch")}>Pitch</Label>
-                <FormControl>
-                  <RichTextEditor
-                    initialState={value}
-                    onChange={(draft) => onChange(draftToMarkdown(draft))}
-                    ref={ref}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <RichTextField control={control} name="about" label="About" />
+          <RichTextField control={control} name="pitch" label="Pitch" />
           <LoadingButton type="submit" loading={isSubmitting}>
             Submit
           </LoadingButton>

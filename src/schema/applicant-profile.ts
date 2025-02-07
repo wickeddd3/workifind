@@ -1,10 +1,7 @@
 import { z } from "zod";
-import {
-  requiredBoolean,
-  requiredNumeric,
-  requiredString,
-} from "@/schema/utils";
+import { requiredNumeric, requiredString } from "@/schema/utils";
 import validator from "validator";
+import { WORK_EXPERIENCE_TYPES } from "@/constants/tags";
 
 export const ApplicantSkillSchema = z.object({
   name: z.string(),
@@ -30,7 +27,10 @@ export const ApplicantProfileSchema = z.object({
   location: z.string().trim().max(100).optional(),
   about: z.string().trim().max(8000).optional(),
   profession: requiredString.max(100),
-  experienced: requiredBoolean,
+  experienced: requiredString.refine(
+    (value) => WORK_EXPERIENCE_TYPES.map((type) => type.value).includes(value),
+    "Invalid experience type",
+  ),
   skills: z.array(ApplicantSkillSchema).optional(),
   languages: z.array(ApplicantLanguageSchema).optional(),
   availability: requiredString.max(100),

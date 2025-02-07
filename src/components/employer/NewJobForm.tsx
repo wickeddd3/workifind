@@ -1,22 +1,13 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import SimpleSelect from "@/components/ui/simple-select";
+import { Form, FormLabel } from "@/components/ui/form";
+import { TextInputField } from "@/components/common/TextInputField";
+import { SelectField } from "@/components/common/SelectField";
+import { RichTextField } from "@/components/common/RichEditorTextField";
+import LoadingButton from "@/components/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
-import { Label } from "@/components/ui/label";
-import RichTextEditor from "@/components/RichTextEditor";
-import { draftToMarkdown } from "markdown-draft-js";
-import LoadingButton from "@/components/LoadingButton";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { JobSchema, JobSchemaType } from "@/schema/job";
@@ -47,9 +38,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
 
   const {
     handleSubmit,
-    trigger,
     control,
-    setFocus,
     formState: { isSubmitting },
   } = form;
 
@@ -85,131 +74,48 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
             noValidate
             onSubmit={handleSubmit(onSubmit)}
           >
-            <FormField
+            <TextInputField
               control={control}
               name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Job title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Frontend Developer" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Job Title"
+              placeholder="e.g. Frontend Developer"
             />
-            <FormField
+            <SelectField
               control={control}
               name="employmentType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Employment type</FormLabel>
-                  <FormControl>
-                    <SimpleSelect {...field}>
-                      <option value="" hidden>
-                        Select an option
-                      </option>
-                      {EMPLOYMENT_TYPES.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </SimpleSelect>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Employment Type"
+              options={EMPLOYMENT_TYPES}
             />
-            <FormField
+            <SelectField
               control={control}
               name="locationType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Work setup</FormLabel>
-                  <FormControl>
-                    <SimpleSelect
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                        if (e.currentTarget.value === "Remote") {
-                          trigger("location");
-                        }
-                      }}
-                    >
-                      <option value="" hidden>
-                        Select an option
-                      </option>
-                      {LOCATION_TYPES.map((locationType) => (
-                        <option key={locationType} value={locationType}>
-                          {locationType}
-                        </option>
-                      ))}
-                    </SimpleSelect>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Work Setup"
+              options={LOCATION_TYPES}
             />
-            <FormField
+            <TextInputField
               control={control}
               name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Office location</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Office Location"
             />
-            <FormField
+            <RichTextField
               control={control}
               name="description"
-              render={({ field: { value, onChange, ref } }) => (
-                <FormItem>
-                  <Label onClick={() => setFocus("description")}>
-                    Description
-                  </Label>
-                  <FormControl>
-                    <RichTextEditor
-                      initialState={value}
-                      onChange={(draft) => onChange(draftToMarkdown(draft))}
-                      ref={ref}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Description"
             />
             <div className="flex flex-col space-y-4">
               <FormLabel>Salary range</FormLabel>
               <div className="flex justify-between space-x-4">
-                <FormField
+                <TextInputField
                   control={control}
+                  type="number"
                   name="minSalary"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormLabel>Minimum salary</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Minimum Salary"
                 />
-                <FormField
+                <TextInputField
                   control={control}
+                  type="number"
                   name="maxSalary"
-                  render={({ field }) => (
-                    <FormItem className="grow">
-                      <FormLabel>Maximum salary</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label="Maximum Salary"
                 />
               </div>
             </div>

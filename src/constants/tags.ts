@@ -188,6 +188,6 @@ export const JOB_SALARY = [
 ];
 
 export const WORK_EXPERIENCE_TYPES = [
-  { id: "noExperience", value: "false", label: "No experience" },
-  { id: "withExperience", value: "true", label: "With experience" },
+  { id: "noExperience", value: "No experience", label: "No experience" },
+  { id: "withExperience", value: "With experience", label: "With experience" },
 ];

@@ -1,25 +1,88 @@
 export const INDUSTRY_TYPES = [
-  "Accounting",
-  "Administration & Office Support",
-  "Advertising, Arts & Media",
-  "Banking & Financial Services",
-  "Call Centre & Customer Service",
-  "CEO & General Management",
-  "Community Services & Development",
-  "Construction",
-  "Consulting & Strategy",
-  "Design & Architecture",
-  "Education & Training",
-  "Engineering",
-  "Farming, Animals & Conservation",
-  "Healthcare & Medical",
-  "Hospitality & Tourism",
-  "Information & Communication Technology",
-  "Marketing & Communications",
-  "Real Estate & Property",
-  "Sales",
-  "Science & Technology",
-  "Trades & Services",
+  {
+    label: "Accounting",
+    value: "Accounting",
+  },
+  {
+    label: "Administration & Office Support",
+    value: "Administration & Office Support",
+  },
+  {
+    label: "Advertising, Arts & Media",
+    value: "Advertising, Arts & Media",
+  },
+  {
+    label: "Banking & Financial Services",
+    value: "Banking & Financial Services",
+  },
+  {
+    label: "Call Centre & Customer Service",
+    value: "Call Centre & Customer Service",
+  },
+  {
+    label: "CEO & General Management",
+    value: "CEO & General Management",
+  },
+  {
+    label: "Community Services & Development",
+    value: "Community Services & Development",
+  },
+  {
+    label: "Construction",
+    value: "Construction",
+  },
+  {
+    label: "Consulting & Strategy",
+    value: "Consulting & Strategy",
+  },
+  {
+    label: "Design & Architecture",
+    value: "Design & Architecture",
+  },
+  {
+    label: "Education & Training",
+    value: "Education & Training",
+  },
+  {
+    label: "Engineering",
+    value: "Engineering",
+  },
+  {
+    label: "Farming, Animals & Conservation",
+    value: "Farming, Animals & Conservation",
+  },
+  {
+    label: "Healthcare & Medical",
+    value: "Healthcare & Medical",
+  },
+  {
+    label: "Hospitality & Tourism",
+    value: "Hospitality & Tourism",
+  },
+  {
+    label: "Information & Communication Technology",
+    value: "Information & Communication Technology",
+  },
+  {
+    label: "Marketing & Communications",
+    value: "Marketing & Communications",
+  },
+  {
+    label: "Real Estate & Property",
+    value: "Real Estate & Property",
+  },
+  {
+    label: "Sales",
+    value: "Sales",
+  },
+  {
+    label: "Science & Technology",
+    value: "Science & Technology",
+  },
+  {
+    label: "Trades & Services",
+    value: "Trades & Services",
+  },
 ];
 
 export const EMPLOYMENT_TYPES = [
@@ -34,11 +97,31 @@ export const EMPLOYMENT_TYPES = [
 export const LOCATION_TYPES = ["Remote", "On-site", "Hybrid"];
 
 export const AVAILABILITY_TYPES = [
-  "Now",
-  "2 weeks",
-  "4 weeks",
-  "8 weeks",
-  "12+ weeks",
+  {
+    id: "now",
+    value: "Now",
+    label: "Now",
+  },
+  {
+    id: "2-weeks",
+    value: "2 weeks",
+    label: "2 weeks",
+  },
+  {
+    id: "4-weeks",
+    value: "4 weeks",
+    label: "4 weeks",
+  },
+  {
+    id: "8-weeks",
+    value: "8 weeks",
+    label: "8 weeks",
+  },
+  {
+    id: "12-weeks",
+    value: "12+ weeks",
+    label: "12+ weeks",
+  },
 ];
 
 export const JOB_SALARY = [
@@ -102,4 +185,9 @@ export const JOB_SALARY = [
     value: 150000,
     name: "150k+",
   },
+];
+
+export const WORK_EXPERIENCE_TYPES = [
+  { id: "noExperience", value: "false", label: "No experience" },
+  { id: "withExperience", value: "true", label: "With experience" },
 ];

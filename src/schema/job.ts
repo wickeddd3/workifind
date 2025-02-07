@@ -5,7 +5,7 @@ import { requiredString } from "@/schema/utils";
 const LocationSchema = z
   .object({
     locationType: requiredString.refine(
-      (value) => LOCATION_TYPES.includes(value),
+      (value) => LOCATION_TYPES.map((type) => type.value).includes(value),
       "Invalid location type",
     ),
     location: z.string().max(100).optional(),
@@ -23,7 +23,7 @@ export const JobSchema = z
   .object({
     title: requiredString.max(100),
     employmentType: requiredString.refine(
-      (value) => EMPLOYMENT_TYPES.includes(value),
+      (value) => EMPLOYMENT_TYPES.map((type) => type.value).includes(value),
       "Invalid job type",
     ),
     description: z.string().max(5000).optional(),

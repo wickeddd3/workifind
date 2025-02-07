@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Select from "@/components/ui/select";
+import SimpleSelect from "@/components/ui/simple-select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
@@ -120,7 +120,7 @@ export default function EditJobForm({
                 <FormItem>
                   <FormLabel>Employment type</FormLabel>
                   <FormControl>
-                    <Select {...field}>
+                    <SimpleSelect {...field}>
                       <option value="" hidden>
                         Select an option
                       </option>
@@ -129,7 +129,7 @@ export default function EditJobForm({
                           {type}
                         </option>
                       ))}
-                    </Select>
+                    </SimpleSelect>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,7 +142,7 @@ export default function EditJobForm({
                 <FormItem>
                   <FormLabel>Work setup</FormLabel>
                   <FormControl>
-                    <Select
+                    <SimpleSelect
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
@@ -159,7 +159,7 @@ export default function EditJobForm({
                           {locationType}
                         </option>
                       ))}
-                    </Select>
+                    </SimpleSelect>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

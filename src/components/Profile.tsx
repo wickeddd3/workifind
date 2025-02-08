@@ -7,7 +7,7 @@ interface ProfileProps {
 
 export function Profile({ children }: ProfileProps) {
   return (
-    <div className="mx-auto my-0 flex h-full min-h-screen max-w-7xl md:my-10">
+    <div className="mx-auto my-0 flex h-full max-w-7xl md:pt-10">
       {children}
     </div>
   );
@@ -21,7 +21,7 @@ export function Sidebar({ children }: SidebarProps) {
   return (
     <div
       id="application-sidebar"
-      className="inset-y-0 start-0 z-[60] hidden min-h-[63vh] w-[300px] -translate-x-full transform border-e border-gray-100 bg-white transition-all duration-300 [--auto-close:lg] dark:border-neutral-700 dark:bg-neutral-800 lg:bottom-0 lg:end-auto lg:block lg:translate-x-0"
+      className="inset-y-0 start-0 hidden w-[300px] -translate-x-full transform border-e border-gray-100 transition-all duration-300 [--auto-close:lg] dark:border-neutral-700 dark:bg-neutral-800 lg:bottom-0 lg:end-auto lg:block lg:translate-x-0"
     >
       {children}
     </div>

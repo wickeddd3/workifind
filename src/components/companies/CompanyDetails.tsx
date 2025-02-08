@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Markdown from "../Markdown";
 import { Link as LinkIcon, Mail } from "lucide-react";
-import Link from "next/link";
 import { Employer } from "@prisma/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Heading4,
+  MediumText,
+  Paragraph,
+} from "@/components/common/typography/Typography";
 
 interface CompanyDetailsProps {
   company: Employer & { perks: { name: string }[] };
@@ -34,31 +38,31 @@ export default function CompanyDetails({
         />
       )}
       <div className="flex flex-col space-y-2">
-        <h2 className="text-md font-bold text-gray-900 md:text-xl">
-          {companyName}
-        </h2>
+        <Heading4 className="font-bold">{companyName}</Heading4>
         {companyWebsite && (
           <h6 className="flex items-center gap-3">
             <LinkIcon size={16} className="shrink-0" />
-            <Link
-              href={companyWebsite}
+            <a
+              href={`https://${companyWebsite}`}
               target="_blank"
+              rel="noreferrer"
               className="text-sm font-normal text-gray-900 hover:underline md:text-md"
             >
               {companyWebsite}
-            </Link>
+            </a>
           </h6>
         )}
         {companyEmail && (
           <h6 className="flex items-center gap-3">
             <Mail size={16} className="shrink-0" />
-            <Link
-              href={companyEmail}
+            <a
+              href={`mailto://${companyEmail}`}
               target="_blank"
+              rel="noreferrer"
               className="text-sm font-normal text-gray-900 hover:underline md:text-md"
             >
               {companyEmail}
-            </Link>
+            </a>
           </h6>
         )}
       </div>
@@ -81,34 +85,26 @@ export default function CompanyDetails({
           <div className="flex flex-col space-y-8">
             {(industry || location) && (
               <div className="flex flex-col space-y-4">
-                <h1 className="text-md font-bold text-gray-800 md:text-lg">
-                  Company Overview
-                </h1>
+                <Heading4>Company Overview</Heading4>
                 {industry && (
                   <div className="flex items-start space-x-12">
-                    <h3 className="text-sm font-semibold text-gray-700 md:text-md">
-                      Industry
-                    </h3>
-                    <p className="text-sm md:text-md">{industry}</p>
+                    <MediumText className="text-gray-700">Industry</MediumText>
+                    <Paragraph>{industry}</Paragraph>
                   </div>
                 )}
                 {location && (
                   <div className="flex items-start space-x-12">
-                    <h3 className="text-sm font-semibold text-gray-700 md:text-md">
-                      Location
-                    </h3>
-                    <p className="text-sm md:text-md">{location}</p>
+                    <MediumText className="text-gray-700">Location</MediumText>
+                    <Paragraph>{location}</Paragraph>
                   </div>
                 )}
               </div>
             )}
             {about && (
               <div className="flex flex-col space-y-4">
-                <h1 className="text-md font-bold text-gray-800 md:text-lg">
-                  About us
-                </h1>
+                <Heading4>About us</Heading4>
                 <div className="text-justify text-sm md:text-md">
-                  {about && <Markdown>{about}</Markdown>}
+                  <Markdown>{about}</Markdown>
                 </div>
               </div>
             )}
@@ -118,19 +114,15 @@ export default function CompanyDetails({
           <div className="flex flex-col space-y-8">
             {pitch && (
               <div className="flex flex-col space-y-4">
-                <h1 className="text-md font-bold text-gray-800 md:text-lg">
-                  Why join us?
-                </h1>
+                <Heading4>Why join us?</Heading4>
                 <div className="text-justify text-sm md:text-md">
-                  {pitch && <Markdown>{pitch}</Markdown>}
+                  <Markdown>{pitch}</Markdown>
                 </div>
               </div>
             )}
             {perks && perks.length > 0 && (
               <div className="flex flex-col space-y-4">
-                <h1 className="text-md font-bold text-gray-800 md:text-lg">
-                  Perks
-                </h1>
+                <Heading4>Perks</Heading4>
                 <ul className="list-inside text-sm md:text-md">
                   {perks.map((item, index) => (
                     <li key={`${item}${index}`}>{item?.name}</li>

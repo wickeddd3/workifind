@@ -1,11 +1,11 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { TextInputField } from "@/components/common/TextInputField";
-import { FileUploadField } from "@/components/common/FileUploadField";
-import { SelectField } from "@/components/common/SelectField";
-import { DynamicListField } from "@/components/common/DynamicListField";
-import { RichTextField } from "@/components/common/RichEditorTextField";
+import { TextInputField } from "@/components/common/form/TextInputField";
+import { FileUploadField } from "@/components/common/form/FileUploadField";
+import { SelectField } from "@/components/common/form/SelectField";
+import { DynamicListField } from "@/components/common/form/DynamicListField";
+import { RichTextField } from "@/components/common/form/RichEditorTextField";
 import LoadingButton from "@/components/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

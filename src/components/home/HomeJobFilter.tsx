@@ -40,7 +40,10 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
   }
 
   return (
-    <aside className="h-full w-full py-8 md:py-12">
+    <aside
+      className="h-full w-full py-8 md:py-12"
+      data-testid="home-job-filter"
+    >
       <div className="mx-auto flex h-full w-full max-w-7xl">
         <div className="flex w-full flex-col gap-4 px-3 lg:w-3/5 lg:gap-14">
           <div className="flex w-full flex-col gap-4">

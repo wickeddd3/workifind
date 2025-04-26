@@ -30,7 +30,7 @@ export default function Page() {
   };
 
   return (
-    <main className="m-auto mb-10 gap-6">
+    <div className="m-auto mb-10 gap-6" data-testid="home-page">
       <HomeJobFilter defaultValues={filterValues} />
       <div className="m-auto flex h-full max-w-7xl flex-wrap items-center gap-2 px-3 md:flex-col">
         <DynamicHomeSearchHistory />
@@ -38,6 +38,6 @@ export default function Page() {
         <DynamicHomeInitialCompanyList />
         <DynamicHomeMarketingSection />
       </div>
-    </main>
+    </div>
   );
 }

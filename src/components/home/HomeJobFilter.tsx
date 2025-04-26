@@ -119,6 +119,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     <SimpleSelect
                       id="employmentType"
                       name="employmentType"
+                      data-testid="job-type-select"
                       className="h-10 w-full pr-12 text-sm"
                       defaultValue={defaultValues.employmentType || ""}
                     >
@@ -140,6 +141,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     <SimpleSelect
                       id="salary"
                       name="salary"
+                      data-testid="job-salary-select"
                       className="h-10 w-full pr-12 text-sm"
                       defaultValue={defaultValues.salary || ""}
                     >
@@ -161,6 +163,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     <SimpleSelect
                       id="locationType"
                       name="locationType"
+                      data-testid="location-type-select"
                       className="h-10 w-full pr-12 text-sm"
                       defaultValue={defaultValues.locationType || ""}
                     >
@@ -181,12 +184,16 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                     <Input
                       id="q"
                       name="q"
+                      data-testid="keywords-input"
                       placeholder="Search by job title"
                       className="w-full text-sm placeholder:text-sm placeholder:text-gray-900"
                       defaultValue={defaultValues.q}
                     />
                   </div>
-                  <Button className="mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:my-0 md:w-fit">
+                  <Button
+                    className="mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:my-0 md:w-fit"
+                    data-testid="search-button"
+                  >
                     <SearchIcon size={18} color="#ffffff" strokeWidth={3} />
                     <span className="text-sm font-bold uppercase tracking-wider text-white">
                       Search

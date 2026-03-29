@@ -1,0 +1,90 @@
+name: workifind
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: workifind-db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: workifind_db
+    ports:
+      - "5432:5432"
+    networks:
+      - workifind-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d workifind_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: postgres -c listen_addresses='*'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: workifind-pgadmin
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@root.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - workifind-network
+
+  app:
+    container_name: workifind
+    build:
+      context: .
+      args:
+        - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+        - POSTGRES_URL=${POSTGRES_URL}
+        - POSTGRES_URL_NON_POOLING=${POSTGRES_URL_NON_POOLING}
+        - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+        - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        - NEXT_PUBLIC_CLERK_SIGN_UP_URL=${NEXT_PUBLIC_CLERK_SIGN_UP_URL}
+        - NEXT_PUBLIC_CLERK_SIGN_IN_URL=${NEXT_PUBLIC_CLERK_SIGN_IN_URL}
+        - NEXT_CLERK_SIGN_UP_FALLBACK_URL=${NEXT_CLERK_SIGN_UP_FALLBACK_URL}
+        - NEXT_CLERK_SIGN_IN_FALLBACK_URL=${NEXT_CLERK_SIGN_IN_FALLBACK_URL}
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+      - POSTGRES_URL=postgresql://root:root@db:5432/workifind_db
+      - POSTGRES_URL_NON_POOLING=postgresql://root:root@db:5432/workifind_db
+      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      - NEXT_PUBLIC_CLERK_SIGN_UP_URL=${NEXT_PUBLIC_CLERK_SIGN_UP_URL}
+      - NEXT_PUBLIC_CLERK_SIGN_IN_URL=${NEXT_PUBLIC_CLERK_SIGN_IN_URL}
+      - NEXT_CLERK_SIGN_UP_FALLBACK_URL=${NEXT_CLERK_SIGN_UP_FALLBACK_URL}
+      - NEXT_CLERK_SIGN_IN_FALLBACK_URL=${NEXT_CLERK_SIGN_IN_FALLBACK_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "export DATABASE_URL=postgresql://root:root@db:5432/instagram_db && 
+            npx prisma migrate deploy &&
+            npx prisma generate && 
+            npx prisma db push &&
+            npm run dev"
+    volumes:
+      - .:/app # This mounts the current directory to /app in the container
+      - /app/node_modules # This prevents local node_modules from overwriting container ones
+      - /app/.next # This prevents local .next from overwriting container ones
+    networks:
+      - workifind-network
+
+networks:
+  workifind-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -57,7 +57,7 @@ docker-compose up --build
 4. Push the schema to your local PostgreSQL:
 
 ```
-# Will execute npx prisma db push in app (form-builder docker container)
+# Will execute npx prisma db push in app (workifind docker container)
 docker-compose exec -it app npx prisma db push
 ```
 

@@ -87,7 +87,10 @@ export function ApplicantProfileMenu() {
 
 export default function Navbar() {
   const { user, isSignedIn } = useUser();
-  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
+  const role = useMemo(
+    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
+    [user],
+  );
   const profileRoute = useMemo(() => {
     // if (!currentUser && !currentUserRole) {
     //   return "/setup";

@@ -1,12 +1,12 @@
 import ApplicantJobApplications from "@/components/applicant/ApplicantJobApplications";
 import ApplicantJobApplicationsPagination from "@/components/applicant/ApplicantJobApplicationsPagination";
 import ApplicantJobsEmptyPlaceholder from "@/components/applicant/ApplicantJobsEmptyPlaceholder";
-import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import {
   getJobApplications,
   getJobApplicationsCount,
 } from "@/app/_services/applicant-job-applications";
+import { getAuthUser } from "@/lib/clerk";
 
 interface PageProps {
   searchParams: {
@@ -15,8 +15,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams: { page } }: PageProps) {
-  const user = await currentUser();
-  const role = user?.unsafeMetadata?.role;
+  const { user, role } = await getAuthUser();
   const userId = user?.id;
   const isApplicant = role === "APPLICANT";
 

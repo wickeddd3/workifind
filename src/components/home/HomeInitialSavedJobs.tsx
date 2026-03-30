@@ -4,16 +4,15 @@ import SavedJobsUnauthenticated from "@/components/home/saved/SavedJobsUnauthent
 import SavedJobsLoadingPlaceholder from "@/components/home/saved/SavedJobsLoadingPlaceholder";
 import { cache } from "react";
 import { Suspense } from "react";
-import { currentUser } from "@clerk/nextjs/server";
 import { getInitialSavedJobs } from "@/app/_services/applicant-saved-jobs";
+import { getAuthUser } from "@/lib/clerk";
 
 const handleFetchInitialSavedJobs = cache(async (userId: string) => {
   return await getInitialSavedJobs(userId);
 });
 
 export default async function HomeInitialSavedJobs() {
-  const user = await currentUser();
-  const role = user?.unsafeMetadata?.role;
+  const { user, role } = await getAuthUser();
 
   const userId = user?.id;
   if (!userId) return <SavedJobsUnauthenticated />;

@@ -1,10 +1,8 @@
 import ProfileSetup from "@/components/setup/ProfileSetup";
-import { currentUser } from "@clerk/nextjs/server";
+import { getAuthUser } from "@/lib/clerk";
 
 export default async function Page() {
-  const user = await currentUser();
-
-  const role = user?.unsafeMetadata?.role;
+  const { role } = await getAuthUser();
 
   if (!role) {
     return <ProfileSetup />;

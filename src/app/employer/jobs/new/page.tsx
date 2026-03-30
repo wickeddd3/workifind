@@ -1,10 +1,9 @@
 import NewJobForm from "@/components/employer/NewJobForm";
-import { currentUser } from "@clerk/nextjs/server";
+import { getAuthUser } from "@/lib/clerk";
 import { notFound } from "next/navigation";
 
 export default async function Page() {
-  const user = await currentUser();
-  const role = user?.unsafeMetadata?.role;
+  const { user, role } = await getAuthUser();
   const isEmployer = role === "EMPLOYER";
 
   if (!user) return notFound();

@@ -2,8 +2,8 @@ import EmployerJobs from "@/components/employer/EmployerJobs";
 import EmployerJobsEmptyPlaceholder from "@/components/employer/EmployerJobsEmptyPlaceholder";
 import EmployerJobsPagination from "@/components/employer/EmployerJobsPagination";
 import { getJobs, getJobsCount } from "@/app/_services/employer-jobs";
-import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
+import { getAuthUser } from "@/lib/clerk";
 
 interface PageProps {
   searchParams: {
@@ -12,8 +12,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams: { page } }: PageProps) {
-  const user = await currentUser();
-  const role = user?.unsafeMetadata?.role;
+  const { user, role } = await getAuthUser();
   const userId = user?.id;
   const isEmployer = role === "EMPLOYER";
 

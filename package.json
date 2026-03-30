@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lintfix": "eslint --fix ./src/**/* --ext .ts,tsx,.js,.jsx --format stylish",
-    "seed": "node scripts/seed.js",
+    "seed": "npx tsx prisma/seed/main-seed.js",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -49,6 +49,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
     "@playwright/test": "^1.46.1",
     "@types/markdown-draft-js": "^2.2.7",
     "@types/node": "^20",

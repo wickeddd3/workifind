@@ -1,11 +1,11 @@
 "use client";
 
 import { Form } from "@/shared/ui/form";
-import { TextInputField } from "@/components/common/form/TextInputField";
-import { RadioGroupField } from "@/components/common/form/RadioGroupField";
-import { CheckboxGroupField } from "@/components/common/form/CheckboxGroupField";
-import { RichTextField } from "@/components/common/form/RichEditorTextField";
-import { DynamicListField } from "@/components/common/form/DynamicListField";
+import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
+import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
+import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
+import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
 import LoadingButton from "@/components/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -14,7 +14,7 @@ import {
   Heading4,
   MediumText,
   SmallText,
-} from "@/components/common/typography/Typography";
+} from "@/shared/ui/typography/Typography";
 import { Badge } from "@/shared/ui/badge";
 
 interface ProfessionalDetailsProps {

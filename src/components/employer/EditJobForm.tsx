@@ -1,9 +1,9 @@
 "use client";
 
 import { Form, FormLabel } from "@/shared/ui/form";
-import { TextInputField } from "@/components/common/form/TextInputField";
-import { SelectField } from "@/components/common/form/SelectField";
-import { RichTextField } from "@/components/common/form/RichEditorTextField";
+import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { SelectField } from "@/shared/ui/form-fields/SelectField";
+import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
 import LoadingButton from "@/components/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

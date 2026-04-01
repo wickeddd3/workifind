@@ -9,7 +9,7 @@ import {
   Heading4,
   MediumText,
   Paragraph,
-} from "@/components/common/typography/Typography";
+} from "@/shared/ui/typography/Typography";
 
 interface CompanyDetailsProps {
   employer: Employer & {

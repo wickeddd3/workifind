@@ -1,6 +1,6 @@
 import IconSearch from "@/components/icons/IconSearch";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/shared/ui/input";
+import { Button } from "@/shared/ui/button";
 import { redirect } from "next/navigation";
 import { CompanyFilterSchema } from "@/shared/schema/company-filter";
 

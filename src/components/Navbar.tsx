@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   SignedIn,
   SignedOut,
@@ -19,7 +19,7 @@ import {
   MenubarMenu,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/menubar";
+} from "@/shared/ui/menubar";
 import { ReactNode, useMemo } from "react";
 
 interface ItemLinkProps {

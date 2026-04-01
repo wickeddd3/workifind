@@ -5,7 +5,7 @@ import { formatMoney } from "@/shared/utils/format-money";
 import { relativeDate } from "@/shared/utils/format-date";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import EmployerJobApplications from "@/components/employer/EmployerJobApplications";
 
 interface EmployerJobProps {

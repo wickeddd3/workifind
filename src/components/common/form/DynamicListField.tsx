@@ -1,7 +1,7 @@
 "use client";
 
-import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
+import { Input } from "@/shared/ui/input";
 import {
   Control,
   Controller,
@@ -10,7 +10,7 @@ import {
   Path,
   UseFieldArrayRemove,
 } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 
 interface DynamicListFieldProps<T extends FieldValues> {

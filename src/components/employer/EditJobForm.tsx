@@ -1,6 +1,6 @@
 "use client";
 
-import { Form, FormLabel } from "@/components/ui/form";
+import { Form, FormLabel } from "@/shared/ui/form";
 import { TextInputField } from "@/components/common/form/TextInputField";
 import { SelectField } from "@/components/common/form/SelectField";
 import { RichTextField } from "@/components/common/form/RichEditorTextField";
@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/shared/ui/use-toast";
 import { JobSchema, JobSchemaType } from "@/shared/schema/job";
 import { updateJob } from "@/app/_services/employer-jobs";
 

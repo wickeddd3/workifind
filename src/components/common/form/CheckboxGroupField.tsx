@@ -5,8 +5,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
+} from "@/shared/ui/form";
+import { Checkbox } from "@/shared/ui/checkbox";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { cn } from "@/shared/lib/utils";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "@/components/ui/form";
+import { Form } from "@/shared/ui/form";
 import { TextInputField } from "@/components/common/form/TextInputField";
 import { RadioGroupField } from "@/components/common/form/RadioGroupField";
 import { CheckboxGroupField } from "@/components/common/form/CheckboxGroupField";
@@ -10,7 +10,7 @@ import LoadingButton from "@/components/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/shared/ui/use-toast";
 import {
   EMPLOYMENT_TYPES,
   AVAILABILITY_TYPES,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "@/components/ui/form";
+import { Form } from "@/shared/ui/form";
 import { TextInputField } from "@/components/common/form/TextInputField";
 import { FileUploadField } from "@/components/common/form/FileUploadField";
 import { SelectField } from "@/components/common/form/SelectField";
@@ -11,7 +11,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/shared/ui/use-toast";
 import {
   EmployerProfileSchema,
   EmployerProfileSchemaType,

@@ -8,14 +8,14 @@ import {
   UserRoundPen,
 } from "lucide-react";
 import { Applicant } from "@prisma/client";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import Link from "next/link";
 import {
   Heading4,
   MediumText,
   SmallText,
 } from "@/components/common/typography/Typography";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/shared/ui/badge";
 
 interface ProfessionalDetailsProps {
   applicant: Applicant & {

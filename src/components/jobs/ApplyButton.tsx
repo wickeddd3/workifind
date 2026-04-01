@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Job, JobApplication } from "@prisma/client";
 import { CircleCheckBig } from "lucide-react";
 import Link from "next/link";

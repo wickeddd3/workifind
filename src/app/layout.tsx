@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 const DynamicNavbar = dynamic(() => import("@/components/Navbar"));
 const DynamicFooter = dynamic(() => import("@/components/Footer"));
 const DynamicToaster = dynamic(() =>
-  import("@/components/ui/toaster").then((mod) => mod.Toaster),
+  import("@/shared/ui/toaster").then((mod) => mod.Toaster),
 );
 
 export default function RootLayout({

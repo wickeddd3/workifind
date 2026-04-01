@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import SimpleSelect from "@/components/ui/simple-select";
+import { Button } from "@/shared/ui/button";
+import { Input } from "@/shared/ui/input";
+import { Label } from "@/shared/ui/label";
+import SimpleSelect from "@/shared/ui/simple-select";
 import useSearchHistory from "@/shared/hooks/useSearchHistory";
 import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { JobFilterSchema, JobFilterSchemaType } from "@/shared/schema/job-filter";

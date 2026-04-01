@@ -4,7 +4,7 @@ import useSearchHistory from "@/shared/hooks/useSearchHistory";
 import { ChevronLeft, ChevronRight, Eraser, SearchIcon, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Markdown from "../Markdown";
 import { Link as LinkIcon, Mail } from "lucide-react";
 import { Employer } from "@prisma/client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import {
   Heading4,
   MediumText,

@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import ApplicantNewProfileForm from "@/components/setup/ApplicantNewProfileForm";
 import EmployerNewProfileForm from "@/components/setup/EmployerNewProfileForm";
 

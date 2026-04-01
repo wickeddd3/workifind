@@ -3,8 +3,8 @@ import Markdown from "../Markdown";
 import { Link as LinkIcon, Mail, Pencil } from "lucide-react";
 import Link from "next/link";
 import { Employer } from "@prisma/client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { Button } from "@/shared/ui/button";
 import {
   Heading4,
   MediumText,

@@ -1,4 +1,4 @@
-import IllustrationJobs from "@/components/illustrations/IllustrationJobs";
+import IllustrationJobs from "@/shared/ui/illustrations/IllustrationJobs";
 
 interface ApplicantJobsEmptyPlaceholderProps {
   message?: string;

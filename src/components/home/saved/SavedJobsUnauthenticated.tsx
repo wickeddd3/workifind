@@ -1,4 +1,4 @@
-import IllustrationAuthentication from "@/components/illustrations/IllustrationAuthentication";
+import IllustrationAuthentication from "@/shared/ui/illustrations/IllustrationAuthentication";
 
 export default function SavedJobsUnauthenticated() {
   return (

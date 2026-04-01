@@ -1,4 +1,4 @@
-import IllustrationCuriositySearch from "@/components/illustrations/IllustrationCuriositySearch";
+import IllustrationCuriositySearch from "@/shared/ui/illustrations/IllustrationCuriositySearch";
 
 export default function CompanySearchEmptyPlaceholder() {
   return (

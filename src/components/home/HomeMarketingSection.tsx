@@ -1,5 +1,5 @@
-import IllustrationJobHunt from "@/components/illustrations/IllustrationJobHunt";
-import IllustrationJobOffer from "@/components/illustrations/IllustrationJobOffer";
+import IllustrationJobHunt from "@/shared/ui/illustrations/IllustrationJobHunt";
+import IllustrationJobOffer from "@/shared/ui/illustrations/IllustrationJobOffer";
 
 export default function HomeMarketingSection() {
   return (

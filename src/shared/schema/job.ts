@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
-import { requiredString } from "@/schema/utils";
+import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
+import { requiredString } from "@/shared/schema/utils";
 
 const LocationSchema = z
   .object({

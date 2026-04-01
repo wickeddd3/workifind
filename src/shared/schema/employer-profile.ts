@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { requiredString } from "@/schema/utils";
-import { INDUSTRY_TYPES } from "@/constants/tags";
+import { requiredString } from "@/shared/schema/utils";
+import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 
 const CompanyLogoSchema = z
   .custom<File | undefined>()

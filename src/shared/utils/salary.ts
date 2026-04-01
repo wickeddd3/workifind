@@ -1,4 +1,4 @@
-import { formatMoney } from "@/utils/format-money";
+import { formatMoney } from "@/shared/utils/format-money";
 import { Job } from "@prisma/client";
 
 export const hasJobSalary = (job: Job) => {

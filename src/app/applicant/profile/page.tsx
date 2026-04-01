@@ -1,21 +1,5 @@
-import ApplicantDetails from "@/components/applicant/ApplicantDetails";
-import { getApplicantProfileByUserId } from "@/app/_services/applicant";
-import { cache } from "react";
-import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
-
-const handleFetchApplicantProfile = cache(async (userId: string) => {
-  return await getApplicantProfileByUserId(userId);
-});
+import { ApplicantPage } from "@/pages/ApplicantPage";
 
 export default async function Page() {
-  const { userId } = auth();
-
-  if (!userId) notFound();
-
-  const applicant = await handleFetchApplicantProfile(userId);
-
-  if (!applicant) notFound();
-
-  return applicant && <ApplicantDetails applicant={applicant} />;
+  return <ApplicantPage />;
 }

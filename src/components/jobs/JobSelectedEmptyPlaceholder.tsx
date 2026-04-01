@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import IconNoSelected from "@/components/icons/IconNoSelected";
+import IconNoSelected from "@/shared/ui/icons/IconNoSelected";
 
 export default function JobSelectedEmptyPlaceholder() {
   return (

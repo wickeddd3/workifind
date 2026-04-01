@@ -1,4 +1,4 @@
-import IconSearch from "@/components/icons/IconSearch";
+import IconSearch from "@/shared/ui/icons/IconSearch";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";
 import { redirect } from "next/navigation";

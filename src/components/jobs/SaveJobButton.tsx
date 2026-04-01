@@ -16,7 +16,10 @@ interface SaveJobButtonProps {
 
 export default function SaveJobButton({ job }: SaveJobButtonProps) {
   const { user, isSignedIn } = useUser();
-  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
+  const role = useMemo(
+    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
+    [user],
+  );
   const isApplicant = useMemo(
     () => isSignedIn && role === "APPLICANT",
     [isSignedIn, role],

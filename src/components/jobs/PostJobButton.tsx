@@ -7,7 +7,10 @@ import { useUser } from "@clerk/nextjs";
 
 export default function PostJobButton() {
   const { user, isSignedIn } = useUser();
-  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
+  const role = useMemo(
+    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
+    [user],
+  );
   const isEmployer = useMemo(
     () => isSignedIn && role === "EMPLOYER",
     [isSignedIn, role],

@@ -14,7 +14,10 @@ interface ApplyButtonProps {
 
 export default function ApplyButton({ job }: ApplyButtonProps) {
   const { user, isSignedIn } = useUser();
-  const role = useMemo(() => user?.unsafeMetadata.role || "", [user]);
+  const role = useMemo(
+    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
+    [user],
+  );
   const isApplicant = useMemo(
     () => isSignedIn && role === "APPLICANT",
     [isSignedIn, role],

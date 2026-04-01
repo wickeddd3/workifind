@@ -9,13 +9,13 @@ import { RichTextField } from "@/components/common/form/RichEditorTextField";
 import LoadingButton from "@/components/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { INDUSTRY_TYPES } from "@/constants/tags";
+import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import {
   EmployerProfileSchema,
   EmployerProfileSchemaType,
-} from "@/schema/employer-profile";
+} from "@/shared/schema/employer-profile";
 import { createEmployerProfile } from "@/app/_services/employer";
 
 export default function EmployerNewProfileForm() {

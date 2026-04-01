@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { forwardRef } from "react";
 

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import {
   CompanyFilterSchema,
   CompanyFilterSchemaType,
-} from "@/schema/company-filter";
+} from "@/shared/schema/company-filter";
 
 async function searchCompanies(formData: FormData) {
   "use server";

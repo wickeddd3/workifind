@@ -1,4 +1,4 @@
-import { baseUrl } from "@/config/base-url";
+import { baseUrl } from "@/shared/config/base-url";
 
 export interface FilterQuery {
   searchQuery: string;

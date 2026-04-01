@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import {
   ProfessionalFilterSchema,
   ProfessionalFilterSchemaType,
-} from "@/schema/professional-filter";
+} from "@/shared/schema/professional-filter";
 
 async function searchProfessionals(formData: FormData) {
   "use server";

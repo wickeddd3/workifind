@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 interface CheckboxGroupFieldProps<T extends FieldValues> {
   control: Control<T>;

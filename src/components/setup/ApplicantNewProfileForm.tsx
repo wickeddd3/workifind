@@ -16,11 +16,11 @@ import {
   AVAILABILITY_TYPES,
   LOCATION_TYPES,
   WORK_EXPERIENCE_TYPES,
-} from "@/constants/tags";
+} from "@/shared/constants/tags";
 import {
   ApplicantProfileSchema,
   ApplicantProfileSchemaType,
-} from "@/schema/applicant-profile";
+} from "@/shared/schema/applicant-profile";
 import { createApplicantProfile } from "@/app/_services/applicant";
 
 export default function ApplicantNewProfileForm() {

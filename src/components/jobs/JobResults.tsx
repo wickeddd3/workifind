@@ -1,6 +1,6 @@
 import JobItem from "@/components/jobs/JobItem";
 import Link from "next/link";
-import { JobFilterSchemaType } from "@/schema/job-filter";
+import { JobFilterSchemaType } from "@/shared/schema/job-filter";
 import { Job, Employer } from "@prisma/client";
 
 interface JobResultsProps {

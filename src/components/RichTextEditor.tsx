@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import dynamic from "next/dynamic";
 import { forwardRef, useState } from "react";
 import { EditorState, ContentState, convertToRaw } from "draft-js";

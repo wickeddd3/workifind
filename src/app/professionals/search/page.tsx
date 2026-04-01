@@ -2,7 +2,7 @@ import ProfessionalSearchFilter from "@/components/professionals/ProfessionalSea
 import ProfessionalSearchResults from "@/components/professionals/ProfessionalSearchResults";
 import ProfessionalSearchEmptyPlaceholder from "@/components/professionals/ProfessionalSearchEmptyPlaceholder";
 import ProfessionalSearchResultsPagination from "@/components/professionals/ProfessionalSearchResultsPagination";
-import { ProfessionalFilterSchemaType } from "@/schema/professional-filter";
+import { ProfessionalFilterSchemaType } from "@/shared/schema/professional-filter";
 import {
   searchProfessionals,
   searchProfessionalsCount,

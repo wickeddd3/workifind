@@ -5,7 +5,7 @@ import SavedJobsLoadingPlaceholder from "@/components/home/saved/SavedJobsLoadin
 import { cache } from "react";
 import { Suspense } from "react";
 import { getInitialSavedJobs } from "@/app/_services/applicant-saved-jobs";
-import { getAuthUser } from "@/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk";
 
 const handleFetchInitialSavedJobs = cache(async (userId: string) => {
   return await getInitialSavedJobs(userId);

@@ -1,6 +1,6 @@
-import { baseUrl } from "@/config/base-url";
-import { toSlug } from "@/utils/format-text";
-import { JobSchemaType } from "@/schema/job";
+import { baseUrl } from "@/shared/config/base-url";
+import { toSlug } from "@/shared/utils/format-text";
+import { JobSchemaType } from "@/shared/schema/job";
 import { nanoid } from "nanoid";
 
 export async function createJob(userId: string, formData: JobSchemaType) {

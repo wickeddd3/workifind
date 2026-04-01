@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Control, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 interface RadioGroupFieldProps<T extends FieldValues> {
   control: Control<T>;

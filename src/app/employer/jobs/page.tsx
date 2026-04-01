@@ -3,7 +3,7 @@ import EmployerJobsEmptyPlaceholder from "@/components/employer/EmployerJobsEmpt
 import EmployerJobsPagination from "@/components/employer/EmployerJobsPagination";
 import { getJobs, getJobsCount } from "@/app/_services/employer-jobs";
 import { notFound } from "next/navigation";
-import { getAuthUser } from "@/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk";
 
 interface PageProps {
   searchParams: {

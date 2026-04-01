@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Employer, Job } from "@prisma/client";
 import Link from "next/link";
-import { DEFAULT_COMPANY_LOGO } from "@/constants/logo";
+import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
 
 interface CompanyInitialListItemProps {
   company: Employer & { jobs: Job[] };

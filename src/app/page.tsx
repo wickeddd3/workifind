@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import HomeJobFilter from "@/components/home/HomeJobFilter";
-import { JobFilterSchemaType } from "@/schema/job-filter";
+import { JobFilterSchemaType } from "@/shared/schema/job-filter";
 
 const DynamicHomeInitialSavedJobs = dynamic(
   () => import("@/components/home/HomeInitialSavedJobs"),

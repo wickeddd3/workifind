@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { createClerkUser } from "./_service/clerk-user";
 import { createEmployer } from "./_service/employer";
 import { createJobs } from "./job-seed";
-import { INDUSTRY_TYPES } from "../../src/constants/tags";
+import { INDUSTRY_TYPES } from "../../src/shared/constants/tags";
 
 export async function createEmployers(count: number) {
   console.log("🚀 Starting Employers Seed...");

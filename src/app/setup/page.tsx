@@ -1,5 +1,5 @@
 import ProfileSetup from "@/components/setup/ProfileSetup";
-import { getAuthUser } from "@/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk";
 
 export default async function Page() {
   const { role } = await getAuthUser();

@@ -7,10 +7,10 @@ import { RichTextField } from "@/components/common/form/RichEditorTextField";
 import LoadingButton from "@/components/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
+import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { JobSchema, JobSchemaType } from "@/schema/job";
+import { JobSchema, JobSchemaType } from "@/shared/schema/job";
 import { createJob } from "@/app/_services/employer-jobs";
 
 interface NewJobFormProps {

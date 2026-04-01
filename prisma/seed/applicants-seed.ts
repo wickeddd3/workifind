@@ -7,7 +7,7 @@ import {
   AVAILABILITY_TYPES,
   JOB_SALARY,
   WORK_EXPERIENCE_TYPES,
-} from "../../src/constants/tags";
+} from "../../src/shared/constants/tags";
 
 export async function createApplicants(count: number) {
   console.log("🚀 Starting Applicants Seed...");

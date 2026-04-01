@@ -2,7 +2,7 @@ import IconSearch from "@/components/icons/IconSearch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import { ProfessionalFilterSchema } from "@/schema/professional-filter";
+import { ProfessionalFilterSchema } from "@/shared/schema/professional-filter";
 
 async function searchProfessionals(formData: FormData) {
   "use server";

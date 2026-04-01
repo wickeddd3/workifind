@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Control, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 interface TextInputFieldProps<T extends FieldValues> {
   control: Control<T>;

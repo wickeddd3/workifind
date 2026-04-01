@@ -1,8 +1,8 @@
-import { baseUrl } from "@/config/base-url";
-import { EmployerProfileSchemaType } from "@/schema/employer-profile";
-import { toSlug } from "@/utils/format-text";
+import { baseUrl } from "@/shared/config/base-url";
+import { EmployerProfileSchemaType } from "@/shared/schema/employer-profile";
+import { toSlug } from "@/shared/utils/format-text";
 import { nanoid } from "nanoid";
-import { removeObjectProperty } from "@/utils/object-manipulation";
+import { removeObjectProperty } from "@/shared/utils/object-manipulation";
 
 export const createEmployerProfile = async (
   formData: EmployerProfileSchemaType,

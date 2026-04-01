@@ -2,7 +2,7 @@ import IconSearch from "@/components/icons/IconSearch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import { CompanyFilterSchema } from "@/schema/company-filter";
+import { CompanyFilterSchema } from "@/shared/schema/company-filter";
 
 async function searchCompanies(formData: FormData) {
   "use server";

@@ -8,9 +8,9 @@ import {
 } from "lucide-react";
 import Badge from "@/components/Badge";
 import { Employer, Job } from "@prisma/client";
-import { relativeDate } from "@/utils/format-date";
+import { relativeDate } from "@/shared/utils/format-date";
 import Link from "next/link";
-import { getJobSalary, hasJobSalary } from "@/utils/salary";
+import { getJobSalary, hasJobSalary } from "@/shared/utils/salary";
 
 interface JobItemProps {
   job: Job & { employer: Employer };

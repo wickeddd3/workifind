@@ -18,7 +18,7 @@ import { applyToJob } from "@/app/_services/applicant-job-applications";
 import {
   JobApplicationSchema,
   JobApplicationSchemaType,
-} from "@/schema/job-application";
+} from "@/shared/schema/job-application";
 
 interface ApplicationFormProps {
   userId: string;

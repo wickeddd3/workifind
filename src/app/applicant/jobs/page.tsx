@@ -6,7 +6,7 @@ import {
   getJobApplications,
   getJobApplicationsCount,
 } from "@/app/_services/applicant-job-applications";
-import { getAuthUser } from "@/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk";
 
 interface PageProps {
   searchParams: {

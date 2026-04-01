@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
-import { ProfessionalFilterSchemaType } from "@/schema/professional-filter";
+import { ProfessionalFilterSchemaType } from "@/shared/schema/professional-filter";
 
 interface PaginationProps {
   currentPage: number;

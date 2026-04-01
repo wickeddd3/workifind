@@ -1,5 +1,5 @@
-import { baseUrl } from "@/config/base-url";
-import { ApplicantProfileSchemaType } from "@/schema/applicant-profile";
+import { baseUrl } from "@/shared/config/base-url";
+import { ApplicantProfileSchemaType } from "@/shared/schema/applicant-profile";
 
 export const createApplicantProfile = async (
   formData: ApplicantProfileSchemaType,

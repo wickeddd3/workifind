@@ -1,5 +1,5 @@
 import NewJobForm from "@/components/employer/NewJobForm";
-import { getAuthUser } from "@/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk";
 import { notFound } from "next/navigation";
 
 export default async function Page() {

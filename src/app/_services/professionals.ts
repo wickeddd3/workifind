@@ -1,4 +1,4 @@
-import { baseUrl } from "@/config/base-url";
+import { baseUrl } from "@/shared/config/base-url";
 
 export const getInitialProfessionalList = async (initialNumber?: number) => {
   const params = {

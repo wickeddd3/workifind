@@ -3,7 +3,7 @@
 import { Employer, Job } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { DEFAULT_COMPANY_LOGO } from "@/constants/logo";
+import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
 
 interface JobApplicationSubmittedProps {
   job: Job & { employer: Employer };

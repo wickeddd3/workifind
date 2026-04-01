@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "@/components/Markdown";
 import { Employer, Job, JobApplication } from "@prisma/client";
-import { relativeDate } from "@/utils/format-date";
+import { relativeDate } from "@/shared/utils/format-date";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
-import { getJobSalary, hasJobSalary } from "@/utils/salary";
+import { getJobSalary, hasJobSalary } from "@/shared/utils/salary";
 
 interface JobSelectedDetailsProps {
   job: Job & { employer: Employer } & { jobApplications: JobApplication[] };

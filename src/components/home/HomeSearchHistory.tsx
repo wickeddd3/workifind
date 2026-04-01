@@ -1,6 +1,6 @@
 "use client";
 
-import useSearchHistory from "@/hooks/useSearchHistory";
+import useSearchHistory from "@/shared/hooks/useSearchHistory";
 import { ChevronLeft, ChevronRight, Eraser, SearchIcon, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";

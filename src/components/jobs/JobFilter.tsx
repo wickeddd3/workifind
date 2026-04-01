@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SimpleSelect from "@/components/ui/simple-select";
-import useSearchHistory from "@/hooks/useSearchHistory";
-import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/constants/tags";
-import { JobFilterSchema, JobFilterSchemaType } from "@/schema/job-filter";
+import useSearchHistory from "@/shared/hooks/useSearchHistory";
+import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
+import { JobFilterSchema, JobFilterSchemaType } from "@/shared/schema/job-filter";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 

@@ -5,7 +5,7 @@ import JobResultsPagination from "@/components/jobs/JobResultsPagination";
 import JobSelected from "@/components/jobs/JobSelected";
 import { filterJobs, filterJobsCount } from "@/app/_services/jobs";
 import { Employer, Job, JobApplication } from "@prisma/client";
-import { JobFilterSchemaType } from "@/schema/job-filter";
+import { JobFilterSchemaType } from "@/shared/schema/job-filter";
 
 interface PageProps {
   searchParams: {

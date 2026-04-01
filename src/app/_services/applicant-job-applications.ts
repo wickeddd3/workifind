@@ -1,5 +1,5 @@
-import { baseUrl } from "@/config/base-url";
-import { JobApplicationSchemaType } from "@/schema/job-application";
+import { baseUrl } from "@/shared/config/base-url";
+import { JobApplicationSchemaType } from "@/shared/schema/job-application";
 
 export const getJobApplications = async ({
   userId,

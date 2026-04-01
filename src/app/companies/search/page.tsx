@@ -2,7 +2,7 @@ import CompanySearchFilter from "@/components/companies/CompanySearchFilter";
 import CompanySearchResults from "@/components/companies/CompanySearchResults";
 import CompanySearchEmptyPlaceholder from "@/components/companies/CompanySearchEmptyPlaceholder";
 import CompanySearchResultsPagination from "@/components/companies/CompanySearchResultsPagination";
-import { CompanyFilterSchemaType } from "@/schema/company-filter";
+import { CompanyFilterSchemaType } from "@/shared/schema/company-filter";
 import {
   searchCompanies,
   searchCompaniesCount,

@@ -1,8 +1,8 @@
 import { Applicant, Employer, Job, JobApplication } from "@prisma/client";
 import Markdown from "@/components/Markdown";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
-import { formatMoney } from "@/utils/format-money";
-import { relativeDate } from "@/utils/format-date";
+import { formatMoney } from "@/shared/utils/format-money";
+import { relativeDate } from "@/shared/utils/format-date";
 import ApplyButton from "@/components/jobs/ApplyButton";
 import SaveJobButton from "@/components/jobs/SaveJobButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";

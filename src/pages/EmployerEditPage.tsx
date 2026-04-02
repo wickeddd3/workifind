@@ -1,21 +1,16 @@
-import EmployerEditProfile from "@/components/employer/EmployerEditProfile";
-import { getEmployerProfileByUserId } from "@/app/_services/employer";
-import { cache } from "react";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
-
-const handleFetchEmployerProfile = cache(async (userId: string) => {
-  return await getEmployerProfileByUserId(userId);
-});
+import { ProfileForm } from "@/features/employer/update-profile";
+import { getEmployerProfile } from "@/entities/employer";
 
 export async function EmployerEditPage() {
   const { userId } = auth();
 
   if (!userId) notFound();
 
-  const employer = await handleFetchEmployerProfile(userId);
+  const employer = await getEmployerProfile(userId);
 
   if (!employer) notFound();
 
-  return employer && <EmployerEditProfile employer={employer} />;
+  return <ProfileForm employer={employer} />;
 }

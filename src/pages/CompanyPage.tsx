@@ -1,22 +1,25 @@
-import CompanyDetails from "@/components/companies/CompanyDetails";
-import { cache } from "react";
 import { notFound } from "next/navigation";
-import { findCompanyBySlug } from "@/app/_services/company";
-
-const handleFindCompanyBySlug = cache(async (slug: string) => {
-  const company = await findCompanyBySlug(slug);
-
-  if (!company) notFound();
-
-  return company;
-});
+import {
+  EmployerHeader,
+  EmployerTabs,
+  getEmployerProfileBySlug,
+} from "@/entities/employer";
 
 export async function CompanyPage({ slug }: { slug: string }) {
-  const company = await handleFindCompanyBySlug(slug);
+  const employer = await getEmployerProfileBySlug(slug);
+
+  if (!employer) notFound();
 
   return (
-    <main className="mx-auto h-full max-w-4xl p-4">
-      {company && <CompanyDetails company={company} />}
+    <main className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4">
+      <EmployerHeader
+        companyName={employer.companyName}
+        companyEmail={employer.companyEmail}
+        companyWebsite={employer.companyWebsite}
+        companyLogoUrl={employer.companyLogoUrl}
+        hasEditButton={true}
+      />
+      <EmployerTabs employer={employer} />
     </main>
   );
 }

@@ -9,9 +9,18 @@ export async function getApplicant(id: string): Promise<Applicant | null> {
 
     const applicant = await prisma.applicant.findUnique({
       where: { userId },
-      include: {
-        savedJobs: true,
-      },
+    });
+
+    return applicant;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getApplicantById(id: number): Promise<Applicant | null> {
+  try {
+    const applicant = await prisma.applicant.findUnique({
+      where: { id },
     });
 
     return applicant;

@@ -5,7 +5,7 @@ interface TipProps {
   tip: { icon: ReactElement; title: string; description: string };
 }
 
-export default function ProfessionalSearchTip() {
+export function ProfessionalSearchTip() {
   const tips = [
     {
       icon: <BookUser size={60} color="#3366FF" strokeWidth={1} />,

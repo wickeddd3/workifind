@@ -1,8 +1,8 @@
 import ProfessionalFilter from "@/components/professionals/ProfessionalFilter";
 import ProfessionalInitialList from "@/components/professionals/ProfessionalInitialList";
-import ProfessionalSearchTip from "@/components/professionals/ProfessionalSearchTip";
 import { cache } from "react";
 import { getInitialProfessionalList } from "@/app/_services/professionals";
+import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
 
 const handleGetInitialProfessionalList = cache(async () => {
   return await getInitialProfessionalList();

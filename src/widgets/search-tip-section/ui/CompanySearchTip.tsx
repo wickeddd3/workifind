@@ -5,7 +5,7 @@ interface TipProps {
   tip: { icon: ReactElement; title: string; description: string };
 }
 
-export default function CompanySearchTip() {
+export function CompanySearchTip() {
   const tips = [
     {
       icon: <HandHeart size={60} color="#3366FF" strokeWidth={1} />,

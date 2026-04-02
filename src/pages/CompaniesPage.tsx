@@ -1,8 +1,8 @@
 import CompanyFilter from "@/components/companies/CompanyFilter";
 import CompanyInitialList from "@/components/companies/CompanyInitialList";
-import CompanySearchTip from "@/components/companies/CompanySearchTip";
 import { cache } from "react";
 import { getInitialCompanyList } from "@/app/_services/companies";
+import { CompanySearchTip } from "@/widgets/search-tip-section";
 
 const handleGetInitialCompanyList = cache(async () => {
   return await getInitialCompanyList();

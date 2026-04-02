@@ -1,9 +1,9 @@
 import JobDetails from "@/components/jobs/JobApplication/JobDetails";
-import ApplicantDetails from "@/components/jobs/JobApplication/ApplicantDetails";
 import ApplicationForm from "@/components/jobs/JobApplication/ApplicationForm";
 import LoadingPlaceholder from "@/components/jobs/JobApplication/LoadingPlaceholder";
-import { Applicant, Employer, Job } from "@prisma/client";
+import { Employer, Job } from "@prisma/client";
 import { Suspense } from "react";
+import { type Applicant, ApplicantHeader } from "@/entities/applicant";
 
 interface JobApplicationFormProps {
   userId: string;
@@ -20,7 +20,7 @@ export default function JobApplicationForm({
     <Suspense fallback={<LoadingPlaceholder />}>
       <section className="flex h-full w-full flex-col gap-4 md:gap-8">
         <JobDetails job={job} />
-        <ApplicantDetails applicant={applicant} />
+        <ApplicantHeader applicant={applicant} />
         <ApplicationForm userId={userId} jobId={job.id} jobSlug={job.slug} />
       </section>
     </Suspense>

@@ -1,23 +1,34 @@
-import ProfessionalDetails from "@/components/professionals/ProfessionalDetails";
-import { cache } from "react";
 import { notFound } from "next/navigation";
-import { findProfessionalById } from "@/app/_services/professional";
-
-const handleFindProfessionalById = cache(async (id: number) => {
-  const professional = await findProfessionalById(id);
-
-  if (!professional) notFound();
-
-  return professional;
-});
+import {
+  ApplicantBio,
+  ApplicantHeader,
+  ApplicantLanguages,
+  ApplicantPreferences,
+  ApplicantSkills,
+  getApplicantProfileById,
+} from "@/entities/applicant";
 
 export async function ProfessionalPage({ id }: { id: string }) {
-  const professionalId = parseInt(id);
-  const professional = await handleFindProfessionalById(professionalId);
+  const applicantId = parseInt(id);
+  const applicant = await getApplicantProfileById(applicantId);
+
+  if (!applicant) notFound();
 
   return (
-    <main className="mx-auto h-full max-w-4xl p-4">
-      {professional && <ProfessionalDetails professional={professional} />}
-    </main>
+    <section className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4 pb-8">
+      <ApplicantHeader applicant={applicant} />
+      <div className="flex flex-col gap-4 px-4 md:px-8">
+        <ApplicantBio bio={applicant.about} />
+        <ApplicantSkills skills={applicant.skills} />
+        <ApplicantLanguages languages={applicant.languages} />
+        <ApplicantPreferences
+          preferredEmploymentTypes={applicant.preferredEmploymentTypes}
+          preferredLocationTypes={applicant.preferredLocationTypes}
+          preferredLocations={applicant.preferredLocations}
+          availability={applicant.availability}
+          salaryExpectation={applicant.salaryExpectation}
+        />
+      </div>
+    </section>
   );
 }

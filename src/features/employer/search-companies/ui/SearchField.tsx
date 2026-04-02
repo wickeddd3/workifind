@@ -1,10 +1,7 @@
 import { redirect } from "next/navigation";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import {
-  CompanyFilterSchema,
-  CompanyFilterSchemaType,
-} from "@/shared/schema/company-filter";
+import { CompanyFilterSchema } from "./../model/schema";
 
 async function searchCompanies(formData: FormData) {
   "use server";
@@ -16,19 +13,11 @@ async function searchCompanies(formData: FormData) {
   redirect(`/companies/search?${searchParams.toString()}`);
 }
 
-interface CompanySearchFilterProps {
-  filterValues: CompanyFilterSchemaType;
-}
-
-export default function CompanySearchFilter({
-  filterValues,
-}: CompanySearchFilterProps) {
-  const { q } = filterValues;
-
+export function SearchField({ query }: { query: string }) {
   return (
     <section className="flex flex-col space-y-8 py-6">
       <h1 className="text-xl font-medium text-gray-900 md:text-2xl">
-        Search results for &quot;{q}&ldquo;
+        Search results for &quot;{query}&ldquo;
       </h1>
       <form
         action={searchCompanies}
@@ -41,7 +30,7 @@ export default function CompanySearchFilter({
           type="text"
           placeholder="Search by company name"
           className="w-full"
-          defaultValue={q}
+          defaultValue={query}
         />
         <Button className="bg-indigo-600 hover:bg-indigo-700">Search</Button>
       </form>

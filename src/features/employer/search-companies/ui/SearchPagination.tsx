@@ -1,19 +1,20 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
-import { CompanyFilterSchemaType } from "@/shared/schema/company-filter";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  filterValues: CompanyFilterSchemaType;
+  query: string;
 }
 
-export default function CompanySearchResultsPagination({
+export function SearchPagination({
   currentPage,
   totalPages,
-  filterValues: { q },
+  query,
 }: PaginationProps) {
+  const q = query;
+
   function generatePageLink(page: number) {
     const searchParams = new URLSearchParams({
       ...(q && { q: q.trim() }),

@@ -1,7 +1,7 @@
 import IllustrationJobHunt from "@/shared/ui/illustrations/IllustrationJobHunt";
 import IllustrationJobOffer from "@/shared/ui/illustrations/IllustrationJobOffer";
 
-export default function HomeMarketingSection() {
+export function MarketingSection() {
   return (
     <section className="grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="h-full w-full">

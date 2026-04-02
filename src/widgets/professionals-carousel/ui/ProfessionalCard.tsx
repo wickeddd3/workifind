@@ -2,11 +2,7 @@ import { Applicant } from "@prisma/client";
 import { BadgeCheck, Briefcase, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 
-interface ProfessionalInitialListItemProps {
-  professional: Applicant;
-}
-
-export default function ProfessionalInitialListItem({
+export function ProfessionalCard({
   professional: {
     id,
     firstName,
@@ -16,7 +12,9 @@ export default function ProfessionalInitialListItem({
     location,
     experienced,
   },
-}: ProfessionalInitialListItemProps) {
+}: {
+  professional: Applicant;
+}) {
   return (
     <Link href={`/professionals/${id}`}>
       <div className="flex h-[130px] min-w-[240px] flex-col space-y-1 rounded-lg bg-gray-50 p-4 shadow-sm hover:bg-gray-100">

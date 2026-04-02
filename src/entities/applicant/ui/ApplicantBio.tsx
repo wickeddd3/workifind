@@ -1,5 +1,5 @@
 import Markdown from "@/components/Markdown";
-import { Heading4 } from "lucide-react";
+import { Heading4 } from "@/shared/ui/typography/Typography";
 
 export function ApplicantBio({ bio }: { bio: string | null }) {
   return (

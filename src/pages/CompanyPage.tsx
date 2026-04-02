@@ -17,7 +17,6 @@ export async function CompanyPage({ slug }: { slug: string }) {
         companyEmail={employer.companyEmail}
         companyWebsite={employer.companyWebsite}
         companyLogoUrl={employer.companyLogoUrl}
-        hasEditButton={true}
       />
       <EmployerTabs employer={employer} />
     </main>

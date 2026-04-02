@@ -7,10 +7,7 @@ interface ViewMoreButtonProps {
   route: string;
 }
 
-export default function ViewMoreButton({
-  text = "",
-  route = "",
-}: ViewMoreButtonProps) {
+export function ViewMoreButton({ text = "", route = "" }: ViewMoreButtonProps) {
   return (
     <Button
       variant="outline"

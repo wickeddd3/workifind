@@ -1,4 +1,4 @@
-import ViewMoreButton from "@/components/ViewMoreButton";
+import ViewMoreButton from "@/shared/ui/ViewMoreButton";
 import SavedJobList from "@/components/home/saved/SavedJobList";
 import { Employer, Job, SavedJob } from "@prisma/client";
 

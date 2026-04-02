@@ -1,5 +1,5 @@
 import { getSuggestedCompanies } from "../api/actions";
-import { Company } from "./types";
+import { Company } from "@/entities/employer";
 
 export async function getInitialSuggestedCompanies(
   initialNumber?: number,

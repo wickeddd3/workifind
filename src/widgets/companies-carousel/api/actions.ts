@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { Company } from "../model/types";
+import { Company } from "@/entities/employer";
 
 export async function getSuggestedCompanies(size: number): Promise<Company[]> {
   try {

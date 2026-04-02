@@ -21,8 +21,10 @@ export function ApplicantHeader({
     profession,
     experienced,
   },
+  hasEditButton = false,
 }: {
   applicant: Applicant;
+  hasEditButton?: boolean;
 }) {
   const hasExperience = experienced === "With experience";
 
@@ -33,15 +35,17 @@ export function ApplicantHeader({
           <Heading4 className="font-bold">{`${firstName} ${lastName}`}</Heading4>
           {hasExperience && <BadgeCheck size={16} className="shrink-0" />}
         </div>
-        <Button
-          size="icon"
-          className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700"
-          asChild
-        >
-          <Link href="/applicant/profile/edit" className="text-xs md:text-sm">
-            <UserRoundPen size={16} />
-          </Link>
-        </Button>
+        {hasEditButton && (
+          <Button
+            size="icon"
+            className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700"
+            asChild
+          >
+            <Link href="/applicant/profile/edit" className="text-xs md:text-sm">
+              <UserRoundPen size={16} />
+            </Link>
+          </Button>
+        )}
       </div>
       {profession && (
         <p className="flex items-center gap-1.5">

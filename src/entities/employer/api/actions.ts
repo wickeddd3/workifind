@@ -17,10 +17,12 @@ export async function getEmployer(id: string): Promise<Employer | null> {
   }
 }
 
-export async function getEmployerById(id: number): Promise<Employer | null> {
+export async function getEmployerBySlug(
+  slug: string,
+): Promise<Employer | null> {
   try {
     const employer = await prisma.employer.findUnique({
-      where: { id },
+      where: { slug },
     });
 
     return employer;

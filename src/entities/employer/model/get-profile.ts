@@ -1,5 +1,5 @@
 import { parseJsonField } from "@/shared/utils/parse-json";
-import { getEmployer, getEmployerById } from "../api/actions";
+import { getEmployer, getEmployerBySlug } from "../api/actions";
 import { Employer } from "./types";
 
 export async function getEmployerProfile(
@@ -15,10 +15,10 @@ export async function getEmployerProfile(
   };
 }
 
-export async function getEmployerProfileById(
-  id: number,
+export async function getEmployerProfileBySlug(
+  slug: string,
 ): Promise<Employer | null> {
-  const employer = await getEmployerById(id);
+  const employer = await getEmployerBySlug(slug);
 
   if (!employer) return null;
 

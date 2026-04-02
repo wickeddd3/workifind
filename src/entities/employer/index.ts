@@ -5,5 +5,5 @@ export { EmployerTabs } from "./ui/EmployerTabs";
 export type { Employer } from "./model/types";
 export {
   getEmployerProfile,
-  getEmployerProfileById,
+  getEmployerProfileBySlug,
 } from "./model/get-profile";

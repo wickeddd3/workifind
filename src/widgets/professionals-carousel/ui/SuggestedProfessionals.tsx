@@ -1,8 +1,8 @@
-import { getProfessionalsSuggestion } from "../api/actions";
+import { getInitialSuggestedProfessionals } from "../model/get-suggested-professionals";
 import { ProfessionalsCarousel } from "./ProfessionalsCarousel";
 
 export async function SuggestedProfessionals() {
-  const professionals = await getProfessionalsSuggestion(8);
+  const professionals = await getInitialSuggestedProfessionals(8);
 
   return (
     <section className="flex flex-col space-y-2 py-6">

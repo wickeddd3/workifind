@@ -3,7 +3,7 @@
 import prisma from "@/shared/lib/prisma";
 import { Applicant } from "@prisma/client";
 
-export async function getProfessionalsSuggestion(
+export async function getSuggestedProfessionals(
   size: number,
 ): Promise<Applicant[]> {
   try {

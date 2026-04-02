@@ -1,11 +1,7 @@
 import { Applicant } from "@prisma/client";
 import { BadgeCheck, Briefcase, Mail, MapPin } from "lucide-react";
 
-interface ProfessionalSearchResultItemProps {
-  professional: Applicant;
-}
-
-export default function ProfessionalSearchResultItem({
+export function SearchResultItem({
   professional: {
     firstName,
     lastName,
@@ -14,7 +10,9 @@ export default function ProfessionalSearchResultItem({
     experienced,
     profession,
   },
-}: ProfessionalSearchResultItemProps) {
+}: {
+  professional: Applicant;
+}) {
   return (
     <article className="flex w-full cursor-pointer items-center space-x-4 rounded-md border border-gray-100 p-4 hover:bg-gray-50">
       <div className="flex w-full flex-col gap-2 md:w-fit">

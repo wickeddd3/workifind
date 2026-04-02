@@ -20,7 +20,7 @@ export async function ApplicantPage() {
 
   return (
     <section className="flex flex-col space-y-6 px-0 pb-8 md:px-4">
-      <ApplicantHeader applicant={applicant} />
+      <ApplicantHeader applicant={applicant} hasEditButton={true} />
       <div className="flex flex-col gap-4 px-4 md:px-8">
         <ApplicantBio bio={applicant.about} />
         <ApplicantSkills skills={applicant.skills} />

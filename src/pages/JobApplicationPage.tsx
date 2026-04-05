@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { findJobBySlug } from "@/app/_services/job";
 import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
 import { auth } from "@clerk/nextjs/server";
-import { getApplicantProfileByUserId } from "@/app/_services/applicant";
+import { getApplicantProfile } from "@/entities/applicant";
 
 const handleFetchJob = cache(async (slug: string) => {
   return await findJobBySlug(slug);
@@ -23,7 +23,7 @@ export async function JobApplicationPage({ slug }: { slug: string }) {
 
   if (!isAuthorized) notFound();
 
-  const applicant = await getApplicantProfileByUserId(userId);
+  const applicant = await getApplicantProfile(userId);
 
   if (!applicant) notFound();
 

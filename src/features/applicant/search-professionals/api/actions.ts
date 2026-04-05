@@ -2,6 +2,15 @@
 
 import prisma from "@/shared/lib/prisma";
 import { Applicant } from "@prisma/client";
+import { redirect } from "next/navigation";
+
+export async function formSearchProfessionals(formData: FormData) {
+  const values = Object.fromEntries(formData.entries());
+  const q = values.q as string;
+  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
+
+  redirect(`/professionals/search?${searchParams.toString()}`);
+}
 
 export async function searchProfessionals(searchParams: {
   query: string;

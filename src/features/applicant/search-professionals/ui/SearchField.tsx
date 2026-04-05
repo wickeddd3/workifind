@@ -1,17 +1,6 @@
-import { redirect } from "next/navigation";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import { ProfessionalFilterSchema } from "./../model/schema";
-
-async function searchProfessionals(formData: FormData) {
-  "use server";
-
-  const values = Object.fromEntries(formData.entries());
-  const { q } = ProfessionalFilterSchema.parse(values);
-  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
-
-  redirect(`/professionals/search?${searchParams.toString()}`);
-}
+import { formSearchProfessionals } from "../api/actions";
 
 export function SearchField({ query }: { query: string }) {
   return (
@@ -20,7 +9,7 @@ export function SearchField({ query }: { query: string }) {
         Search results for &quot;{query}&ldquo;
       </h1>
       <form
-        action={searchProfessionals}
+        action={formSearchProfessionals}
         key="company-search-filter"
         className="flex w-full gap-2"
       >

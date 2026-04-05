@@ -1,7 +1,7 @@
-import { searchCompanies, SearchJumbotron } from "@/widgets/search-jumbotron";
+import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
 import { CompanySearchTip } from "@/widgets/search-tip-section";
-import { redirect } from "next/navigation";
+import { formSearchCompanies } from "@/features/employer/search-companies";
 
 export async function CompaniesPage() {
   return (
@@ -10,7 +10,7 @@ export async function CompaniesPage() {
         title="Find your next potential employer"
         subtitle="Explore list of companies you can work for"
         placeholder="Search by company name"
-        searchAction={searchCompanies}
+        searchAction={formSearchCompanies}
       />
       <SuggestedCompanies />
       <CompanySearchTip />

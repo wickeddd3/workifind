@@ -1,17 +1,6 @@
-import { redirect } from "next/navigation";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import { CompanyFilterSchema } from "./../model/schema";
-
-async function searchCompanies(formData: FormData) {
-  "use server";
-
-  const values = Object.fromEntries(formData.entries());
-  const { q } = CompanyFilterSchema.parse(values);
-  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
-
-  redirect(`/companies/search?${searchParams.toString()}`);
-}
+import { formSearchCompanies } from "../api/actions";
 
 export function SearchField({ query }: { query: string }) {
   return (
@@ -20,7 +9,7 @@ export function SearchField({ query }: { query: string }) {
         Search results for &quot;{query}&ldquo;
       </h1>
       <form
-        action={searchCompanies}
+        action={formSearchCompanies}
         key="company-search-filter"
         className="flex w-full gap-2"
       >

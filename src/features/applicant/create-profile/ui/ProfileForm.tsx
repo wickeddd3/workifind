@@ -6,7 +6,7 @@ import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
 import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
-import LoadingButton from "@/components/LoadingButton";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -20,10 +20,10 @@ import {
 import {
   ApplicantProfileSchema,
   ApplicantProfileSchemaType,
-} from "@/shared/schema/applicant-profile";
-import { createApplicantProfile } from "@/app/_services/applicant";
+} from "../model/schema";
+import { createApplicantProfile } from "../model/create-profile";
 
-export default function ApplicantNewProfileForm() {
+export function ProfileForm() {
   const router = useRouter();
   const { toast } = useToast();
 

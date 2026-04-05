@@ -1,21 +1,17 @@
-"use client";
-
-import { Employer, Job } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
+import { Job } from "../model/types";
 
-interface JobApplicationSubmittedProps {
-  job: Job & { employer: Employer };
-}
-
-export default function JobApplicationForm({
+export function JobApplicationSubmitted({
   job: {
     slug,
     title,
     employer: { companyName, companyLogoUrl },
   },
-}: JobApplicationSubmittedProps) {
+}: {
+  job: Job;
+}) {
   return (
     <section className="h-full w-full grow space-y-8">
       <div className="flex flex-wrap items-center gap-8">

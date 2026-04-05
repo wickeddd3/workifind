@@ -1,16 +1,13 @@
 import { formatMoney } from "@/shared/utils/format-money";
-import { Job } from "@prisma/client";
 
-export const hasJobSalary = (job: Job) => {
-  const { minSalary, maxSalary } = job;
+export const hasJobSalary = (minSalary: number, maxSalary: number) => {
   if (!minSalary && !maxSalary) {
     return false;
   }
   return true;
 };
 
-export const getJobSalary = (job: Job) => {
-  const { minSalary, maxSalary } = job;
+export const getJobSalary = (minSalary: number, maxSalary: number) => {
   if (minSalary === maxSalary) {
     return formatMoney(minSalary);
   }

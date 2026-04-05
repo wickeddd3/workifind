@@ -1,20 +1,14 @@
-import JobApplicationSubmitted from "@/components/jobs/JobApplicationSubmitted";
-import { cache } from "react";
 import { notFound } from "next/navigation";
-import { findJobBySlug } from "@/app/_services/job";
 import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
 import { auth } from "@clerk/nextjs/server";
-
-const handleFetchJob = cache(async (slug: string) => {
-  return await findJobBySlug(slug);
-});
+import { getJobDetailsBySlug, JobApplicationSubmitted } from "@/entities/job";
 
 export async function JobApplicationSubmittedPage({ slug }: { slug: string }) {
   const { userId } = auth();
 
   if (!userId) notFound();
 
-  const job = await handleFetchJob(slug);
+  const job = await getJobDetailsBySlug(slug);
 
   if (!job) notFound();
 
@@ -23,10 +17,8 @@ export async function JobApplicationSubmittedPage({ slug }: { slug: string }) {
   if (isAuthorized) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl p-4">
-      <div className="h-full">
-        <JobApplicationSubmitted job={job} />
-      </div>
-    </main>
+    <section className="mx-auto h-full max-w-4xl p-4">
+      <JobApplicationSubmitted job={job} />
+    </section>
   );
 }

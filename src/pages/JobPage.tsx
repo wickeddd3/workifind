@@ -1,22 +1,15 @@
-import JobDetails from "@/components/jobs/JobDetails";
-import { cache } from "react";
 import { notFound } from "next/navigation";
-import { findJobBySlug } from "@/app/_services/job";
-
-const handleFetchJob = cache(async (slug: string) => {
-  return await findJobBySlug(slug);
-});
+import { getJobDetailsBySlug, JobDescription, JobHeader } from "@/entities/job";
 
 export async function JobPage({ slug }: { slug: string }) {
-  const job = await handleFetchJob(slug);
+  const job = await getJobDetailsBySlug(slug);
 
   if (!job) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl p-4">
-      <div className="h-full">
-        <JobDetails job={job} />
-      </div>
-    </main>
+    <section className="mx-auto h-full w-full max-w-4xl grow space-y-5 p-4">
+      <JobHeader job={job} />
+      <JobDescription description={job.description} />
+    </section>
   );
 }

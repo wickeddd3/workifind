@@ -1,17 +1,9 @@
-import { SearchJumbotron } from "@/widgets/search-jumbotron";
+import {
+  SearchJumbotron,
+  searchProfessionals,
+} from "@/widgets/search-jumbotron";
 import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
-import { redirect } from "next/navigation";
-
-async function searchProfessionals(formData: FormData) {
-  "use server";
-
-  const values = Object.fromEntries(formData.entries());
-  const q = values.q as string;
-  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
-
-  redirect(`/professionals/search?${searchParams.toString()}`);
-}
 
 export async function ProfessionalsPage() {
   return (

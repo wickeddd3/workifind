@@ -1,17 +1,7 @@
-import { SearchJumbotron } from "@/widgets/search-jumbotron";
+import { searchCompanies, SearchJumbotron } from "@/widgets/search-jumbotron";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
 import { CompanySearchTip } from "@/widgets/search-tip-section";
 import { redirect } from "next/navigation";
-
-async function searchCompanies(formData: FormData) {
-  "use server";
-
-  const values = Object.fromEntries(formData.entries());
-  const q = values.q as string;
-  const searchParams = new URLSearchParams({ ...(q && { q: q.trim() }) });
-
-  redirect(`/companies/search?${searchParams.toString()}`);
-}
 
 export async function CompaniesPage() {
   return (

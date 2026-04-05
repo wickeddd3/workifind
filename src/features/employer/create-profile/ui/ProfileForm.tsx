@@ -6,7 +6,7 @@ import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
 import { SelectField } from "@/shared/ui/form-fields/SelectField";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import LoadingButton from "@/components/LoadingButton";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
@@ -15,10 +15,10 @@ import { useToast } from "@/shared/ui/use-toast";
 import {
   EmployerProfileSchema,
   EmployerProfileSchemaType,
-} from "@/shared/schema/employer-profile";
-import { createEmployerProfile } from "@/app/_services/employer";
+} from "./../model/schema";
+import { createEmployerProfile } from "../model/create-profile";
 
-export default function EmployerNewProfileForm() {
+export function ProfileForm() {
   const router = useRouter();
   const { toast } = useToast();
 

@@ -8,6 +8,7 @@ import { Job } from "../model/types";
 
 export function JobHeader({
   job: {
+    slug,
     title,
     minSalary,
     maxSalary,
@@ -15,7 +16,7 @@ export function JobHeader({
     locationType,
     location,
     createdAt,
-    employer: { slug, companyLogoUrl, companyName },
+    employer: { slug: companySlug, companyLogoUrl, companyName },
   },
   optionSlot,
 }: {
@@ -35,10 +36,12 @@ export function JobHeader({
       )}
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-bold text-gray-900 md:text-3xl">
-            {title}
-          </h1>
-          <Link href={`/companies/${slug}`}>
+          <Link href={`/jobs/${slug}`}>
+            <h1 className="text-xl font-bold text-gray-900 hover:underline md:text-3xl">
+              {title}
+            </h1>
+          </Link>
+          <Link href={`/companies/${companySlug}`}>
             <h3 className="text-md font-medium text-gray-500 hover:underline md:text-xl">
               {companyName}
             </h3>

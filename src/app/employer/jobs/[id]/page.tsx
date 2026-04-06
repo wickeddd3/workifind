@@ -3,7 +3,7 @@ import { EmployerJobPage } from "@/pages/EmployerJobPage";
 export default async function Page({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id: string };
 }) {
-  return <EmployerJobPage id={id} />;
+  return <EmployerJobPage id={parseInt(id)} />;
 }

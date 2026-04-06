@@ -4,23 +4,17 @@ import { Form, FormLabel } from "@/shared/ui/form";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
 import { SelectField } from "@/shared/ui/form-fields/SelectField";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import LoadingButton from "@/components/LoadingButton";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { JobSchema, JobSchemaType } from "@/shared/schema/job";
-import { updateJob } from "@/app/_services/employer-jobs";
+import { JobSchema, JobSchemaType } from "./../model/schema";
+import { updateJobPost } from "../model/update-job";
 
-interface NewJobFormProps {
-  userId: string;
-  jobId: number;
-  job: Job;
-}
-
-export default function EditJobForm({
+export function JobForm({
   userId,
   jobId,
   job: {
@@ -32,7 +26,11 @@ export default function EditJobForm({
     location,
     locationType,
   },
-}: NewJobFormProps) {
+}: {
+  userId: string;
+  jobId: number;
+  job: Job;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -58,7 +56,7 @@ export default function EditJobForm({
   } = form;
 
   async function onSubmit(values: JobSchemaType) {
-    const updatedJob = await updateJob(userId, jobId, values);
+    const updatedJob = await updateJobPost(userId, jobId, values);
     if (updatedJob) {
       router.push("/employer/jobs");
       router.refresh();

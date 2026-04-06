@@ -5,17 +5,21 @@ import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
 import useSearchHistory from "@/shared/hooks/useSearchHistory";
-import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
-import { JobFilterSchema, JobFilterSchemaType } from "@/shared/schema/job-filter";
+import {
+  JOB_SALARY,
+  EMPLOYMENT_TYPES,
+  LOCATION_TYPES,
+} from "@/shared/constants/tags";
+import { JobFilterSchema, JobFilterSchemaType } from "./../model/schema";
 import { useRouter } from "next/navigation";
 import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
 
-interface HomeJobFilterProps {
-  defaultValues: JobFilterSchemaType;
-}
-
-export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
+export function HomeJobFilter({
+  defaultValues,
+}: {
+  defaultValues?: JobFilterSchemaType;
+}) {
   const router = useRouter();
 
   const { saveSearchFilter } = useSearchHistory({
@@ -121,7 +125,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       name="employmentType"
                       data-testid="job-type-select"
                       className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues.employmentType || ""}
+                      defaultValue={defaultValues?.employmentType || ""}
                     >
                       <option value="">Select job type</option>
                       {EMPLOYMENT_TYPES.map((type) => (
@@ -143,7 +147,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       name="salary"
                       data-testid="job-salary-select"
                       className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues.salary || ""}
+                      defaultValue={defaultValues?.salary || ""}
                     >
                       <option value="">Select job salary</option>
                       {JOB_SALARY.map((salary) => (
@@ -165,7 +169,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       name="locationType"
                       data-testid="location-type-select"
                       className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues.locationType || ""}
+                      defaultValue={defaultValues?.locationType || ""}
                     >
                       <option value="">Select location type</option>
                       {LOCATION_TYPES.map((type) => (
@@ -187,7 +191,7 @@ export default function HomeJobFilter({ defaultValues }: HomeJobFilterProps) {
                       data-testid="keywords-input"
                       placeholder="Search by job title"
                       className="w-full text-sm placeholder:text-sm placeholder:text-gray-900"
-                      defaultValue={defaultValues.q}
+                      defaultValue={defaultValues?.q}
                     />
                   </div>
                   <Button

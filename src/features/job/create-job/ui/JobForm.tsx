@@ -4,20 +4,16 @@ import { Form, FormLabel } from "@/shared/ui/form";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
 import { SelectField } from "@/shared/ui/form-fields/SelectField";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import LoadingButton from "@/components/LoadingButton";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { JobSchema, JobSchemaType } from "@/shared/schema/job";
-import { createJob } from "@/app/_services/employer-jobs";
+import { JobSchema, JobSchemaType } from "./../model/schema";
+import { postJob } from "../model/create-job";
 
-interface NewJobFormProps {
-  userId: string;
-}
-
-export default function NewJobForm({ userId }: NewJobFormProps) {
+export function JobForm({ userId }: { userId: string }) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -43,7 +39,7 @@ export default function NewJobForm({ userId }: NewJobFormProps) {
   } = form;
 
   async function onSubmit(values: JobSchemaType) {
-    const createdJob = await createJob(userId, values);
+    const createdJob = await postJob(userId, values);
     if (createdJob) {
       router.push("/employer/jobs");
       router.refresh();

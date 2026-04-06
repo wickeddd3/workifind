@@ -1,20 +1,18 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
-import { JobFilterSchemaType } from "@/shared/schema/job-filter";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  filterValues: JobFilterSchemaType;
+  searchParams: Record<string, string>;
   jobSlug?: string;
 }
 
-export default function JobResultsPagination({
+export function JobResultsPagination({
   currentPage,
   totalPages,
-  filterValues: { q, employmentType, salary, locationType },
-  jobSlug,
+  searchParams: { q, employmentType, salary, locationType, job },
 }: PaginationProps) {
   function generatePageLink(page: number) {
     const searchParams = new URLSearchParams({
@@ -22,7 +20,7 @@ export default function JobResultsPagination({
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
-      ...(jobSlug && { job: jobSlug }),
+      ...(job && { job }),
       ...(page && { page: page.toString() }),
     });
 

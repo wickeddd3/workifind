@@ -7,16 +7,11 @@ import {
   SquareArrowOutUpRight,
 } from "lucide-react";
 import Badge from "@/components/Badge";
-import { Employer, Job } from "@prisma/client";
 import { relativeDate } from "@/shared/utils/format-date";
 import Link from "next/link";
-import { getJobSalary, hasJobSalary } from "@/shared/utils/salary";
+import { getJobSalary, hasJobSalary, Job } from "@/entities/job";
 
-interface JobItemProps {
-  job: Job & { employer: Employer };
-}
-
-export default function JobItem({
+export function JobItem({
   job: {
     slug,
     title,
@@ -24,10 +19,13 @@ export default function JobItem({
     locationType,
     location,
     createdAt,
+    minSalary,
+    maxSalary,
     employer: { companyName, companyLogoUrl },
   },
-  job,
-}: JobItemProps) {
+}: {
+  job: Job;
+}) {
   return (
     <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
       <div className="flex-grow space-y-3">
@@ -61,10 +59,10 @@ export default function JobItem({
               {location}
             </p>
           )}
-          {hasJobSalary(job) && (
+          {hasJobSalary(minSalary, maxSalary) && (
             <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
               <Banknote size={16} className="shrink-0" />
-              {getJobSalary(job)}
+              {getJobSalary(minSalary, maxSalary)}
             </p>
           )}
           <div className="flex justify-between pt-2 md:hidden">

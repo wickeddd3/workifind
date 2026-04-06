@@ -5,16 +5,20 @@ import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
 import useSearchHistory from "@/shared/hooks/useSearchHistory";
-import { JOB_SALARY, EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
-import { JobFilterSchema, JobFilterSchemaType } from "@/shared/schema/job-filter";
+import {
+  JOB_SALARY,
+  EMPLOYMENT_TYPES,
+  LOCATION_TYPES,
+} from "@/shared/constants/tags";
+import { JobFilterSchema } from "./../model/schema";
 import { useRouter } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 
-interface JobFilterProps {
-  defaultValues: JobFilterSchemaType;
-}
-
-export default function JobFilter({ defaultValues }: JobFilterProps) {
+export function JobFilter({
+  searchParams,
+}: {
+  searchParams: Record<string, string>;
+}) {
   const router = useRouter();
 
   const { saveSearchFilter } = useSearchHistory({
@@ -25,13 +29,13 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
     const values = Object.fromEntries(formData.entries());
     const { q, employmentType, salary, locationType } =
       JobFilterSchema.parse(values);
-    const searchParams = new URLSearchParams({
+    const queryParams = new URLSearchParams({
       ...(q && { q: q.trim() }),
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
     });
-    const searchFilter = `/jobs?${searchParams.toString()}`;
+    const searchFilter = `/jobs?${queryParams.toString()}`;
     const searchTitle = q?.trim();
 
     router.push(searchFilter);
@@ -46,7 +50,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
       <div className="h-full w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 p-[3px]">
         <form
           action={handleFilterJobs}
-          key={JSON.stringify(defaultValues)}
+          key={JSON.stringify(searchParams)}
           className="h-full w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
         >
           <div className="w-full space-y-4">
@@ -62,7 +66,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                   id="employmentType"
                   name="employmentType"
                   className="h-10 w-full pr-12 text-sm"
-                  defaultValue={defaultValues.employmentType || ""}
+                  defaultValue={searchParams.employmentType || ""}
                 >
                   <option value="">Select job type</option>
                   {EMPLOYMENT_TYPES.map((type) => (
@@ -80,7 +84,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                   id="salary"
                   name="salary"
                   className="h-10 w-full pr-12 text-sm"
-                  defaultValue={defaultValues.salary || ""}
+                  defaultValue={searchParams.salary || ""}
                 >
                   <option value="">Select job salary</option>
                   {JOB_SALARY.map((salary) => (
@@ -101,7 +105,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                   id="locationType"
                   name="locationType"
                   className="h-10 w-full pr-12 text-sm"
-                  defaultValue={defaultValues.locationType || ""}
+                  defaultValue={searchParams.locationType || ""}
                 >
                   <option value="">Select location type</option>
                   {LOCATION_TYPES.map((type) => (
@@ -120,7 +124,7 @@ export default function JobFilter({ defaultValues }: JobFilterProps) {
                   name="q"
                   placeholder="Search by job title"
                   className="w-full text-sm placeholder:text-sm placeholder:text-gray-900"
-                  defaultValue={defaultValues.q}
+                  defaultValue={searchParams.q}
                 />
               </div>
               <Button className="col-span-2 mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:col-span-1 md:my-0">

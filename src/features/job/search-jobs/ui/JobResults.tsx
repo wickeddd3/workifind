@@ -1,20 +1,15 @@
-import JobItem from "@/components/jobs/JobItem";
+import { JobItem } from "./JobItem";
 import Link from "next/link";
-import { JobFilterSchemaType } from "@/shared/schema/job-filter";
-import { Job, Employer } from "@prisma/client";
+import { Job } from "@/entities/job";
 
 interface JobResultsProps {
-  jobs: (Job & { employer: Employer })[];
-  filterValues: JobFilterSchemaType;
+  jobs: Job[];
+  searchParams: Record<string, string>;
   page?: number;
 }
 
-export default function JobResults({
-  jobs,
-  filterValues,
-  page,
-}: JobResultsProps) {
-  const { q, employmentType, salary, locationType } = filterValues;
+export function JobResults({ jobs, searchParams, page }: JobResultsProps) {
+  const { q, employmentType, salary, locationType } = searchParams;
 
   function getLinkUrl(jobSlug: string): string {
     const searchParams = new URLSearchParams({
@@ -30,7 +25,7 @@ export default function JobResults({
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       {jobs.map((job) => (
         <Link
           href={getLinkUrl(job.slug)}
@@ -43,6 +38,6 @@ export default function JobResults({
           <JobItem job={job} />
         </Link>
       ))}
-    </>
+    </div>
   );
 }

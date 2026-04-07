@@ -1,6 +1,5 @@
 "use client";
 
-import { Job, JobApplication } from "@prisma/client";
 import {
   Banknote,
   Briefcase,
@@ -19,38 +18,33 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import { formatMoney } from "@/shared/utils/format-money";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useMemo } from "react";
-import { deleteJob } from "@/app/_services/employer-jobs";
+import { getJobSalary, hasJobSalary, Job } from "@/entities/job";
+import { deleteEmployerJob } from "../model/delete-job";
 
-interface EmployerJobItemProps {
-  job: Job & { jobApplications: JobApplication[] };
-}
-
-export default function EmployerJobItem({
-  job: { id, slug, title, employmentType, locationType, jobApplications },
-  job,
-}: EmployerJobItemProps) {
+export function JobItem({
+  job: {
+    userId,
+    id,
+    slug,
+    title,
+    employmentType,
+    locationType,
+    jobApplications,
+    minSalary,
+    maxSalary,
+  },
+}: {
+  job: Job;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const salary = (job: Job) => {
-    const { minSalary, maxSalary } = job;
-    if (!minSalary && !maxSalary) {
-      return null;
-    }
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
-  const handleDeleteJob = async (job: Job) => {
-    const { userId, id } = job;
-    const deletedJob = await deleteJob(userId, id);
+  const handleDeleteJob = async (userId: string, id: number) => {
+    const deletedJob = await deleteEmployerJob(userId, id);
     if (deletedJob) {
       router.refresh();
       toast({
@@ -88,7 +82,7 @@ export default function EmployerJobItem({
               </Link>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => handleDeleteJob(job)}
+                onClick={() => handleDeleteJob(userId, id)}
               >
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete</span>
@@ -122,10 +116,10 @@ export default function EmployerJobItem({
             {locationType}
           </p>
         )}
-        {salary(job) && (
+        {hasJobSalary(minSalary, maxSalary) && (
           <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Banknote size={16} className="shrink-0" />
-            {salary(job)}
+            {getJobSalary(minSalary, maxSalary)}
           </p>
         )}
         {jobApplications && (

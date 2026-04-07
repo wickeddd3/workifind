@@ -1,12 +1,6 @@
 import IllustrationJobs from "@/shared/ui/illustrations/IllustrationJobs";
 
-interface EmployerJobsEmptyPlaceholderProps {
-  message?: string;
-}
-
-export default function EmployerJobsEmptyPlaceholder({
-  message,
-}: EmployerJobsEmptyPlaceholderProps) {
+export function EmptyPlaceholder({ message }: { message?: string }) {
   return (
     <div className="flex h-[60vh] flex-col items-center justify-center gap-6 rounded-2xl bg-gray-50 px-4 py-8">
       <IllustrationJobs />

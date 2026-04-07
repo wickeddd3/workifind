@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import type { SavedJob } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function authorizeAttempt(
   userId: string,
@@ -13,46 +13,28 @@ export async function authorizeAttempt(
     });
 
     const isAuthorized = !!savedJob;
-
-    return !isAuthorized;
+    console.log("isAuthorized", isAuthorized);
+    return isAuthorized;
   } catch (error) {
     return false;
   }
 }
 
-export async function saveJob(
+export async function toggleSaveJob(
   userId: string,
   applicantId: number,
   jobId: number,
-): Promise<SavedJob | null> {
-  try {
-    const savedJob = await prisma.savedJob.create({
-      data: {
-        userId,
-        applicantId,
-        jobId,
-      },
-    });
-
-    return savedJob;
-  } catch (error) {
-    return null;
-  }
-}
-
-export async function unsaveJob(
-  userId: string,
-  jobId: number,
+  isCurrentlySaved: boolean,
 ): Promise<boolean> {
   try {
-    const result = await prisma.savedJob.deleteMany({
-      where: {
-        userId,
-        jobId,
-      },
-    });
+    if (isCurrentlySaved) {
+      await prisma.savedJob.deleteMany({ where: { userId, jobId } });
+    } else {
+      await prisma.savedJob.create({ data: { userId, applicantId, jobId } });
+    }
 
-    return result.count > 0;
+    revalidatePath(`/jobs/${jobId}`);
+    return true;
   } catch (error) {
     return false;
   }

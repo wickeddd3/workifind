@@ -1,8 +1,5 @@
-import {
-  JobFilter,
-  JobsContent,
-  JobSelected,
-} from "@/features/job/search-jobs";
+import { JobFilter, JobsContent } from "@/features/job/search-jobs";
+import { JobSelected } from "@/widgets/selected-job";
 
 export async function JobsPage({
   searchParams,
@@ -17,7 +14,7 @@ export async function JobsPage({
           <JobsContent searchParams={searchParams} />
         </section>
         <section className="sticky top-0 hidden h-fit rounded-xl bg-background md:block md:w-3/5">
-          <JobSelected slug={searchParams.job} />
+          <JobSelected slug={searchParams.job} key={searchParams.job} />
         </section>
       </div>
     </div>

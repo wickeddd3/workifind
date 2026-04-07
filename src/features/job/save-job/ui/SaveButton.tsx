@@ -1,76 +1,55 @@
 "use client";
 
 import { Button } from "@/shared/ui/button";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { Job } from "@/entities/job";
-import { authorizeSaveJobAttempt } from "../model/authorize-saved-job";
-import { saveJobPost, unsaveJobPost } from "../model/save-job";
+import { useEffect, useState, useTransition } from "react";
+import { toggleSaveJobPost } from "../model/save-job";
 
-export function SaveButton({ job }: { job: Job }) {
-  const { user, isSignedIn } = useUser();
-  const role = useMemo(
-    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
-    [user],
-  );
-  const isApplicant = useMemo(
-    () => isSignedIn && role === "APPLICANT",
-    [isSignedIn, role],
-  );
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
+export function SaveButton({
+  jobId,
+  applicantId,
+  userId,
+  initialIsSaved,
+}: {
+  jobId: number;
+  applicantId: number;
+  userId: string;
+  initialIsSaved: boolean;
+}) {
+  const [isSaved, setIsSaved] = useState(initialIsSaved);
+  const [isPending, startTransition] = useTransition();
 
-  const handleCheckAuthorization = useCallback(async () => {
-    if (!user?.id) return;
-    try {
-      const authorized = await authorizeSaveJobAttempt(user.id, job.id);
-      setIsAuthorized(authorized);
-      setIsInitialized(true);
-    } catch (error) {
-      console.error("Error checking authorization:", error);
-      setIsAuthorized(false);
-      setIsInitialized(true);
-    }
-  }, [user, job]);
+  const handleToggle = async () => {
+    // Optimistic Update
+    const nextState = !isSaved;
+    setIsSaved(nextState);
 
-  const handleSaveJob = async () => {
-    if (!user?.id) return;
-    await saveJobPost(user?.id, job.id);
-    handleCheckAuthorization();
-  };
+    startTransition(async () => {
+      const result = await toggleSaveJobPost(
+        userId,
+        applicantId,
+        jobId,
+        isSaved,
+      );
 
-  const handleUnsaveJob = async () => {
-    if (!user?.id) return;
-    await unsaveJobPost(user?.id, job.id);
-    handleCheckAuthorization();
+      // Rollback if server fails
+      if (!result) {
+        setIsSaved(!nextState);
+      }
+    });
   };
 
   useEffect(() => {
-    handleCheckAuthorization();
-  }, [handleCheckAuthorization]);
-
-  if (!isApplicant) return null;
+    setIsSaved(initialIsSaved);
+  }, [initialIsSaved]);
 
   return (
-    <>
-      {isInitialized && isAuthorized && (
-        <Button
-          className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
-          size="sm"
-          onClick={handleSaveJob}
-        >
-          Save
-        </Button>
-      )}
-      {isInitialized && !isAuthorized && (
-        <Button
-          className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
-          size="sm"
-          onClick={handleUnsaveJob}
-        >
-          Unsave
-        </Button>
-      )}
-    </>
+    <Button
+      disabled={isPending}
+      onClick={handleToggle}
+      className={`w-fit px-8 ${isSaved ? "bg-gray-200 text-black hover:bg-gray-300" : "bg-indigo-600 hover:bg-indigo-700"}`}
+      size="sm"
+    >
+      {isSaved ? "Unsave" : "Save"}
+    </Button>
   );
 }

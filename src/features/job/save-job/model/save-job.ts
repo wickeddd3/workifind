@@ -1,28 +1,15 @@
-import { SavedJob } from "@prisma/client";
-import { saveJob, unsaveJob } from "../api/actions";
+import { toggleSaveJob } from "../api/actions";
 
-export async function saveJobPost(
+export async function toggleSaveJobPost(
   userId: string,
   applicantId: number,
   jobId: number,
-): Promise<SavedJob | null> {
-  try {
-    const savedJob = await saveJob(userId, applicantId, jobId);
-
-    return savedJob;
-  } catch (error) {
-    return null;
-  }
-}
-
-export async function unsaveJobPost(
-  userId: string,
-  jobId: number,
+  isCurrentlySaved: boolean,
 ): Promise<boolean> {
   try {
-    const savedJob = await unsaveJob(userId, jobId);
+    await toggleSaveJob(userId, applicantId, jobId, isCurrentlySaved);
 
-    return savedJob;
+    return true;
   } catch (error) {
     return false;
   }

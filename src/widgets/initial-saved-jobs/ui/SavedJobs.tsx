@@ -1,12 +1,8 @@
+import { SavedJob } from "@/entities/job";
+import { SavedJobList } from "./SavedJobList";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
-import SavedJobList from "@/components/home/saved/SavedJobList";
-import { Employer, Job, SavedJob } from "@prisma/client";
 
-interface SavedJobsProps {
-  savedJobs: (SavedJob & { job: Job & { employer: Employer } })[];
-}
-
-export default function SavedJobs({ savedJobs }: SavedJobsProps) {
+export function SavedJobs({ savedJobs }: { savedJobs: SavedJob[] }) {
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">

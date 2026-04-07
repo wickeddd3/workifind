@@ -1,11 +1,7 @@
-import { Employer, Job, SavedJob } from "@prisma/client";
+import { SavedJob } from "@/entities/job";
 import Link from "next/link";
 
-interface SavedJobListItemProps {
-  savedJob: SavedJob & { job: Job & { employer: Employer } };
-}
-
-export default function SavedJobListItem({
+export function SavedJobListItem({
   savedJob: {
     job: {
       slug,
@@ -13,7 +9,9 @@ export default function SavedJobListItem({
       employer: { companyName },
     },
   },
-}: SavedJobListItemProps) {
+}: {
+  savedJob: SavedJob;
+}) {
   return (
     <Link href={`/jobs/${slug}`} className="h-full w-full md:w-[48%]">
       <div className="flex h-full w-full cursor-pointer flex-col justify-center rounded-xl border border-gray-100 bg-white p-4 hover:bg-gray-50">

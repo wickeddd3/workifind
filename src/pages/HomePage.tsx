@@ -1,12 +1,8 @@
-import dynamic from "next/dynamic";
 import { HomeJobFilter } from "@/features/job/search-jobs";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
 import { MarketingSection } from "@/widgets/marketing-section";
 import { SearchHistory } from "@/widgets/search-history";
-
-const DynamicHomeInitialSavedJobs = dynamic(
-  () => import("@/components/home/HomeInitialSavedJobs"),
-);
+import { InitialSavedJobs } from "@/widgets/initial-saved-jobs";
 
 export function HomePage() {
   return (
@@ -14,7 +10,7 @@ export function HomePage() {
       <HomeJobFilter />
       <div className="m-auto flex h-full max-w-7xl flex-wrap items-center gap-2 px-3 md:flex-col">
         <SearchHistory />
-        <DynamicHomeInitialSavedJobs />
+        <InitialSavedJobs />
         <SuggestedCompanies hasSeeMoreButton={true} />
         <MarketingSection />
       </div>

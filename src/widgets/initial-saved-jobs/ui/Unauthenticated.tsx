@@ -1,6 +1,6 @@
 import IllustrationAuthentication from "@/shared/ui/illustrations/IllustrationAuthentication";
 
-export default function SavedJobsUnauthenticated() {
+export function Unauthenticated() {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-gray-50 px-4 py-8">
       <IllustrationAuthentication />

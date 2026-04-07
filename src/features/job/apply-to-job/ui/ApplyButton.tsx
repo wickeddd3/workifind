@@ -3,60 +3,31 @@
 import { Button } from "@/shared/ui/button";
 import { CircleCheckBig } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { authorizeJobApplicationAttempt } from "../model/authorize-job-application";
 import { Job } from "@/entities/job";
 
-export function ApplyButton({ job }: { job: Job }) {
-  const { user, isSignedIn } = useUser();
-  const role = useMemo(
-    () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
-    [user],
-  );
-  const isApplicant = useMemo(
-    () => isSignedIn && role === "APPLICANT",
-    [isSignedIn, role],
-  );
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  const handleCheckAuthorization = useCallback(async () => {
-    if (!user?.id) return;
-    try {
-      const authorized = await authorizeJobApplicationAttempt(user.id, job.id);
-      setIsAuthorized(authorized);
-      setIsInitialized(true);
-    } catch (error) {
-      console.error("Error checking authorization:", error);
-      setIsAuthorized(false);
-      setIsInitialized(true);
-    }
-  }, [user, job]);
-
-  useEffect(() => {
-    handleCheckAuthorization();
-  }, [handleCheckAuthorization]);
-
-  if (!isApplicant) return null;
+export function ApplyButton({
+  job,
+  hasApplied,
+}: {
+  job: Job;
+  hasApplied: boolean;
+}) {
+  if (!hasApplied) {
+    return (
+      <Button
+        asChild
+        className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
+        size="sm"
+      >
+        <Link href={`/jobs/${job.slug}/apply`}>Apply Now</Link>
+      </Button>
+    );
+  }
 
   return (
-    <>
-      {isInitialized && isAuthorized && (
-        <Button
-          asChild
-          className="w-fit bg-indigo-600 px-8 hover:bg-indigo-700"
-          size="sm"
-        >
-          <Link href={`/jobs/${job.slug}/apply`}>Apply</Link>
-        </Button>
-      )}
-      {isInitialized && !isAuthorized && (
-        <span className="flex items-center gap-2 text-xs text-indigo-600 md:text-sm">
-          <CircleCheckBig size={18} />
-          Already Applied
-        </span>
-      )}
-    </>
+    <span className="flex items-center gap-2 text-xs font-medium text-indigo-600 md:text-sm">
+      <CircleCheckBig size={18} />
+      Already Applied
+    </span>
   );
 }

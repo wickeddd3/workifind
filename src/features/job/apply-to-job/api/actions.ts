@@ -3,7 +3,7 @@
 import prisma from "@/shared/lib/prisma";
 import { JobApplication } from "@prisma/client";
 
-export async function authorizeAttempt(
+export async function checkApplicationStatus(
   userId: string,
   jobId: number,
 ): Promise<boolean> {
@@ -12,9 +12,9 @@ export async function authorizeAttempt(
       where: { userId, jobId },
     });
 
-    const isAuthorized = !!jobApplication;
+    const hasApplied = !!jobApplication;
 
-    return !isAuthorized;
+    return hasApplied;
   } catch (error) {
     return false;
   }

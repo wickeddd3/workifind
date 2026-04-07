@@ -18,7 +18,7 @@ export async function JobApplicationPage({ slug }: { slug: string }) {
 
   const isAuthorized = await authorizeJobApplicationAttempt(userId, job.id);
 
-  if (!isAuthorized) notFound();
+  if (isAuthorized) notFound();
 
   const applicant = await getApplicantProfile(userId);
 

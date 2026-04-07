@@ -3,7 +3,10 @@ import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
 import { getAuthUser } from "@/shared/lib/clerk";
 import { getApplicantProfile } from "@/entities/applicant";
 import { authorizeSaveJobAttempt, SaveButton } from "@/features/job/save-job";
-import { ApplyButton } from "@/features/job/apply-to-job";
+import {
+  ApplyButton,
+  authorizeJobApplicationAttempt,
+} from "@/features/job/apply-to-job";
 
 export async function JobSelected({ slug }: { slug: string }) {
   if (!slug) return <JobSelectedEmptyPlaceholder />;
@@ -13,11 +16,11 @@ export async function JobSelected({ slug }: { slug: string }) {
 
   const { role, user } = await getAuthUser();
   const applicant = await getApplicantProfile(user?.id || "");
-
-  const initialIsSaved = await authorizeSaveJobAttempt(
+  const hasApplied = await authorizeJobApplicationAttempt(
     user?.id || "",
     job?.id || 0,
   );
+  const isSaved = await authorizeSaveJobAttempt(user?.id || "", job?.id || 0);
   const hasOption = role === "APPLICANT" && applicant && user;
 
   return (
@@ -28,12 +31,12 @@ export async function JobSelected({ slug }: { slug: string }) {
           optionSlot={
             hasOption && (
               <>
-                <ApplyButton job={job} />
+                <ApplyButton job={job} hasApplied={hasApplied} />
                 <SaveButton
                   jobId={job.id}
                   applicantId={applicant.id}
                   userId={user.id}
-                  initialIsSaved={initialIsSaved}
+                  initialIsSaved={isSaved}
                 />
               </>
             )

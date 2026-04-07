@@ -14,7 +14,7 @@ export async function JobApplicationSubmittedPage({ slug }: { slug: string }) {
 
   const isAuthorized = await authorizeJobApplicationAttempt(userId, job.id);
 
-  if (isAuthorized) notFound();
+  if (!isAuthorized) notFound();
 
   return (
     <section className="mx-auto h-full max-w-4xl p-4">

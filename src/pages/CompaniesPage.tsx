@@ -1,7 +1,7 @@
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
 import { CompanySearchTip } from "@/widgets/search-tip-section";
-import { formSearchCompanies } from "@/features/employer/search-companies";
+import { formSearchCompanies } from "@/features/employer/search-companies/api/actions";
 
 export async function CompaniesPage() {
   return (

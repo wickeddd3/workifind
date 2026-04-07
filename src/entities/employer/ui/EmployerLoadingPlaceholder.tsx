@@ -1,4 +1,4 @@
-export default function EmployerDetailsLoadingPlaceholder() {
+export function EmployerLoadingPlaceholder() {
   return (
     <section className="flex animate-pulse flex-col space-y-6 px-4">
       <div className="h-[140px] w-[140px] rounded-xl bg-gray-200"></div>

@@ -1,6 +1,5 @@
 "use client";
 
-import useSearchHistory from "@/shared/hooks/useSearchHistory";
 import { ChevronLeft, ChevronRight, Eraser, SearchIcon, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -10,8 +9,9 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useSearchHistory } from "../model/useSearchHistory";
 
-export default function HomeSearchHistory() {
+export function SearchHistory() {
   const [history, setHistory] = useState([]);
   const { getSearchFilterHistory, removeSearchFilter, clearSearchFilters } =
     useSearchHistory({

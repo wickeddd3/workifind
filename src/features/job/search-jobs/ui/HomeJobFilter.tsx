@@ -4,7 +4,6 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
-import useSearchHistory from "@/shared/hooks/useSearchHistory";
 import {
   JOB_SALARY,
   EMPLOYMENT_TYPES,
@@ -14,6 +13,7 @@ import { JobFilterSchema, JobFilterSchemaType } from "./../model/schema";
 import { useRouter } from "next/navigation";
 import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
+import { useSearchHistory } from "@/widgets/search-history";
 
 export function HomeJobFilter({
   defaultValues,

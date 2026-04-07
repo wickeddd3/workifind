@@ -2,7 +2,7 @@ interface useSearchHistoryProps {
   localStorageName: string;
 }
 
-export default function useSearchHistory({
+export function useSearchHistory({
   localStorageName = "search-history",
 }: useSearchHistoryProps) {
   function getSearchFilterHistory() {

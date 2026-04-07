@@ -7,7 +7,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/shared/ui/form";
-import RichTextEditor from "@/components/RichTextEditor";
+import RichTextEditor from "@/shared/ui/RichTextEditor";
 import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { draftToMarkdown } from "markdown-draft-js";
 import { useRouter } from "next/navigation";

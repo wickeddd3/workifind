@@ -1,3 +1,5 @@
+"use server";
+
 import type { Job } from "@/entities/job";
 import type { Job as PrismaJob } from "@prisma/client";
 import prisma from "@/shared/lib/prisma";

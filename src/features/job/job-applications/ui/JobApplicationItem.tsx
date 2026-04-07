@@ -1,4 +1,3 @@
-import { Job, JobApplication } from "@prisma/client";
 import {
   Banknote,
   Briefcase,
@@ -14,30 +13,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import { formatMoney } from "@/shared/utils/format-money";
 import Link from "next/link";
+import { JobApplication } from "../model/types";
+import { getJobSalary, hasJobSalary } from "@/entities/job";
 
-interface ApplicantJobApplicationItemProps {
-  jobApplication: JobApplication & { job: Job };
-}
-
-export default function ApplicantJobApplicationItem({
+export function JobApplicationItem({
   jobApplication: {
-    job: { slug, title, employmentType, locationType },
-    job,
+    job: { slug, title, employmentType, locationType, minSalary, maxSalary },
   },
-}: ApplicantJobApplicationItemProps) {
-  const salary = (job: Job) => {
-    const { minSalary, maxSalary } = job;
-    if (!minSalary && !maxSalary) {
-      return null;
-    }
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
+}: {
+  jobApplication: JobApplication;
+}) {
   return (
     <div className="flex flex-col gap-2 rounded-lg bg-gray-50 px-4 py-2 hover:bg-gray-100">
       <div className="flex items-center justify-between">
@@ -75,10 +61,10 @@ export default function ApplicantJobApplicationItem({
             {locationType}
           </p>
         )}
-        {salary(job) && (
+        {hasJobSalary(minSalary, maxSalary) && (
           <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Banknote size={16} className="shrink-0" />
-            {salary(job)}
+            {getJobSalary(minSalary, maxSalary)}
           </p>
         )}
       </div>

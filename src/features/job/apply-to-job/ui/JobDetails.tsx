@@ -1,18 +1,16 @@
-import { Employer, Job } from "@prisma/client";
+import { Job } from "@/entities/job";
 import Image from "next/image";
 import Link from "next/link";
 
-interface JobDetailsProps {
-  job: Job & { employer: Employer };
-}
-
-export default function JobDetails({
+export function JobDetails({
   job: {
     slug,
     title,
     employer: { companyName, companyLogoUrl },
   },
-}: JobDetailsProps) {
+}: {
+  job: Job;
+}) {
   return (
     <div className="flex flex-wrap items-center gap-4 md:gap-8">
       {companyLogoUrl && (

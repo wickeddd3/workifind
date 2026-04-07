@@ -1,18 +1,14 @@
 "use client";
 
 import { Button } from "@/shared/ui/button";
-import { Job, JobApplication } from "@prisma/client";
 import { CircleCheckBig } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
+import { authorizeJobApplicationAttempt } from "../model/authorize-job-application";
+import { Job } from "@/entities/job";
 
-interface ApplyButtonProps {
-  job: Job & { jobApplications: JobApplication[] };
-}
-
-export default function ApplyButton({ job }: ApplyButtonProps) {
+export function ApplyButton({ job }: { job: Job }) {
   const { user, isSignedIn } = useUser();
   const role = useMemo(
     () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
@@ -28,7 +24,7 @@ export default function ApplyButton({ job }: ApplyButtonProps) {
   const handleCheckAuthorization = useCallback(async () => {
     if (!user?.id) return;
     try {
-      const authorized = await applyToJobAuthorize(user.id, job.id);
+      const authorized = await authorizeJobApplicationAttempt(user.id, job.id);
       setIsAuthorized(authorized);
       setIsInitialized(true);
     } catch (error) {

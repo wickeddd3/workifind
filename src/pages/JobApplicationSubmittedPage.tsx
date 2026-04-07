@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { applyToJobAuthorize } from "@/app/_services/applicant-job-applications";
 import { auth } from "@clerk/nextjs/server";
 import { getJobDetailsBySlug, JobApplicationSubmitted } from "@/entities/job";
+import { authorizeJobApplicationAttempt } from "@/features/job/apply-to-job";
 
 export async function JobApplicationSubmittedPage({ slug }: { slug: string }) {
   const { userId } = auth();
@@ -12,7 +12,7 @@ export async function JobApplicationSubmittedPage({ slug }: { slug: string }) {
 
   if (!job) notFound();
 
-  const isAuthorized = await applyToJobAuthorize(userId, job.id);
+  const isAuthorized = await authorizeJobApplicationAttempt(userId, job.id);
 
   if (isAuthorized) notFound();
 

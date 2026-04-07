@@ -1,4 +1,4 @@
-export default function LoadingPlaceholder() {
+export function LoadingPlaceholder() {
   return (
     <section className="w-full grow animate-pulse space-y-8">
       <div className="flex w-full items-center gap-8">

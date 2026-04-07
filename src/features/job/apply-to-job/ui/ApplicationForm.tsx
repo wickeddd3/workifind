@@ -8,29 +8,29 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import RichTextEditor from "@/components/RichTextEditor";
-import LoadingButton from "@/components/LoadingButton";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { draftToMarkdown } from "markdown-draft-js";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { applyToJob } from "@/app/_services/applicant-job-applications";
 import {
   JobApplicationSchema,
   JobApplicationSchemaType,
-} from "@/shared/schema/job-application";
+} from "../model/schema";
+import { applyToJob } from "../model/apply-to-job";
 
-interface ApplicationFormProps {
-  userId: string;
-  jobId: number;
-  jobSlug: string;
-}
-
-export default function ApplicationForm({
+export function ApplicationForm({
   userId,
+  applicantId,
   jobId,
   jobSlug,
-}: ApplicationFormProps) {
+}: {
+  userId: string;
+  applicantId: number;
+  jobId: number;
+  jobSlug: string;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -46,7 +46,7 @@ export default function ApplicationForm({
   } = form;
 
   async function onSubmit(values: JobApplicationSchemaType) {
-    const createdJob = await applyToJob(userId, jobId, values);
+    const createdJob = await applyToJob(userId, applicantId, jobId, values);
     if (createdJob) {
       router.push(`/jobs/${jobSlug}/submitted`);
       router.refresh();

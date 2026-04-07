@@ -1,17 +1,15 @@
-import { Applicant, JobApplication } from "@prisma/client";
 import { BadgeCheck, Briefcase, MapPin } from "lucide-react";
-import { JobApplicationPitch } from "@/components/JobApplicationPitch";
+import { JobApplication } from "@/entities/job";
+import { JobApplicationPitch } from "./JobApplicationPitch";
 
-interface EmployerJobApplicationItemProps {
-  jobApplication: JobApplication & { applicant: Applicant };
-}
-
-export default function EmployerJobApplicationItem({
+export function JobApplicationItem({
   jobApplication: {
     pitch,
     applicant: { firstName, lastName, experienced, profession, location },
   },
-}: EmployerJobApplicationItemProps) {
+}: {
+  jobApplication: JobApplication;
+}) {
   return (
     <div className="flex min-w-[250px] flex-col space-y-1 rounded-lg bg-gray-50 p-4 shadow-sm hover:bg-gray-100">
       <div className="flex items-center justify-between">

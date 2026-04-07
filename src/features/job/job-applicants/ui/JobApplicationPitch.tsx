@@ -9,15 +9,13 @@ import {
   CollapsibleTrigger,
 } from "@/shared/ui/collapsible";
 
-interface JobApplicationPitchProps {
-  title: string;
-  pitch: string;
-}
-
 export function JobApplicationPitch({
   title = "Applicant pitch",
   pitch = "",
-}: JobApplicationPitchProps) {
+}: {
+  title: string;
+  pitch: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

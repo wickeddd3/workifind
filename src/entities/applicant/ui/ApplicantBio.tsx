@@ -1,4 +1,4 @@
-import Markdown from "@/components/Markdown";
+import Markdown from "@/shared/ui/Markdown";
 import { Heading4 } from "@/shared/ui/typography/Typography";
 
 export function ApplicantBio({ bio }: { bio: string | null }) {

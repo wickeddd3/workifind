@@ -1,4 +1,4 @@
-export default function ApplicantDetailsLoadingPlaceholder() {
+export function ApplicantLoadingPlaceholder() {
   return (
     <section className="flex flex-col space-y-6 px-4 pb-8">
       <div className="flex h-[256px] w-full animate-pulse flex-col space-y-3 rounded-xl bg-gray-50 p-8">

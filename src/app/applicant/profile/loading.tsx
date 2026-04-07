@@ -1,5 +1,5 @@
-import ApplicantDetailsLoadingPlaceholder from "@/components/applicant/ApplicantDetailsLoadingPlaceholder";
+import { ApplicantLoadingPlaceholder } from "@/entities/applicant";
 
 export default function Loading() {
-  return <ApplicantDetailsLoadingPlaceholder />;
+  return <ApplicantLoadingPlaceholder />;
 }

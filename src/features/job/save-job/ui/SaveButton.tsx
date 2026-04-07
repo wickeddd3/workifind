@@ -1,20 +1,13 @@
 "use client";
 
 import { Button } from "@/shared/ui/button";
-import { Job, JobApplication } from "@prisma/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import {
-  saveJob,
-  saveJobAuthorize,
-  unsaveJob,
-} from "@/app/_services/applicant-saved-jobs";
+import { Job } from "@/entities/job";
+import { authorizeSaveJobAttempt } from "../model/authorize-saved-job";
+import { saveJobPost, unsaveJobPost } from "../model/save-job";
 
-interface SaveJobButtonProps {
-  job: Job & { jobApplications: JobApplication[] };
-}
-
-export default function SaveJobButton({ job }: SaveJobButtonProps) {
+export function SaveButton({ job }: { job: Job }) {
   const { user, isSignedIn } = useUser();
   const role = useMemo(
     () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",
@@ -30,7 +23,7 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
   const handleCheckAuthorization = useCallback(async () => {
     if (!user?.id) return;
     try {
-      const authorized = await saveJobAuthorize(user.id, job.id);
+      const authorized = await authorizeSaveJobAttempt(user.id, job.id);
       setIsAuthorized(authorized);
       setIsInitialized(true);
     } catch (error) {
@@ -42,13 +35,13 @@ export default function SaveJobButton({ job }: SaveJobButtonProps) {
 
   const handleSaveJob = async () => {
     if (!user?.id) return;
-    await saveJob(user?.id, job.id);
+    await saveJobPost(user?.id, job.id);
     handleCheckAuthorization();
   };
 
   const handleUnsaveJob = async () => {
     if (!user?.id) return;
-    await unsaveJob(user?.id, job.id);
+    await unsaveJobPost(user?.id, job.id);
     handleCheckAuthorization();
   };
 

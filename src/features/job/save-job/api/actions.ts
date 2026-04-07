@@ -13,7 +13,7 @@ export async function authorizeAttempt(
     });
 
     const isAuthorized = !!savedJob;
-    console.log("isAuthorized", isAuthorized);
+
     return isAuthorized;
   } catch (error) {
     return false;

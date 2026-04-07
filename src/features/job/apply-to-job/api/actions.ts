@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { JobApplication } from "@prisma/client";
+import type { JobApplication } from "@prisma/client";
 
 export async function checkApplicationStatus(
   userId: string,

@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { Company } from "@/entities/employer";
+import type { Company } from "@/entities/employer";
 import { redirect } from "next/navigation";
 
 export async function formSearchCompanies(formData: FormData) {

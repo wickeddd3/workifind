@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { Employer } from "@prisma/client";
+import type { Employer } from "@prisma/client";
 
 export async function getEmployer(id: string): Promise<Employer | null> {
   try {

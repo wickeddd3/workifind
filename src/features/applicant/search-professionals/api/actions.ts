@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { Applicant } from "@prisma/client";
+import type { Applicant } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export async function formSearchProfessionals(formData: FormData) {

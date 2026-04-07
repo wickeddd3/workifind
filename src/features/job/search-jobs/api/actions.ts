@@ -2,7 +2,7 @@
 
 import prisma from "@/shared/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { Job } from "@/entities/job";
+import type { Job } from "@/entities/job";
 
 export async function searchJobs(searchParams: {
   searchQuery: string;

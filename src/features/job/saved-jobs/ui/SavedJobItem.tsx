@@ -1,6 +1,5 @@
 "use client";
 
-import { Job, SavedJob } from "@prisma/client";
 import {
   Banknote,
   BookmarkMinus,
@@ -17,40 +16,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import { formatMoney } from "@/shared/utils/format-money";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { unsaveJob } from "@/app/_services/applicant-saved-jobs";
 import { useUser } from "@clerk/nextjs";
+import { SavedJob } from "../model/types";
+import { getJobSalary, hasJobSalary } from "@/entities/job";
+import { unsaveApplicantJob } from "../model/unsave-job";
 
-interface ApplicantSavedJobItemProps {
-  savedJob: SavedJob & { job: Job };
-}
-
-export default function ApplicantSavedJobItem({
+export function SavedJobItem({
   savedJob: {
-    job: { slug, title, employmentType, locationType },
-    job,
+    id,
+    job: { slug, title, employmentType, locationType, minSalary, maxSalary },
   },
-}: ApplicantSavedJobItemProps) {
+}: {
+  savedJob: SavedJob;
+}) {
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
 
-  const salary = (job: Job) => {
-    const { minSalary, maxSalary } = job;
-    if (!minSalary && !maxSalary) {
-      return null;
-    }
-    if (minSalary === maxSalary) {
-      return formatMoney(minSalary);
-    }
-    return `${formatMoney(minSalary)} - ${formatMoney(maxSalary)}`;
-  };
-
-  const handleUnsaveJob = async (userId: string, jobId: number) => {
-    const deletedJob = await unsaveJob(userId, jobId);
+  const handleUnsaveJob = async (id: number) => {
+    const deletedJob = await unsaveApplicantJob(id);
     if (deletedJob) {
       router.refresh();
       toast({
@@ -76,7 +63,7 @@ export default function ApplicantSavedJobItem({
               {user && (
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={() => handleUnsaveJob(user.id, job.id)}
+                  onClick={() => handleUnsaveJob(id)}
                 >
                   <BookmarkMinus className="mr-2 h-4 w-4" />
                   <span>Unsave</span>
@@ -105,10 +92,10 @@ export default function ApplicantSavedJobItem({
             {locationType}
           </p>
         )}
-        {salary(job) && (
+        {hasJobSalary(minSalary, maxSalary) && (
           <p className="flex items-center gap-1.5 text-xs font-medium text-gray-500 md:text-sm">
             <Banknote size={16} className="shrink-0" />
-            {salary(job)}
+            {getJobSalary(minSalary, maxSalary)}
           </p>
         )}
       </div>

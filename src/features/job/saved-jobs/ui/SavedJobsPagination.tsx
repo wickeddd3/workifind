@@ -2,15 +2,13 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-}
-
-export default function ApplicantSavedJobsPagination({
+export function SavedJobsPagination({
   currentPage,
   totalPages,
-}: PaginationProps) {
+}: {
+  currentPage: number;
+  totalPages: number;
+}) {
   function generatePageLink(page: number) {
     const searchParams = new URLSearchParams({
       ...(page && { page: page.toString() }),

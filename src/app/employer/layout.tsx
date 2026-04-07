@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Profile } from "@/components/Profile";
+import { Profile } from "@/widgets/navigation";
 import { BriefcaseBusiness, CircleUserRound } from "lucide-react";
 
 export default function EmployerProfileLayout({

@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/button";
 import { useMemo } from "react";
 import { useUser } from "@clerk/nextjs";
 
-export default function PostJobButton() {
+export function PostJobButton() {
   const { user, isSignedIn } = useUser();
   const role = useMemo(
     () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",

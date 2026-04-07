@@ -34,7 +34,7 @@ function SocialPageLink({ icon = null, url = "" }: SocialPageLinkProps) {
   );
 }
 
-export default function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const homePages = [

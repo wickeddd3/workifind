@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import { Footer, Navbar } from "@/widgets/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,8 +59,6 @@ export const metadata: Metadata = {
   },
 };
 
-const DynamicNavbar = dynamic(() => import("@/components/Navbar"));
-const DynamicFooter = dynamic(() => import("@/components/Footer"));
 const DynamicToaster = dynamic(() =>
   import("@/shared/ui/toaster").then((mod) => mod.Toaster),
 );
@@ -94,9 +93,9 @@ export default function RootLayout({
           className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col`}
         >
           <SpeedInsights />
-          <DynamicNavbar />
+          <Navbar />
           <main className="w-full flex-1">{children}</main>
-          <DynamicFooter />
+          <Footer />
           <DynamicToaster />
         </body>
       </html>

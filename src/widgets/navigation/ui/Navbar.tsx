@@ -10,7 +10,7 @@ import {
   SignUpButton,
   useUser,
 } from "@clerk/nextjs";
-import PostJobButton from "@/components/jobs/PostJobButton";
+import { PostJobButton } from "./PostJobButton";
 import { BriefcaseBusiness, Building2, Menu, User, Users } from "lucide-react";
 import {
   Menubar,
@@ -85,7 +85,7 @@ export function ApplicantProfileMenu() {
   );
 }
 
-export default function Navbar() {
+export function Navbar() {
   const { user, isSignedIn } = useUser();
   const role = useMemo(
     () => user?.unsafeMetadata.role || user?.publicMetadata.role || "",

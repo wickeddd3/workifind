@@ -6,7 +6,7 @@ import {
   MapPin,
   SquareArrowOutUpRight,
 } from "lucide-react";
-import Badge from "@/components/Badge";
+import { Badge } from "@/shared/ui/badge";
 import { relativeDate } from "@/shared/utils/format-date";
 import Link from "next/link";
 import { getJobSalary, hasJobSalary, Job } from "@/entities/job";
@@ -67,7 +67,12 @@ export function JobItem({
           )}
           <div className="flex justify-between pt-2 md:hidden">
             {employmentType && (
-              <Badge className="text-xs lg:text-sm">{employmentType}</Badge>
+              <Badge
+                variant="secondary"
+                className="rounded border bg-muted px-2 py-0.5 text-sm font-medium text-muted-foreground"
+              >
+                {employmentType}
+              </Badge>
             )}
             {createdAt && (
               <span className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">

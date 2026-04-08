@@ -1,4 +1,4 @@
-import { SavedJob } from "@/entities/job";
+import type { SavedJob } from "@/entities/saved-job";
 import { SavedJobListItem } from "./SavedJobListItem";
 
 export function SavedJobList({ savedJobs }: { savedJobs: SavedJob[] }) {

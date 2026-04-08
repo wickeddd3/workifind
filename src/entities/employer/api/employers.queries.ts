@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import type { Company } from "@/entities/employer/model/types";
+import type { Company } from "./../model/types";
 import { redirect } from "next/navigation";
 
 export async function formSearchCompanies(formData: FormData) {
@@ -70,5 +70,26 @@ export async function searchCompaniesCount(searchParams: {
     return companiesCount;
   } catch (error) {
     return 0;
+  }
+}
+
+export async function getSuggestedCompanies(size: number): Promise<Company[]> {
+  try {
+    const companies = await prisma.employer.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        _count: {
+          select: { jobs: true },
+        },
+      },
+      take: size,
+    });
+
+    return companies.map((company) => ({
+      ...company,
+      jobsCount: company._count.jobs,
+    }));
+  } catch (error) {
+    return [];
   }
 }

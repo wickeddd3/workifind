@@ -1,4 +1,4 @@
-import { getInitialSuggestedCompanies } from "../model/get-suggested-companies";
+import { getSuggestedCompanies } from "@/entities/employer";
 import { CompaniesCarousel } from "./CompaniesCarousel";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
 
@@ -7,7 +7,7 @@ export async function SuggestedCompanies({
 }: {
   hasSeeMoreButton?: boolean;
 }) {
-  const companies = await getInitialSuggestedCompanies(8);
+  const companies = await getSuggestedCompanies(8);
 
   return (
     <section className="flex w-full flex-col space-y-2 py-2 md:py-4">

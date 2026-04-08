@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { ProfessionalCard } from "./ProfessionalCard";
-import { Applicant } from "@prisma/client";
+import type { Applicant } from "@prisma/client";
 
 export function ProfessionalsCarousel({
   professionals,

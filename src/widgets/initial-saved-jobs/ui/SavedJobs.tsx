@@ -1,4 +1,4 @@
-import { SavedJob } from "@/entities/job";
+import type { SavedJob } from "@/entities/saved-job";
 import { SavedJobList } from "./SavedJobList";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
 

@@ -18,5 +18,6 @@ export {
   formSearchCompanies,
   searchCompanies,
   searchCompaniesCount,
+  getSuggestedCompanies,
 } from "./api/employers.queries";
 export { createEmployer, updateEmployer } from "./api/employer.mutation";

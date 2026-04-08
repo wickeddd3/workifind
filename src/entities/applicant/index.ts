@@ -19,5 +19,6 @@ export {
   formSearchProfessionals,
   searchProfessionals,
   searchProfessionalsCount,
+  getSuggestedProfessionals,
 } from "./api/applicants.queries";
 export { createApplicant, updateApplicant } from "./api/applicant.mutation";

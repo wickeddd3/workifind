@@ -1,5 +1,5 @@
-import type { SavedJob as PrismaSavedJob, Job } from "@prisma/client";
+import type { SavedJob as PrismaSavedJob, Job, Employer } from "@prisma/client";
 
 export interface SavedJob extends PrismaSavedJob {
-  job: Job;
+  job: Job & { employer: Employer };
 }

@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { CompanyCard } from "./CompanyCard";
-import { Company } from "@/entities/employer";
+import type { Company } from "@/entities/employer";
 
 export function CompaniesCarousel({
   companies = [],

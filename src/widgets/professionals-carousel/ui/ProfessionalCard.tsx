@@ -1,4 +1,4 @@
-import { Applicant } from "@prisma/client";
+import type { Applicant } from "@prisma/client";
 import { BadgeCheck, Briefcase, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 

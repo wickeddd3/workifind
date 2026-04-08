@@ -4,7 +4,7 @@ import { SavedJobs } from "./SavedJobs";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { Suspense } from "react";
 import { getAuthUser } from "@/shared/lib/clerk";
-import { getInitialSavedJobs } from "../model/get-jobs";
+import { getInitialSavedJobs } from "@/entities/saved-job";
 
 export async function InitialSavedJobs() {
   const { user, role } = await getAuthUser();

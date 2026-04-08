@@ -1,24 +1,20 @@
 import { getAuthUser } from "@/shared/lib/clerk";
 import { notFound } from "next/navigation";
-import { getJobDetailsBySlug, JobDescription, JobHeader } from "@/entities/job";
-import {
-  ApplyButton,
-  authorizeJobApplicationAttempt,
-} from "@/features/job/apply-to-job";
-import { authorizeSaveJobAttempt, SaveButton } from "@/features/job/save-job";
-import { getApplicantProfile } from "@/entities/applicant";
+import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
+import { getApplicant } from "@/entities/applicant";
+import { checkIfAlreadyApplied } from "@/entities/job-application";
+import { checkIfAlreadySaved } from "@/entities/saved-job";
+import { ApplyButton } from "@/features/job/apply-to-job";
+import { SaveButton } from "@/features/job/save-job";
 
 export async function JobPage({ slug }: { slug: string }) {
-  const job = await getJobDetailsBySlug(slug);
+  const job = await getJobBySlug(slug);
   if (!job) notFound();
 
   const { role, user } = await getAuthUser();
-  const applicant = await getApplicantProfile(user?.id || "");
-  const hasApplied = await authorizeJobApplicationAttempt(
-    user?.id || "",
-    job?.id || 0,
-  );
-  const isSaved = await authorizeSaveJobAttempt(user?.id || "", job.id);
+  const applicant = await getApplicant(user?.id || "");
+  const hasApplied = await checkIfAlreadyApplied(user?.id || "", job?.id);
+  const isSaved = await checkIfAlreadySaved(user?.id || "", job.id);
   const hasOption = role === "APPLICANT" && applicant && user;
 
   return (

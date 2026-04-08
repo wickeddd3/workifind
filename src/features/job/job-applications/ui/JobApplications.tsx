@@ -1,4 +1,4 @@
-import { JobApplication } from "../model/types";
+import { JobApplication } from "@/entities/job-application";
 import { JobApplicationItem } from "./JobApplicationItem";
 
 export function JobApplications({

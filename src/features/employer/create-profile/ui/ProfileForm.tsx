@@ -13,10 +13,10 @@ import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import {
+  type EmployerProfileSchemaType,
   EmployerProfileSchema,
-  EmployerProfileSchemaType,
-} from "./../model/schema";
-import { createEmployerProfile } from "../model/create-profile";
+  createEmployer,
+} from "@/entities/employer";
 
 export function ProfileForm() {
   const router = useRouter();
@@ -54,7 +54,7 @@ export function ProfileForm() {
   });
 
   async function onSubmit(values: EmployerProfileSchemaType) {
-    const createdEmployerProfile = await createEmployerProfile(values);
+    const createdEmployerProfile = await createEmployer(values);
     if (createdEmployerProfile) {
       router.push("/employer/profile");
       toast({

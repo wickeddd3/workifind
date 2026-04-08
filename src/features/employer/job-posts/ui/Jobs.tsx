@@ -1,4 +1,4 @@
-import { Job } from "@/entities/job";
+import type { Job } from "@/entities/job";
 import { JobItem } from "./JobItem";
 
 export function Jobs({ jobs }: { jobs: Job[] }) {

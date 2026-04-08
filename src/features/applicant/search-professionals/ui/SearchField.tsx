@@ -1,6 +1,6 @@
+import { formSearchProfessionals } from "@/entities/applicant";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import { formSearchProfessionals } from "../api/actions";
 
 export function SearchField({ query }: { query: string }) {
   return (

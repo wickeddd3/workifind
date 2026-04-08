@@ -22,8 +22,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useMemo } from "react";
-import { getJobSalary, hasJobSalary, Job } from "@/entities/job";
-import { deleteEmployerJob } from "../model/delete-job";
+import {
+  deleteJob,
+  getJobSalary,
+  hasJobSalary,
+  type Job,
+} from "@/entities/job";
 
 export function JobItem({
   job: {
@@ -44,7 +48,7 @@ export function JobItem({
   const { toast } = useToast();
 
   const handleDeleteJob = async (userId: string, id: number) => {
-    const deletedJob = await deleteEmployerJob(userId, id);
+    const deletedJob = await deleteJob(userId, id);
     if (deletedJob) {
       router.refresh();
       toast({

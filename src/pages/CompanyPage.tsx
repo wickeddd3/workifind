@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import {
   EmployerHeader,
   EmployerTabs,
-  getEmployerProfileBySlug,
+  getEmployerBySlug,
 } from "@/entities/employer";
 
 export async function CompanyPage({ slug }: { slug: string }) {
-  const employer = await getEmployerProfileBySlug(slug);
+  const employer = await getEmployerBySlug(slug);
 
   if (!employer) notFound();
 

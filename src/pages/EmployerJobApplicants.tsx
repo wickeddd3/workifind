@@ -1,19 +1,15 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
-import {
-  getEmployerJob,
-  JobApplications,
-  JobHeader,
-} from "@/features/job/job-applicants";
+import { JobApplications, JobHeader } from "@/features/job/job-applicants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { JobDescription } from "@/entities/job";
+import { getJob, JobDescription } from "@/entities/job";
 
 export async function EmployerJobApplicants({ id }: { id: number }) {
   const { userId } = auth();
 
   if (!userId) notFound();
 
-  const job = await getEmployerJob(userId, id);
+  const job = await getJob(id);
 
   if (!job) notFound();
 

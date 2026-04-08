@@ -18,11 +18,11 @@ import {
   WORK_EXPERIENCE_TYPES,
 } from "@/shared/constants/tags";
 import {
+  type Applicant,
+  type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-  ApplicantProfileSchemaType,
-} from "../model/schema";
-import { Applicant } from "@/entities/applicant";
-import { updateApplicantProfile } from "../model/update-profile";
+  updateApplicant,
+} from "@/entities/applicant";
 
 export function ProfileForm({
   applicant: {
@@ -106,7 +106,7 @@ export function ProfileForm({
   });
 
   async function onSubmit(values: ApplicantProfileSchemaType) {
-    const updatedApplicantProfile = await updateApplicantProfile(id, values);
+    const updatedApplicantProfile = await updateApplicant(id, values);
     if (updatedApplicantProfile) {
       router.push("/applicant/profile");
       router.refresh();

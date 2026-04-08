@@ -4,7 +4,7 @@ import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
-import { Job } from "../model/types";
+import type { Job } from "../model/types";
 
 export function JobHeader({
   job: {

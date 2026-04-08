@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/shared/ui/badge";
 import { relativeDate } from "@/shared/utils/format-date";
 import Link from "next/link";
-import { getJobSalary, hasJobSalary, Job } from "@/entities/job";
+import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
 
 export function JobItem({
   job: {

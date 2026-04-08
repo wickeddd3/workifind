@@ -6,7 +6,7 @@ import {
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
-  getApplicantProfile,
+  getApplicant,
 } from "@/entities/applicant";
 
 export async function ApplicantPage() {
@@ -14,7 +14,7 @@ export async function ApplicantPage() {
 
   if (!userId) notFound();
 
-  const applicant = await getApplicantProfile(userId);
+  const applicant = await getApplicant(userId);
 
   if (!applicant) notFound();
 

@@ -1,4 +1,4 @@
-import { Applicant } from "@prisma/client";
+import type { Applicant } from "@prisma/client";
 import Link from "next/link";
 import { SearchResultItem } from "./SearchResultItem";
 

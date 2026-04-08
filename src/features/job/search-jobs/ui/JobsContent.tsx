@@ -1,4 +1,4 @@
-import { filterJobs, filterJobsCount } from "../model/search-jobs";
+import { searchJobs, searchJobsCount } from "@/entities/job";
 import { JobResults } from "./JobResults";
 import { JobResultsPagination } from "./JobResultsPagination";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
@@ -22,8 +22,8 @@ export async function JobsContent({
   };
 
   const [results, jobsCount] = await Promise.all([
-    filterJobs(filterParams),
-    filterJobsCount(filterParams),
+    searchJobs(filterParams),
+    searchJobsCount(filterParams),
   ]);
 
   const hasResults = results && results.length > 0;

@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 import Link from "next/link";
-import { JobApplication } from "../model/types";
+import type { JobApplication } from "@/entities/job-application";
 import { getJobSalary, hasJobSalary } from "@/entities/job";
 
 export function JobApplicationItem({

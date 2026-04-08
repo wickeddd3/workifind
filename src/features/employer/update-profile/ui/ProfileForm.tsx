@@ -12,12 +12,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { Employer } from "@/entities/employer";
 import {
+  type Employer,
+  type EmployerProfileSchemaType,
   EmployerProfileSchema,
-  EmployerProfileSchemaType,
-} from "../model/schema";
-import { updateEmployerProfile } from "../model/update-profile";
+  updateEmployer,
+} from "@/entities/employer";
 
 export function ProfileForm({
   employer: {
@@ -70,7 +70,7 @@ export function ProfileForm({
   });
 
   async function onSubmit(values: EmployerProfileSchemaType) {
-    const updatedEmployerProfile = await updateEmployerProfile(id, values);
+    const updatedEmployerProfile = await updateEmployer(id, values);
     if (updatedEmployerProfile) {
       router.push("/employer/profile");
       router.refresh();

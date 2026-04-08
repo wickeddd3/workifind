@@ -15,10 +15,10 @@ import { useToast } from "@/shared/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  type JobApplicationSchemaType,
   JobApplicationSchema,
-  JobApplicationSchemaType,
-} from "../model/schema";
-import { applyToJob } from "../model/apply-to-job";
+  saveJobApplication,
+} from "@/entities/job-application";
 
 export function ApplicationForm({
   userId,
@@ -46,7 +46,12 @@ export function ApplicationForm({
   } = form;
 
   async function onSubmit(values: JobApplicationSchemaType) {
-    const createdJob = await applyToJob(userId, applicantId, jobId, values);
+    const createdJob = await saveJobApplication(
+      userId,
+      applicantId,
+      jobId,
+      values,
+    );
     if (createdJob) {
       router.push(`/jobs/${jobSlug}/submitted`);
       router.refresh();

@@ -1,7 +1,4 @@
-import {
-  searchCompaniesProfile,
-  searchCompaniesProfileCount,
-} from "../model/search-companies";
+import { searchCompanies, searchCompaniesCount } from "@/entities/employer";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";
@@ -16,12 +13,12 @@ export async function SearchContent({
   const currentPage = page ? parseInt(page) : 1;
 
   const [results, totalResults] = await Promise.all([
-    searchCompaniesProfile({
+    searchCompanies({
       query: q,
       size: jobsPerPage,
       page: currentPage,
     }),
-    searchCompaniesProfileCount({ query: q }),
+    searchCompaniesCount({ query: q }),
   ]);
 
   const hasResults = results && results.length > 0;

@@ -1,6 +1,6 @@
 import { JobItem } from "./JobItem";
 import Link from "next/link";
-import { Job } from "@/entities/job";
+import type { Job } from "@/entities/job";
 
 interface JobResultsProps {
   jobs: Job[];

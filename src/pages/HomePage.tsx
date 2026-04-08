@@ -1,4 +1,4 @@
-import { HomeJobFilter } from "@/features/job/search-jobs";
+import { HomeJobFilter } from "@/features/job/search-jobs/client";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
 import { MarketingSection } from "@/widgets/marketing-section";
 import { SearchHistory } from "@/widgets/search-history";

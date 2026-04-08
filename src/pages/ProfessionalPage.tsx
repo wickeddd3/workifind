@@ -5,12 +5,12 @@ import {
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
-  getApplicantProfileById,
+  getApplicantById,
 } from "@/entities/applicant";
 
 export async function ProfessionalPage({ id }: { id: string }) {
   const applicantId = parseInt(id);
-  const applicant = await getApplicantProfileById(applicantId);
+  const applicant = await getApplicantById(applicantId);
 
   if (!applicant) notFound();
 

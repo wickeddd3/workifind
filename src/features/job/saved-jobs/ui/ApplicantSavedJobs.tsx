@@ -1,7 +1,4 @@
-import {
-  getApplicantSavedJobs,
-  getApplicantSavedJobsCount,
-} from "../model/get-jobs";
+import { getSavedJobs, getSavedJobsCount } from "@/entities/saved-job";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SavedJobs } from "./SavedJobs";
 import { SavedJobsPagination } from "./SavedJobsPagination";
@@ -18,8 +15,8 @@ export async function ApplicantSavedJobs({
   const currentPage = page ? parseInt(page) : 1;
 
   const [jobs, jobsCount] = await Promise.all([
-    getApplicantSavedJobs(userId, { size, page: currentPage }),
-    getApplicantSavedJobsCount(userId),
+    getSavedJobs(userId, { size, page: currentPage }),
+    getSavedJobsCount(userId),
   ]);
 
   const hasJobs = jobs && jobs.length > 0;

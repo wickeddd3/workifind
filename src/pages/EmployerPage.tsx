@@ -1,17 +1,13 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
-import {
-  EmployerHeader,
-  EmployerTabs,
-  getEmployerProfile,
-} from "@/entities/employer";
+import { EmployerHeader, EmployerTabs, getEmployer } from "@/entities/employer";
 
 export async function EmployerPage() {
   const { userId } = auth();
 
   if (!userId) notFound();
 
-  const employer = await getEmployerProfile(userId);
+  const employer = await getEmployer(userId);
 
   if (!employer) notFound();
 

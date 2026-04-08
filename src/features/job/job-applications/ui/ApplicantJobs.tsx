@@ -1,7 +1,7 @@
 import {
-  getApplicantJobApplications,
-  getApplicantJobApplicationsCount,
-} from "../model/get-jobs";
+  getJobApplications,
+  getJobApplicationsCount,
+} from "@/entities/job-application";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { JobApplications } from "./JobApplications";
 import { JobApplicationsPagination } from "./JobApplicationsPagination";
@@ -18,8 +18,8 @@ export async function ApplicantJobs({
   const currentPage = page ? parseInt(page) : 1;
 
   const [jobs, jobsCount] = await Promise.all([
-    getApplicantJobApplications(userId, { size, page: currentPage }),
-    getApplicantJobApplicationsCount(userId),
+    getJobApplications(userId, { size, page: currentPage }),
+    getJobApplicationsCount(userId),
   ]);
 
   const hasJobs = jobs && jobs.length > 0;

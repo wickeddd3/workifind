@@ -11,8 +11,7 @@ import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { JobSchema, JobSchemaType } from "./../model/schema";
-import { updateJobPost } from "../model/update-job";
+import { type JobSchemaType, JobSchema, updateJob } from "@/entities/job";
 
 export function JobForm({
   userId,
@@ -56,7 +55,7 @@ export function JobForm({
   } = form;
 
   async function onSubmit(values: JobSchemaType) {
-    const updatedJob = await updateJobPost(userId, jobId, values);
+    const updatedJob = await updateJob(userId, jobId, values);
     if (updatedJob) {
       router.push("/employer/jobs");
       router.refresh();

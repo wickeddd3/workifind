@@ -18,10 +18,10 @@ import {
   WORK_EXPERIENCE_TYPES,
 } from "@/shared/constants/tags";
 import {
+  type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-  ApplicantProfileSchemaType,
-} from "../model/schema";
-import { createApplicantProfile } from "../model/create-profile";
+  createApplicant,
+} from "@/entities/applicant";
 
 export function ProfileForm() {
   const router = useRouter();
@@ -84,7 +84,7 @@ export function ProfileForm() {
   });
 
   async function onSubmit(values: ApplicantProfileSchemaType) {
-    const createdApplicant = await createApplicantProfile(values);
+    const createdApplicant = await createApplicant(values);
     if (createdApplicant) {
       router.push("/applicant/profile");
       toast({

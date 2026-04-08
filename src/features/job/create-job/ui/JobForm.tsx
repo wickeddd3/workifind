@@ -10,10 +10,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { JobSchema, JobSchemaType } from "./../model/schema";
-import { postJob } from "../model/create-job";
+import { type JobSchemaType, JobSchema, createJob } from "@/entities/job";
 
-export function JobForm({ userId }: { userId: string }) {
+export function JobForm({
+  userId,
+  employerId,
+}: {
+  userId: string;
+  employerId: number;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -39,7 +44,7 @@ export function JobForm({ userId }: { userId: string }) {
   } = form;
 
   async function onSubmit(values: JobSchemaType) {
-    const createdJob = await postJob(userId, values);
+    const createdJob = await createJob(userId, employerId, values);
     if (createdJob) {
       router.push("/employer/jobs");
       router.refresh();

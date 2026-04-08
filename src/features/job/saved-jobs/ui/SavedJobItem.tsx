@@ -20,9 +20,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
-import { SavedJob } from "../model/types";
 import { getJobSalary, hasJobSalary } from "@/entities/job";
-import { unsaveApplicantJob } from "../model/unsave-job";
+import { type SavedJob, unsaveJob } from "@/entities/saved-job";
 
 export function SavedJobItem({
   savedJob: {
@@ -37,7 +36,7 @@ export function SavedJobItem({
   const { user } = useUser();
 
   const handleUnsaveJob = async (id: number) => {
-    const deletedJob = await unsaveApplicantJob(id);
+    const deletedJob = await unsaveJob(id);
     if (deletedJob) {
       router.refresh();
       toast({

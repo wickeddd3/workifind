@@ -1,6 +1,6 @@
+import { formSearchCompanies } from "@/entities/employer";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import { formSearchCompanies } from "../api/actions";
 
 export function SearchField({ query }: { query: string }) {
   return (

@@ -1,9 +1,10 @@
-import { getAuthUser } from "@/shared/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { notFound } from "next/navigation";
-import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
-import { getApplicant } from "@/entities/applicant";
-import { checkIfAlreadyApplied } from "@/entities/job-application";
-import { checkIfAlreadySaved } from "@/entities/saved-job";
+import { JobDescription, JobHeader } from "@/entities/job/ui";
+import { getJobBySlug } from "@/entities/job/server";
+import { getApplicant } from "@/entities/applicant/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { checkIfAlreadySaved } from "@/entities/saved-job/server";
 import { ApplyButton } from "@/features/job/apply-to-job";
 import { SaveButton } from "@/features/job/save-job";
 
@@ -11,11 +12,11 @@ export async function JobPage({ slug }: { slug: string }) {
   const job = await getJobBySlug(slug);
   if (!job) notFound();
 
-  const { role, user } = await getAuthUser();
-  const applicant = await getApplicant(user?.id || "");
-  const hasApplied = await checkIfAlreadyApplied(user?.id || "", job?.id);
-  const isSaved = await checkIfAlreadySaved(user?.id || "", job.id);
-  const hasOption = role === "APPLICANT" && applicant && user;
+  const { role, userId } = await getAuthUser();
+  const applicant = await getApplicant(userId || "");
+  const hasApplied = await checkIfAlreadyApplied(userId || "", job?.id);
+  const isSaved = await checkIfAlreadySaved(userId || "", job.id);
+  const hasOption = role === "APPLICANT" && applicant && userId;
 
   return (
     <section className="mx-auto h-full w-full max-w-4xl grow space-y-5 p-4">
@@ -28,7 +29,7 @@ export async function JobPage({ slug }: { slug: string }) {
               <SaveButton
                 jobId={job.id}
                 applicantId={applicant.id}
-                userId={user.id}
+                userId={userId}
                 initialIsSaved={isSaved}
               />
             </>

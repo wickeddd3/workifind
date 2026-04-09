@@ -12,7 +12,7 @@ export interface Job extends PrismaJob {
 }
 
 export interface JobApplication extends PrismaJobApplication {
-  applicant?: Applicant;
+  applicant: Applicant;
 }
 
 export interface SavedJob extends PrismaSavedJob {

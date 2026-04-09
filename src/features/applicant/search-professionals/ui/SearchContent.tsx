@@ -1,7 +1,7 @@
 import {
   searchProfessionals,
   searchProfessionalsCount,
-} from "@/entities/applicant";
+} from "@/entities/applicant/server";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";

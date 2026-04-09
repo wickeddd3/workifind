@@ -5,8 +5,8 @@ import {
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
-  getApplicantById,
 } from "@/entities/applicant";
+import { getApplicantById } from "@/entities/applicant/server";
 
 export async function ProfessionalPage({ id }: { id: string }) {
   const applicantId = parseInt(id);

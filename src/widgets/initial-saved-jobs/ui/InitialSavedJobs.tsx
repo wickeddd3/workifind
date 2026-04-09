@@ -3,15 +3,15 @@ import { LoadingPlaceholder } from "./LoadingPlaceholder";
 import { SavedJobs } from "./SavedJobs";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { Suspense } from "react";
-import { getAuthUser } from "@/shared/lib/clerk";
-import { getInitialSavedJobs } from "@/entities/saved-job";
+import { getAuthUser } from "@/shared/lib/clerk.server";
+import { getInitialSavedJobs } from "@/entities/saved-job/server";
 
 export async function InitialSavedJobs() {
-  const { user, role } = await getAuthUser();
-  if (!user) return <Unauthenticated />;
+  const { userId, role } = await getAuthUser();
+  if (!userId) return <Unauthenticated />;
 
   const isApplicant = role === "APPLICANT";
-  const jobs = await getInitialSavedJobs(user.id);
+  const jobs = await getInitialSavedJobs(userId);
   const hasJobs = jobs && jobs.length > 0;
 
   return (

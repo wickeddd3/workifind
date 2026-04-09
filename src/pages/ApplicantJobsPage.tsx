@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAuthUser } from "@/shared/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ApplicantJobs } from "@/features/job/job-applications";
 
 export async function ApplicantJobsPage({
@@ -7,8 +7,8 @@ export async function ApplicantJobsPage({
 }: {
   searchParams: Record<string, string>;
 }) {
-  const { user, role } = await getAuthUser();
-  const userId = user?.id;
+  const { userId, role } = await getAuthUser();
+
   const isApplicant = role === "APPLICANT";
 
   if (!isApplicant || !userId) return notFound();

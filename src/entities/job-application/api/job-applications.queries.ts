@@ -1,5 +1,3 @@
-"use server";
-
 import prisma from "@/shared/lib/prisma";
 import type { JobApplication } from "../model/types";
 

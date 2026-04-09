@@ -20,8 +20,8 @@ import {
 import {
   type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-  createApplicant,
-} from "@/entities/applicant";
+} from "@/entities/applicant/model/schema";
+import { createApplicant } from "@/entities/applicant/api/applicant.mutation";
 
 export function ProfileForm() {
   const router = useRouter();

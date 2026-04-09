@@ -1,4 +1,4 @@
-import { searchJobs, searchJobsCount } from "@/entities/job";
+import { searchJobs, searchJobsCount } from "@/entities/job/server";
 import { JobResults } from "./JobResults";
 import { JobResultsPagination } from "./JobResultsPagination";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";

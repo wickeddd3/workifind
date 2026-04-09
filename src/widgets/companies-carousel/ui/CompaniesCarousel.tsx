@@ -2,9 +2,6 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { CompanyCard } from "./CompanyCard";
 import type { Company } from "@/entities/employer";
 

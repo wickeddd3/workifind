@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { clerkClient } from "@clerk/nextjs/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function POST(req: Request) {
   try {
     const { role } = await req.json();
-    const { userId } = auth();
+    const { userId } = await getAuthUser();
 
     if (!userId || !role) {
       return NextResponse.json({ error: "Invalid request" }, { status: 400 });

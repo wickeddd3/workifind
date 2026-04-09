@@ -3,7 +3,7 @@ import { type Applicant, ApplicantHeader } from "@/entities/applicant";
 import { LoadingPlaceholder } from "./LoadingPlaceholder";
 import { JobDetails } from "./JobDetails";
 import { ApplicationForm } from "./ApplicationForm";
-import { Job } from "@/entities/job";
+import type { Job } from "@/entities/job";
 
 export function JobApplicationForm({
   userId,

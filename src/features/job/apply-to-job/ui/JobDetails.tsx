@@ -1,4 +1,4 @@
-import { Job } from "@/entities/job";
+import type { Job } from "@/entities/job";
 import Image from "next/image";
 import Link from "next/link";
 

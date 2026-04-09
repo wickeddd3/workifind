@@ -2,8 +2,8 @@ import { JobApplicationSubmittedLoadingPlaceholder } from "@/features/job/submit
 
 export default function Loading() {
   return (
-    <section className="mx-auto h-full max-w-4xl p-4">
+    <div className="mx-auto h-full max-w-4xl p-4">
       <JobApplicationSubmittedLoadingPlaceholder />
-    </section>
+    </div>
   );
 }

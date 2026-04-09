@@ -21,8 +21,8 @@ import {
   type Applicant,
   type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-  updateApplicant,
 } from "@/entities/applicant";
+import { updateApplicant } from "@/entities/applicant/action";
 
 export function ProfileForm({
   applicant: {

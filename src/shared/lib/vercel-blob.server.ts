@@ -1,3 +1,5 @@
+"use server";
+
 import { put } from "@vercel/blob";
 
 export async function upload(

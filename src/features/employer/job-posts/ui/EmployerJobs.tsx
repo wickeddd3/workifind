@@ -1,4 +1,4 @@
-import { getJobs, getJobsCount } from "@/entities/job";
+import { getJobs, getJobsCount } from "@/entities/job/server";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { Jobs } from "./Jobs";
 import { JobsPagination } from "./JobsPagination";

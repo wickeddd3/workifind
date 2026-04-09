@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { type JobSchemaType, JobSchema, createJob } from "@/entities/job";
+import { type JobSchemaType, JobSchema } from "@/entities/job";
+import { createJob } from "@/entities/job/action";
 
 export function JobForm({
   userId,

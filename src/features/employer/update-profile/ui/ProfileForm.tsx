@@ -13,11 +13,11 @@ import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import {
-  type Employer,
   type EmployerProfileSchemaType,
   EmployerProfileSchema,
-  updateEmployer,
-} from "@/entities/employer";
+} from "@/entities/employer/model/schema";
+import { type Employer } from "@/entities/employer/model/types";
+import { updateEmployer } from "@/entities/employer/api/employer.mutation";
 
 export function ProfileForm({
   employer: {

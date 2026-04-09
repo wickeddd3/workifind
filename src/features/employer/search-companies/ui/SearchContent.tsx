@@ -1,4 +1,7 @@
-import { searchCompanies, searchCompaniesCount } from "@/entities/employer";
+import {
+  searchCompanies,
+  searchCompaniesCount,
+} from "@/entities/employer/server";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";

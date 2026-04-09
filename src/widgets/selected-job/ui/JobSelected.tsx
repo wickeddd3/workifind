@@ -1,9 +1,10 @@
-import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
+import { JobDescription, JobHeader } from "@/entities/job/ui";
 import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
-import { getAuthUser } from "@/shared/lib/clerk";
-import { getApplicant } from "@/entities/applicant";
-import { checkIfAlreadyApplied } from "@/entities/job-application";
-import { checkIfAlreadySaved } from "@/entities/saved-job";
+import { getAuthUser } from "@/shared/lib/clerk.server";
+import { getJobBySlug } from "@/entities/job/server";
+import { getApplicant } from "@/entities/applicant/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { checkIfAlreadySaved } from "@/entities/saved-job/server";
 import { SaveButton } from "@/features/job/save-job";
 import { ApplyButton } from "@/features/job/apply-to-job";
 
@@ -13,11 +14,11 @@ export async function JobSelected({ slug }: { slug: string }) {
   const job = await getJobBySlug(slug);
   if (!job) return <JobSelectedEmptyPlaceholder />;
 
-  const { role, user } = await getAuthUser();
-  const applicant = await getApplicant(user?.id || "");
-  const hasApplied = await checkIfAlreadyApplied(user?.id || "", job?.id || 0);
-  const isSaved = await checkIfAlreadySaved(user?.id || "", job?.id || 0);
-  const hasOption = role === "APPLICANT" && applicant && user;
+  const { role, userId } = await getAuthUser();
+  const applicant = await getApplicant(userId || "");
+  const hasApplied = await checkIfAlreadyApplied(userId || "", job?.id || 0);
+  const isSaved = await checkIfAlreadySaved(userId || "", job?.id || 0);
+  const hasOption = role === "APPLICANT" && applicant && userId;
 
   return (
     <div className="m-auto h-full w-full">
@@ -31,7 +32,7 @@ export async function JobSelected({ slug }: { slug: string }) {
                 <SaveButton
                   jobId={job.id}
                   applicantId={applicant.id}
-                  userId={user.id}
+                  userId={userId}
                   initialIsSaved={isSaved}
                 />
               </>

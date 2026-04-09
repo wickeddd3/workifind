@@ -12,13 +12,3 @@ export {
   ApplicantProfileSchema,
   type ApplicantProfileSchemaType,
 } from "./model/schema";
-
-/* API */
-export { getApplicant, getApplicantById } from "./api/applicant.queries";
-export {
-  formSearchProfessionals,
-  searchProfessionals,
-  searchProfessionalsCount,
-  getSuggestedProfessionals,
-} from "./api/applicants.queries";
-export { createApplicant, updateApplicant } from "./api/applicant.mutation";

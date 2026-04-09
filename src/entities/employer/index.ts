@@ -11,13 +11,3 @@ export {
   EmployerProfileSchema,
   type EmployerProfileSchemaType,
 } from "./model/schema";
-
-/* API */
-export { getEmployer, getEmployerBySlug } from "./api/employer.queries";
-export {
-  formSearchCompanies,
-  searchCompanies,
-  searchCompaniesCount,
-  getSuggestedCompanies,
-} from "./api/employers.queries";
-export { createEmployer, updateEmployer } from "./api/employer.mutation";

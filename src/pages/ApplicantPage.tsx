@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
 import {
   ApplicantBio,
   ApplicantHeader,
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
-  getApplicant,
 } from "@/entities/applicant";
+import { getApplicant } from "@/entities/applicant/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function ApplicantPage() {
-  const { userId } = auth();
+  const { userId } = await getAuthUser();
 
   if (!userId) notFound();
 

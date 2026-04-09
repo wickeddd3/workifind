@@ -1,8 +1,8 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
-import { upload } from "@/shared/lib/vercel-blob";
+import { getAuthUser } from "@/shared/lib/clerk.server";
+import { upload } from "@/shared/lib/vercel-blob.server";
 import type { EmployerProfileSchemaType } from "../model/schema";
 import { removeObjectProperty } from "@/shared/utils/object-manipulation";
 import { nanoid } from "nanoid";
@@ -11,7 +11,7 @@ import { baseUrl } from "@/shared/config/base-url";
 
 export async function createEmployer(formData: EmployerProfileSchemaType) {
   try {
-    const { userId } = auth();
+    const { userId } = await getAuthUser();
 
     if (!userId) {
       throw Error(

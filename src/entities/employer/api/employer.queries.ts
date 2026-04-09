@@ -1,5 +1,3 @@
-"use server";
-
 import prisma from "@/shared/lib/prisma";
 import { parseJsonField } from "@/shared/utils/parse-json";
 import type { Employer } from "../model/types";

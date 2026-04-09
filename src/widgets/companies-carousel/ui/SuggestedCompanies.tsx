@@ -1,4 +1,4 @@
-import { getSuggestedCompanies } from "@/entities/employer";
+import { getSuggestedCompanies } from "@/entities/employer/server";
 import { CompaniesCarousel } from "./CompaniesCarousel";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
 

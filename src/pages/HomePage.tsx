@@ -4,7 +4,7 @@ import { MarketingSection } from "@/widgets/marketing-section";
 import { SearchHistory } from "@/widgets/search-history";
 import { InitialSavedJobs } from "@/widgets/initial-saved-jobs";
 
-export function HomePage() {
+export async function HomePage() {
   return (
     <div className="m-auto mb-10 gap-6" data-testid="home-page">
       <HomeJobFilter />

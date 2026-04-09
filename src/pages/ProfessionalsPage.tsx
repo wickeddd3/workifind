@@ -1,18 +1,18 @@
-import { SearchJumbotron } from "@/widgets/search-jumbotron";
-import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
+// import { SearchJumbotron } from "@/widgets/search-jumbotron";
+// import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
-import { formSearchProfessionals } from "@/entities/applicant";
+// import { formSearchProfessionals } from "@/entities/applicant/api/applicant.actions";
 
 export async function ProfessionalsPage() {
   return (
     <main className="m-auto flex max-w-7xl flex-col gap-6 px-3 py-12">
-      <SearchJumbotron
+      {/* <SearchJumbotron
         title="Find your next potential hire"
         subtitle="Explore list of professionals you can hire"
         placeholder="Search by profession"
         searchAction={formSearchProfessionals}
       />
-      <SuggestedProfessionals />
+      <SuggestedProfessionals /> */}
       <ProfessionalSearchTip />
     </main>
   );

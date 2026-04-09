@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
-import { getApplicant } from "@/entities/applicant";
-import { getJobBySlug } from "@/entities/job";
+import { getApplicant } from "@/entities/applicant/server";
+import { getJobBySlug } from "@/entities/job/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { JobApplicationForm } from "@/features/job/apply-to-job";
-import { checkIfAlreadyApplied } from "@/entities/job-application";
 
 export async function JobApplicationPage({ slug }: { slug: string }) {
-  const { userId } = auth();
+  const { userId } = await getAuthUser();
 
   if (!userId) notFound();
 

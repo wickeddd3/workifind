@@ -1,4 +1,4 @@
-import { getSavedJobs, getSavedJobsCount } from "@/entities/saved-job";
+import { getSavedJobs, getSavedJobsCount } from "@/entities/saved-job/server";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SavedJobs } from "./SavedJobs";
 import { SavedJobsPagination } from "./SavedJobsPagination";

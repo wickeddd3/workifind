@@ -15,8 +15,8 @@ import { useToast } from "@/shared/ui/use-toast";
 import {
   type EmployerProfileSchemaType,
   EmployerProfileSchema,
-  createEmployer,
-} from "@/entities/employer";
+} from "@/entities/employer/model/schema";
+import { createEmployer } from "@/entities/employer/api/employer.mutation";
 
 export function ProfileForm() {
   const router = useRouter();

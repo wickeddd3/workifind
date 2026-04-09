@@ -11,7 +11,8 @@ import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { type JobSchemaType, JobSchema, updateJob } from "@/entities/job";
+import { type JobSchemaType, JobSchema } from "@/entities/job";
+import { updateJob } from "@/entities/job/action";
 
 export function JobForm({
   userId,

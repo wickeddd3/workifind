@@ -1,4 +1,4 @@
-import { getSuggestedProfessionals } from "@/entities/applicant";
+import { getSuggestedProfessionals } from "@/entities/applicant/server";
 import { ProfessionalsCarousel } from "./ProfessionalsCarousel";
 
 export async function SuggestedProfessionals() {

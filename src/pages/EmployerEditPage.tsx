@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
+import { getEmployer } from "@/entities/employer/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileForm } from "@/features/employer/update-profile";
-import { getEmployer } from "@/entities/employer";
 
 export async function EmployerEditPage() {
-  const { userId } = auth();
+  const { userId } = await getAuthUser();
 
   if (!userId) notFound();
 

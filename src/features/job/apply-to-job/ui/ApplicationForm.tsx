@@ -17,8 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type JobApplicationSchemaType,
   JobApplicationSchema,
-  saveJobApplication,
 } from "@/entities/job-application";
+import { saveJobApplication } from "@/entities/job-application/action";
 
 export function ApplicationForm({
   userId,

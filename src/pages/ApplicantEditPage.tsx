@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
-import { getApplicant } from "@/entities/applicant";
+import { getApplicant } from "@/entities/applicant/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileForm } from "@/features/applicant/update-profile";
 
 export async function ApplicantEditPage() {
-  const { userId } = auth();
+  const { userId } = await getAuthUser();
 
   if (!userId) notFound();
 

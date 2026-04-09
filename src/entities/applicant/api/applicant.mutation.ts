@@ -1,13 +1,13 @@
 "use server";
 
 import prisma from "@/shared/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import type { ApplicantProfileSchemaType } from "../model/schema";
 import { baseUrl } from "@/shared/config/base-url";
 
 export async function createApplicant(formData: ApplicantProfileSchemaType) {
   try {
-    const { userId } = auth();
+    const { userId } = await getAuthUser();
 
     if (!userId) {
       throw Error(
@@ -15,7 +15,7 @@ export async function createApplicant(formData: ApplicantProfileSchemaType) {
       );
     }
 
-    //Prepare Form Data
+    //Prepare Form Dataƒ
     const form = {
       ...formData,
       skills: formData.skills?.map((skill) => JSON.stringify(skill)) || [],

@@ -1,17 +1,17 @@
-import { getAuthUser } from "@/shared/lib/clerk";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { notFound } from "next/navigation";
 import { JobForm } from "@/features/job/create-job";
-import { getEmployer } from "@/entities/employer";
+import { getEmployer } from "@/entities/employer/server";
 
 export async function EmployerNewJobPage() {
-  const { user, role } = await getAuthUser();
+  const { userId, role } = await getAuthUser();
   const isEmployer = role === "EMPLOYER";
 
-  if (!user) return notFound();
+  if (!userId) return notFound();
 
-  const employer = await getEmployer(user.id);
+  const employer = await getEmployer(userId);
 
   if (!employer) return notFound();
 
-  return isEmployer && <JobForm userId={user.id} employerId={employer.id} />;
+  return isEmployer && <JobForm userId={userId} employerId={employer.id} />;
 }

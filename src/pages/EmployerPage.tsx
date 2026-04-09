@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
-import { EmployerHeader, EmployerTabs, getEmployer } from "@/entities/employer";
+import { EmployerHeader, EmployerTabs } from "@/entities/employer";
+import { getEmployer } from "@/entities/employer/server";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function EmployerPage() {
-  const { userId } = auth();
+  const { userId } = await getAuthUser();
 
   if (!userId) notFound();
 

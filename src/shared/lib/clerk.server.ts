@@ -8,6 +8,6 @@ export async function getAuthUser() {
 
   return {
     role: role as "EMPLOYER" | "APPLICANT" | undefined,
-    user,
+    userId: user?.id,
   };
 }

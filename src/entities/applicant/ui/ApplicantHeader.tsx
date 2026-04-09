@@ -9,7 +9,7 @@ import {
 import { Button } from "@/shared/ui/button";
 import Link from "next/link";
 import { Heading4, SmallText } from "@/shared/ui/typography/Typography";
-import { Applicant } from "../model/types";
+import type { Applicant } from "../model/types";
 
 export function ApplicantHeader({
   applicant: {

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export function parseJsonField(fields: Prisma.JsonValue): { name: string }[] {
   if (!Array.isArray(fields)) return [];

@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { EmployerDetails } from "./EmployerDetails";
 import { EmployerPerks } from "./EmployerPerks";
-import { Employer } from "../model/types";
+import type { Employer } from "../model/types";
 
 export function EmployerTabs({ employer }: { employer: Employer }) {
   return (

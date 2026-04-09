@@ -1,4 +1,4 @@
-import { Employer as PrismaEmployer } from "@prisma/client";
+import type { Employer as PrismaEmployer } from "@prisma/client";
 
 export interface Employer extends PrismaEmployer {
   perks: { name: string }[];

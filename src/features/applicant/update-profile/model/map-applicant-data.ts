@@ -1,4 +1,4 @@
-import { ApplicantProfileSchemaType } from "./schema";
+import type { ApplicantProfileSchemaType } from "./schema";
 
 export function mapApplicantForm(formData: ApplicantProfileSchemaType) {
   return {

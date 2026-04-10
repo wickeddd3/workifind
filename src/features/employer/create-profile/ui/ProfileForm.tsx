@@ -15,8 +15,8 @@ import { useToast } from "@/shared/ui/use-toast";
 import {
   type EmployerProfileSchemaType,
   EmployerProfileSchema,
-} from "@/entities/employer/model/schema";
-import { createEmployer } from "@/entities/employer/api/employer.mutation";
+} from "../model/schema";
+import { createEmployerAction } from "../api/employer.action";
 
 export function ProfileForm() {
   const router = useRouter();
@@ -54,7 +54,7 @@ export function ProfileForm() {
   });
 
   async function onSubmit(values: EmployerProfileSchemaType) {
-    const createdEmployerProfile = await createEmployer(values);
+    const createdEmployerProfile = await createEmployerAction(values);
     if (createdEmployerProfile) {
       router.push("/employer/profile");
       toast({

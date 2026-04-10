@@ -6,7 +6,7 @@ import {
   ApplicantPreferences,
   ApplicantSkills,
 } from "@/entities/applicant";
-import { getApplicant } from "@/entities/applicant/server";
+import { getApplicant } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function ApplicantPage() {

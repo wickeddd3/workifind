@@ -1,4 +1,4 @@
-import { formSearchProfessionals } from "@/entities/applicant/action";
+import { formSearchProfessionals } from "@/entities/applicant";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 

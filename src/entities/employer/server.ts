@@ -1,7 +1,3 @@
 /* API */
 export { getEmployer, getEmployerBySlug } from "./api/employer.queries";
-export {
-  searchCompanies,
-  searchCompaniesCount,
-  getSuggestedCompanies,
-} from "./api/employers.queries";
+export { getSuggestedCompanies } from "./api/employers.queries";

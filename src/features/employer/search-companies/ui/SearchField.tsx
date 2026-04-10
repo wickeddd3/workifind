@@ -1,6 +1,6 @@
-import { formSearchCompanies } from "@/entities/employer/action";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
+import { searchCompaniesAction } from "../api/companies.action";
 
 export function SearchField({ query }: { query: string }) {
   return (
@@ -9,7 +9,7 @@ export function SearchField({ query }: { query: string }) {
         Search results for &quot;{query}&ldquo;
       </h1>
       <form
-        action={formSearchCompanies}
+        action={searchCompaniesAction}
         key="company-search-filter"
         className="flex w-full gap-2"
       >

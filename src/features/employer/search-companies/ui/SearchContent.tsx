@@ -1,7 +1,7 @@
 import {
-  searchCompanies,
-  searchCompaniesCount,
-} from "@/entities/employer/server";
+  searchCompaniesCountQuery,
+  searchCompaniesQuery,
+} from "../api/companies.queries";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";
@@ -16,24 +16,24 @@ export async function SearchContent({
   const currentPage = page ? parseInt(page) : 1;
 
   const [results, totalResults] = await Promise.all([
-    searchCompanies({
+    searchCompaniesQuery({
       query: q,
       size: jobsPerPage,
       page: currentPage,
     }),
-    searchCompaniesCount({ query: q }),
+    searchCompaniesCountQuery({ query: q }),
   ]);
 
-  const hasResults = results && results.length > 0;
+  const hasResults = results.data && results.data?.length > 0;
 
   return (
     <div className="flex h-full w-full flex-col gap-6">
       {hasResults && (
         <>
-          <SearchResults companies={results} />
+          <SearchResults companies={results.data || []} />
           <SearchPagination
             currentPage={currentPage}
-            totalPages={Math.ceil(totalResults / jobsPerPage)}
+            totalPages={Math.ceil((totalResults.data || 0) / jobsPerPage)}
             query={q}
           />
         </>

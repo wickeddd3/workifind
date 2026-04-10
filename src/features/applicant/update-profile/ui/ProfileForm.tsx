@@ -106,8 +106,8 @@ export function ProfileForm({
   });
 
   async function onSubmit(values: ApplicantProfileSchemaType) {
-    const updatedApplicantProfile = await updateApplicantAction(id, values);
-    if (updatedApplicantProfile) {
+    const response = await updateApplicantAction(id, values);
+    if (response.success) {
       router.push("/applicant/profile");
       router.refresh();
       toast({

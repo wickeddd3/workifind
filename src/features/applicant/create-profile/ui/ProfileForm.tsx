@@ -20,8 +20,8 @@ import {
 import {
   type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-} from "@/entities/applicant/model/schema";
-import { createApplicant } from "@/entities/applicant/api/applicant.mutation";
+} from "../model/schema";
+import { createApplicantAction } from "../api/applicant.action";
 
 export function ProfileForm() {
   const router = useRouter();
@@ -84,8 +84,8 @@ export function ProfileForm() {
   });
 
   async function onSubmit(values: ApplicantProfileSchemaType) {
-    const createdApplicant = await createApplicant(values);
-    if (createdApplicant) {
+    const response = await createApplicantAction(values);
+    if (response.success) {
       router.push("/applicant/profile");
       toast({
         title: "Your applicant profile has been created",

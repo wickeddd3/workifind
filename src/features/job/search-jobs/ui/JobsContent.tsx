@@ -1,4 +1,4 @@
-import { searchJobs, searchJobsCount } from "@/entities/job/server";
+import { searchJobsCountQuery, searchJobsQuery } from "../api/job.queries";
 import { JobResults } from "./JobResults";
 import { JobResultsPagination } from "./JobResultsPagination";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
@@ -13,7 +13,7 @@ export async function JobsContent({
   const jobsPerPage = 10;
   const currentPage = page ? parseInt(page) : 1;
   const filterParams = {
-    searchQuery: q ?? "",
+    query: q ?? "",
     employmentType: employmentType ?? "",
     salary: salary ?? "",
     locationType: locationType ?? "",
@@ -21,25 +21,25 @@ export async function JobsContent({
     page: currentPage,
   };
 
-  const [results, jobsCount] = await Promise.all([
-    searchJobs(filterParams),
-    searchJobsCount(filterParams),
+  const [results, totalResults] = await Promise.all([
+    searchJobsQuery(filterParams),
+    searchJobsCountQuery(filterParams),
   ]);
 
-  const hasResults = results && results.length > 0;
+  const hasResults = results.data && results.data?.length > 0;
 
   if (!hasResults) return <EmptyPlaceholder />;
 
   return (
     <div className="flex flex-col gap-3">
       <JobResults
-        jobs={results}
+        jobs={results.data || []}
         searchParams={searchParams}
         page={currentPage}
       />
       <JobResultsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil(jobsCount / jobsPerPage)}
+        totalPages={Math.ceil((totalResults.data || 0) / jobsPerPage)}
         searchParams={searchParams}
       />
     </div>

@@ -1,0 +1,26 @@
+import { Loader2 } from "lucide-react";
+import { Button } from "@/shared/ui/button";
+
+interface LoadingButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  loading: boolean;
+}
+
+export function LoadingButton({
+  children,
+  loading,
+  ...props
+}: LoadingButtonProps) {
+  return (
+    <Button
+      {...props}
+      disabled={props.disabled || loading}
+      className="bg-indigo-600 hover:bg-indigo-700"
+    >
+      <span className="flex items-center justify-center gap-1">
+        {loading && <Loader2 size={16} className="animate-spin" />}
+        {children}
+      </span>
+    </Button>
+  );
+}

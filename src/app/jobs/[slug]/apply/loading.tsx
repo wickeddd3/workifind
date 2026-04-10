@@ -1,11 +1,9 @@
-import LoadingPlaceholder from "@/components/jobs/JobApplication/LoadingPlaceholder";
+import { LoadingPlaceholder } from "@/features/job/apply-to-job";
 
 export default function Loading() {
   return (
-    <main className="mx-auto max-w-4xl p-4">
-      <div className="h-full">
-        <LoadingPlaceholder />
-      </div>
-    </main>
+    <div className="mx-auto h-full max-w-4xl p-4">
+      <LoadingPlaceholder />
+    </div>
   );
 }

@@ -1,11 +1,9 @@
-import JobApplicationSubmittedLoadingPlaceholder from "@/components/jobs/JobApplicationSubmittedLoadingPlaceholder";
+import { SubmittedLoadingPlaceholder } from "@/entities/job-application";
 
 export default function Loading() {
   return (
-    <main className="mx-auto max-w-4xl p-4">
-      <div className="h-full">
-        <JobApplicationSubmittedLoadingPlaceholder />
-      </div>
-    </main>
+    <div className="mx-auto h-full max-w-4xl p-4">
+      <SubmittedLoadingPlaceholder />
+    </div>
   );
 }

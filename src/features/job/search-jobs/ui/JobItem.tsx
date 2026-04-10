@@ -1,0 +1,106 @@
+import Image from "next/image";
+import {
+  Banknote,
+  Clock,
+  Globe2,
+  MapPin,
+  SquareArrowOutUpRight,
+} from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
+import { relativeDate } from "@/shared/utils/format-date";
+import Link from "next/link";
+import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
+
+export function JobItem({
+  job: {
+    slug,
+    title,
+    employmentType,
+    locationType,
+    location,
+    createdAt,
+    minSalary,
+    maxSalary,
+    employer: { companyName, companyLogoUrl },
+  },
+}: {
+  job: Job;
+}) {
+  return (
+    <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
+      <div className="flex-grow space-y-3">
+        {companyLogoUrl && (
+          <Image
+            src={companyLogoUrl}
+            alt={`${companyName} logo`}
+            width={100}
+            height={70}
+            className="rounded-lg"
+          />
+        )}
+        <div>
+          <h2 className="text-sm font-semibold text-gray-900 lg:text-md">
+            {title}
+          </h2>
+          <p className="text-sm font-medium text-gray-500 lg:text-md">
+            {companyName}
+          </p>
+        </div>
+        <div className="flex flex-col gap-1 text-muted-foreground">
+          {locationType && (
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
+              <MapPin size={16} className="shrink-0" />
+              {locationType}
+            </p>
+          )}
+          {location && (
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
+              <Globe2 size={16} className="shrink-0" />
+              {location}
+            </p>
+          )}
+          {hasJobSalary(minSalary, maxSalary) && (
+            <p className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
+              <Banknote size={16} className="shrink-0" />
+              {getJobSalary(minSalary, maxSalary)}
+            </p>
+          )}
+          <div className="flex justify-between pt-2 md:hidden">
+            {employmentType && (
+              <Badge
+                variant="secondary"
+                className="rounded border bg-muted px-2 py-0.5 text-sm font-medium text-muted-foreground"
+              >
+                {employmentType}
+              </Badge>
+            )}
+            {createdAt && (
+              <span className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
+                <Clock size={16} />
+                {relativeDate(createdAt)}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="hidden shrink-0 flex-col items-end justify-between md:flex">
+        {employmentType && (
+          <Badge className="text-xs lg:text-sm">{employmentType}</Badge>
+        )}
+        {createdAt && (
+          <span className="flex items-center gap-1.5 text-xs text-gray-500 lg:text-sm">
+            <Clock size={16} />
+            {relativeDate(createdAt)}
+          </span>
+        )}
+      </div>
+      <div className="flex shrink-0 md:hidden">
+        <Link href={`/jobs/${slug}`}>
+          <span>
+            <SquareArrowOutUpRight size={16} />
+          </span>
+        </Link>
+      </div>
+    </article>
+  );
+}

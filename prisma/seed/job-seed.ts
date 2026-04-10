@@ -4,7 +4,7 @@ import {
   JOB_SALARY,
   EMPLOYMENT_TYPES,
   LOCATION_TYPES,
-} from "../../src/constants/tags";
+} from "../../src/shared/constants/tags";
 
 export async function createJobs(
   count: number,

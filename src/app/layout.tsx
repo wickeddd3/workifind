@@ -5,6 +5,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import { Navbar } from "@/widgets/navigation/ui/Navbar";
+import { Footer } from "@/widgets/navigation/ui/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,10 +60,8 @@ export const metadata: Metadata = {
   },
 };
 
-const DynamicNavbar = dynamic(() => import("@/components/Navbar"));
-const DynamicFooter = dynamic(() => import("@/components/Footer"));
 const DynamicToaster = dynamic(() =>
-  import("@/components/ui/toaster").then((mod) => mod.Toaster),
+  import("@/shared/ui/toaster").then((mod) => mod.Toaster),
 );
 
 export default function RootLayout({
@@ -70,36 +70,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      afterSignOutUrl="/"
-    >
-      <html lang="en">
-        <head>
-          <Script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-P6XBN1CMQ5"
-          ></Script>
-          <Script id="google-analytics">
-            {`
+    <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-P6XBN1CMQ5"
+        ></Script>
+        <Script id="google-analytics">
+          {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
               gtag('config', 'G-P6XBN1CMQ5');
             `}
-          </Script>
-        </head>
-        <body
-          className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col`}
+        </Script>
+      </head>
+      <body
+        className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col`}
+      >
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+          afterSignOutUrl="/"
         >
           <SpeedInsights />
-          <DynamicNavbar />
+          <Navbar />
           <main className="w-full flex-1">{children}</main>
-          <DynamicFooter />
+          <Footer />
           <DynamicToaster />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

@@ -1,10 +1,5 @@
-import ProfileSetup from "@/components/setup/ProfileSetup";
-import { getAuthUser } from "@/lib/clerk";
+import { ProfileSetupPage } from "@/pages-component/ProfileSetupPage";
 
 export default async function Page() {
-  const { role } = await getAuthUser();
-
-  if (!role) {
-    return <ProfileSetup />;
-  }
+  return <ProfileSetupPage />;
 }

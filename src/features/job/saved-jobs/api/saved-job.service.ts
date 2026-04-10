@@ -1,4 +1,4 @@
-import prisma from "@/shared/lib/prisma";
+import db from "@/shared/lib/prisma";
 import type { SavedJob } from "@/entities/saved-job";
 
 export async function getSavedJobs(
@@ -11,7 +11,7 @@ export async function getSavedJobs(
   try {
     const { take, skip } = queryParams;
 
-    return await prisma.savedJob.findMany({
+    return await db.savedJob.findMany({
       where: { userId },
       include: {
         job: {
@@ -30,10 +30,18 @@ export async function getSavedJobs(
 
 export async function getSavedJobsCount(userId: string): Promise<number> {
   try {
-    return await prisma.savedJob.count({
+    return await db.savedJob.count({
       where: { userId },
     });
   } catch (error) {
     return 0;
+  }
+}
+
+export async function unsaveJob(userId: string, jobId: number): Promise<void> {
+  try {
+    await db.savedJob.deleteMany({ where: { userId, jobId } });
+  } catch (error) {
+    return;
   }
 }

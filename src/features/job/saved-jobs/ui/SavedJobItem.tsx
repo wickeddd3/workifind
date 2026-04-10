@@ -22,12 +22,19 @@ import { useToast } from "@/shared/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
 import { getJobSalary, hasJobSalary } from "@/entities/job";
 import { type SavedJob } from "@/entities/saved-job";
-import { unsaveJob } from "@/entities/saved-job";
+import { unsaveJobAction } from "../api/saved-job.action";
 
 export function SavedJobItem({
   savedJob: {
-    id,
-    job: { slug, title, employmentType, locationType, minSalary, maxSalary },
+    job: {
+      id,
+      slug,
+      title,
+      employmentType,
+      locationType,
+      minSalary,
+      maxSalary,
+    },
   },
 }: {
   savedJob: SavedJob;
@@ -37,8 +44,9 @@ export function SavedJobItem({
   const { user } = useUser();
 
   const handleUnsaveJob = async (id: number) => {
-    const deletedJob = await unsaveJob(id);
-    if (deletedJob) {
+    const response = await unsaveJobAction(id);
+
+    if (response.success) {
       router.refresh();
       toast({
         title: "Job was successfully unsaved.",

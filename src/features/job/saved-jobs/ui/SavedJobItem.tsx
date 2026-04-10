@@ -17,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
 import { getJobSalary, hasJobSalary } from "@/entities/job";
@@ -39,7 +38,6 @@ export function SavedJobItem({
 }: {
   savedJob: SavedJob;
 }) {
-  const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
 
@@ -47,7 +45,6 @@ export function SavedJobItem({
     const response = await unsaveJobAction(id);
 
     if (response.success) {
-      router.refresh();
       toast({
         title: "Job was successfully unsaved.",
       });

@@ -1,26 +1,26 @@
 "use server";
 
 import { getAuthUser } from "@/shared/lib/clerk.server";
-import { unsaveJob } from "./saved-job.service";
+import { deleteJob } from "./job.service";
 import { revalidatePath } from "next/cache";
 
-export async function unsaveJobAction(
+export async function deleteJobAction(
   jobId: number,
 ): Promise<{ success: boolean; data: boolean; message: string }> {
   try {
     const { userId } = await getAuthUser();
     if (!userId) throw new Error("Unauthorized");
 
-    await unsaveJob(userId, jobId);
+    await deleteJob(userId, jobId);
 
-    revalidatePath(`/jobs/${jobId}`);
-    revalidatePath("/applicant/jobs/saved");
+    revalidatePath("/employer/jobs");
+
     return {
       success: true,
       data: true,
-      message: "Unsaved successfully",
+      message: "Deleted successfully",
     };
   } catch (error) {
-    return { success: false, data: false, message: "Unsave failed" };
+    return { success: false, data: false, message: "Deletion failed" };
   }
 }

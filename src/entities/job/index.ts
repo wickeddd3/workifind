@@ -10,4 +10,3 @@ export { hasJobSalary, getJobSalary } from "./model/salary";
 
 /* API */
 export { getJob, getJobBySlug } from "./api/job.queries";
-export { deleteJob } from "./api/job.mutation";

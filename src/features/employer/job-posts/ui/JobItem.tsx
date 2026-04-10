@@ -19,15 +19,13 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useMemo } from "react";
 import { getJobSalary, hasJobSalary, type EmployerJob } from "@/entities/job";
-import { deleteJob } from "@/entities/job";
+import { deleteJobAction } from "../api/job.action";
 
 export function JobItem({
   job: {
-    userId,
     id,
     slug,
     title,
@@ -40,13 +38,12 @@ export function JobItem({
 }: {
   job: EmployerJob;
 }) {
-  const router = useRouter();
   const { toast } = useToast();
 
-  const handleDeleteJob = async (userId: string, id: number) => {
-    const deletedJob = await deleteJob(userId, id);
-    if (deletedJob) {
-      router.refresh();
+  const handleDeleteJob = async (id: number) => {
+    const response = await deleteJobAction(id);
+
+    if (response.success) {
       toast({
         title: "Job was successfully deleted.",
       });
@@ -82,7 +79,7 @@ export function JobItem({
               </Link>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => handleDeleteJob(userId, id)}
+                onClick={() => handleDeleteJob(id)}
               >
                 <Trash className="mr-2 h-4 w-4" />
                 <span>Delete</span>

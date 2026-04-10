@@ -1,5 +1,5 @@
 import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
-import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
+import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { getApplicant } from "@/entities/applicant";
 import { checkIfAlreadyApplied } from "@/entities/job-application";
@@ -8,10 +8,10 @@ import { SaveButton } from "@/features/job/save-job";
 import { ApplyButton } from "@/features/job/apply-to-job";
 
 export async function JobSelected({ slug }: { slug: string }) {
-  if (!slug) return <JobSelectedEmptyPlaceholder />;
+  if (!slug) return <EmptyPlaceholder />;
 
   const job = await getJobBySlug(slug);
-  if (!job) return <JobSelectedEmptyPlaceholder />;
+  if (!job) return <EmptyPlaceholder />;
 
   const { role, userId } = await getAuthUser();
   const applicant = await getApplicant(userId || "");

@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import IconNoSelected from "@/shared/ui/icons/IconNoSelected";
 
-export function JobSelectedEmptyPlaceholder() {
+export function EmptyPlaceholder() {
   return (
     <section className="h-[100vh] w-full grow rounded-xl bg-gray-50 p-12">
       <div className="mx-auto w-full">

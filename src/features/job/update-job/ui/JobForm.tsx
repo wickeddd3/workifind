@@ -11,13 +11,12 @@ import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { Job } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
-import { type JobSchemaType, JobSchema } from "@/entities/job";
-import { updateJob } from "@/entities/job/action";
+import { type JobSchemaType, JobSchema } from "../model/schema";
+import { updateJobAction } from "../api/job.action";
 
 export function JobForm({
-  userId,
-  jobId,
   job: {
+    id,
     title,
     employmentType,
     description,
@@ -27,8 +26,6 @@ export function JobForm({
     locationType,
   },
 }: {
-  userId: string;
-  jobId: number;
   job: Job;
 }) {
   const router = useRouter();
@@ -56,8 +53,8 @@ export function JobForm({
   } = form;
 
   async function onSubmit(values: JobSchemaType) {
-    const updatedJob = await updateJob(userId, jobId, values);
-    if (updatedJob) {
+    const response = await updateJobAction(id, values);
+    if (response.success) {
       router.push("/employer/jobs");
       router.refresh();
       toast({

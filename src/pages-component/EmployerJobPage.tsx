@@ -12,5 +12,5 @@ export async function EmployerJobPage({ id }: { id: number }) {
 
   if (!job) notFound();
 
-  return <JobForm userId={userId} jobId={id} job={job} />;
+  return <JobForm job={job} />;
 }

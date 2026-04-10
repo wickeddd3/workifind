@@ -34,8 +34,8 @@ export async function updateEmployerAction(
     // Clerk user role assignment
     await assignEmployerRole(userId);
 
-    return { success: true, data: employer, message: "Created successfully" };
+    return { success: true, data: employer, message: "Updated successfully" };
   } catch (error) {
-    return { success: false, data: null, message: "Creation failed" };
+    return { success: false, data: null, message: "Update failed" };
   }
 }

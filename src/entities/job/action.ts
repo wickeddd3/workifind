@@ -1,1 +1,1 @@
-export { updateJob, deleteJob } from "./api/job.mutation";
+export { deleteJob } from "./api/job.mutation";

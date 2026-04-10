@@ -13,5 +13,5 @@ export async function EmployerNewJobPage() {
 
   if (!employer) return notFound();
 
-  return isEmployer && <JobForm userId={userId} employerId={employer.id} />;
+  return isEmployer && <JobForm employerId={employer.id} />;
 }

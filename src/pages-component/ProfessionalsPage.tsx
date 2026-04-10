@@ -1,7 +1,7 @@
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
-import { formSearchProfessionals } from "@/entities/applicant/api/applicant.actions";
+import { searchProfessionalsAction } from "@/features/applicant/search-professionals";
 
 export async function ProfessionalsPage() {
   return (
@@ -10,7 +10,7 @@ export async function ProfessionalsPage() {
         title="Find your next potential hire"
         subtitle="Explore list of professionals you can hire"
         placeholder="Search by profession"
-        searchAction={formSearchProfessionals}
+        searchAction={searchProfessionalsAction}
       />
       <SuggestedProfessionals />
       <ProfessionalSearchTip />

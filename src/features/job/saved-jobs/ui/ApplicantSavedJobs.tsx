@@ -1,4 +1,7 @@
-import { getSavedJobs, getSavedJobsCount } from "@/entities/saved-job/server";
+import {
+  getSavedJobsCountQuery,
+  getSavedJobsQuery,
+} from "../api/saved-job.queries";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SavedJobs } from "./SavedJobs";
 import { SavedJobsPagination } from "./SavedJobsPagination";
@@ -14,21 +17,21 @@ export async function ApplicantSavedJobs({
   const size = 5;
   const currentPage = page ? parseInt(page) : 1;
 
-  const [jobs, jobsCount] = await Promise.all([
-    getSavedJobs(userId, { size, page: currentPage }),
-    getSavedJobsCount(userId),
+  const [results, totalResults] = await Promise.all([
+    getSavedJobsQuery(userId, { size, page: currentPage }),
+    getSavedJobsCountQuery(userId),
   ]);
 
-  const hasJobs = jobs && jobs.length > 0;
+  const hasJobs = results.data && results.data?.length > 0;
 
   if (!hasJobs) return <EmptyPlaceholder message="No saved jobs found" />;
 
   return (
     <>
-      <SavedJobs savedJobs={jobs} />
+      <SavedJobs savedJobs={results.data || []} />
       <SavedJobsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil(jobsCount / size)}
+        totalPages={Math.ceil((totalResults.data || 0) / size)}
       />
     </>
   );

@@ -1,9 +1,9 @@
-import prisma from "@/shared/lib/prisma";
-import type { Company } from "./../model/types";
+import db from "@/shared/lib/prisma";
+import type { Company } from "@/entities/employer";
 
 export async function getSuggestedCompanies(size: number): Promise<Company[]> {
   try {
-    const companies = await prisma.employer.findMany({
+    const companies = await db.employer.findMany({
       orderBy: { createdAt: "desc" },
       include: {
         _count: {

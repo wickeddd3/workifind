@@ -1,4 +1,4 @@
-import { getJobs, getJobsCount } from "@/entities/job/server";
+import { getJobsCountQuery, getJobsQuery } from "../api/job.queries";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { Jobs } from "./Jobs";
 import { JobsPagination } from "./JobsPagination";
@@ -14,21 +14,21 @@ export async function EmployerJobs({
   const size = 5;
   const currentPage = page ? parseInt(page) : 1;
 
-  const [jobs, jobsCount] = await Promise.all([
-    getJobs(userId, { size, page: currentPage }),
-    getJobsCount(userId),
+  const [results, totalResults] = await Promise.all([
+    getJobsQuery(userId, { size, page: currentPage }),
+    getJobsCountQuery(userId),
   ]);
 
-  const hasJobs = jobs && jobs.length > 0;
+  const hasJobs = results.data && results.data?.length > 0;
 
   if (!hasJobs) return <EmptyPlaceholder message="No jobs found" />;
 
   return (
     <>
-      <Jobs jobs={jobs} />
+      <Jobs jobs={results.data || []} />
       <JobsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil(jobsCount / size)}
+        totalPages={Math.ceil((totalResults.data || 0) / size)}
       />
     </>
   );

@@ -1,4 +1,4 @@
-export function EmployerJobsLoadingPlaceholder() {
+export function LoadingPlaceholder() {
   return (
     <main className="m-auto animate-pulse space-y-6 px-4">
       <h1 className="h-8 w-1/4 rounded bg-gray-200"></h1>

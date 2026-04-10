@@ -3,7 +3,7 @@ import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { getApplicant } from "@/entities/applicant";
 import { checkIfAlreadyApplied } from "@/entities/job-application";
-import { checkIfAlreadySaved } from "@/entities/saved-job/server";
+import { checkIfAlreadySaved } from "@/entities/saved-job";
 import { SaveButton } from "@/features/job/save-job";
 import { ApplyButton } from "@/features/job/apply-to-job";
 

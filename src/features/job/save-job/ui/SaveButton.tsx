@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/ui/button";
 import { useEffect, useState, useTransition } from "react";
-import { toggleSaveJob } from "@/entities/saved-job/action";
+import { toggleSaveJob } from "@/entities/saved-job";
 
 export function SaveButton({
   jobId,

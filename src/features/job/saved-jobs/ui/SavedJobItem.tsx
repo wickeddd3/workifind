@@ -22,7 +22,7 @@ import { useToast } from "@/shared/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
 import { getJobSalary, hasJobSalary } from "@/entities/job";
 import { type SavedJob } from "@/entities/saved-job";
-import { unsaveJob } from "@/entities/saved-job/action";
+import { unsaveJob } from "@/entities/saved-job";
 
 export function SavedJobItem({
   savedJob: {

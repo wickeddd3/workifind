@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { EmployerHeader, EmployerTabs } from "@/entities/employer";
-import { getEmployer } from "@/entities/employer/server";
+import { EmployerHeader, EmployerTabs, getEmployer } from "@/entities/employer";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function EmployerPage() {

@@ -1,7 +1,7 @@
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { notFound } from "next/navigation";
 import { JobForm } from "@/features/job/create-job";
-import { getEmployer } from "@/entities/employer/server";
+import { getEmployer } from "@/entities/employer";
 
 export async function EmployerNewJobPage() {
   const { userId, role } = await getAuthUser();

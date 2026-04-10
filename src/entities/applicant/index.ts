@@ -8,10 +8,6 @@ export { ApplicantLoadingPlaceholder } from "./ui/ApplicantLoadingPlaceholder";
 
 /* Model */
 export type { Applicant } from "./model/types";
-export {
-  ApplicantProfileSchema,
-  type ApplicantProfileSchemaType,
-} from "./model/schema";
 
 /* API */
 export { getApplicant, getApplicantById } from "./api/applicant.queries";

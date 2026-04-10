@@ -7,7 +7,6 @@ export { EmployerLoadingPlaceholder } from "./ui/EmployerLoadingPlaceholder";
 
 /* Model */
 export type { Employer, Company } from "./model/types";
-export {
-  EmployerProfileSchema,
-  type EmployerProfileSchemaType,
-} from "./model/schema";
+
+/* API */
+export { getEmployer, getEmployerBySlug } from "./api/employer.queries";

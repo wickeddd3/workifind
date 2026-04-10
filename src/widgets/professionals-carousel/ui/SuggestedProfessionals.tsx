@@ -1,8 +1,8 @@
-import { getSuggestedProfessionals } from "@/entities/applicant";
+import { getSuggestedProfessionalsQuery } from "../api/professional.queries";
 import { ProfessionalsCarousel } from "./ProfessionalsCarousel";
 
 export async function SuggestedProfessionals() {
-  const professionals = await getSuggestedProfessionals(8);
+  const professionals = await getSuggestedProfessionalsQuery({ size: 8 });
 
   return (
     <section className="flex flex-col space-y-2 py-6">
@@ -13,7 +13,7 @@ export async function SuggestedProfessionals() {
         Learn about new jobs and company culture.
       </h5>
       <div className="flex py-4">
-        <ProfessionalsCarousel professionals={professionals} />
+        <ProfessionalsCarousel professionals={professionals.data || []} />
       </div>
     </section>
   );

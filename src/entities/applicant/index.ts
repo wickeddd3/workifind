@@ -15,5 +15,3 @@ export {
 
 /* API */
 export { getApplicant, getApplicantById } from "./api/applicant.queries";
-export { getSuggestedProfessionals } from "./api/applicants.queries";
-export { formSearchProfessionals } from "./api/applicant.actions";

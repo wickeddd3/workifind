@@ -1,4 +1,4 @@
-import { JobApplicationSubmittedPage } from "@/pages/JobApplicationSubmittedPage";
+import { JobApplicationSubmittedPage } from "@/pages-component/JobApplicationSubmittedPage";
 
 export default async function Page({
   params: { slug },

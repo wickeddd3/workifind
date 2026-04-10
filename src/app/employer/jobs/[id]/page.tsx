@@ -1,4 +1,4 @@
-import { EmployerJobPage } from "@/pages/EmployerJobPage";
+import { EmployerJobPage } from "@/pages-component/EmployerJobPage";
 
 export default async function Page({
   params: { id },

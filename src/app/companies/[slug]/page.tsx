@@ -1,4 +1,4 @@
-import { CompanyPage } from "@/pages/CompanyPage";
+import { CompanyPage } from "@/pages-component/CompanyPage";
 
 export default async function Page({
   params: { slug },

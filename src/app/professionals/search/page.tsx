@@ -1,4 +1,4 @@
-import { ProfessionalSearchPage } from "@/pages/ProfessionalSearchPage";
+import { ProfessionalSearchPage } from "@/pages-component/ProfessionalSearchPage";
 
 export default async function Page({
   searchParams,

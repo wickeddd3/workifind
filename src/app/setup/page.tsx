@@ -1,4 +1,4 @@
-import { ProfileSetupPage } from "@/pages/ProfileSetupPage";
+import { ProfileSetupPage } from "@/pages-component/ProfileSetupPage";
 
 export default async function Page() {
   return <ProfileSetupPage />;

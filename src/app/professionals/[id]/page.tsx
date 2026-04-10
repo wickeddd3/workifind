@@ -1,4 +1,4 @@
-import { ProfessionalPage } from "@/pages/ProfessionalPage";
+import { ProfessionalPage } from "@/pages-component/ProfessionalPage";
 
 export default async function Page({
   params: { id },

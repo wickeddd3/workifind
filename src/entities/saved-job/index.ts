@@ -3,4 +3,4 @@ export type { SavedJob } from "./model/types";
 
 /* API */
 export { checkIfAlreadySaved } from "./api/saved-job.queries";
-export { toggleSaveJob, unsaveJob } from "./api/saved-job.mutation";
+export { unsaveJob } from "./api/saved-job.mutation";

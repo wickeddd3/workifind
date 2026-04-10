@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/ui/button";
 import { useEffect, useState, useTransition } from "react";
-import { toggleSaveJob } from "@/entities/saved-job";
+import { toggleSaveJobAction } from "../api/saved-job.action";
 
 export function SaveButton({
   jobId,
@@ -24,10 +24,10 @@ export function SaveButton({
     setIsSaved(nextState);
 
     startTransition(async () => {
-      const result = await toggleSaveJob(userId, applicantId, jobId, isSaved);
+      const response = await toggleSaveJobAction(applicantId, jobId, isSaved);
 
       // Rollback if server fails
-      if (!result) {
+      if (!response.success) {
         setIsSaved(!nextState);
       }
     });

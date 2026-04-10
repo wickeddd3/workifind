@@ -1,7 +1,7 @@
-import type { Job } from "@/entities/job";
 import { JobItem } from "./JobItem";
+import type { EmployerJob } from "@/entities/job";
 
-export function Jobs({ jobs }: { jobs: Job[] }) {
+export function Jobs({ jobs }: { jobs: EmployerJob[] }) {
   return (
     <>
       {jobs.map((job) => (

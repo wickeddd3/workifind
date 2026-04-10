@@ -1,6 +1,6 @@
 import prisma from "@/shared/lib/prisma";
 import type { Prisma } from "@prisma/client";
-import type { Job } from "@/entities/job";
+import type { Job, EmployerJob } from "../model/types";
 
 export async function searchJobs(searchParams: {
   searchQuery: string;
@@ -177,7 +177,7 @@ export async function getJobs(
     size?: number;
     page?: number;
   },
-): Promise<Job[]> {
+): Promise<EmployerJob[]> {
   try {
     // Destructure query parameters
     const { size = 10, page = 1 } = searchParams;

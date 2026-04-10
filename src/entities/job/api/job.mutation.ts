@@ -6,38 +6,6 @@ import type { JobSchemaType } from "../model/schema";
 import { toSlug } from "@/shared/utils/format-text";
 import { nanoid } from "nanoid";
 
-export async function createJob(
-  userId: string,
-  employerId: number,
-  formData: JobSchemaType,
-): Promise<Job | null> {
-  try {
-    // Create slug based on job title
-    const slug = `${toSlug(formData.title)}-${nanoid(10)}`;
-
-    // Prepare Form Data
-    const form = {
-      ...formData,
-      slug,
-      minSalary: parseInt(formData?.minSalary?.toString() || "0"),
-      maxSalary: parseInt(formData?.maxSalary?.toString() || "0"),
-    };
-
-    // Create Job post
-    const job = await prisma.job.create({
-      data: {
-        userId,
-        employerId,
-        ...form,
-      },
-    });
-
-    return job;
-  } catch (error) {
-    return null;
-  }
-}
-
 export async function updateJob(
   userId: string,
   jobId: number,

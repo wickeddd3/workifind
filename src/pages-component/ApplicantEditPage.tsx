@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getApplicant } from "@/entities/applicant/server";
+import { getApplicant } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileForm } from "@/features/applicant/update-profile";
 

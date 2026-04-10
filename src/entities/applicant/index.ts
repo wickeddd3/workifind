@@ -12,3 +12,13 @@ export {
   ApplicantProfileSchema,
   type ApplicantProfileSchemaType,
 } from "./model/schema";
+
+/* API */
+export { getApplicant, getApplicantById } from "./api/applicant.queries";
+export {
+  searchProfessionals,
+  searchProfessionalsCount,
+  getSuggestedProfessionals,
+} from "./api/applicants.queries";
+export { createApplicant } from "./api/applicant.mutation";
+export { formSearchProfessionals } from "./api/applicant.actions";

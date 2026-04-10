@@ -51,36 +51,3 @@ export async function createApplicant(formData: ApplicantProfileSchemaType) {
     return null;
   }
 }
-
-export async function updateApplicant(
-  id: number,
-  formData: ApplicantProfileSchemaType,
-) {
-  try {
-    //Prepare Form Data
-    const form = {
-      ...formData,
-      skills: formData.skills?.map((skill) => JSON.stringify(skill)),
-      languages: formData.languages?.map((language) =>
-        JSON.stringify(language),
-      ),
-      preferredLocations: formData.preferredLocations?.map(
-        (preferredLocation) => JSON.stringify(preferredLocation),
-      ),
-      salaryExpectation: parseInt(
-        formData?.salaryExpectation?.toString() || "0",
-      ),
-    };
-
-    const applicant = await prisma.applicant.update({
-      where: { id },
-      data: {
-        ...form,
-      },
-    });
-
-    return applicant;
-  } catch (error) {
-    return null;
-  }
-}

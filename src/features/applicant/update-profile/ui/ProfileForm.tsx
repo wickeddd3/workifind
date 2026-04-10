@@ -17,12 +17,12 @@ import {
   LOCATION_TYPES,
   WORK_EXPERIENCE_TYPES,
 } from "@/shared/constants/tags";
+import { type Applicant } from "@/entities/applicant";
 import {
-  type Applicant,
-  type ApplicantProfileSchemaType,
   ApplicantProfileSchema,
-} from "@/entities/applicant";
-import { updateApplicant } from "@/entities/applicant/action";
+  type ApplicantProfileSchemaType,
+} from "../model/schema";
+import { updateApplicantAction } from "../api/applicant.action";
 
 export function ProfileForm({
   applicant: {
@@ -106,7 +106,7 @@ export function ProfileForm({
   });
 
   async function onSubmit(values: ApplicantProfileSchemaType) {
-    const updatedApplicantProfile = await updateApplicant(id, values);
+    const updatedApplicantProfile = await updateApplicantAction(id, values);
     if (updatedApplicantProfile) {
       router.push("/applicant/profile");
       router.refresh();

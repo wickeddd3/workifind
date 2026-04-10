@@ -1,7 +1,6 @@
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { notFound } from "next/navigation";
-import { JobDescription, JobHeader } from "@/entities/job/ui";
-import { getJobBySlug } from "@/entities/job/server";
+import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
 import { getApplicant } from "@/entities/applicant";
 import { checkIfAlreadyApplied } from "@/entities/job-application/server";
 import { checkIfAlreadySaved } from "@/entities/saved-job/server";

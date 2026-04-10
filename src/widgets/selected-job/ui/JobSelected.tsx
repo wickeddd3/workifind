@@ -1,7 +1,6 @@
-import { JobDescription, JobHeader } from "@/entities/job/ui";
+import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
 import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
 import { getAuthUser } from "@/shared/lib/clerk.server";
-import { getJobBySlug } from "@/entities/job/server";
 import { getApplicant } from "@/entities/applicant";
 import { checkIfAlreadyApplied } from "@/entities/job-application/server";
 import { checkIfAlreadySaved } from "@/entities/saved-job/server";

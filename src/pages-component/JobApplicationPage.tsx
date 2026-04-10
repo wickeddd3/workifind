@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getApplicant } from "@/entities/applicant";
-import { getJobBySlug } from "@/entities/job/server";
+import { getJobBySlug } from "@/entities/job";
 import { checkIfAlreadyApplied } from "@/entities/job-application/server";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { JobApplicationForm } from "@/features/job/apply-to-job";

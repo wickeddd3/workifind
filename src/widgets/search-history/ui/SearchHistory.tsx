@@ -6,9 +6,6 @@ import { useEffect, useState } from "react";
 import { Button } from "@/shared/ui/button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { useSearchHistory } from "../model/useSearchHistory";
 
 export function SearchHistory() {

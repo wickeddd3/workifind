@@ -1,7 +1,7 @@
 import {
   getJobApplications,
   getJobApplicationsCount,
-} from "@/entities/job-application/server";
+} from "@/entities/job-application";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { JobApplications } from "./JobApplications";
 import { JobApplicationsPagination } from "./JobApplicationsPagination";

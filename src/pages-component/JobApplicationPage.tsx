@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getApplicant } from "@/entities/applicant";
 import { getJobBySlug } from "@/entities/job";
-import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { JobApplicationForm } from "@/features/job/apply-to-job";
 
@@ -24,7 +24,7 @@ export async function JobApplicationPage({ slug }: { slug: string }) {
 
   return (
     <section className="mx-auto h-full max-w-4xl p-4">
-      <JobApplicationForm userId={userId} job={job} applicant={applicant} />
+      <JobApplicationForm job={job} applicant={applicant} />
     </section>
   );
 }

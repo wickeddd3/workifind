@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui/use-toast";
 import { useMemo } from "react";
 import { getJobSalary, hasJobSalary, type EmployerJob } from "@/entities/job";
-import { deleteJob } from "@/entities/job/action";
+import { deleteJob } from "@/entities/job";
 
 export function JobItem({
   job: {

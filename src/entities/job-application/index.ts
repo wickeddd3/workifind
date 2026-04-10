@@ -1,6 +1,9 @@
 /* Model */
 export type { JobApplication } from "./model/types";
+
+/* API */
+export { checkIfAlreadyApplied } from "./api/job-application.queries";
 export {
-  JobApplicationSchema,
-  type JobApplicationSchemaType,
-} from "./model/schema";
+  getJobApplications,
+  getJobApplicationsCount,
+} from "./api/job-applications.queries";

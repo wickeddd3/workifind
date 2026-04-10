@@ -2,7 +2,7 @@ import { getAuthUser } from "@/shared/lib/clerk.server";
 import { notFound } from "next/navigation";
 import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
 import { getApplicant } from "@/entities/applicant";
-import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application";
 import { checkIfAlreadySaved } from "@/entities/saved-job/server";
 import { ApplyButton } from "@/features/job/apply-to-job";
 import { SaveButton } from "@/features/job/save-job";

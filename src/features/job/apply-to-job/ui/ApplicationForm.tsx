@@ -17,16 +17,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type JobApplicationSchemaType,
   JobApplicationSchema,
-} from "@/entities/job-application";
-import { saveJobApplication } from "@/entities/job-application/action";
+} from "../model/schema";
+import { saveJobApplicationAction } from "../api/job-application.action";
 
 export function ApplicationForm({
-  userId,
   applicantId,
   jobId,
   jobSlug,
 }: {
-  userId: string;
   applicantId: number;
   jobId: number;
   jobSlug: string;
@@ -46,13 +44,9 @@ export function ApplicationForm({
   } = form;
 
   async function onSubmit(values: JobApplicationSchemaType) {
-    const createdJob = await saveJobApplication(
-      userId,
-      applicantId,
-      jobId,
-      values,
-    );
-    if (createdJob) {
+    const response = await saveJobApplicationAction(applicantId, jobId, values);
+
+    if (response.success) {
       router.push(`/jobs/${jobSlug}/submitted`);
       router.refresh();
       toast({

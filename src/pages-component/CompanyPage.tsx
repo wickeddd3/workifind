@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { EmployerHeader } from "@/entities/employer/ui/EmployerHeader";
 import { EmployerTabs } from "@/entities/employer/ui/EmployerTabs";
-import { getEmployerBySlug } from "@/entities/employer/server";
+import { getEmployerBySlug } from "@/entities/employer";
 
 export async function CompanyPage({ slug }: { slug: string }) {
   const employer = await getEmployerBySlug(slug);

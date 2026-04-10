@@ -2,7 +2,7 @@ import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
 import { JobSelectedEmptyPlaceholder } from "./JobSelectedEmptyPlaceholder";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { getApplicant } from "@/entities/applicant";
-import { checkIfAlreadyApplied } from "@/entities/job-application/server";
+import { checkIfAlreadyApplied } from "@/entities/job-application";
 import { checkIfAlreadySaved } from "@/entities/saved-job/server";
 import { SaveButton } from "@/features/job/save-job";
 import { ApplyButton } from "@/features/job/apply-to-job";

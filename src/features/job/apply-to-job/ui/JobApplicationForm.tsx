@@ -6,11 +6,9 @@ import { ApplicationForm } from "./ApplicationForm";
 import type { Job } from "@/entities/job";
 
 export function JobApplicationForm({
-  userId,
   job,
   applicant,
 }: {
-  userId: string;
   job: Job;
   applicant: Applicant;
 }) {
@@ -20,7 +18,6 @@ export function JobApplicationForm({
         <JobDetails job={job} />
         <ApplicantHeader applicant={applicant} />
         <ApplicationForm
-          userId={userId}
           applicantId={applicant.id}
           jobId={job.id}
           jobSlug={job.slug}

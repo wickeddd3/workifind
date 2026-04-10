@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { JobApplications, JobHeader } from "@/features/job/job-applicants";
+import { JobHeader, JobApplications } from "@/entities/job-application";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { JobDescription, getJob } from "@/entities/job";
 import { getAuthUser } from "@/shared/lib/clerk.server";

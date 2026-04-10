@@ -1,7 +1,7 @@
 import {
-  getJobApplications,
-  getJobApplicationsCount,
-} from "@/entities/job-application";
+  getJobApplicationsCountQuery,
+  getJobApplicationsQuery,
+} from "../api/job-application.queries";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { JobApplications } from "./JobApplications";
 import { JobApplicationsPagination } from "./JobApplicationsPagination";
@@ -17,21 +17,21 @@ export async function ApplicantJobs({
   const size = 5;
   const currentPage = page ? parseInt(page) : 1;
 
-  const [jobs, jobsCount] = await Promise.all([
-    getJobApplications(userId, { size, page: currentPage }),
-    getJobApplicationsCount(userId),
+  const [results, totalResults] = await Promise.all([
+    getJobApplicationsQuery(userId, { size, page: currentPage }),
+    getJobApplicationsCountQuery(userId),
   ]);
 
-  const hasJobs = jobs && jobs.length > 0;
+  const hasJobs = results.data && results.data?.length > 0;
 
   if (!hasJobs) return <EmptyPlaceholder message="No job applications found" />;
 
   return (
     <>
-      <JobApplications jobApplications={jobs} />
+      <JobApplications jobApplications={results.data || []} />
       <JobApplicationsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil(jobsCount / size)}
+        totalPages={Math.ceil((totalResults.data || 0) / size)}
       />
     </>
   );

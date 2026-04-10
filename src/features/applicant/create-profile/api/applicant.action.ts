@@ -2,9 +2,10 @@
 
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import type { ApplicantProfileSchemaType } from "../model/schema";
+import type { Applicant } from "@prisma/client";
 import { mapApplicantForm } from "../model/map-applicant-data";
 import { createApplicant } from "./applicant.service";
-import type { Applicant } from "@prisma/client";
+import { assignApplicantRole } from "./role.service";
 
 export async function createApplicantAction(
   formData: ApplicantProfileSchemaType,
@@ -18,6 +19,9 @@ export async function createApplicantAction(
       ...sanitizedData,
       userId,
     });
+
+    // Clerk user role assignment
+    await assignApplicantRole(userId);
 
     return { success: true, data: applicant, message: "Created successfully" };
   } catch (error) {

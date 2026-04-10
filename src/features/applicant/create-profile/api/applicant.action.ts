@@ -25,6 +25,6 @@ export async function createApplicantAction(
 
     return { success: true, data: applicant, message: "Created successfully" };
   } catch (error) {
-    return { success: true, data: null, message: "Creation failed" };
+    return { success: false, data: null, message: "Creation failed" };
   }
 }

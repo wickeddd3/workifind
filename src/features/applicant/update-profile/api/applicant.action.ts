@@ -19,6 +19,6 @@ export async function updateApplicantAction(
 
     return { success: true, data: applicant, message: "Update successfully" };
   } catch (error) {
-    return { success: true, data: null, message: "Update failed" };
+    return { success: false, data: null, message: "Update failed" };
   }
 }

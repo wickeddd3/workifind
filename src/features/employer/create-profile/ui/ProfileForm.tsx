@@ -54,8 +54,8 @@ export function ProfileForm() {
   });
 
   async function onSubmit(values: EmployerProfileSchemaType) {
-    const createdEmployerProfile = await createEmployerAction(values);
-    if (createdEmployerProfile) {
+    const response = await createEmployerAction(values);
+    if (response.success) {
       router.push("/employer/profile");
       toast({
         title: "Your employer profile has been created",

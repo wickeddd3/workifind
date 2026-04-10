@@ -35,6 +35,6 @@ export async function createEmployerAction(
 
     return { success: true, data: employer, message: "Created successfully" };
   } catch (error) {
-    return { success: true, data: null, message: "Creation failed" };
+    return { success: false, data: null, message: "Creation failed" };
   }
 }

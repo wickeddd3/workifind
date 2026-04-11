@@ -8,16 +8,15 @@ import type {
 
 export interface Job extends PrismaJob {
   employer: Employer;
-  jobApplications?: JobApplication[];
-}
-
-export interface EmployerJob extends PrismaJob {
-  employer: Employer;
-  jobApplications: PrismaJobApplication[];
 }
 
 export interface JobApplication extends PrismaJobApplication {
   applicant: Applicant;
+}
+
+export interface EmployerJob extends PrismaJob {
+  employer: Employer;
+  jobApplications: JobApplication[];
 }
 
 export interface SavedJob extends PrismaSavedJob {

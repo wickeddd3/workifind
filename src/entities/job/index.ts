@@ -4,7 +4,13 @@ export { JobDescription } from "./ui/JobDescription";
 export { JobApplicationSubmitted } from "./ui/JobApplicationSubmitted";
 
 /* Model */
-export type { Job, EmployerJob, JobApplication, SavedJob } from "./model/types";
+export type {
+  Job,
+  EmployerJob,
+  ApplicantJob,
+  JobApplication,
+  SavedJob,
+} from "./model/types";
 export { JobSchema, type JobSchemaType } from "./model/schema";
 export { hasJobSalary, getJobSalary } from "./model/salary";
 

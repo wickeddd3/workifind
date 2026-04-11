@@ -16,6 +16,11 @@ export interface JobApplication extends PrismaJobApplication {
 
 export interface EmployerJob extends PrismaJob {
   employer: Employer;
+  jobApplications: PrismaJobApplication[];
+}
+
+export interface ApplicantJob extends PrismaJob {
+  employer: Employer;
   jobApplications: JobApplication[];
 }
 

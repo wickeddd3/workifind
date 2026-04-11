@@ -7,11 +7,6 @@ export async function getJob(id: number): Promise<Job | null> {
       where: { id },
       include: {
         employer: true,
-        jobApplications: {
-          include: {
-            applicant: true,
-          },
-        },
       },
     });
 
@@ -27,11 +22,6 @@ export async function getJobBySlug(slug: string): Promise<Job | null> {
       where: { slug },
       include: {
         employer: true,
-        jobApplications: {
-          include: {
-            applicant: true,
-          },
-        },
       },
     });
 

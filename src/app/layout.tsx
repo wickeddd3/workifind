@@ -5,8 +5,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import { Navbar } from "@/widgets/navigation/ui/Navbar";
-import { Footer } from "@/widgets/navigation/ui/Footer";
+import { Navbar } from "@/widgets/navbar";
+import { Footer } from "@/widgets/footer";
 
 const inter = Inter({
   subsets: ["latin"],

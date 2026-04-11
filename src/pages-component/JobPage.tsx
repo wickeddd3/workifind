@@ -28,7 +28,6 @@ export async function JobPage({ slug }: { slug: string }) {
               <SaveButton
                 jobId={job.id}
                 applicantId={applicant.id}
-                userId={userId}
                 initialIsSaved={isSaved}
               />
             </>

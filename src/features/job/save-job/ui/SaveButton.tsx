@@ -7,12 +7,10 @@ import { toggleSaveJobAction } from "../api/saved-job.action";
 export function SaveButton({
   jobId,
   applicantId,
-  userId,
   initialIsSaved,
 }: {
   jobId: number;
   applicantId: number;
-  userId: string;
   initialIsSaved: boolean;
 }) {
   const [isSaved, setIsSaved] = useState(initialIsSaved);

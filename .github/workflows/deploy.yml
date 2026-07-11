@@ -68,6 +68,9 @@ jobs:
     env:
       POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+      # Link the Vercel CLI to the right project without an interactive login.
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     steps:
       - name: Checkout Code
@@ -89,10 +92,10 @@ jobs:
         #   npx prisma migrate resolve --applied 0_init
         run: npx prisma migrate deploy
 
+      - name: Install Vercel CLI
+        # Use the official CLI directly; the previous amondnet/vercel-action
+        # bundled an outdated CLI that Vercel's API now rejects.
+        run: npm install --global vercel@latest
+
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
+        run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}

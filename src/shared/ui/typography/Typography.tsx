@@ -8,19 +8,33 @@ interface TypographyProps {
 }
 
 export const Heading1 = ({ children, className }: TypographyProps) => (
-  <h1 className={cn("text-4xl font-bold tracking-tight", className)}>
+  <h1
+    className={cn(
+      "text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl",
+      className,
+    )}
+  >
     {children}
   </h1>
 );
 
 export const Heading2 = ({ children, className }: TypographyProps) => (
-  <h2 className={cn("text-3xl font-semibold tracking-tight", className)}>
+  <h2
+    className={cn(
+      "text-2xl font-semibold leading-tight tracking-tight md:text-3xl",
+      className,
+    )}
+  >
     {children}
   </h2>
 );
 
 export const Heading3 = ({ children, className }: TypographyProps) => (
-  <h3 className={cn("text-2xl font-semibold", className)}>{children}</h3>
+  <h3
+    className={cn("text-xl font-semibold leading-snug md:text-2xl", className)}
+  >
+    {children}
+  </h3>
 );
 
 // Section-level heading used for content sections that sit under a page's
@@ -43,7 +57,9 @@ export const SectionHeading = ({ children, className }: TypographyProps) => (
 );
 
 export const Paragraph = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm md:text-md", className)}>{children}</p>
+  <p className={cn("text-sm leading-relaxed md:text-md", className)}>
+    {children}
+  </p>
 );
 
 export const MediumText = ({ children, className }: TypographyProps) => (

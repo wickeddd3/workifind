@@ -4,7 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { Inter, Open_Sans } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 
 import { Footer } from "@/widgets/footer";
@@ -16,11 +16,10 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const open_sans = Open_Sans({
+const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-open-sans",
-  weight: "300",
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
@@ -89,7 +88,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
+        className={`${inter.variable} ${plus_jakarta_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
       >
         <ClerkProvider
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}

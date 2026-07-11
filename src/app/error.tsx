@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Button } from "@/shared/ui/button";
+import { logger } from "@/shared/lib/logger";
 
 export default function Error({
   error,
@@ -11,9 +12,9 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Surface the error for observability. Swap console for an error tracker
-    // (e.g. Sentry.captureException) once one is wired up.
-    console.error(error);
+    // Surface the error for observability; logger.error also routes to the
+    // captureException hook (Sentry, etc.) once one is configured.
+    logger.error("Unhandled UI error", error, { digest: error.digest });
   }, [error]);
 
   return (

@@ -1,6 +1,7 @@
 "use server";
 
 import { put } from "@vercel/blob";
+import { logger } from "./logger";
 
 // Safe defaults: images only, 5MB cap. Callers can narrow further.
 const DEFAULT_ALLOWED_CONTENT_TYPES = [
@@ -46,6 +47,7 @@ export async function upload(
 
     return blob.url;
   } catch (error) {
+    logger.error("Blob upload failed", error, { filePath });
     return null;
   }
 }

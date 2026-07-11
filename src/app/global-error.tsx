@@ -15,6 +15,8 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
+    // Deliberately console.error (not the app logger): this boundary must stay
+    // dependency-free so it still works when app modules are what failed.
     console.error(error);
   }, [error]);
 

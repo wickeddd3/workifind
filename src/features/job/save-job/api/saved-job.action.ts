@@ -1,6 +1,6 @@
 "use server";
 
-import { getAuthUser } from "@/shared/lib/clerk.server";
+import { requireRole } from "@/shared/lib/clerk.server";
 import { getApplicant } from "@/entities/applicant";
 import { saveJob, unsaveJob } from "./saved-job.service";
 import { revalidatePath } from "next/cache";
@@ -11,8 +11,7 @@ export async function toggleSaveJobAction(
   isCurrentlySaved: boolean,
 ): Promise<{ success: boolean; data: boolean; message: string }> {
   try {
-    const { userId } = await getAuthUser();
-    if (!userId) throw new Error("Unauthorized");
+    const { userId } = await requireRole("APPLICANT");
 
     if (isCurrentlySaved) {
       // unsaveJob is already scoped by userId, so it can only remove the

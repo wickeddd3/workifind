@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
-import { Profile } from "@/widgets/profile";
 import { BriefcaseBusiness, CircleUserRound } from "lucide-react";
+import { type ReactNode } from "react";
+
+import { Profile } from "@/widgets/profile";
 
 export default function EmployerProfileLayout({
   children,

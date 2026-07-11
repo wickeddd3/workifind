@@ -1,8 +1,9 @@
-import { Button } from "@/shared/ui/button";
-import { Heading4 } from "@/shared/ui/typography/Typography";
 import { Link as LinkIcon, Mail, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@/shared/ui/button";
+import { Heading4 } from "@/shared/ui/typography/Typography";
 
 export function EmployerHeader({
   companyName,

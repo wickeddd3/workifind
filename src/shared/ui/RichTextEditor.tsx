@@ -1,11 +1,13 @@
 "use client";
 
-import { cn } from "@/shared/lib/utils";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+import { ContentState, convertToRaw, EditorState } from "draft-js";
 import dynamic from "next/dynamic";
 import { forwardRef, useState } from "react";
-import { EditorState, ContentState, convertToRaw } from "draft-js";
-import { EditorProps } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { type EditorProps } from "react-draft-wysiwyg";
+
+import { cn } from "@/shared/lib/utils";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),

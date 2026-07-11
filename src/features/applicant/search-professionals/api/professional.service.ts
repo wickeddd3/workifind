@@ -1,5 +1,6 @@
-import db from "@/shared/lib/prisma";
 import type { Applicant } from "@prisma/client";
+
+import db from "@/shared/lib/prisma";
 
 export async function searchProfessionals(
   query: string,

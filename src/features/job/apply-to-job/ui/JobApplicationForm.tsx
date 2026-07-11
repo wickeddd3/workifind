@@ -1,9 +1,11 @@
 import { Suspense } from "react";
+
 import { type Applicant, ApplicantHeader } from "@/entities/applicant";
-import { LoadingPlaceholder } from "./LoadingPlaceholder";
-import { JobDetails } from "./JobDetails";
-import { ApplicationForm } from "./ApplicationForm";
 import type { Job } from "@/entities/job";
+
+import { ApplicationForm } from "./ApplicationForm";
+import { JobDetails } from "./JobDetails";
+import { LoadingPlaceholder } from "./LoadingPlaceholder";
 
 export function JobApplicationForm({
   job,

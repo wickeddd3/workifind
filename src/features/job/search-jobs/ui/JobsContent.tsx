@@ -1,7 +1,7 @@
 import { searchJobsCountQuery, searchJobsQuery } from "../api/job.queries";
+import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { JobResults } from "./JobResults";
 import { JobResultsPagination } from "./JobResultsPagination";
-import { EmptyPlaceholder } from "./EmptyPlaceholder";
 
 export async function JobsContent({
   searchParams,

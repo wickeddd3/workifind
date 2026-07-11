@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Banknote,
   Clock,
@@ -6,10 +5,12 @@ import {
   MapPin,
   SquareArrowOutUpRight,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
 import { Badge } from "@/shared/ui/badge";
 import { relativeDate } from "@/shared/utils/format-date";
-import Link from "next/link";
-import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
 
 export function JobItem({
   job: {

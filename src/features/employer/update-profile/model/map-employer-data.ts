@@ -1,7 +1,9 @@
-import { toSlug } from "@/shared/utils/format-text";
-import type { EmployerProfileSchemaType } from "./schema";
 import { nanoid } from "nanoid";
+
+import { toSlug } from "@/shared/utils/format-text";
 import { removeObjectProperty } from "@/shared/utils/object-manipulation";
+
+import type { EmployerProfileSchemaType } from "./schema";
 
 export function mapEmployerForm(formData: EmployerProfileSchemaType) {
   // Create slug using company name

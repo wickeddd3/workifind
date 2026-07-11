@@ -6,9 +6,11 @@ import {
   Phone,
   UserRoundPen,
 } from "lucide-react";
-import { Button } from "@/shared/ui/button";
 import Link from "next/link";
+
+import { Button } from "@/shared/ui/button";
 import { Heading4, SmallText } from "@/shared/ui/typography/Typography";
+
 import type { Applicant } from "../model/types";
 
 export function ApplicantHeader({

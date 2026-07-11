@@ -1,9 +1,10 @@
+import dynamic from "next/dynamic";
+
 import { HomeJobFilter } from "@/features/job/search-jobs/client";
 import { SuggestedCompanies } from "@/widgets/companies-carousel";
-import { MarketingSection } from "@/widgets/marketing-section";
 import { InitialSavedJobs } from "@/widgets/initial-saved-jobs";
+import { MarketingSection } from "@/widgets/marketing-section";
 import { LoadingPlaceholder } from "@/widgets/search-history";
-import dynamic from "next/dynamic";
 
 const LazySearchHistory = dynamic(
   () =>

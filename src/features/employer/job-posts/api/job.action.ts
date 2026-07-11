@@ -1,8 +1,10 @@
 "use server";
 
-import { requireRole } from "@/shared/lib/clerk.server";
-import { deleteJob } from "./job.service";
 import { revalidatePath } from "next/cache";
+
+import { requireRole } from "@/shared/lib/clerk.server";
+
+import { deleteJob } from "./job.service";
 
 export async function deleteJobAction(
   jobId: number,

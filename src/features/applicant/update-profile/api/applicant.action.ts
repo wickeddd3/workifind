@@ -1,13 +1,15 @@
 "use server";
 
+import type { Applicant } from "@prisma/client";
+
 import { requireRole } from "@/shared/lib/clerk.server";
+
+import { mapApplicantForm } from "../model/map-applicant-data";
 import {
   ApplicantProfileSchema,
   type ApplicantProfileSchemaType,
 } from "../model/schema";
-import { mapApplicantForm } from "../model/map-applicant-data";
 import { updateApplicant } from "./applicant.service";
-import type { Applicant } from "@prisma/client";
 
 export async function updateApplicantAction(
   id: number,

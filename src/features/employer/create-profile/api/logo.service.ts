@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+
 import { upload } from "@/shared/lib/vercel-blob.server";
 
 const ALLOWED_LOGO_TYPES = ["image/jpeg", "image/png", "image/webp"];

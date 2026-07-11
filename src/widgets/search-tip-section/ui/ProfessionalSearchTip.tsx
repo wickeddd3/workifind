@@ -1,5 +1,5 @@
 import { BookUser, BrainCog, FileSliders } from "lucide-react";
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 
 interface TipProps {
   tip: { icon: ReactElement; title: string; description: string };

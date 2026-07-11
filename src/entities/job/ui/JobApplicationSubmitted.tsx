@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
+
 import type { Job } from "../model/types";
 
 export function JobApplicationSubmitted({

@@ -1,13 +1,15 @@
+import { Menu, User } from "lucide-react";
+
 import {
   Menubar,
   MenubarContent,
   MenubarMenu,
   MenubarTrigger,
 } from "@/shared/ui/menubar";
-import { Menu, User } from "lucide-react";
-import { MobileMenuNavLink } from "./MobileMenuNavLink";
-import { profileRoute, Role } from "../model/get-profile-route";
+
+import { profileRoute, type Role } from "../model/get-profile-route";
 import { menuLinks } from "../model/navbar-links";
+import { MobileMenuNavLink } from "./MobileMenuNavLink";
 
 export function MobileMenu({ role }: { role: Role | undefined }) {
   const isApplicant = role === "APPLICANT";

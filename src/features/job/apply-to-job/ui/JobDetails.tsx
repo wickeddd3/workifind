@@ -1,6 +1,7 @@
-import type { Job } from "@/entities/job";
 import Image from "next/image";
 import Link from "next/link";
+
+import type { Job } from "@/entities/job";
 
 export function JobDetails({
   job: {

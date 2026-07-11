@@ -1,4 +1,5 @@
 import type { SavedJob } from "@/entities/saved-job";
+
 import { getSavedJobs, getSavedJobsCount } from "./saved-job.service";
 
 export async function getSavedJobsQuery(

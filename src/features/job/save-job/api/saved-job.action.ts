@@ -1,9 +1,11 @@
 "use server";
 
-import { requireRole } from "@/shared/lib/clerk.server";
-import { getApplicant } from "@/entities/applicant";
-import { saveJob, unsaveJob } from "./saved-job.service";
 import { revalidatePath } from "next/cache";
+
+import { getApplicant } from "@/entities/applicant";
+import { requireRole } from "@/shared/lib/clerk.server";
+
+import { saveJob, unsaveJob } from "./saved-job.service";
 
 export async function toggleSaveJobAction(
   applicantId: number,

@@ -1,9 +1,10 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import { ProfessionalCard } from "./ProfessionalCard";
 import type { Applicant } from "@prisma/client";
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { ProfessionalCard } from "./ProfessionalCard";
 
 export function ProfessionalsCarousel({
   professionals,

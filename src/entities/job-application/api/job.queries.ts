@@ -1,5 +1,5 @@
-import db from "@/shared/lib/prisma";
 import type { ApplicantJob } from "@/entities/job";
+import db from "@/shared/lib/prisma";
 
 export async function getJob(id: number): Promise<ApplicantJob | null> {
   try {

@@ -1,5 +1,6 @@
 import prisma from "@/shared/lib/prisma";
 import { parseJsonField } from "@/shared/utils/parse-json";
+
 import type { Applicant } from "../model/types";
 
 export async function getApplicant(userId: string): Promise<Applicant | null> {

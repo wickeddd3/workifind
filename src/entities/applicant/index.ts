@@ -1,10 +1,10 @@
 /* UI */
-export { ApplicantHeader } from "./ui/ApplicantHeader";
 export { ApplicantBio } from "./ui/ApplicantBio";
-export { ApplicantSkills } from "./ui/ApplicantSkills";
+export { ApplicantHeader } from "./ui/ApplicantHeader";
 export { ApplicantLanguages } from "./ui/ApplicantLanguages";
-export { ApplicantPreferences } from "./ui/ApplicantPreferences";
 export { ApplicantLoadingPlaceholder } from "./ui/ApplicantLoadingPlaceholder";
+export { ApplicantPreferences } from "./ui/ApplicantPreferences";
+export { ApplicantSkills } from "./ui/ApplicantSkills";
 
 /* Model */
 export type { Applicant } from "./model/types";

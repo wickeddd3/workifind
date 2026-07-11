@@ -1,17 +1,19 @@
 "use client";
 
-import { Form, FormLabel } from "@/shared/ui/form";
-import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
-import { SelectField } from "@/shared/ui/form-fields/SelectField";
-import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import { LoadingButton } from "@/shared/ui/LoadingButton";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
+import { Form, FormLabel } from "@/shared/ui/form";
+import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
+import { SelectField } from "@/shared/ui/form-fields/SelectField";
+import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useToast } from "@/shared/ui/use-toast";
-import { type JobSchemaType, JobSchema } from "../model/schema";
+
 import { createJobAction } from "../api/job.action";
+import { JobSchema, type JobSchemaType } from "../model/schema";
 
 export function JobForm({ employerId }: { employerId: number }) {
   const router = useRouter();

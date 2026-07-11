@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { JobApplicationSubmitted, getJobBySlug } from "@/entities/job";
+
+import { getJobBySlug, JobApplicationSubmitted } from "@/entities/job";
 import { checkIfAlreadyApplied } from "@/entities/job-application";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 

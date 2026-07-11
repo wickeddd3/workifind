@@ -1,9 +1,11 @@
 "use server";
 
-import { requireRole } from "@/shared/lib/clerk.server";
-import { JobSchema, type JobSchemaType } from "../model/schema";
 import type { Job } from "@prisma/client";
+
+import { requireRole } from "@/shared/lib/clerk.server";
+
 import { mapJobForm } from "../model/map-job-data";
+import { JobSchema, type JobSchemaType } from "../model/schema";
 import { updateJob } from "./job.service";
 
 export async function updateJobAction(

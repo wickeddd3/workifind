@@ -1,18 +1,20 @@
 "use client";
 
+import { SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import {
+  EMPLOYMENT_TYPES,
+  JOB_SALARY,
+  LOCATION_TYPES,
+} from "@/shared/constants/tags";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
-import {
-  JOB_SALARY,
-  EMPLOYMENT_TYPES,
-  LOCATION_TYPES,
-} from "@/shared/constants/tags";
-import { JobFilterSchema } from "./../model/schema";
-import { useRouter } from "next/navigation";
-import { SearchIcon } from "lucide-react";
 import { useSearchHistory } from "@/widgets/search-history";
+
+import { JobFilterSchema } from "./../model/schema";
 
 export function JobFilter({
   searchParams,

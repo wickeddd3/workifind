@@ -1,5 +1,5 @@
-import { prisma, logger } from "../helpers";
-import { jobs, buildJobData } from "../data";
+import { buildJobData, jobs } from "../data";
+import { logger, prisma } from "../helpers";
 
 export async function seedJobs(userId: string, employerId: number) {
   for (let i = 0; i < jobs.length; i++) {

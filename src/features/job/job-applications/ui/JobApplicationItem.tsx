@@ -5,6 +5,10 @@ import {
   Fullscreen,
   MapPin,
 } from "lucide-react";
+import Link from "next/link";
+
+import { getJobSalary, hasJobSalary } from "@/entities/job";
+import type { JobApplication } from "@/entities/job-application";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -13,9 +17,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import Link from "next/link";
-import type { JobApplication } from "@/entities/job-application";
-import { getJobSalary, hasJobSalary } from "@/entities/job";
 
 export function JobApplicationItem({
   jobApplication: {

@@ -1,5 +1,5 @@
+import { type JobApplication } from "@/entities/job-application";
 import prisma from "@/shared/lib/prisma";
-import { JobApplication } from "@/entities/job-application";
 
 export async function getJobApplications(
   userId: string,

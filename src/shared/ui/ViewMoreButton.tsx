@@ -1,6 +1,7 @@
-import { Button } from "@/shared/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+import { Button } from "@/shared/ui/button";
 
 interface ViewMoreButtonProps {
   text: string;

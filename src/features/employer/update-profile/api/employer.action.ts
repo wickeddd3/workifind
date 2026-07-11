@@ -1,15 +1,17 @@
 "use server";
 
+import type { Employer } from "@prisma/client";
+
 import { requireRole } from "@/shared/lib/clerk.server";
+
+import { mapEmployerForm } from "../model/map-employer-data";
 import {
   EmployerProfileSchema,
   type EmployerProfileSchemaType,
 } from "../model/schema";
-import type { Employer } from "@prisma/client";
-import { mapEmployerForm } from "../model/map-employer-data";
 import { updateEmployer } from "./employer.service";
-import { assignEmployerRole } from "./role.service";
 import { uploadEmployerLogo } from "./logo.service";
+import { assignEmployerRole } from "./role.service";
 
 export async function updateEmployerAction(
   id: number,

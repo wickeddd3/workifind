@@ -1,5 +1,5 @@
-import { prisma, createClerkUser, logger, SEED_PASSWORD } from "../helpers";
 import { applicants, buildApplicantData } from "../data";
+import { createClerkUser, logger, prisma, SEED_PASSWORD } from "../helpers";
 
 export async function seedApplicants() {
   logger.start(`Seeding ${applicants.length} applicants...`);

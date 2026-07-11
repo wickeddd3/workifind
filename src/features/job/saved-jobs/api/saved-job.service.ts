@@ -1,5 +1,5 @@
-import db from "@/shared/lib/prisma";
 import type { SavedJob } from "@/entities/saved-job";
+import db from "@/shared/lib/prisma";
 
 export async function getSavedJobs(
   userId: string,

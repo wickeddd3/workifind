@@ -1,4 +1,4 @@
-import { prisma, deleteClerkUser, logger } from "./helpers";
+import { deleteClerkUser, logger, prisma } from "./helpers";
 
 /**
  * Tear down seeded data: for every Employer/Applicant profile in the DB,
@@ -47,11 +47,15 @@ async function clean() {
   logger.success("Database records removed.");
 }
 
-clean()
-  .catch((error) => {
+async function run() {
+  try {
+    await clean();
+  } catch (error) {
     logger.error("Clean failed:", error);
     process.exitCode = 1;
-  })
-  .finally(async () => {
+  } finally {
     await prisma.$disconnect();
-  });
+  }
+}
+
+void run();

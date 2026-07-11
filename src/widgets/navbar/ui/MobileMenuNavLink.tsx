@@ -1,6 +1,7 @@
-import { MenubarItem, MenubarShortcut } from "@/shared/ui/menubar";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
+
+import { MenubarItem, MenubarShortcut } from "@/shared/ui/menubar";
 
 export function MobileMenuNavLink({
   title = "",

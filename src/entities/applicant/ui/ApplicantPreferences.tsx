@@ -55,7 +55,7 @@ export function ApplicantPreferences({
             {preferredLocations.map((location, index) => (
               <span
                 className="text-sm text-gray-900"
-                key={`${location}-${index}`}
+                key={`${location?.name}-${index}`}
               >
                 {location?.name}
               </span>

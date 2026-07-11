@@ -1,7 +1,8 @@
+import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
+import { type ReactNode } from "react";
+
 import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
 import { relativeDate } from "@/shared/utils/format-date";
-import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
-import { ReactNode } from "react";
 
 export function JobHeader({
   job: {

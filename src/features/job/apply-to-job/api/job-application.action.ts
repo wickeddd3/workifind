@@ -1,12 +1,14 @@
 "use server";
 
-import { requireRole } from "@/shared/lib/clerk.server";
+import type { JobApplication } from "@prisma/client";
+
 import { getApplicant } from "@/entities/applicant";
+import { requireRole } from "@/shared/lib/clerk.server";
+
 import {
   JobApplicationSchema,
   type JobApplicationSchemaType,
 } from "../model/schema";
-import type { JobApplication } from "@prisma/client";
 import { saveJobApplication } from "./job-application.service";
 
 export async function saveJobApplicationAction(

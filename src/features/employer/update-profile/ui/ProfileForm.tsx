@@ -1,23 +1,25 @@
 "use client";
 
-import { Form } from "@/shared/ui/form";
-import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
-import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
-import { SelectField } from "@/shared/ui/form-fields/SelectField";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
-import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import { LoadingButton } from "@/shared/ui/LoadingButton";
-import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/shared/ui/use-toast";
-import {
-  type EmployerProfileSchemaType,
-  EmployerProfileSchema,
-} from "../model/schema";
+import { useFieldArray, useForm } from "react-hook-form";
+
 import { type Employer } from "@/entities/employer";
+import { INDUSTRY_TYPES } from "@/shared/constants/tags";
+import { Form } from "@/shared/ui/form";
+import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
+import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
+import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
+import { SelectField } from "@/shared/ui/form-fields/SelectField";
+import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
+import { useToast } from "@/shared/ui/use-toast";
+
 import { updateEmployerAction } from "../api/employer.action";
+import {
+  EmployerProfileSchema,
+  type EmployerProfileSchemaType,
+} from "../model/schema";
 
 export function ProfileForm({
   employer: {

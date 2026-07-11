@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import prisma from "@/shared/lib/prisma";
 
 // Never cache: probes must reflect the live state on every request.

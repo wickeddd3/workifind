@@ -1,7 +1,7 @@
-import { getAuthUser } from "@/shared/lib/clerk.server";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { ProfileForm as NewApplicant } from "@/features/applicant/create-profile/ui/ProfileForm";
 import { ProfileForm as NewEmployer } from "@/features/employer/create-profile/ui/ProfileForm";
+import { getAuthUser } from "@/shared/lib/clerk.server";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 export async function ProfileSetupPage() {
   const { role } = await getAuthUser();

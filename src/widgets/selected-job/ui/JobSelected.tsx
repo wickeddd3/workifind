@@ -1,11 +1,12 @@
-import { JobDescription, JobHeader, getJobBySlug } from "@/entities/job";
-import { EmptyPlaceholder } from "./EmptyPlaceholder";
-import { getAuthUser } from "@/shared/lib/clerk.server";
 import { getApplicant } from "@/entities/applicant";
+import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
 import { checkIfAlreadyApplied } from "@/entities/job-application";
 import { checkIfAlreadySaved } from "@/entities/saved-job";
-import { SaveButton } from "@/features/job/save-job";
 import { ApplyButton } from "@/features/job/apply-to-job";
+import { SaveButton } from "@/features/job/save-job";
+import { getAuthUser } from "@/shared/lib/clerk.server";
+
+import { EmptyPlaceholder } from "./EmptyPlaceholder";
 
 export async function JobSelected({ slug }: { slug: string }) {
   if (!slug) return <EmptyPlaceholder />;

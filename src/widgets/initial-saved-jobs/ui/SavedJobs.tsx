@@ -1,6 +1,7 @@
 import type { SavedJob } from "@/entities/saved-job";
-import { SavedJobList } from "./SavedJobList";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
+
+import { SavedJobList } from "./SavedJobList";
 
 export function SavedJobs({ savedJobs }: { savedJobs: SavedJob[] }) {
   return (

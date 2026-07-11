@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+
 import IconNoSelected from "@/shared/ui/icons/IconNoSelected";
 
 export function EmptyPlaceholder() {

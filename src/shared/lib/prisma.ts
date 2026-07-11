@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+
 import { logger } from "./logger";
 
 const prismaClientSingleton = () => {
@@ -10,6 +11,9 @@ const prismaClientSingleton = () => {
     query: {
       async $allOperations({ model, operation, args, query }) {
         try {
+          // Prisma types the extension's `query` result loosely; it flows
+          // through unchanged, so the real return type is preserved for callers.
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           return await query(args);
         } catch (error) {
           logger.error(

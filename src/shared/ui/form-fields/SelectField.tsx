@@ -1,5 +1,8 @@
 "use client";
 
+import { type Control, type FieldValues, type Path } from "react-hook-form";
+
+import { cn } from "@/shared/lib/utils";
 import {
   FormControl,
   FormField,
@@ -14,8 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
-import { Control, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/shared/lib/utils";
 
 interface SelectFieldProps<T extends FieldValues> {
   control: Control<T>;

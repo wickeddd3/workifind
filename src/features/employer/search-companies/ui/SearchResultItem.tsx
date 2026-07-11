@@ -1,6 +1,7 @@
 import Image from "next/image";
+
+import { type Company } from "@/entities/employer";
 import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
-import { Company } from "@/entities/employer";
 
 export function SearchResultItem({
   company: { companyName, companyLogoUrl, industry, location, jobsCount },

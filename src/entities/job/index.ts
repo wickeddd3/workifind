@@ -1,18 +1,18 @@
 /* UI */
-export { JobHeader } from "./ui/JobHeader";
-export { JobDescription } from "./ui/JobDescription";
 export { JobApplicationSubmitted } from "./ui/JobApplicationSubmitted";
+export { JobDescription } from "./ui/JobDescription";
+export { JobHeader } from "./ui/JobHeader";
 
 /* Model */
+export { getJobSalary, hasJobSalary } from "./model/salary";
+export { JobSchema, type JobSchemaType } from "./model/schema";
 export type {
-  Job,
-  EmployerJob,
   ApplicantJob,
+  EmployerJob,
+  Job,
   JobApplication,
   SavedJob,
 } from "./model/types";
-export { JobSchema, type JobSchemaType } from "./model/schema";
-export { hasJobSalary, getJobSalary } from "./model/salary";
 
 /* API */
 export { getJob, getJobBySlug } from "./api/job.queries";

@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
-import { JobHeader, JobApplications, getJob } from "@/entities/job-application";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+
 import { JobDescription } from "@/entities/job";
+import { getJob, JobApplications, JobHeader } from "@/entities/job-application";
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 export async function EmployerJobApplicants({ id }: { id: number }) {
   const { userId } = await getAuthUser();

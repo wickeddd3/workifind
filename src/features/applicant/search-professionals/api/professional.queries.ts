@@ -1,6 +1,7 @@
 "use server";
 
 import type { Applicant } from "@prisma/client";
+
 import {
   searchProfessionals,
   searchProfessionalsCount,

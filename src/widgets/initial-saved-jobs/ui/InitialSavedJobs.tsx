@@ -1,10 +1,12 @@
-import { Unauthenticated } from "./Unauthenticated";
+import { Suspense } from "react";
+
+import { getAuthUser } from "@/shared/lib/clerk.server";
+
+import { getInitialSavedJobsQuery } from "../api/saved-job.queries";
+import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { LoadingPlaceholder } from "./LoadingPlaceholder";
 import { SavedJobs } from "./SavedJobs";
-import { EmptyPlaceholder } from "./EmptyPlaceholder";
-import { Suspense } from "react";
-import { getAuthUser } from "@/shared/lib/clerk.server";
-import { getInitialSavedJobsQuery } from "../api/saved-job.queries";
+import { Unauthenticated } from "./Unauthenticated";
 
 export async function InitialSavedJobs() {
   const { userId, role } = await getAuthUser();

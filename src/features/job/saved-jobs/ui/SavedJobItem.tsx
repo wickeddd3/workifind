@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import {
   Banknote,
   BookmarkMinus,
@@ -8,6 +9,10 @@ import {
   Fullscreen,
   MapPin,
 } from "lucide-react";
+import Link from "next/link";
+
+import { getJobSalary, hasJobSalary } from "@/entities/job";
+import { type SavedJob } from "@/entities/saved-job";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -16,11 +21,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import Link from "next/link";
 import { useToast } from "@/shared/ui/use-toast";
-import { useUser } from "@clerk/nextjs";
-import { getJobSalary, hasJobSalary } from "@/entities/job";
-import { type SavedJob } from "@/entities/saved-job";
+
 import { unsaveJobAction } from "../api/saved-job.action";
 
 export function SavedJobItem({

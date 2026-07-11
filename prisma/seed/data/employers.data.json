@@ -1,0 +1,64 @@
+[
+  {
+    "firstName": "Grace",
+    "lastName": "Sullivan",
+    "email": "grace.sullivan@example.com",
+    "companyName": "Northwind Technologies",
+    "companyWebsite": "https://northwind.example.com",
+    "industry": "Information & Communication Technology",
+    "location": "Austin",
+    "about": "Northwind Technologies builds cloud infrastructure and developer tooling for fast-growing startups.",
+    "perks": [
+      "Remote",
+      "Health Insurance",
+      "Flexible Hours",
+      "Professional Development"
+    ]
+  },
+  {
+    "firstName": "Daniel",
+    "lastName": "Okafor",
+    "email": "daniel.okafor@example.com",
+    "companyName": "Cascade Financial Group",
+    "companyWebsite": "https://cascade-financial.example.com",
+    "industry": "Banking & Financial Services",
+    "location": "Chicago",
+    "about": "Cascade Financial Group provides wealth management and advisory services to individuals and businesses.",
+    "perks": [
+      "Health Insurance",
+      "Government Benefits",
+      "Paid Time Off"
+    ]
+  },
+  {
+    "firstName": "Priya",
+    "lastName": "Nair",
+    "email": "priya.nair@example.com",
+    "companyName": "Meridian Health Partners",
+    "companyWebsite": "https://meridian-health.example.com",
+    "industry": "Healthcare & Medical",
+    "location": "Seattle",
+    "about": "Meridian Health Partners operates a network of community clinics focused on preventive care.",
+    "perks": [
+      "Health Insurance",
+      "Government Benefits",
+      "Flexible Hours",
+      "Paid Time Off"
+    ]
+  },
+  {
+    "firstName": "Marco",
+    "lastName": "Rossi",
+    "email": "marco.rossi@example.com",
+    "companyName": "Atlas Design Studio",
+    "companyWebsite": "https://atlas-design.example.com",
+    "industry": "Design & Architecture",
+    "location": "Portland",
+    "about": "Atlas Design Studio is a product and brand design agency working with clients across the globe.",
+    "perks": [
+      "Remote",
+      "Flexible Hours",
+      "Professional Development"
+    ]
+  }
+]

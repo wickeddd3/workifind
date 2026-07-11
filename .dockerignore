@@ -1,4 +1,37 @@
+# Dependencies & build output (regenerated inside the image)
 node_modules
 .next
-.git
+out
+build
+
+# Secrets & local env
 .env
+.env*.local
+.vercel
+
+# VCS & CI
+.git
+.gitignore
+.github
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Tests & reports
+tests
+tests-examples
+playwright-report
+test-results
+blob-report
+coverage
+
+# Tooling & docs
+.vscode
+.qodo
+*.md
+
+# Misc
+*.log
+.DS_Store

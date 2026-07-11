@@ -42,6 +42,14 @@ jobs:
         # This ensures your TS types and Prisma schema are valid before deploying
         run: npm run build
 
+      - name: Deploy Database Migrations
+        # Applies committed migrations to the production database (replaces the
+        # old `prisma db push` in the build script). NOTE: the existing DB must
+        # be baselined once before the first run:
+        #   npx prisma migrate resolve --applied 0_init
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npx prisma migrate deploy
+
       - name: Deploy to Vercel
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: amondnet/vercel-action@v25

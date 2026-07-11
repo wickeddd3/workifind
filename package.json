@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "lintfix": "eslint --fix ./src/**/* --ext .ts,tsx,.js,.jsx --format stylish",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "seed": "npx tsx prisma/seed/index.ts",
     "seed:clean": "npx tsx prisma/seed/clean.ts",
     "postinstall": "prisma generate"

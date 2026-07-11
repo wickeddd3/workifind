@@ -1,7 +1,10 @@
 "use server";
 
-import { getAuthUser } from "@/shared/lib/clerk.server";
-import type { EmployerProfileSchemaType } from "../model/schema";
+import { requireRole } from "@/shared/lib/clerk.server";
+import {
+  EmployerProfileSchema,
+  type EmployerProfileSchemaType,
+} from "../model/schema";
 import type { Employer } from "@prisma/client";
 import { mapEmployerForm } from "../model/map-employer-data";
 import { updateEmployer } from "./employer.service";
@@ -13,22 +16,28 @@ export async function updateEmployerAction(
   formData: EmployerProfileSchemaType,
 ): Promise<{ success: boolean; data: Employer | null; message: string }> {
   try {
-    const { userId } = await getAuthUser();
-    if (!userId) throw new Error("Unauthorized");
+    const { userId } = await requireRole("EMPLOYER");
 
-    const sanitizedData = mapEmployerForm(formData);
+    // Never trust client input: re-validate against the schema server-side.
+    const parsed = EmployerProfileSchema.safeParse(formData);
+    if (!parsed.success) throw new Error("Invalid input");
 
-    // Upload company logo and generate companyLogoUrl
-    let companyLogoUrl = null;
-    if (formData.companyLogo) {
-      const imageUrl = await uploadEmployerLogo(formData.companyLogo);
-      companyLogoUrl = imageUrl; // Get the uploaded file URL
+    const sanitizedData = mapEmployerForm(parsed.data);
+
+    // Only replace the logo when a new one was uploaded successfully.
+    // Omitting the field leaves the existing companyLogoUrl untouched
+    // instead of wiping it on every profile update.
+    let logoUpdate: { companyLogoUrl?: string } = {};
+    if (parsed.data.companyLogo) {
+      const imageUrl = await uploadEmployerLogo(parsed.data.companyLogo);
+      if (imageUrl) logoUpdate = { companyLogoUrl: imageUrl };
     }
 
-    const employer = await updateEmployer(id, {
+    // The write is scoped by userId; `id` is ignored for authorization.
+    const employer = await updateEmployer(userId, {
       ...sanitizedData,
       userId,
-      companyLogoUrl,
+      ...logoUpdate,
     });
 
     // Clerk user role assignment

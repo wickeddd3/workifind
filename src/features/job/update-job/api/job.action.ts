@@ -1,7 +1,7 @@
 "use server";
 
-import { getAuthUser } from "@/shared/lib/clerk.server";
-import type { JobSchemaType } from "../model/schema";
+import { requireRole } from "@/shared/lib/clerk.server";
+import { JobSchema, type JobSchemaType } from "../model/schema";
 import type { Job } from "@prisma/client";
 import { mapJobForm } from "../model/map-job-data";
 import { updateJob } from "./job.service";
@@ -11,10 +11,13 @@ export async function updateJobAction(
   formData: JobSchemaType,
 ): Promise<{ success: boolean; data: Job | null; message: string }> {
   try {
-    const { userId } = await getAuthUser();
-    if (!userId) throw new Error("Unauthorized");
+    const { userId } = await requireRole("EMPLOYER");
 
-    const sanitizedData = mapJobForm(formData);
+    // Never trust client input: re-validate against the schema server-side.
+    const parsed = JobSchema.safeParse(formData);
+    if (!parsed.success) throw new Error("Invalid input");
+
+    const sanitizedData = mapJobForm(parsed.data);
 
     const job = await updateJob(userId, id, sanitizedData);
 

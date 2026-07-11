@@ -1,7 +1,11 @@
 "use server";
 
-import { getAuthUser } from "@/shared/lib/clerk.server";
-import type { JobApplicationSchemaType } from "../model/schema";
+import { requireRole } from "@/shared/lib/clerk.server";
+import { getApplicant } from "@/entities/applicant";
+import {
+  JobApplicationSchema,
+  type JobApplicationSchemaType,
+} from "../model/schema";
 import type { JobApplication } from "@prisma/client";
 import { saveJobApplication } from "./job-application.service";
 
@@ -11,13 +15,23 @@ export async function saveJobApplicationAction(
   formData: JobApplicationSchemaType,
 ): Promise<{ success: boolean; data: JobApplication | null; message: string }> {
   try {
-    const { userId } = await getAuthUser();
-    if (!userId) throw new Error("Unauthorized");
+    const { userId } = await requireRole("APPLICANT");
+
+    // Never trust client input: re-validate against the schema server-side.
+    const parsed = JobApplicationSchema.safeParse(formData);
+    if (!parsed.success) throw new Error("Invalid input");
+
+    // Ownership check: the application must be filed under the caller's own
+    // applicant profile, not an arbitrary client-supplied applicantId.
+    const applicant = await getApplicant(userId);
+    if (!applicant || applicant.id !== applicantId) {
+      throw new Error("Forbidden");
+    }
 
     const jobApplication = await saveJobApplication({
-      ...formData,
+      ...parsed.data,
       userId,
-      applicantId,
+      applicantId: applicant.id,
       jobId,
     });
 

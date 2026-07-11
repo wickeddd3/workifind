@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Senior Software Engineer",
+    "employmentType": "Full-time",
+    "locationType": "Remote",
+    "location": "Remote",
+    "description": "Lead the design and delivery of core backend services. Work with a modern TypeScript and Node.js stack and mentor junior engineers.",
+    "minSalary": 100000,
+    "maxSalary": 130000
+  },
+  {
+    "title": "Product Designer",
+    "employmentType": "Full-time",
+    "locationType": "Hybrid",
+    "location": "Portland",
+    "description": "Own the end-to-end design process from research to high-fidelity prototypes for our flagship product.",
+    "minSalary": 80000,
+    "maxSalary": 100000
+  },
+  {
+    "title": "Financial Analyst",
+    "employmentType": "Full-time",
+    "locationType": "On-site",
+    "location": "Chicago",
+    "description": "Build financial models, prepare forecasts, and support quarterly reporting for the finance team.",
+    "minSalary": 70000,
+    "maxSalary": 90000
+  },
+  {
+    "title": "Customer Support Specialist",
+    "employmentType": "Part-time",
+    "locationType": "Remote",
+    "location": "Remote",
+    "description": "Provide friendly, timely support across email and chat, and help improve our help documentation.",
+    "minSalary": 40000,
+    "maxSalary": 55000
+  }
+]

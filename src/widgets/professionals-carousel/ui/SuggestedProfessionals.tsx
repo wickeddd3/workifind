@@ -6,9 +6,9 @@ export async function SuggestedProfessionals() {
 
   return (
     <section className="flex flex-col space-y-2 py-6">
-      <h1 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
+      <h2 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
         Explore professionals
-      </h1>
+      </h2>
       <h5 className="text-sm font-normal text-gray-700 md:text-md">
         Learn about new jobs and company culture.
       </h5>

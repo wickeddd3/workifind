@@ -44,9 +44,9 @@ export function SearchHistory() {
     hasHistory && (
       <section className="flex w-full flex-col gap-4 py-2 md:py-4">
         <div className="flex items-center justify-between gap-8">
-          <h1 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
+          <h2 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
             Filter history
-          </h1>
+          </h2>
           <button
             type="button"
             className="flex w-fit cursor-pointer items-center justify-between gap-4 rounded-lg bg-gray-100 px-3 py-2 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"

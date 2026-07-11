@@ -1,8 +1,8 @@
 import Markdown from "@/shared/ui/Markdown";
 import {
-  Heading4,
   MediumText,
   Paragraph,
+  SectionHeading,
 } from "@/shared/ui/typography/Typography";
 
 export function EmployerDetails({
@@ -18,7 +18,7 @@ export function EmployerDetails({
     <div className="flex flex-col space-y-8">
       {(industry || location) && (
         <div className="flex flex-col space-y-4">
-          <Heading4>Company Overview</Heading4>
+          <SectionHeading>Company Overview</SectionHeading>
           {industry && (
             <div className="flex items-start space-x-12">
               <MediumText className="text-gray-700">Industry</MediumText>
@@ -35,7 +35,7 @@ export function EmployerDetails({
       )}
       {about && (
         <div className="flex flex-col space-y-4">
-          <Heading4>About us</Heading4>
+          <SectionHeading>About us</SectionHeading>
           <div className="text-justify text-sm md:text-md">
             <Markdown>{about}</Markdown>
           </div>

@@ -54,10 +54,10 @@ export function HomeJobFilter({
         <div className="flex w-full flex-col gap-4 px-3 lg:w-3/5 lg:gap-14">
           <div className="flex w-full flex-col gap-4">
             <div className="flex items-center gap-2">
-              <BriefcaseBusiness size={20} color="#4635c1" />
-              <h6 className="text-sm font-medium text-gray-700 md:text-md lg:text-lg">
+              <BriefcaseBusiness size={20} color="#4635c1" aria-hidden="true" />
+              <p className="text-sm font-medium text-gray-700 md:text-md lg:text-lg">
                 Find the best jobs in workifind
-              </h6>
+              </p>
             </div>
             <h1 className="w-full text-balance text-3xl font-bold text-gray-900 md:text-4xl md:leading-[4rem] lg:text-5xl">
               Connecting talents with opportunities
@@ -94,17 +94,15 @@ export function HomeJobFilter({
                 alt="Employer 4"
               />
               <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-indigo-600 text-xs font-medium text-white">
-                <PlusIcon size={24} color="#ffffff" />
+                <PlusIcon size={24} color="#ffffff" aria-hidden="true" />
               </div>
             </div>
             <div className="flex flex-col">
-              <h6 className="flex items-center text-xl font-extrabold leading-4 text-gray-800">
+              <p className="flex items-center text-xl font-extrabold leading-4 text-gray-800">
                 12K
-                <PlusIcon size={20} color="#000000" />
-              </h6>
-              <h6 className="text-sm font-medium text-gray-600">
-                Company jobs
-              </h6>
+                <PlusIcon size={20} color="#000000" aria-hidden="true" />
+              </p>
+              <p className="text-sm font-medium text-gray-600">Company jobs</p>
             </div>
           </div>
           <div className="h-full w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 p-[3px]">
@@ -200,7 +198,12 @@ export function HomeJobFilter({
                     className="mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:my-0 md:w-fit"
                     data-testid="search-button"
                   >
-                    <SearchIcon size={18} color="#ffffff" strokeWidth={3} />
+                    <SearchIcon
+                      size={18}
+                      color="#ffffff"
+                      strokeWidth={3}
+                      aria-hidden="true"
+                    />
                     <span className="text-sm font-bold uppercase tracking-wider text-white">
                       Search
                     </span>

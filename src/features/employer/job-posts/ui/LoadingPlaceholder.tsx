@@ -1,7 +1,7 @@
 export function LoadingPlaceholder() {
   return (
     <div className="m-auto animate-pulse space-y-6 px-4">
-      <h1 className="h-8 w-1/4 rounded bg-gray-200"></h1>
+      <div className="h-8 w-1/4 rounded bg-gray-200"></div>
       <div className="flex flex-col gap-2">
         {Array.from({ length: 5 }).map((_, index) => (
           <div
@@ -9,7 +9,7 @@ export function LoadingPlaceholder() {
             key={index}
           >
             <div className="flex items-center justify-between">
-              <h3 className="h-7 w-2/5 rounded bg-gray-200"></h3>
+              <div className="h-7 w-2/5 rounded bg-gray-200"></div>
               <span className="h-7 w-7 rounded-lg bg-gray-200"></span>
             </div>
             <div className="flex flex-col gap-1">

@@ -23,10 +23,13 @@ export const Heading3 = ({ children, className }: TypographyProps) => (
   <h3 className={cn("text-2xl font-semibold", className)}>{children}</h3>
 );
 
-export const Heading4 = ({ children, className }: TypographyProps) => (
-  <h4 className={cn("text-md font-medium md:text-xl", className)}>
+// Section-level heading used for content sections that sit under a page's
+// primary heading. Renders an <h2> so heading order stays valid (no level
+// skips) while keeping the level-4 visual scale.
+export const SectionHeading = ({ children, className }: TypographyProps) => (
+  <h2 className={cn("text-md font-medium md:text-xl", className)}>
     {children}
-  </h4>
+  </h2>
 );
 
 export const Paragraph = ({ children, className }: TypographyProps) => (

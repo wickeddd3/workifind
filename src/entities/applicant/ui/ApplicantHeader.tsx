@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 
 import { Button } from "@/shared/ui/button";
-import { Heading4, SmallText } from "@/shared/ui/typography/Typography";
+import { SmallText } from "@/shared/ui/typography/Typography";
 
 import type { Applicant } from "../model/types";
 
@@ -24,9 +24,11 @@ export function ApplicantHeader({
     experienced,
   },
   hasEditButton = false,
+  as: NameHeading = "h2",
 }: {
   applicant: Applicant;
   hasEditButton?: boolean;
+  as?: "h1" | "h2";
 }) {
   const hasExperience = experienced === "With experience";
 
@@ -34,8 +36,10 @@ export function ApplicantHeader({
     <div className="flex flex-col space-y-2 rounded-xl bg-gray-50 p-4 md:p-8">
       <div className="flex justify-between">
         <div className="flex w-fit items-center justify-between gap-4">
-          <Heading4 className="font-bold">{`${firstName} ${lastName}`}</Heading4>
-          {hasExperience && <BadgeCheck size={16} className="shrink-0" />}
+          <NameHeading className="text-md font-bold md:text-xl">{`${firstName} ${lastName}`}</NameHeading>
+          {hasExperience && (
+            <BadgeCheck size={16} className="shrink-0" aria-hidden="true" />
+          )}
         </div>
         {hasEditButton && (
           <Button

@@ -24,17 +24,17 @@ export function EmployerLoadingPlaceholder() {
       <div className="py-10">
         <div className="flex flex-col space-y-8">
           <div className="flex flex-col space-y-4">
-            <h1 className="h-7 w-1/4 rounded bg-gray-200"></h1>
+            <div className="h-7 w-1/4 rounded bg-gray-200"></div>
             {Array.from({ length: 2 }).map((_, index) => (
               <div className="flex items-center space-x-12" key={index}>
-                <h3 className="h-5 w-[100px] rounded bg-gray-200"></h3>
+                <div className="h-5 w-[100px] rounded bg-gray-200"></div>
                 <p className="h-4 w-[180px] rounded bg-gray-200"></p>
               </div>
             ))}
           </div>
           <div className="flex flex-col space-y-4">
-            <h1 className="h-7 w-1/4 rounded bg-gray-200"></h1>
-            <h1 className="h-32 w-full rounded bg-gray-200"></h1>
+            <div className="h-7 w-1/4 rounded bg-gray-200"></div>
+            <div className="h-32 w-full rounded bg-gray-200"></div>
           </div>
         </div>
       </div>

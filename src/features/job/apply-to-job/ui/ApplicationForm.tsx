@@ -69,9 +69,9 @@ export function ApplicationForm({
           name="pitch"
           render={({ field: { value, onChange, ref } }) => (
             <FormItem>
-              <h5 className="text-md font-bold text-gray-900 md:text-lg">
+              <h3 className="text-md font-bold text-gray-900 md:text-lg">
                 Pitch
-              </h5>
+              </h3>
               <div className="text-sm text-gray-700 md:text-md">
                 Introduce yourself and briefly explain why you are suitable for
                 this role. Consider your relevant skills, qualifications and

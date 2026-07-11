@@ -12,6 +12,7 @@ export async function CompanyPage({ slug }: { slug: string }) {
   return (
     <div className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4">
       <EmployerHeader
+        as="h1"
         companyName={employer.companyName}
         companyEmail={employer.companyEmail}
         companyWebsite={employer.companyWebsite}

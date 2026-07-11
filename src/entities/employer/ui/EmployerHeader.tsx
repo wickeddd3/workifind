@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/shared/ui/button";
-import { Heading4 } from "@/shared/ui/typography/Typography";
 
 export function EmployerHeader({
   companyName,
@@ -11,12 +10,14 @@ export function EmployerHeader({
   companyWebsite,
   companyLogoUrl,
   hasEditButton = false,
+  as: NameHeading = "h2",
 }: {
   companyName: string;
   companyEmail?: string | null;
   companyWebsite?: string | null;
   companyLogoUrl?: string | null;
   hasEditButton?: boolean | null;
+  as?: "h1" | "h2";
 }) {
   return (
     <div className="flex flex-col gap-6">
@@ -31,7 +32,9 @@ export function EmployerHeader({
       )}
       <div className="flex flex-col space-y-3">
         <div className="flex gap-4">
-          <Heading4 className="font-bold">{companyName}</Heading4>
+          <NameHeading className="text-md font-bold md:text-xl">
+            {companyName}
+          </NameHeading>
           {hasEditButton && (
             <Button
               size="icon"
@@ -49,8 +52,8 @@ export function EmployerHeader({
           )}
         </div>
         {companyWebsite && (
-          <h6 className="flex items-center gap-3">
-            <LinkIcon size={16} className="shrink-0" />
+          <p className="flex items-center gap-3">
+            <LinkIcon size={16} className="shrink-0" aria-hidden="true" />
             <a
               href={`https://${companyWebsite}`}
               target="_blank"
@@ -59,11 +62,11 @@ export function EmployerHeader({
             >
               {companyWebsite}
             </a>
-          </h6>
+          </p>
         )}
         {companyEmail && (
-          <h6 className="flex items-center gap-3">
-            <Mail size={16} className="shrink-0" />
+          <p className="flex items-center gap-3">
+            <Mail size={16} className="shrink-0" aria-hidden="true" />
             <a
               href={`mailto://${companyEmail}`}
               target="_blank"
@@ -72,7 +75,7 @@ export function EmployerHeader({
             >
               {companyEmail}
             </a>
-          </h6>
+          </p>
         )}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Heading4, MediumText } from "@/shared/ui/typography/Typography";
+import { MediumText, SectionHeading } from "@/shared/ui/typography/Typography";
 
 export function ApplicantPreferences({
   preferredEmploymentTypes,
@@ -22,7 +22,7 @@ export function ApplicantPreferences({
 
   return (
     <div className="flex flex-col space-y-4">
-      <Heading4>About my next role</Heading4>
+      <SectionHeading>About my next role</SectionHeading>
       <div className="flex flex-col gap-2 rounded-xl border-2 border-gray-100 p-4">
         {availability && (
           <div className="flex flex-col gap-2">

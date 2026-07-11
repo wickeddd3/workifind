@@ -43,8 +43,12 @@ export function ApplicantHeader({
             className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700"
             asChild
           >
-            <Link href="/applicant/profile/edit" className="text-xs md:text-sm">
-              <UserRoundPen size={16} />
+            <Link
+              href="/applicant/profile/edit"
+              aria-label="Edit your profile"
+              className="text-xs md:text-sm"
+            >
+              <UserRoundPen size={16} aria-hidden="true" />
             </Link>
           </Button>
         )}

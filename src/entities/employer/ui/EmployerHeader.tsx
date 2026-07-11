@@ -40,9 +40,10 @@ export function EmployerHeader({
             >
               <Link
                 href="/employer/profile/edit"
+                aria-label="Edit company profile"
                 className="text-xs md:text-sm"
               >
-                <Pencil size={16} />
+                <Pencil size={16} aria-hidden="true" />
               </Link>
             </Button>
           )}

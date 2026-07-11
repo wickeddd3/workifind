@@ -5,7 +5,7 @@ import { CompanySearchTip } from "@/widgets/search-tip-section";
 
 export async function CompaniesPage() {
   return (
-    <main className="m-auto flex max-w-7xl flex-col gap-6 px-3 py-12">
+    <div className="m-auto flex max-w-7xl flex-col gap-6 px-3 py-12">
       <SearchJumbotron
         title="Find your next potential employer"
         subtitle="Explore list of companies you can work for"
@@ -14,6 +14,6 @@ export async function CompaniesPage() {
       />
       <SuggestedCompanies />
       <CompanySearchTip />
-    </main>
+    </div>
   );
 }

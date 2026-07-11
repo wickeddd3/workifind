@@ -8,7 +8,7 @@ export async function ProfileSetupPage() {
 
   if (!role) {
     return (
-      <main className="m-auto my-4 flex max-w-3xl flex-col gap-6 px-3 md:my-10">
+      <div className="m-auto my-4 flex max-w-3xl flex-col gap-6 px-3 md:my-10">
         <div className="space-y-1">
           <h1 className="text-md font-bold text-gray-900 md:text-lg">
             Profile setup
@@ -47,7 +47,7 @@ export async function ProfileSetupPage() {
             <NewEmployer />
           </TabsContent>
         </Tabs>
-      </main>
+      </div>
     );
   }
 }

@@ -83,7 +83,7 @@ export function ProfileForm({
   }
 
   return (
-    <main className="m-auto space-y-6 px-4">
+    <div className="m-auto space-y-6 px-4">
       <div>
         <h2 className="text-md font-semibold">Employer profile</h2>
         <p className="text-sm text-muted-foreground">Manage profile details</p>
@@ -142,6 +142,6 @@ export function ProfileForm({
           </LoadingButton>
         </form>
       </Form>
-    </main>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="m-auto flex h-[70vh] w-full max-w-7xl items-center justify-center md:h-[80vh]">
+    <div className="m-auto flex h-[70vh] w-full max-w-7xl items-center justify-center md:h-[80vh]">
       <section className="flex h-1/2 w-full flex-col items-center justify-end bg-not-found bg-center bg-no-repeat md:w-1/2">
         <Link
           href="/"
@@ -11,6 +11,6 @@ export default function NotFound() {
           Go to homepage
         </Link>
       </section>
-    </main>
+    </div>
   );
 }

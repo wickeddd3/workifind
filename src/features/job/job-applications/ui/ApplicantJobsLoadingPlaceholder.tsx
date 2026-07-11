@@ -1,6 +1,6 @@
 export function ApplicantJobsLoadingPlaceholder() {
   return (
-    <main className="m-auto w-full animate-pulse space-y-6 px-4">
+    <div className="m-auto w-full animate-pulse space-y-6 px-4">
       <h1 className="h-8 w-1/4 rounded bg-gray-200"></h1>
       <div className="flex flex-col gap-2">
         {Array.from({ length: 5 }).map((_, index) => (
@@ -23,6 +23,6 @@ export function ApplicantJobsLoadingPlaceholder() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

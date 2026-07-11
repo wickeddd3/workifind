@@ -7,17 +7,21 @@ export const socialLinks = [
   {
     icon: FaSquareFacebook,
     url: "/",
+    label: "Facebook",
   },
   {
     icon: FaLinkedin,
     url: "/",
+    label: "LinkedIn",
   },
   {
     icon: FaInstagram,
     url: "/",
+    label: "Instagram",
   },
   {
     icon: FaXTwitter,
     url: "/",
+    label: "X (Twitter)",
   },
 ];

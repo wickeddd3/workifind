@@ -46,9 +46,10 @@ export const DynamicListField = <T extends FieldValues>({
           variant="link"
           size="icon"
           type="button"
+          aria-label={`Remove ${label.toLowerCase()} ${index + 1}`}
           onClick={() => remove(index)}
         >
-          <XIcon size="16px" />
+          <XIcon size="16px" aria-hidden="true" />
         </Button>
       </FormItem>
     ))}
@@ -59,7 +60,7 @@ export const DynamicListField = <T extends FieldValues>({
       className="flex items-center gap-2 self-start px-0"
       onClick={append}
     >
-      <PlusIcon size="16px" />
+      <PlusIcon size="16px" aria-hidden="true" />
       <span className="text-xs">Add {label.toLowerCase()}</span>
     </Button>
   </div>

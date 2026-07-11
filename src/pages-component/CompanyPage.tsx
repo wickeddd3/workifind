@@ -10,7 +10,7 @@ export async function CompanyPage({ slug }: { slug: string }) {
   if (!employer) notFound();
 
   return (
-    <main className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4">
+    <div className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4">
       <EmployerHeader
         companyName={employer.companyName}
         companyEmail={employer.companyEmail}
@@ -18,6 +18,6 @@ export async function CompanyPage({ slug }: { slug: string }) {
         companyLogoUrl={employer.companyLogoUrl}
       />
       <EmployerTabs employer={employer} />
-    </main>
+    </div>
   );
 }

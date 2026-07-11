@@ -23,8 +23,8 @@ export function Footer() {
               ))}
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2">
-              {socialLinks.map(({ icon, url }, index) => (
-                <SocialLink icon={icon} url={url} key={index} />
+              {socialLinks.map(({ icon, url, label }, index) => (
+                <SocialLink icon={icon} url={url} label={label} key={index} />
               ))}
             </div>
           </div>

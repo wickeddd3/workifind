@@ -130,7 +130,12 @@ export function JobFilter({
                 />
               </div>
               <Button className="col-span-2 mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:col-span-1 md:my-0">
-                <SearchIcon size={18} color="#ffffff" strokeWidth={3} />
+                <SearchIcon
+                  size={18}
+                  strokeWidth={3}
+                  className="text-white"
+                  aria-hidden="true"
+                />
                 <span className="text-sm font-bold uppercase tracking-wider text-white">
                   Search
                 </span>

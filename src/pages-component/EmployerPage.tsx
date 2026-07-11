@@ -13,7 +13,7 @@ export async function EmployerPage() {
   if (!employer) notFound();
 
   return (
-    <section className="flex flex-col space-y-6 px-4">
+    <section className="mx-auto my-6 flex max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
       <EmployerHeader
         companyName={employer.companyName}
         companyEmail={employer.companyEmail}

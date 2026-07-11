@@ -23,12 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.8,
     },
-    {
-      url: `${SITE_URL}/professionals`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.6,
-    },
   ];
 
   try {

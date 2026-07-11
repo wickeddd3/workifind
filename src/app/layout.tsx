@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
 import { Footer } from "@/widgets/footer";
 import { Navbar } from "@/widgets/navbar";
 
@@ -24,14 +25,23 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "workifind",
-    template: "%s | workifind",
+    default: `${SITE_NAME} — Find your next role`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "Find your dream job",
+  description: SITE_DESCRIPTION,
   generator: "Next.js",
-  applicationName: "workifind",
+  applicationName: SITE_NAME,
   referrer: "origin-when-cross-origin",
-  keywords: ["Next.js", "React", "Typescript"],
+  keywords: [
+    "jobs",
+    "job search",
+    "careers",
+    "hiring",
+    "find a job",
+    "job board",
+    "employment",
+    "recruitment",
+  ],
   authors: [
     { name: "Philip", url: "https://philip-andrew-portfolio.netlify.app" },
   ],
@@ -42,22 +52,41 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://workifind.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: "/",
-    languages: {
-      "en-US": "/en-US",
-      "de-DE": "/de-DE",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
-    title: "workifind",
-    description: "Find your dream job",
-    url: "https://workifind.vercel.app",
-    siteName: "workifind",
-    images: "/og-image.png",
+    title: `${SITE_NAME} — Find your next role`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1895,
+        height: 937,
+        alt: "workifind — connecting talent with opportunity",
+      },
+    ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Find your next role`,
+    description: SITE_DESCRIPTION,
+    images: ["/og-image.png"],
   },
 };
 

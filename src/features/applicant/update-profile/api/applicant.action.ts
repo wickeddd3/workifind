@@ -15,7 +15,8 @@ export async function updateApplicantAction(
     if (!userId) throw new Error("Unauthorized");
 
     const sanitizedData = mapApplicantForm(formData);
-    const applicant = await updateApplicant(id, sanitizedData);
+    // The write is scoped by userId; `id` is ignored for authorization.
+    const applicant = await updateApplicant(userId, sanitizedData);
 
     return { success: true, data: applicant, message: "Update successfully" };
   } catch (error) {

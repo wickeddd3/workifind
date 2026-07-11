@@ -18,17 +18,20 @@ export async function updateEmployerAction(
 
     const sanitizedData = mapEmployerForm(formData);
 
-    // Upload company logo and generate companyLogoUrl
-    let companyLogoUrl = null;
+    // Only replace the logo when a new one was uploaded successfully.
+    // Omitting the field leaves the existing companyLogoUrl untouched
+    // instead of wiping it on every profile update.
+    let logoUpdate: { companyLogoUrl?: string } = {};
     if (formData.companyLogo) {
       const imageUrl = await uploadEmployerLogo(formData.companyLogo);
-      companyLogoUrl = imageUrl; // Get the uploaded file URL
+      if (imageUrl) logoUpdate = { companyLogoUrl: imageUrl };
     }
 
-    const employer = await updateEmployer(id, {
+    // The write is scoped by userId; `id` is ignored for authorization.
+    const employer = await updateEmployer(userId, {
       ...sanitizedData,
       userId,
-      companyLogoUrl,
+      ...logoUpdate,
     });
 
     // Clerk user role assignment

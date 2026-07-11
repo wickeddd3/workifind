@@ -1,6 +1,7 @@
 "use server";
 
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { getApplicant } from "@/entities/applicant";
 import type { JobApplicationSchemaType } from "../model/schema";
 import type { JobApplication } from "@prisma/client";
 import { saveJobApplication } from "./job-application.service";
@@ -14,10 +15,17 @@ export async function saveJobApplicationAction(
     const { userId } = await getAuthUser();
     if (!userId) throw new Error("Unauthorized");
 
+    // Ownership check: the application must be filed under the caller's own
+    // applicant profile, not an arbitrary client-supplied applicantId.
+    const applicant = await getApplicant(userId);
+    if (!applicant || applicant.id !== applicantId) {
+      throw new Error("Forbidden");
+    }
+
     const jobApplication = await saveJobApplication({
       ...formData,
       userId,
-      applicantId,
+      applicantId: applicant.id,
       jobId,
     });
 

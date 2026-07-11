@@ -1,6 +1,7 @@
 "use server";
 
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { getApplicant } from "@/entities/applicant";
 import { saveJob, unsaveJob } from "./saved-job.service";
 import { revalidatePath } from "next/cache";
 
@@ -14,6 +15,8 @@ export async function toggleSaveJobAction(
     if (!userId) throw new Error("Unauthorized");
 
     if (isCurrentlySaved) {
+      // unsaveJob is already scoped by userId, so it can only remove the
+      // caller's own saved rows.
       await unsaveJob(userId, jobId);
       revalidatePath(`/jobs/${jobId}`);
       return {
@@ -22,7 +25,13 @@ export async function toggleSaveJobAction(
         message: "Unsaved successfully",
       };
     } else {
-      await saveJob({ userId, applicantId, jobId });
+      // Ownership check: only allow saving under the caller's own applicant.
+      const applicant = await getApplicant(userId);
+      if (!applicant || applicant.id !== applicantId) {
+        throw new Error("Forbidden");
+      }
+
+      await saveJob({ userId, applicantId: applicant.id, jobId });
       revalidatePath(`/jobs/${jobId}`);
       return {
         success: true,

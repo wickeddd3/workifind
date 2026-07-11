@@ -52,14 +52,14 @@ export function JobForm({ employerId }: { employerId: number }) {
   }
 
   return (
-    <div className="m-auto space-y-6 px-4">
+    <div className="m-auto my-6 max-w-3xl space-y-6 px-4">
       <div>
         <h1 className="text-md font-semibold">Create a new job post</h1>
         <p className="text-sm text-muted-foreground">
           Get your job posting seen by thousands of job seekers.
         </p>
       </div>
-      <div className="space-y-6 rounded-lg border p-4">
+      <div className="space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card">
         <div>
           <h2 className="font-semibold">Job details</h2>
           <p className="text-muted-foreground">

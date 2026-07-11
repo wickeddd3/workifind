@@ -122,9 +122,9 @@ export function ProfileForm({
   const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
 
   return (
-    <div className="m-auto space-y-6 px-4">
+    <div className="m-auto my-6 max-w-3xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
       <div>
-        <h2 className="text-md font-semibold">Profile profile</h2>
+        <h2 className="text-md font-semibold">Applicant profile</h2>
         <p className="text-sm text-muted-foreground">Manage profile details</p>
       </div>
       <hr />

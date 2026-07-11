@@ -68,6 +68,20 @@ services:
       sh -c "npx prisma generate &&
             npx prisma migrate deploy &&
             npm run dev"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/api/health",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     volumes:
       - .:/app # This mounts the current directory to /app in the container
       - /app/node_modules # This prevents local node_modules from overwriting container ones

@@ -53,13 +53,13 @@ export function HomeJobFilter({
       <div className="mx-auto flex h-full w-full max-w-7xl">
         <div className="flex w-full flex-col gap-4 px-3 lg:w-3/5 lg:gap-14">
           <div className="flex w-full flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <BriefcaseBusiness size={20} color="#4635c1" aria-hidden="true" />
-              <p className="text-sm font-medium text-gray-700 md:text-md lg:text-lg">
+            <div className="flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-1.5">
+              <BriefcaseBusiness size={18} color="#4635c1" aria-hidden="true" />
+              <p className="text-xs font-semibold text-indigo-700 md:text-sm">
                 Find the best jobs in workifind
               </p>
             </div>
-            <h1 className="w-full text-balance text-3xl font-bold text-gray-900 md:text-4xl md:leading-[4rem] lg:text-5xl">
+            <h1 className="w-full text-balance text-3xl font-bold tracking-tight text-gray-900 md:text-4xl md:leading-[4rem] lg:text-5xl">
               Connecting talents with opportunities
             </h1>
           </div>
@@ -109,7 +109,7 @@ export function HomeJobFilter({
             <form
               action={handleFilterJobs}
               key={JSON.stringify(defaultValues)}
-              className="h-full w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
+              className="h-full w-full rounded-xl border border-gray-100 bg-white p-4 shadow-card"
             >
               <div className="w-full space-y-4">
                 <div className="grid w-full grid-cols-1 items-center gap-2 md:grid-cols-3">

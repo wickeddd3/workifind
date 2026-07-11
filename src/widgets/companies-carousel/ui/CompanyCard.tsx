@@ -11,7 +11,7 @@ export function CompanyCard({
 }) {
   return (
     <Link href={`/companies/${slug}`}>
-      <div className="flex h-[200px] min-w-[250px] flex-col space-y-2 rounded-xl bg-gray-50 p-4 shadow-sm hover:bg-gray-100 md:h-[208px]">
+      <div className="flex h-[200px] min-w-[250px] flex-col space-y-2 rounded-xl border border-gray-100 bg-white p-4 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover md:h-[208px]">
         <Image
           src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
           width={80}
@@ -23,13 +23,11 @@ export function CompanyCard({
           <h3 className="truncate text-wrap text-sm font-semibold text-gray-900 md:text-md">
             {companyName}
           </h3>
-          <h4 className="truncate text-wrap text-xs font-normal text-gray-900 md:text-sm">
+          <p className="truncate text-wrap text-xs font-normal text-gray-600 md:text-sm">
             {industry}
-          </h4>
-          <span className="flex w-fit rounded-xl bg-gray-200 px-2">
-            <span className="w-full p-1 text-xs font-semibold">
-              {jobsCount || 0} jobs
-            </span>
+          </p>
+          <span className="w-fit rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+            {jobsCount || 0} jobs
           </span>
         </div>
       </div>

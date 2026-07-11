@@ -23,7 +23,7 @@ export function ApplicantPreferences({
   return (
     <div className="flex flex-col space-y-4">
       <SectionHeading>About my next role</SectionHeading>
-      <div className="flex flex-col gap-2 rounded-xl border-2 border-gray-100 p-4">
+      <div className="flex flex-col gap-2 rounded-xl border border-gray-100 p-4 shadow-soft">
         {availability && (
           <div className="flex flex-col gap-2">
             <MediumText>Availability</MediumText>

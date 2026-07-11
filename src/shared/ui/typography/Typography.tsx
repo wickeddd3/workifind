@@ -25,9 +25,19 @@ export const Heading3 = ({ children, className }: TypographyProps) => (
 
 // Section-level heading used for content sections that sit under a page's
 // primary heading. Renders an <h2> so heading order stays valid (no level
-// skips) while keeping the level-4 visual scale.
+// skips) while keeping the level-4 visual scale. A small indigo accent bar
+// gives profile/detail sections consistent visual structure.
 export const SectionHeading = ({ children, className }: TypographyProps) => (
-  <h2 className={cn("text-md font-medium md:text-xl", className)}>
+  <h2
+    className={cn(
+      "flex items-center gap-2.5 text-md font-medium md:text-xl",
+      className,
+    )}
+  >
+    <span
+      aria-hidden="true"
+      className="h-5 w-1 shrink-0 rounded-full bg-indigo-500 md:h-6"
+    />
     {children}
   </h2>
 );

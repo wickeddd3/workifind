@@ -9,9 +9,9 @@ export async function SuggestedProfessionals() {
       <h2 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
         Explore professionals
       </h2>
-      <h5 className="text-sm font-normal text-gray-700 md:text-md">
-        Learn about new jobs and company culture.
-      </h5>
+      <p className="text-sm font-normal text-gray-600 md:text-md">
+        Discover skilled professionals ready for their next role.
+      </p>
       <div className="flex py-4">
         <ProfessionalsCarousel professionals={professionals.data || []} />
       </div>

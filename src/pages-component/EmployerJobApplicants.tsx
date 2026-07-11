@@ -15,7 +15,7 @@ export async function EmployerJobApplicants({ id }: { id: number }) {
   if (!job) notFound();
 
   return (
-    <section className="m-auto space-y-6 px-0 md:px-4">
+    <section className="m-auto my-6 max-w-4xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
       <JobHeader job={job} />
       <Tabs defaultValue="applicants" className="w-full shadow-none">
         <TabsList className="w-full justify-start rounded-none border-b-2 border-gray-200 bg-white p-0 shadow-none">

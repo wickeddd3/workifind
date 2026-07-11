@@ -66,7 +66,7 @@ export function ProfileForm() {
   }
 
   return (
-    <div className="space-y-6 rounded-lg border p-4">
+    <div className="space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card">
       <div>
         <h2 className="text-md font-semibold">Profile details</h2>
         <p className="text-sm text-muted-foreground">

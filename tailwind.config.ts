@@ -115,6 +115,27 @@ const config = {
         "colored-shapes": "url('/colored-shapes.svg')",
         "not-found": "url('/not-found.svg')",
       },
+      fontFamily: {
+        sans: [
+          "var(--font-inter)",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+      },
+      boxShadow: {
+        // Soft, layered elevations that read more premium than the default
+        // hard shadows. Used across cards and interactive surfaces.
+        soft: "0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06)",
+        card: "0 1px 3px 0 rgb(15 23 42 / 0.05), 0 6px 16px -4px rgb(15 23 42 / 0.06)",
+        "card-hover":
+          "0 4px 12px -2px rgb(15 23 42 / 0.08), 0 12px 28px -6px rgb(15 23 42 / 0.10)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

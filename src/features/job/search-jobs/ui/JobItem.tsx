@@ -28,7 +28,7 @@ export function JobItem({
   job: Job;
 }) {
   return (
-    <article className="flex cursor-pointer gap-3 rounded-lg border p-3 hover:bg-muted/60">
+    <article className="flex cursor-pointer gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-200 hover:shadow-card">
       <div className="flex-grow space-y-3">
         {companyLogoUrl && (
           <Image

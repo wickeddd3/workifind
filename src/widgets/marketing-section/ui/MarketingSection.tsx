@@ -5,7 +5,7 @@ export function MarketingSection() {
   return (
     <section className="grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="h-full w-full">
-        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl bg-gray-50 p-4 md:flex-row md:flex-nowrap md:justify-between md:p-4">
+        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
           <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
             Search for better career and salary
           </h2>
@@ -15,7 +15,7 @@ export function MarketingSection() {
         </div>
       </div>
       <div className="h-full w-full">
-        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl bg-gray-50 p-4 md:flex-row md:flex-nowrap md:justify-between md:p-4">
+        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
           <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
             Hire talents that match your preference
           </h2>

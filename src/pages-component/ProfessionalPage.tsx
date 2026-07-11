@@ -16,9 +16,9 @@ export async function ProfessionalPage({ id }: { id: string }) {
   if (!applicant) notFound();
 
   return (
-    <section className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4 pb-8">
+    <section className="mx-auto my-6 flex h-full max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
       <ApplicantHeader applicant={applicant} as="h1" />
-      <div className="flex flex-col gap-4 px-4 md:px-8">
+      <div className="flex flex-col gap-6">
         <ApplicantBio bio={applicant.about} />
         <ApplicantSkills skills={applicant.skills} />
         <ApplicantLanguages languages={applicant.languages} />

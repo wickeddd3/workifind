@@ -1,3 +1,9 @@
+export interface SearchHistoryItem {
+  created: Date;
+  query: string;
+  title: string;
+}
+
 interface useSearchHistoryProps {
   localStorageName: string;
 }
@@ -5,10 +11,10 @@ interface useSearchHistoryProps {
 export function useSearchHistory({
   localStorageName = "search-history",
 }: useSearchHistoryProps) {
-  function getSearchFilterHistory() {
+  function getSearchFilterHistory(): SearchHistoryItem[] {
     const history = window.localStorage.getItem(localStorageName);
     if (history) {
-      return JSON.parse(history);
+      return JSON.parse(history) as SearchHistoryItem[];
     }
     return [];
   }
@@ -26,7 +32,7 @@ export function useSearchHistory({
       // If local storage name exist add the searchFilter to the existing history array
       // Push the searchFilter to the existing history array
       // Lastly set the updated existingHistory array to the existing localStorage
-      const existingHistory = [...JSON.parse(history)];
+      const existingHistory = JSON.parse(history) as SearchHistoryItem[];
       existingHistory.push({
         created: new Date(),
         query: searchFilter,
@@ -57,9 +63,9 @@ export function useSearchHistory({
     // Remove the searchFilter from the history array using the searchFilter index
     // Lastly set the updated existingHistory array to the existing localStorage
     if (history) {
-      const existingHistory = JSON.parse(history);
+      const existingHistory = JSON.parse(history) as SearchHistoryItem[];
       const searchFilterIndex = existingHistory.findIndex(
-        (item: { created: Date; query: string }) => item.query === searchFilter,
+        (item) => item.query === searchFilter,
       );
       if (searchFilterIndex >= 0) {
         existingHistory.splice(searchFilterIndex, 1);

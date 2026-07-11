@@ -8,10 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Button } from "@/shared/ui/button";
 
+import type { SearchHistoryItem } from "../model/useSearchHistory";
 import { useSearchHistory } from "../model/useSearchHistory";
 
 export function SearchHistory() {
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState<SearchHistoryItem[]>([]);
   const { getSearchFilterHistory, removeSearchFilter, clearSearchFilters } =
     useSearchHistory({
       localStorageName: "workifind.search-history",
@@ -33,7 +34,10 @@ export function SearchHistory() {
   }
 
   useEffect(() => {
+    // Load persisted history once on mount; the hook's reader is stable in
+    // behavior even though its identity changes each render.
     setHistory(getSearchFilterHistory());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -64,37 +68,32 @@ export function SearchHistory() {
               prevEl: ".custom-prev",
             }}
           >
-            {history.map(
-              (
-                item: { title: string; query: string; created: Date },
-                index,
-              ) => (
-                <SwiperSlide
-                  style={{ width: "190px" }}
-                  key={`${index}-${item.title}-${JSON.stringify(item.created)}`}
+            {history.map((item, index) => (
+              <SwiperSlide
+                style={{ width: "190px" }}
+                key={`${index}-${item.title}-${JSON.stringify(item.created)}`}
+              >
+                <Link
+                  href={item?.query}
+                  key={`${item?.query}-${index}`}
+                  className="flex cursor-pointer items-center justify-between gap-4 rounded-lg bg-gray-100 px-3 py-1 hover:bg-gray-200"
                 >
-                  <Link
-                    href={item?.query}
-                    key={`${item?.query}-${index}`}
-                    className="flex cursor-pointer items-center justify-between gap-4 rounded-lg bg-gray-100 px-3 py-1 hover:bg-gray-200"
+                  <div className="flex items-center gap-2">
+                    <SearchIcon size={15} />
+                    <span className="truncate text-sm font-medium text-gray-900">
+                      {item?.title}
+                    </span>
+                  </div>
+                  <Button
+                    size="icon"
+                    className="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-300"
+                    onClick={(e) => handleRemoveSearchFilter(e, item?.query)}
                   >
-                    <div className="flex items-center gap-2">
-                      <SearchIcon size={15} />
-                      <span className="truncate text-sm font-medium text-gray-900">
-                        {item?.title}
-                      </span>
-                    </div>
-                    <Button
-                      size="icon"
-                      className="h-7 w-7 rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-300"
-                      onClick={(e) => handleRemoveSearchFilter(e, item?.query)}
-                    >
-                      <X size={14} />
-                    </Button>
-                  </Link>
-                </SwiperSlide>
-              ),
-            )}
+                    <X size={14} />
+                  </Button>
+                </Link>
+              </SwiperSlide>
+            ))}
           </Swiper>
           <button className="custom-next cursor-pointer rounded-lg border border-gray-100 px-3 py-2 hover:bg-gray-50">
             <ChevronRight size={18} />

@@ -19,7 +19,7 @@ export async function JobPage({ slug }: { slug: string }) {
   const hasOption = role === "APPLICANT" && applicant && userId;
 
   return (
-    <section className="mx-auto my-6 h-full w-full max-w-4xl grow space-y-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+    <section className="mx-3 my-6 h-full w-full max-w-4xl grow space-y-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:mx-auto md:p-8">
       <JobHeader
         job={job}
         optionSlot={

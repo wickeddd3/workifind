@@ -10,7 +10,7 @@ export async function CompanyPage({ slug }: { slug: string }) {
   if (!employer) notFound();
 
   return (
-    <div className="mx-auto my-6 flex h-full max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+    <div className="mx-3 my-6 flex h-full max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:mx-auto md:p-8">
       <EmployerHeader
         as="h1"
         companyName={employer.companyName}

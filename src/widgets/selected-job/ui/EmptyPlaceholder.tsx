@@ -4,7 +4,7 @@ import IconNoSelected from "@/shared/ui/icons/IconNoSelected";
 
 export function EmptyPlaceholder() {
   return (
-    <section className="h-[100vh] w-full grow rounded-xl bg-gray-50 p-12">
+    <section className="h-full min-h-[400px] w-full grow rounded-xl bg-gray-50 p-6 md:p-10">
       <div className="mx-auto w-full">
         <div className="flex gap-4">
           <div className="py-0 lg:py-1">

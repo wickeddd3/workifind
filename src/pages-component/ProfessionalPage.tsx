@@ -17,7 +17,7 @@ export async function ProfessionalPage({ id }: { id: string }) {
 
   return (
     <section className="mx-auto flex h-full max-w-4xl flex-col space-y-6 p-4 pb-8">
-      <ApplicantHeader applicant={applicant} />
+      <ApplicantHeader applicant={applicant} as="h1" />
       <div className="flex flex-col gap-4 px-4 md:px-8">
         <ApplicantBio bio={applicant.about} />
         <ApplicantSkills skills={applicant.skills} />

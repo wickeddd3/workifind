@@ -16,11 +16,11 @@ export function ApplicantLoadingPlaceholder() {
       </div>
       <div className="flex flex-col gap-6 px-8">
         <div className="flex flex-col space-y-4">
-          <h1 className="h-6 w-[110px] rounded bg-gray-200"></h1>
-          <h1 className="h-32 w-full rounded bg-gray-200"></h1>
+          <div className="h-6 w-[110px] rounded bg-gray-200"></div>
+          <div className="h-32 w-full rounded bg-gray-200"></div>
         </div>
         <div className="flex flex-col space-y-4">
-          <h1 className="h-6 w-[110px] rounded bg-gray-200"></h1>
+          <div className="h-6 w-[110px] rounded bg-gray-200"></div>
           <div className="flex flex-wrap gap-2">
             {Array.from({ length: 4 }).map((_, index) => (
               <span
@@ -31,7 +31,7 @@ export function ApplicantLoadingPlaceholder() {
           </div>
         </div>
         <div className="flex flex-col space-y-4">
-          <h1 className="h-6 w-[110px] rounded bg-gray-200"></h1>
+          <div className="h-6 w-[110px] rounded bg-gray-200"></div>
           <div className="flex flex-wrap gap-2">
             {Array.from({ length: 2 }).map((_, index) => (
               <span className="h-4 w-24 bg-gray-200" key={index}></span>
@@ -39,11 +39,11 @@ export function ApplicantLoadingPlaceholder() {
           </div>
         </div>
         <div className="flex flex-col space-y-4">
-          <h1 className="h-6 w-[110px] rounded bg-gray-200"></h1>
+          <div className="h-6 w-[110px] rounded bg-gray-200"></div>
           <div className="flex flex-col gap-6 rounded-xl border-2 border-gray-100 p-4">
             {Array.from({ length: 5 }).map((_, index) => (
               <div className="flex flex-col gap-3" key={index}>
-                <h1 className="h-5 w-[170px] rounded bg-gray-200"></h1>
+                <div className="h-5 w-[170px] rounded bg-gray-200"></div>
                 <span className="h-3 w-[140px] rounded bg-gray-200"></span>
               </div>
             ))}

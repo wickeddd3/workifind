@@ -52,7 +52,7 @@ export function JobForm({ employerId }: { employerId: number }) {
   }
 
   return (
-    <main className="m-auto space-y-6 px-4">
+    <div className="m-auto space-y-6 px-4">
       <div>
         <h1 className="text-md font-semibold">Create a new job post</h1>
         <p className="text-sm text-muted-foreground">
@@ -123,6 +123,6 @@ export function JobForm({ employerId }: { employerId: number }) {
           </form>
         </Form>
       </div>
-    </main>
+    </div>
   );
 }

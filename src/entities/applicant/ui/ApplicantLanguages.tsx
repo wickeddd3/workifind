@@ -1,4 +1,4 @@
-import { Heading4 } from "@/shared/ui/typography/Typography";
+import { SectionHeading } from "@/shared/ui/typography/Typography";
 
 export function ApplicantLanguages({
   languages,
@@ -10,7 +10,7 @@ export function ApplicantLanguages({
   return (
     hasLanguages && (
       <div className="flex flex-col space-y-4">
-        <Heading4>Languages</Heading4>
+        <SectionHeading>Languages</SectionHeading>
         <span className="text-sm text-gray-900">
           {languages?.map((item) => item?.name).join(", ")}
         </span>

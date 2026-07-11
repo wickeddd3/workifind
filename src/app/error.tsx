@@ -19,7 +19,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="m-auto flex h-[70vh] w-full max-w-7xl flex-col items-center justify-center gap-4 px-4 text-center md:h-[80vh]">
+    <div className="m-auto flex h-[70vh] w-full max-w-7xl flex-col items-center justify-center gap-4 px-4 text-center md:h-[80vh]">
       <h1 className="text-2xl font-bold">Something went wrong</h1>
       <p className="max-w-md text-muted-foreground">
         An unexpected error occurred. You can try again, or head back to the
@@ -36,6 +36,6 @@ export default function Error({
           <a href="/">Go to homepage</a>
         </Button>
       </div>
-    </main>
+    </div>
   );
 }

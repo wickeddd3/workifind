@@ -122,7 +122,7 @@ export function ProfileForm({
   const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
 
   return (
-    <main className="m-auto space-y-6 px-4">
+    <div className="m-auto space-y-6 px-4">
       <div>
         <h2 className="text-md font-semibold">Profile profile</h2>
         <p className="text-sm text-muted-foreground">Manage profile details</p>
@@ -233,6 +233,6 @@ export function ProfileForm({
           </LoadingButton>
         </form>
       </Form>
-    </main>
+    </div>
   );
 }

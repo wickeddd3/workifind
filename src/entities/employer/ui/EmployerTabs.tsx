@@ -10,13 +10,13 @@ export function EmployerTabs({ employer }: { employer: Employer }) {
       <TabsList className="w-full justify-start rounded-none border-b-2 border-gray-200 bg-white p-0 shadow-none">
         <TabsTrigger
           value="about"
-          className="mr-8 rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-400 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="mr-8 rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-500 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
         >
           About
         </TabsTrigger>
         <TabsTrigger
           value="culture"
-          className="rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-400 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-500 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
         >
           Life and culture
         </TabsTrigger>

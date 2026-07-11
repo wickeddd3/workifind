@@ -1,7 +1,7 @@
-import { SearchJumbotron } from "@/widgets/search-jumbotron";
-import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
-import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
 import { searchProfessionalsAction } from "@/features/applicant/search-professionals";
+import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
+import { SearchJumbotron } from "@/widgets/search-jumbotron";
+import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
 
 export async function ProfessionalsPage() {
   return (

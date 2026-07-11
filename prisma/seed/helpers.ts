@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { clerkClient } from "@clerk/nextjs/server";
+import { PrismaClient } from "@prisma/client";
 
 /* -------------------------------------------------------------------------- */
 /*  Config                                                                     */

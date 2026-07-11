@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
+
+import { cn } from "@/shared/lib/utils";
 
 export function SavedJobsPagination({
   currentPage,

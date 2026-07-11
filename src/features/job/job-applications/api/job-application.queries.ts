@@ -1,4 +1,5 @@
 import type { JobApplication } from "@/entities/job-application";
+
 import {
   getJobApplications,
   getJobApplicationsCount,

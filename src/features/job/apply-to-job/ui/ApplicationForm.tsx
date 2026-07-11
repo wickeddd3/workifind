@@ -1,5 +1,10 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { draftToMarkdown } from "markdown-draft-js";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
 import {
   Form,
   FormControl,
@@ -7,18 +12,15 @@ import {
   FormItem,
   FormMessage,
 } from "@/shared/ui/form";
-import RichTextEditor from "@/shared/ui/RichTextEditor";
 import { LoadingButton } from "@/shared/ui/LoadingButton";
-import { draftToMarkdown } from "markdown-draft-js";
-import { useRouter } from "next/navigation";
+import RichTextEditor from "@/shared/ui/RichTextEditor";
 import { useToast } from "@/shared/ui/use-toast";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  type JobApplicationSchemaType,
-  JobApplicationSchema,
-} from "../model/schema";
+
 import { saveJobApplicationAction } from "../api/job-application.action";
+import {
+  JobApplicationSchema,
+  type JobApplicationSchemaType,
+} from "../model/schema";
 
 export function ApplicationForm({
   applicantId,

@@ -1,5 +1,5 @@
-import db from "@/shared/lib/prisma";
 import type { Company } from "@/entities/employer";
+import db from "@/shared/lib/prisma";
 
 export async function getSuggestedCompanies(size: number): Promise<Company[]> {
   try {

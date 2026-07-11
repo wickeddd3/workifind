@@ -1,5 +1,6 @@
-import type { SavedJob } from "@/entities/saved-job";
 import Link from "next/link";
+
+import type { SavedJob } from "@/entities/saved-job";
 
 export function SavedJobListItem({
   savedJob: {

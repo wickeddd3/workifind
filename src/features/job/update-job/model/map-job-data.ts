@@ -1,6 +1,7 @@
+import { nanoid } from "nanoid";
+
 import type { JobSchemaType } from "@/entities/job";
 import { toSlug } from "@/shared/utils/format-text";
-import { nanoid } from "nanoid";
 
 export function mapJobForm(formData: JobSchemaType) {
   // Create slug based on job title

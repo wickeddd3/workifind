@@ -1,5 +1,6 @@
+import { type ReactNode } from "react";
+
 import { cn } from "@/shared/lib/utils";
-import { ReactNode } from "react";
 
 interface TypographyProps {
   children: ReactNode;

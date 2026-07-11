@@ -1,12 +1,14 @@
 "use server";
 
+import type { Applicant } from "@prisma/client";
+
 import { getAuthUser } from "@/shared/lib/clerk.server";
+
+import { mapApplicantForm } from "../model/map-applicant-data";
 import {
   ApplicantProfileSchema,
   type ApplicantProfileSchemaType,
 } from "../model/schema";
-import type { Applicant } from "@prisma/client";
-import { mapApplicantForm } from "../model/map-applicant-data";
 import { createApplicant } from "./applicant.service";
 import { assignApplicantRole } from "./role.service";
 

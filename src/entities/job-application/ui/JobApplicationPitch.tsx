@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { ChevronsUpDown, MessageSquare } from "lucide-react";
+import { useState } from "react";
+
 import { Button } from "@/shared/ui/button";
 import {
   Collapsible,

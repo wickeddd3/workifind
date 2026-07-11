@@ -1,5 +1,8 @@
 "use client";
 
+import { type Control, type FieldValues, type Path } from "react-hook-form";
+
+import { cn } from "@/shared/lib/utils";
 import {
   FormControl,
   FormField,
@@ -8,8 +11,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { Control, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/shared/lib/utils";
 
 interface TextInputFieldProps<T extends FieldValues> {
   control: Control<T>;

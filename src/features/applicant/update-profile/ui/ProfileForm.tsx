@@ -1,28 +1,30 @@
 "use client";
 
-import { Form } from "@/shared/ui/form";
-import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
-import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
-import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
-import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
-import { LoadingButton } from "@/shared/ui/LoadingButton";
-import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/shared/ui/use-toast";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import { type Applicant } from "@/entities/applicant";
 import {
-  EMPLOYMENT_TYPES,
   AVAILABILITY_TYPES,
+  EMPLOYMENT_TYPES,
   LOCATION_TYPES,
   WORK_EXPERIENCE_TYPES,
 } from "@/shared/constants/tags";
-import { type Applicant } from "@/entities/applicant";
+import { Form } from "@/shared/ui/form";
+import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
+import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
+import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
+import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
+import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { LoadingButton } from "@/shared/ui/LoadingButton";
+import { useToast } from "@/shared/ui/use-toast";
+
+import { updateApplicantAction } from "../api/applicant.action";
 import {
   ApplicantProfileSchema,
   type ApplicantProfileSchemaType,
 } from "../model/schema";
-import { updateApplicantAction } from "../api/applicant.action";
 
 export function ProfileForm({
   applicant: {

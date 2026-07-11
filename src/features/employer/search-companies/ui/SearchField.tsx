@@ -1,5 +1,6 @@
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
+
 import { searchCompaniesAction } from "../api/companies.action";
 
 export function SearchField({ query }: { query: string }) {

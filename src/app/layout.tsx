@@ -1,12 +1,14 @@
+import "./globals.css";
+
+import { ClerkProvider } from "@clerk/nextjs";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter, Open_Sans } from "next/font/google";
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import { Navbar } from "@/widgets/navbar";
+
 import { Footer } from "@/widgets/footer";
+import { Navbar } from "@/widgets/navbar";
 
 const inter = Inter({
   subsets: ["latin"],

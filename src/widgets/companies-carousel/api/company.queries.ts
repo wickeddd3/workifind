@@ -1,6 +1,7 @@
 "use server";
 
 import type { Company } from "@/entities/employer";
+
 import { getSuggestedCompanies } from "./company.service";
 
 export async function getSuggestedCompaniesQuery(queryParams: {

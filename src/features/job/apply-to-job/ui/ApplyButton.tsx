@@ -1,7 +1,8 @@
-import { Button } from "@/shared/ui/button";
 import { CircleCheckBig } from "lucide-react";
 import Link from "next/link";
+
 import type { Job } from "@/entities/job";
+import { Button } from "@/shared/ui/button";
 
 export function ApplyButton({
   job,

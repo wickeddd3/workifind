@@ -1,4 +1,5 @@
 import prisma from "@/shared/lib/prisma";
+
 import type { Job } from "../model/types";
 
 export async function getJob(id: number): Promise<Job | null> {

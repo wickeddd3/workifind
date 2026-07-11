@@ -1,6 +1,7 @@
+import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
+
 import { getSuggestedCompaniesQuery } from "../api/company.queries";
 import { CompaniesCarousel } from "./CompaniesCarousel";
-import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
 
 export async function SuggestedCompanies({
   hasSeeMoreButton = false,

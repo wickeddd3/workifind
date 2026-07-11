@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
-import employersJson from "./employers.data.json";
+
 import applicantsJson from "./applicants.data.json";
+import employersJson from "./employers.data.json";
 import jobsJson from "./jobs.data.json";
 
 /* -------------------------------------------------------------------------- */

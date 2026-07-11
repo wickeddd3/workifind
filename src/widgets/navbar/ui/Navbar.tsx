@@ -1,19 +1,21 @@
-import Link from "next/link";
-import { Button } from "@/shared/ui/button";
 import {
   SignedIn,
   SignedOut,
-  UserButton,
   SignInButton,
   SignUpButton,
+  UserButton,
 } from "@clerk/nextjs";
-import { PostJobButton } from "./PostJobButton";
-import { NavLink } from "./NavLink";
-import { menuLinks } from "../model/navbar-links";
+import Link from "next/link";
+
 import { getAuthUser } from "@/shared/lib/clerk.server";
-import { ProfileNavLink } from "./ProfileNavLink";
+import { Button } from "@/shared/ui/button";
+
 import { profileRoute } from "../model/get-profile-route";
+import { menuLinks } from "../model/navbar-links";
 import { MobileMenu } from "./MobileMenu";
+import { NavLink } from "./NavLink";
+import { PostJobButton } from "./PostJobButton";
+import { ProfileNavLink } from "./ProfileNavLink";
 
 export async function Navbar() {
   const { role } = await getAuthUser();

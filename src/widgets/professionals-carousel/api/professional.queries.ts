@@ -1,6 +1,7 @@
 "use server";
 
 import type { Applicant } from "@prisma/client";
+
 import { getSuggestedProfessionals } from "./professional.service";
 
 export async function getSuggestedProfessionalsQuery(queryParams: {

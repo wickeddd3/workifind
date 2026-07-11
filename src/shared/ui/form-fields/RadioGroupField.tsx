@@ -1,5 +1,8 @@
 "use client";
 
+import { type Control, type FieldValues, type Path } from "react-hook-form";
+
+import { cn } from "@/shared/lib/utils";
 import {
   FormControl,
   FormField,
@@ -8,8 +11,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
-import { Control, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/shared/lib/utils";
 
 interface RadioGroupFieldProps<T extends FieldValues> {
   control: Control<T>;

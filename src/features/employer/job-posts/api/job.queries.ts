@@ -1,4 +1,5 @@
 import type { EmployerJob } from "@/entities/job";
+
 import { getJobs, getJobsCount } from "./job.service";
 
 export async function getJobsQuery(

@@ -1,4 +1,5 @@
 import type { JobApplication } from "@/entities/job";
+
 import { JobApplicationItem } from "./JobApplicationItem";
 
 export function JobApplications({

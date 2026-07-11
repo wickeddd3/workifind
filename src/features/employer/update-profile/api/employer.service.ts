@@ -1,5 +1,6 @@
+import type { Employer, Prisma } from "@prisma/client";
+
 import db from "@/shared/lib/prisma";
-import type { Prisma, Employer } from "@prisma/client";
 
 export async function updateEmployer(
   userId: string,

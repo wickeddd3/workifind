@@ -1,6 +1,7 @@
-import { cn } from "@/shared/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { forwardRef } from "react";
+
+import { cn } from "@/shared/lib/utils";
 
 export default forwardRef<
   HTMLSelectElement,

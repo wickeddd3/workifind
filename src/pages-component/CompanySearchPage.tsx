@@ -1,6 +1,6 @@
 import {
-  SearchField,
   SearchContent,
+  SearchField,
 } from "@/features/employer/search-companies";
 
 export async function CompanySearchPage({

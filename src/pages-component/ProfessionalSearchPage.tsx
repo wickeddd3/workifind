@@ -1,6 +1,6 @@
 import {
-  SearchField,
   SearchContent,
+  SearchField,
 } from "@/features/applicant/search-professionals";
 
 export async function ProfessionalSearchPage({

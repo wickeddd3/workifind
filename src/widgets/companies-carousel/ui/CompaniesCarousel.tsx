@@ -1,9 +1,11 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { CompanyCard } from "./CompanyCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import type { Company } from "@/entities/employer";
+
+import { CompanyCard } from "./CompanyCard";
 
 export function CompaniesCarousel({
   companies = [],

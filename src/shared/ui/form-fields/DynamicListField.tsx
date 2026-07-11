@@ -1,17 +1,18 @@
 "use client";
 
+import { PlusIcon, XIcon } from "lucide-react";
+import {
+  type Control,
+  Controller,
+  type FieldArrayWithId,
+  type FieldValues,
+  type Path,
+  type UseFieldArrayRemove,
+} from "react-hook-form";
+
+import { Button } from "@/shared/ui/button";
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import {
-  Control,
-  Controller,
-  FieldArrayWithId,
-  FieldValues,
-  Path,
-  UseFieldArrayRemove,
-} from "react-hook-form";
-import { Button } from "@/shared/ui/button";
-import { PlusIcon, XIcon } from "lucide-react";
 
 interface DynamicListFieldProps<T extends FieldValues> {
   control: Control<T>;

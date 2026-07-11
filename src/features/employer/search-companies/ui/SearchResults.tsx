@@ -1,6 +1,8 @@
 import Link from "next/link";
+
+import { type Company } from "@/entities/employer";
+
 import { SearchResultItem } from "./SearchResultItem";
-import { Company } from "@/entities/employer";
 
 export function SearchResults({ companies }: { companies: Company[] }) {
   return (

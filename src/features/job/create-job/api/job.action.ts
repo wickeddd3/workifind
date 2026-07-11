@@ -1,10 +1,12 @@
 "use server";
 
-import { requireRole } from "@/shared/lib/clerk.server";
-import { getEmployer } from "@/entities/employer";
-import { JobSchema, type JobSchemaType } from "../model/schema";
 import type { Job } from "@prisma/client";
+
+import { getEmployer } from "@/entities/employer";
+import { requireRole } from "@/shared/lib/clerk.server";
+
 import { mapJobForm } from "../model/map-job-data";
+import { JobSchema, type JobSchemaType } from "../model/schema";
 import { createJob } from "./job.service";
 
 export async function createJobAction(

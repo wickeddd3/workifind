@@ -1,7 +1,9 @@
 "use client";
 
-import { Button } from "@/shared/ui/button";
 import { useEffect, useState, useTransition } from "react";
+
+import { Button } from "@/shared/ui/button";
+
 import { toggleSaveJobAction } from "../api/saved-job.action";
 
 export function SaveButton({

@@ -1,9 +1,9 @@
 import type {
-  Employer,
-  JobApplication as PrismaJobApplication,
-  Job as PrismaJob,
-  SavedJob as PrismaSavedJob,
   Applicant,
+  Employer,
+  Job as PrismaJob,
+  JobApplication as PrismaJobApplication,
+  SavedJob as PrismaSavedJob,
 } from "@prisma/client";
 
 export interface Job extends PrismaJob {

@@ -1,5 +1,5 @@
-import { prisma, createClerkUser, logger, SEED_PASSWORD } from "../helpers";
-import { employers, buildEmployerData } from "../data";
+import { buildEmployerData, employers } from "../data";
+import { createClerkUser, logger, prisma, SEED_PASSWORD } from "../helpers";
 import { seedJobs } from "./jobs.seeder";
 
 export async function seedEmployers() {

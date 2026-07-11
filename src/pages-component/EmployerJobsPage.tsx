@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import { getAuthUser } from "@/shared/lib/clerk.server";
+
 import { EmployerJobs } from "@/features/employer/job-posts";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function EmployerJobsPage({
   searchParams,

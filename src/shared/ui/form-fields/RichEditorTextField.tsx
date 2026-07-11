@@ -1,5 +1,8 @@
 "use client";
 
+import { draftToMarkdown } from "markdown-draft-js";
+import { type Control, type FieldValues, type Path } from "react-hook-form";
+
 import {
   FormControl,
   FormField,
@@ -8,8 +11,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import RichTextEditor from "@/shared/ui/RichTextEditor";
-import { draftToMarkdown } from "markdown-draft-js";
-import { Control, FieldValues, Path } from "react-hook-form";
 
 interface RichTextFieldProps<T extends FieldValues> {
   control: Control<T>;

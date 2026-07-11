@@ -10,6 +10,10 @@ import {
   Trash,
   Users,
 } from "lucide-react";
+import Link from "next/link";
+import { useMemo } from "react";
+
+import { type EmployerJob, getJobSalary, hasJobSalary } from "@/entities/job";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -18,10 +22,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import Link from "next/link";
 import { useToast } from "@/shared/ui/use-toast";
-import { useMemo } from "react";
-import { getJobSalary, hasJobSalary, type EmployerJob } from "@/entities/job";
+
 import { deleteJobAction } from "../api/job.action";
 
 export function JobItem({

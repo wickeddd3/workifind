@@ -1,4 +1,5 @@
 import type { Job } from "@/entities/job";
+
 import { searchJobs, searchJobsCount } from "./job.service";
 
 export async function searchJobsQuery(queryParams: {

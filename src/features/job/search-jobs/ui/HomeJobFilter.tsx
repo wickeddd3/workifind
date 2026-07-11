@@ -1,19 +1,21 @@
 "use client";
 
+import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import {
+  EMPLOYMENT_TYPES,
+  JOB_SALARY,
+  LOCATION_TYPES,
+} from "@/shared/constants/tags";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
-import {
-  JOB_SALARY,
-  EMPLOYMENT_TYPES,
-  LOCATION_TYPES,
-} from "@/shared/constants/tags";
-import { JobFilterSchema, JobFilterSchemaType } from "./../model/schema";
-import { useRouter } from "next/navigation";
-import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
-import Image from "next/image";
 import { useSearchHistory } from "@/widgets/search-history";
+
+import { JobFilterSchema, type JobFilterSchemaType } from "./../model/schema";
 
 export function HomeJobFilter({
   defaultValues,

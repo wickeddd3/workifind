@@ -1,5 +1,6 @@
-import db from "@/shared/lib/prisma";
 import type { Prisma, SavedJob } from "@prisma/client";
+
+import db from "@/shared/lib/prisma";
 
 export async function saveJob(
   data: Prisma.SavedJobUncheckedCreateInput,

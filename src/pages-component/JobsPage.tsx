@@ -1,5 +1,5 @@
-import { JobFilter } from "@/features/job/search-jobs/client";
 import { JobsContent } from "@/features/job/search-jobs";
+import { JobFilter } from "@/features/job/search-jobs/client";
 import { JobSelected } from "@/widgets/selected-job";
 
 export async function JobsPage({

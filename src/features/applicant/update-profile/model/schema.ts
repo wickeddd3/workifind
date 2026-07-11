@@ -1,7 +1,8 @@
-import { z } from "zod";
-import { requiredNumeric, requiredString } from "@/shared/schema/utils";
 import validator from "validator";
+import { z } from "zod";
+
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
+import { requiredNumeric, requiredString } from "@/shared/schema/utils";
 
 export const ApplicantSkillSchema = z.object({
   name: z.string(),

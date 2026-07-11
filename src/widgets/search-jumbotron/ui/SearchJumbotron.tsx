@@ -1,6 +1,6 @@
+import { Button } from "@/shared/ui/button";
 import IconSearch from "@/shared/ui/icons/IconSearch";
 import { Input } from "@/shared/ui/input";
-import { Button } from "@/shared/ui/button";
 
 export function SearchJumbotron({
   title,

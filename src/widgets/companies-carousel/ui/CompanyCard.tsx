@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+
+import { type Company } from "@/entities/employer";
 import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
-import { Company } from "@/entities/employer";
 
 export function CompanyCard({
   company: { slug, companyLogoUrl, companyName, industry, jobsCount },

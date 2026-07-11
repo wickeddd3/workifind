@@ -1,5 +1,7 @@
 import { BadgeCheck, Briefcase, MapPin } from "lucide-react";
+
 import type { JobApplication } from "@/entities/job";
+
 import { JobApplicationPitch } from "./JobApplicationPitch";
 
 export function JobApplicationItem({

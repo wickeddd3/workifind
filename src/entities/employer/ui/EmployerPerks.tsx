@@ -23,7 +23,7 @@ export function EmployerPerks({
           <Heading4>Perks</Heading4>
           <ul className="list-inside text-sm md:text-md">
             {perks.map((item, index) => (
-              <li key={`${item}${index}`}>{item?.name}</li>
+              <li key={`${item?.name}-${index}`}>{item?.name}</li>
             ))}
           </ul>
         </div>

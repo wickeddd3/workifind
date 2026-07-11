@@ -1,10 +1,12 @@
-import { relativeDate } from "@/shared/utils/format-date";
-import { getJobSalary, hasJobSalary } from "./../model/salary";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
+
+import { relativeDate } from "@/shared/utils/format-date";
+
 import type { Job } from "../model/types";
+import { getJobSalary, hasJobSalary } from "./../model/salary";
 
 export function JobHeader({
   job: {

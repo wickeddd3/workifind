@@ -68,8 +68,7 @@ export function EmployerHeader({
           <p className="flex items-center gap-3">
             <Mail size={16} className="shrink-0" aria-hidden="true" />
             <a
-              href={`mailto://${companyEmail}`}
-              target="_blank"
+              href={`mailto:${companyEmail}`}
               rel="noreferrer"
               className="text-sm font-normal text-gray-900 hover:underline md:text-md"
             >

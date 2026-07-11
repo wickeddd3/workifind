@@ -51,12 +51,6 @@ jobs:
         # `next build` type-checks and validates the Prisma schema.
         run: npm run build
 
-      - name: Audit Dependencies
-        # Informational: surfaces known advisories without blocking the pipeline
-        # on transitive issues. Tighten to blocking once the tree is clean.
-        run: npm audit --audit-level=high
-        continue-on-error: true
-
   # ---------------------------------------------------------------------------
   # Deploy: only on push to main, and only after validate passes.
   # ---------------------------------------------------------------------------

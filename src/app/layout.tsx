@@ -89,7 +89,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col`}
+        className={`${inter.variable} ${open_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
       >
         <ClerkProvider
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}

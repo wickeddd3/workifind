@@ -70,4 +70,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Keyboard focus indicator for links, which otherwise rely on hover-only
+     styling. Buttons and inputs supply their own focus-visible rings. */
+  a:focus-visible {
+    @apply outline-none ring-2 ring-indigo-600 ring-offset-2;
+  }
 }

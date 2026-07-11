@@ -51,5 +51,5 @@ export const SmallText = ({ children, className }: TypographyProps) => (
 );
 
 export const MutedText = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm italic text-gray-400", className)}>{children}</p>
+  <p className={cn("text-sm italic text-gray-500", className)}>{children}</p>
 );

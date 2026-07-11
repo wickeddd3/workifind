@@ -6,8 +6,16 @@ on:
   pull_request:
     branches: [main]
 
+# Cancel superseded runs on the same branch/PR.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  # ---------------------------------------------------------------------------
+  # Validate: runs on every push and PR. Gates the deploy job below.
+  # ---------------------------------------------------------------------------
+  validate:
     runs-on: ubuntu-latest
 
     env:
@@ -32,26 +40,56 @@ jobs:
           cache: "npm"
 
       - name: Install Dependencies
-        run: npm install --frozen-lockfile
+        # `npm ci` is reproducible and fails on an out-of-sync lockfile.
+        # (postinstall runs `prisma generate`.)
+        run: npm ci
 
-      - name: Prisma Generate
-        # Critical: Vercel needs the Prisma Client generated for the correct OS (Debian/Lambda)
-        run: npx prisma generate
+      - name: Lint
+        run: npm run lint
 
       - name: Type Check & Build
-        # This ensures your TS types and Prisma schema are valid before deploying
+        # `next build` type-checks and validates the Prisma schema.
         run: npm run build
+
+      - name: Audit Dependencies
+        # Informational: surfaces known advisories without blocking the pipeline
+        # on transitive issues. Tighten to blocking once the tree is clean.
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+  # ---------------------------------------------------------------------------
+  # Deploy: only on push to main, and only after validate passes.
+  # ---------------------------------------------------------------------------
+  deploy:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    env:
+      POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Deploy Database Migrations
         # Applies committed migrations to the production database (replaces the
         # old `prisma db push` in the build script). NOTE: the existing DB must
         # be baselined once before the first run:
         #   npx prisma migrate resolve --applied 0_init
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: npx prisma migrate deploy
 
       - name: Deploy to Vercel
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}

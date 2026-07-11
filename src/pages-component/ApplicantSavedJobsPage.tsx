@@ -16,7 +16,7 @@ export async function ApplicantSavedJobsPage({
 
   return (
     <section className="m-auto flex flex-col gap-6 px-0 md:px-4">
-      <h1 className="px-4 text-md font-bold md:text-lg">Saved jobs</h1>
+      <h1 className="px-4 text-md font-bold md:text-lg">Your saved jobs</h1>
       <div className="flex flex-col gap-2">
         <ApplicantSavedJobs userId={userId} searchParams={searchParams} />
       </div>

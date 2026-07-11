@@ -29,7 +29,7 @@ export default function ApplicantProfileLayout({
   return (
     <Profile>
       <Profile.Sidebar>
-        <div className="px-8 pt-4">
+        <div className="px-4 pt-4 lg:px-8">
           <h1 className="text-lg font-bold">Applicant Profile</h1>
         </div>
         <Profile.Navigation>

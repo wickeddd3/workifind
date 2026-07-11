@@ -9,6 +9,7 @@ import Link from "next/link";
 
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { Button } from "@/shared/ui/button";
+import IconBrand from "@/shared/ui/icons/IconBrand";
 
 import { profileRoute } from "../model/get-profile-route";
 import { menuLinks } from "../model/navbar-links";
@@ -32,14 +33,7 @@ export async function Navbar() {
           className="flex w-fit items-center gap-2"
         >
           <div className="flex w-fit items-center gap-2">
-            <div
-              aria-hidden="true"
-              className="hidden h-8 w-8 items-center justify-center rounded-full bg-indigo-700 text-neutral-100 shadow-md md:flex"
-            >
-              <span className="text-center align-middle text-lg font-extrabold">
-                W
-              </span>
-            </div>
+            <IconBrand className="h-8 w-8 shrink-0" />
             <span className="text-xl font-extrabold tracking-wider text-gray-800">
               workifind
             </span>

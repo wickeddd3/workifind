@@ -22,7 +22,7 @@ export function MobileMenu({ role }: { role: Role | undefined }) {
           aria-label="Open navigation menu"
           className="cursor-pointer rounded-full bg-indigo-600 p-2 shadow-sm hover:bg-indigo-700 data-[state=closed]:bg-indigo-600 data-[state=open]:bg-indigo-700"
         >
-          <Menu size={18} color="#ffffff" aria-hidden="true" />
+          <Menu size={18} className="text-white" aria-hidden="true" />
         </MenubarTrigger>
         <MenubarContent>
           {menuLinks.map((item) => (

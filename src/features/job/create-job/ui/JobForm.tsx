@@ -46,7 +46,7 @@ export function JobForm({ employerId }: { employerId: number }) {
       router.push("/employer/jobs");
       router.refresh();
       toast({
-        title: "New job was successfully created.",
+        title: "Your job post is now live",
       });
     }
   }

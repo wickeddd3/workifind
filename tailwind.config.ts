@@ -127,6 +127,14 @@ const config = {
           "Arial",
           "sans-serif",
         ],
+        // Display typeface for headings — pairs with the Inter body font.
+        heading: [
+          "var(--font-heading)",
+          "var(--font-inter)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       boxShadow: {
         // Soft, layered elevations that read more premium than the default

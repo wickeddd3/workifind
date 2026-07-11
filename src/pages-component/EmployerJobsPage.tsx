@@ -16,7 +16,7 @@ export async function EmployerJobsPage({
 
   return (
     <section className="m-auto my-6 flex max-w-5xl flex-col gap-6 px-0 md:px-4">
-      <h1 className="px-4 text-md font-bold md:text-lg">My jobs</h1>
+      <h1 className="px-4 text-md font-bold md:text-lg">Your job posts</h1>
       <div className="flex flex-col gap-2">
         <EmployerJobs userId={userId} searchParams={searchParams} />
       </div>

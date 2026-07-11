@@ -4,7 +4,14 @@ export function EmptyPlaceholder() {
   return (
     <div className="flex h-[60vh] flex-col items-center justify-center gap-6 rounded-2xl bg-gray-50 px-4 py-8">
       <IllustrationCuriositySearch />
-      <h4 className="text-lg font-semibold">No companies found</h4>
+      <div className="flex flex-col items-center gap-1 text-center">
+        <h4 className="text-lg font-semibold">
+          No companies match your search
+        </h4>
+        <p className="text-sm text-gray-600">
+          Try a different name or clear your search to see everyone.
+        </p>
+      </div>
     </div>
   );
 }

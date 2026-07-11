@@ -7,6 +7,8 @@ import { checkIfAlreadySaved } from "@/entities/saved-job";
 import { ApplyButton } from "@/features/job/apply-to-job";
 import { SaveButton } from "@/features/job/save-job";
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { buildJobPostingSchema } from "@/shared/lib/structured-data";
+import { JsonLd } from "@/shared/ui/JsonLd";
 
 export async function JobPage({ slug }: { slug: string }) {
   const job = await getJobBySlug(slug);
@@ -19,7 +21,8 @@ export async function JobPage({ slug }: { slug: string }) {
   const hasOption = role === "APPLICANT" && applicant && userId;
 
   return (
-    <section className="mx-auto my-6 h-full w-full max-w-4xl grow space-y-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+    <section className="mx-3 my-6 h-full w-full max-w-4xl grow space-y-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:mx-auto md:p-8">
+      <JsonLd data={buildJobPostingSchema(job)} />
       <JobHeader
         job={job}
         optionSlot={

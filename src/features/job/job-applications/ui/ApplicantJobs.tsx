@@ -24,7 +24,8 @@ export async function ApplicantJobs({
 
   const hasJobs = results.data && results.data?.length > 0;
 
-  if (!hasJobs) return <EmptyPlaceholder message="No job applications found" />;
+  if (!hasJobs)
+    return <EmptyPlaceholder message="You haven't applied to any jobs yet" />;
 
   return (
     <>

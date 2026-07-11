@@ -11,7 +11,7 @@ export function CompanySearchTip() {
       icon: (
         <HandHeart
           size={60}
-          color="#3366FF"
+          className="text-indigo-600"
           strokeWidth={1}
           aria-hidden="true"
         />
@@ -21,7 +21,12 @@ export function CompanySearchTip() {
     },
     {
       icon: (
-        <Gift size={60} color="#3366FF" strokeWidth={1} aria-hidden="true" />
+        <Gift
+          size={60}
+          className="text-indigo-600"
+          strokeWidth={1}
+          aria-hidden="true"
+        />
       ),
       title: "Perks and benefits",
       description: "Find perks that matter to you",
@@ -30,7 +35,7 @@ export function CompanySearchTip() {
       icon: (
         <MapPinnedIcon
           size={60}
-          color="#3366FF"
+          className="text-indigo-600"
           strokeWidth={1}
           aria-hidden="true"
         />

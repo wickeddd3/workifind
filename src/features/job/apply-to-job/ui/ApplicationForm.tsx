@@ -52,7 +52,7 @@ export function ApplicationForm({
       router.push(`/jobs/${jobSlug}/submitted`);
       router.refresh();
       toast({
-        title: "Your job application was successfully submitted",
+        title: "Your application is on its way",
       });
     }
   }
@@ -70,12 +70,12 @@ export function ApplicationForm({
           render={({ field: { value, onChange, ref } }) => (
             <FormItem>
               <h3 className="text-md font-bold text-gray-900 md:text-lg">
-                Pitch
+                Why you&apos;re a great fit
               </h3>
-              <div className="text-sm text-gray-700 md:text-md">
-                Introduce yourself and briefly explain why you are suitable for
-                this role. Consider your relevant skills, qualifications and
-                related experience.
+              <div className="text-sm text-gray-600 md:text-md">
+                Introduce yourself and share why this role is right for you —
+                highlight the skills, qualifications, and experience that make
+                you stand out.
               </div>
               <FormControl>
                 <RichTextEditor

@@ -22,7 +22,7 @@ export async function InitialSavedJobs() {
         {isApplicant && hasJobs && <SavedJobs savedJobs={jobs.data || []} />}
         {isApplicant && !hasJobs && <EmptyPlaceholder />}
         {!isApplicant && !hasJobs && (
-          <EmptyPlaceholder message="Only applicant can save jobs" />
+          <EmptyPlaceholder message="Sign in as an applicant to save jobs" />
         )}
       </Suspense>
     </section>

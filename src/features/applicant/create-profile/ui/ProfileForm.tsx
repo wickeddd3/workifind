@@ -90,7 +90,7 @@ export function ProfileForm() {
     if (response.success) {
       router.push("/applicant/profile");
       toast({
-        title: "Your applicant profile has been created",
+        title: "Your profile is ready",
       });
     }
   }

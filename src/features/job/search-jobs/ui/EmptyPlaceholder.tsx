@@ -1,7 +1,7 @@
 export function EmptyPlaceholder() {
   return (
     <p className="m-auto text-center">
-      No jobs found. Try adjusting your search filters.
+      No jobs match your search yet. Try broadening your filters.
     </p>
   );
 }

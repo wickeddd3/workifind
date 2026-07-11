@@ -11,7 +11,7 @@ export function ProfessionalSearchTip() {
       icon: (
         <BookUser
           size={60}
-          color="#3366FF"
+          className="text-indigo-600"
           strokeWidth={1}
           aria-hidden="true"
         />
@@ -23,7 +23,7 @@ export function ProfessionalSearchTip() {
       icon: (
         <BrainCog
           size={60}
-          color="#3366FF"
+          className="text-indigo-600"
           strokeWidth={1}
           aria-hidden="true"
         />
@@ -36,7 +36,7 @@ export function ProfessionalSearchTip() {
       icon: (
         <FileSliders
           size={60}
-          color="#3366FF"
+          className="text-indigo-600"
           strokeWidth={1}
           aria-hidden="true"
         />

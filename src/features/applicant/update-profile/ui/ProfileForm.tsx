@@ -113,7 +113,7 @@ export function ProfileForm({
       router.push("/applicant/profile");
       router.refresh();
       toast({
-        title: "Your applicant profile has been updated",
+        title: "Profile updated",
       });
     }
   }

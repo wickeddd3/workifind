@@ -60,7 +60,7 @@ export function ProfileForm() {
     if (response.success) {
       router.push("/employer/profile");
       toast({
-        title: "Your employer profile has been created",
+        title: "Your company profile is ready",
       });
     }
   }

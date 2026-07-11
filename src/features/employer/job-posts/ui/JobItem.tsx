@@ -48,7 +48,7 @@ export function JobItem({
 
     if (response.success) {
       toast({
-        title: "Job was successfully deleted.",
+        title: "Job post removed",
       });
     }
   };

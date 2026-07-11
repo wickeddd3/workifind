@@ -7,8 +7,8 @@ export async function CompaniesPage() {
   return (
     <div className="m-auto flex max-w-7xl flex-col gap-6 px-3 py-12">
       <SearchJumbotron
-        title="Find your next potential employer"
-        subtitle="Explore list of companies you can work for"
+        title="Discover companies worth working for"
+        subtitle="Browse employers who are hiring right now."
         placeholder="Search by company name"
         searchAction={searchCompaniesAction}
       />

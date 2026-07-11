@@ -11,14 +11,14 @@ export async function ProfileSetupPage() {
       <div className="m-auto my-4 flex max-w-3xl flex-col gap-6 px-3 md:my-10">
         <div className="space-y-1">
           <h1 className="text-md font-bold text-gray-900 md:text-lg">
-            Profile setup
+            Set up your profile
           </h1>
           <h2 className="text-sm font-medium text-gray-900 md:text-md">
-            Choose account type
+            How will you use workifind?
           </h2>
-          <p className="text-xs font-normal text-gray-900 md:text-sm">
-            Choose how you want to use your acccount. Pick Employer or Applicant
-            profile.
+          <p className="text-xs font-normal text-gray-600 md:text-sm">
+            Pick the profile that fits you — find work as an Applicant, or hire
+            talent as an Employer.
           </p>
         </div>
         <hr />

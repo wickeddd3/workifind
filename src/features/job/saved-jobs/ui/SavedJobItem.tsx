@@ -48,7 +48,7 @@ export function SavedJobItem({
 
     if (response.success) {
       toast({
-        title: "Job was successfully unsaved.",
+        title: "Removed from your saved jobs",
       });
     }
   };

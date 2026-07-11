@@ -21,7 +21,8 @@ export async function EmployerJobs({
 
   const hasJobs = results.data && results.data?.length > 0;
 
-  if (!hasJobs) return <EmptyPlaceholder message="No jobs found" />;
+  if (!hasJobs)
+    return <EmptyPlaceholder message="You haven't posted any jobs yet" />;
 
   return (
     <>

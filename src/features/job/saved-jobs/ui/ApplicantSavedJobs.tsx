@@ -24,7 +24,8 @@ export async function ApplicantSavedJobs({
 
   const hasJobs = results.data && results.data?.length > 0;
 
-  if (!hasJobs) return <EmptyPlaceholder message="No saved jobs found" />;
+  if (!hasJobs)
+    return <EmptyPlaceholder message="No saved jobs yet — start exploring" />;
 
   return (
     <>

@@ -16,7 +16,7 @@ export async function SuggestedCompanies({
         Explore companies
       </h2>
       <p className="text-sm font-normal text-gray-600 md:text-md">
-        Learn about new jobs and company culture.
+        See who&apos;s hiring and what it&apos;s like to work there.
       </p>
       <div className="flex gap-4 py-2">
         <CompaniesCarousel companies={companies.data || []} />

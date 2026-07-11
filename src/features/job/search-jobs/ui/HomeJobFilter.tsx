@@ -60,11 +60,11 @@ export function HomeJobFilter({
                 aria-hidden="true"
               />
               <p className="text-xs font-semibold text-indigo-700 md:text-sm">
-                Find the best jobs in workifind
+                Your next opportunity awaits
               </p>
             </div>
             <h1 className="w-full text-balance text-3xl font-bold tracking-tight text-gray-900 md:text-4xl md:leading-[4rem] lg:text-5xl">
-              Connecting talents with opportunities
+              Connecting talent with opportunity
             </h1>
           </div>
           <div className="flex items-center gap-2">
@@ -110,7 +110,9 @@ export function HomeJobFilter({
                   aria-hidden="true"
                 />
               </p>
-              <p className="text-sm font-medium text-gray-600">Company jobs</p>
+              <p className="text-sm font-medium text-gray-600">
+                Open positions
+              </p>
             </div>
           </div>
           <div className="h-full w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 p-[3px]">
@@ -213,7 +215,7 @@ export function HomeJobFilter({
                       aria-hidden="true"
                     />
                     <span className="text-sm font-bold uppercase tracking-wider text-white">
-                      Search
+                      Find jobs
                     </span>
                   </Button>
                 </div>

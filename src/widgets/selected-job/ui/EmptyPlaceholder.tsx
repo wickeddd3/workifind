@@ -12,11 +12,11 @@ export function EmptyPlaceholder() {
           </div>
           <div className="flex flex-col space-y-2">
             <h1 className="text-lg font-medium text-gray-900 lg:text-xl">
-              Select a job
+              Pick a job to preview
             </h1>
-            <h6 className="text-sm text-gray-700 lg:text-md">
-              Job details will display here
-            </h6>
+            <p className="text-sm text-gray-600 lg:text-md">
+              Select a job on the left to see the full details here.
+            </p>
           </div>
         </div>
         <div className="flex justify-center py-14 text-center">

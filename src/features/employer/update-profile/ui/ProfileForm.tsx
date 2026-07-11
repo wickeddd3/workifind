@@ -77,7 +77,7 @@ export function ProfileForm({
       router.push("/employer/profile");
       router.refresh();
       toast({
-        title: "Your employer profile has been updated",
+        title: "Company profile updated",
       });
     }
   }

@@ -60,7 +60,7 @@ export function JobForm({
       router.push("/employer/jobs");
       router.refresh();
       toast({
-        title: "Job was successfully updated.",
+        title: "Your job post has been updated",
       });
     }
   }

@@ -7,7 +7,7 @@ export function MarketingSection() {
       <div className="h-full w-full">
         <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
           <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
-            Search for better career and salary
+            Find a role that grows your career
           </h2>
           <div className="relative flex items-center justify-center">
             <IllustrationJobHunt width={180} height={180} className="z-10" />
@@ -17,7 +17,7 @@ export function MarketingSection() {
       <div className="h-full w-full">
         <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
           <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
-            Hire talents that match your preference
+            Hire people who truly fit your team
           </h2>
           <div className="relative flex items-center justify-center">
             <IllustrationJobOffer width={180} height={180} className="z-10" />

@@ -13,7 +13,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-2 md:items-start">
             <FooterLogo />
             <p className="text-sm font-medium text-gray-900">
-              Connecting talents with opportunities
+              Connecting talent with opportunity
             </p>
           </div>
           <div className="flex flex-col items-center gap-4">

@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { getJobSalary, hasJobSalary } from "@/entities/job";
-import { type SavedJob } from "@/entities/saved-job";
+import { getJobSalary, hasJobSalary } from "@/entities/job/model/salary";
+import { type SavedJob } from "@/entities/saved-job/model/types";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,

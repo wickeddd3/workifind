@@ -13,7 +13,8 @@ import {
 import Link from "next/link";
 import { useMemo } from "react";
 
-import { type EmployerJob, getJobSalary, hasJobSalary } from "@/entities/job";
+import { getJobSalary, hasJobSalary } from "@/entities/job/model/salary";
+import { type EmployerJob } from "@/entities/job/model/types";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,

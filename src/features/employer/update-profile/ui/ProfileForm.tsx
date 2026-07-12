@@ -1,11 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import { type Employer } from "@/entities/employer";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
+import { Button } from "@/shared/ui/button";
 import { Form } from "@/shared/ui/form";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
 import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
@@ -83,65 +85,87 @@ export function ProfileForm({
   }
 
   return (
-    <div className="m-auto my-6 max-w-3xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
-      <div>
-        <h2 className="text-md font-semibold">Employer profile</h2>
-        <p className="text-sm text-muted-foreground">Manage profile details</p>
+    <div className="m-auto my-6 max-w-3xl space-y-6 px-4">
+      <div className="flex flex-col gap-1 px-1">
+        <h1 className="text-xl font-bold text-gray-900">
+          Edit company profile
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Update your company details so candidates know who you are.
+        </p>
       </div>
-      <hr />
-      <Form {...form}>
-        <form
-          className="space-y-4"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <TextInputField
-            control={control}
-            name="companyName"
-            label="Company Name"
-            placeholder="e.g. Meta Platforms, Inc."
-          />
-          <TextInputField
-            control={control}
-            type="email"
-            name="companyEmail"
-            label="Company Email"
-            placeholder="Email"
-          />
-          <TextInputField
-            control={control}
-            type="url"
-            name="companyWebsite"
-            label="Company Website"
-            placeholder="Website"
-          />
-          <FileUploadField
-            control={control}
-            name="companyLogo"
-            label="Company Logo"
-          />
-          <SelectField
-            control={control}
-            name="industry"
-            label="Industry"
-            options={INDUSTRY_TYPES}
-          />
-          <TextInputField control={control} name="location" label="Location" />
-          <DynamicListField
-            control={control}
-            name="perks"
-            label="Perks"
-            fields={perksFields}
-            append={() => perksAppend({ name: "" })}
-            remove={(index) => perksRemove(index)}
-          />
-          <RichTextField control={control} name="about" label="About" />
-          <RichTextField control={control} name="pitch" label="Pitch" />
-          <LoadingButton type="submit" loading={isSubmitting}>
-            Update profile
-          </LoadingButton>
-        </form>
-      </Form>
+      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+        <Form {...form}>
+          <form
+            className="space-y-5"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <TextInputField
+              control={control}
+              name="companyName"
+              label="Company name"
+              placeholder="e.g. Meta Platforms, Inc."
+            />
+            <TextInputField
+              control={control}
+              type="email"
+              name="companyEmail"
+              label="Company email"
+              placeholder="hello@company.com"
+            />
+            <TextInputField
+              control={control}
+              type="url"
+              name="companyWebsite"
+              label="Company website"
+              placeholder="company.com"
+            />
+            <FileUploadField
+              control={control}
+              name="companyLogo"
+              label="Company logo"
+            />
+            <SelectField
+              control={control}
+              name="industry"
+              label="Industry"
+              options={INDUSTRY_TYPES}
+            />
+            <TextInputField
+              control={control}
+              name="location"
+              label="Location"
+            />
+            <DynamicListField
+              control={control}
+              name="perks"
+              label="Perks"
+              fields={perksFields}
+              append={() => perksAppend({ name: "" })}
+              remove={(index) => perksRemove(index)}
+            />
+            <RichTextField
+              control={control}
+              name="about"
+              label="About the company"
+            />
+            <RichTextField
+              control={control}
+              name="pitch"
+              label="Why join us?"
+            />
+            <div className="flex items-center justify-end gap-3 border-t border-gray-100 pt-5">
+              <Button asChild variant="ghost">
+                <Link href="/employer/profile">Cancel</Link>
+              </Button>
+              <LoadingButton type="submit" loading={isSubmitting}>
+                Save changes
+              </LoadingButton>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }

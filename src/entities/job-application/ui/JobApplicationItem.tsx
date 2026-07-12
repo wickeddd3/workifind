@@ -12,25 +12,42 @@ export function JobApplicationItem({
 }: {
   jobApplication: JobApplication;
 }) {
+  const initials =
+    `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();
+
   return (
-    <div className="flex min-w-[250px] flex-col space-y-1 rounded-lg bg-gray-50 p-4 shadow-sm hover:bg-gray-100">
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold md:text-md">{`${firstName} ${lastName}`}</h3>
-        {experienced && <BadgeCheck size={16} className="shrink-0" />}
-      </div>
-      <div className="flex flex-col gap-1 text-muted-foreground">
-        {profession && (
-          <p className="flex items-center gap-1.5 text-xs text-gray-500 md:text-sm">
-            <Briefcase size={16} className="shrink-0" />
-            {profession}
-          </p>
-        )}
-        {location && (
-          <p className="flex items-center gap-1.5 text-xs text-gray-500 md:text-sm">
-            <MapPin size={16} className="shrink-0" />
-            {location}
-          </p>
-        )}
+    <div className="flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-soft transition-all duration-200 hover:border-gray-200 hover:shadow-card">
+      <div className="flex items-start gap-3">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-sm font-semibold text-white">
+          {initials}
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <h3 className="min-w-0 truncate text-sm font-bold text-gray-900 md:text-md">
+              {`${firstName} ${lastName}`}
+            </h3>
+            {experienced && (
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+                <BadgeCheck size={14} className="shrink-0" aria-hidden="true" />
+                Experienced
+              </span>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 md:text-sm">
+            {profession && (
+              <span className="flex items-center gap-1">
+                <Briefcase size={14} className="shrink-0" aria-hidden="true" />
+                {profession}
+              </span>
+            )}
+            {location && (
+              <span className="flex items-center gap-1">
+                <MapPin size={14} className="shrink-0" aria-hidden="true" />
+                {location}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
       <JobApplicationPitch title="Applicant pitch" pitch={pitch} />
     </div>

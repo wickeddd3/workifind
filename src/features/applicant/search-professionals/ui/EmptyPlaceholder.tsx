@@ -1,17 +1,26 @@
-import IllustrationCuriositySearch from "@/shared/ui/illustrations/IllustrationCuriositySearch";
+import { SearchX } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@/shared/ui/button";
 
 export function EmptyPlaceholder() {
   return (
-    <div className="flex h-[60vh] flex-col items-center justify-center gap-6 rounded-2xl bg-gray-50 px-4 py-8">
-      <IllustrationCuriositySearch />
-      <div className="flex flex-col items-center gap-1 text-center">
-        <h4 className="text-lg font-semibold">
-          No professionals match your search
-        </h4>
-        <p className="text-sm text-gray-600">
-          Try a different profession or clear your search to see everyone.
+    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-gray-200 bg-gray-50/60 px-4 py-16 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+        <SearchX size={26} aria-hidden="true" />
+      </div>
+      <div className="flex flex-col gap-1">
+        <h3 className="text-lg font-semibold text-gray-900">
+          No professionals found
+        </h3>
+        <p className="mx-auto max-w-sm text-sm text-muted-foreground">
+          Try a different profession, or browse all professionals to see
+          who&apos;s available.
         </p>
       </div>
+      <Button asChild variant="outline" className="mt-1">
+        <Link href="/professionals">Browse all professionals</Link>
+      </Button>
     </div>
   );
 }

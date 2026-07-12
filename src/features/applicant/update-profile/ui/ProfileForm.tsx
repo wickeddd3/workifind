@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 
@@ -11,6 +12,7 @@ import {
   LOCATION_TYPES,
   WORK_EXPERIENCE_TYPES,
 } from "@/shared/constants/tags";
+import { Button } from "@/shared/ui/button";
 import { Form } from "@/shared/ui/form";
 import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
@@ -122,117 +124,125 @@ export function ProfileForm({
   const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
 
   return (
-    <div className="m-auto my-6 max-w-3xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
-      <div>
-        <h2 className="text-md font-semibold">Applicant profile</h2>
-        <p className="text-sm text-muted-foreground">Manage profile details</p>
+    <div className="m-auto my-6 max-w-3xl space-y-6 px-4">
+      <div className="flex flex-col gap-1 px-1">
+        <h1 className="text-xl font-bold text-gray-900">Edit your profile</h1>
+        <p className="text-sm text-muted-foreground">
+          Keep your profile up to date so employers can find you.
+        </p>
       </div>
-      <hr />
-      <Form {...form}>
-        <form
-          className="space-y-4"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="flex gap-2">
+      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+        <Form {...form}>
+          <form
+            className="space-y-5"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
+              <TextInputField
+                control={control}
+                name="firstName"
+                label="First name"
+              />
+              <TextInputField
+                control={control}
+                name="lastName"
+                label="Last name"
+              />
+            </div>
             <TextInputField
               control={control}
-              name="firstName"
-              label="First Name"
+              name="profession"
+              label="Profession"
+              placeholder="e.g. Frontend Developer"
             />
-            <TextInputField
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
+              <TextInputField
+                control={control}
+                type="email"
+                name="email"
+                label="Email"
+              />
+              <TextInputField
+                control={control}
+                type="number"
+                name="phoneNumber"
+                label="Phone number"
+              />
+            </div>
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
+              <TextInputField
+                control={control}
+                name="location"
+                label="Current location"
+              />
+              <TextInputField
+                control={control}
+                type="number"
+                name="salaryExpectation"
+                label="Salary expectation"
+              />
+            </div>
+            <RadioGroupField
               control={control}
-              name="lastName"
-              label="Last Name"
+              options={WORK_EXPERIENCE_TYPES}
+              name="experienced"
+              label="Work experience"
             />
-          </div>
-          <TextInputField
-            control={control}
-            name="profession"
-            label="Profession"
-            placeholder="e.g. Frontend Developer"
-          />
-          <div className="flex justify-between space-x-4">
-            <TextInputField
+            <DynamicListField
               control={control}
-              type="email"
-              name="email"
-              label="Email"
+              name="skills"
+              label="Skills"
+              fields={skillsFields}
+              append={() => skillsAppend({ name: "" })}
+              remove={(index) => skillsRemove(index)}
             />
-            <TextInputField
+            <DynamicListField
               control={control}
-              type="number"
-              name="phoneNumber"
-              label="Phone Number"
+              name="languages"
+              label="Languages"
+              fields={languagesFields}
+              append={() => languagesAppend({ name: "" })}
+              remove={(index) => languagesRemove(index)}
             />
-          </div>
-          <div className="flex justify-between space-x-4">
-            <TextInputField
+            <RadioGroupField
               control={control}
-              name="location"
-              label="Current Location"
+              options={AVAILABILITY_TYPES}
+              name="availability"
+              label="Availability"
             />
-            <TextInputField
+            <CheckboxGroupField
               control={control}
-              type="number"
-              name="salaryExpectation"
-              label="Salary Expectation"
+              options={locationTypes}
+              name="preferredLocationTypes"
+              label="Preferred location types"
             />
-          </div>
-          <RadioGroupField
-            control={control}
-            options={WORK_EXPERIENCE_TYPES}
-            name="experienced"
-            label="Work Experience"
-          />
-          <DynamicListField
-            control={control}
-            name="skills"
-            label="Skills"
-            fields={skillsFields}
-            append={() => skillsAppend({ name: "" })}
-            remove={(index) => skillsRemove(index)}
-          />
-          <DynamicListField
-            control={control}
-            name="languages"
-            label="Languages"
-            fields={languagesFields}
-            append={() => languagesAppend({ name: "" })}
-            remove={(index) => languagesRemove(index)}
-          />
-          <RadioGroupField
-            control={control}
-            options={AVAILABILITY_TYPES}
-            name="availability"
-            label="Availability"
-          />
-          <CheckboxGroupField
-            control={control}
-            options={locationTypes}
-            name="preferredLocationTypes"
-            label="Preferred location types"
-          />
-          <CheckboxGroupField
-            control={control}
-            options={employmentTypes}
-            name="preferredEmploymentTypes"
-            label="Preferred employment types"
-          />
-          <DynamicListField
-            control={control}
-            name="preferredLocations"
-            label="Preferred locations"
-            fields={preferredLocationsFields}
-            append={() => preferredLocationsAppend({ name: "" })}
-            remove={(index) => preferredLocationsRemove(index)}
-          />
-          <RichTextField control={control} name="about" label="About me" />
-          <LoadingButton type="submit" loading={isSubmitting}>
-            Update profile
-          </LoadingButton>
-        </form>
-      </Form>
+            <CheckboxGroupField
+              control={control}
+              options={employmentTypes}
+              name="preferredEmploymentTypes"
+              label="Preferred employment types"
+            />
+            <DynamicListField
+              control={control}
+              name="preferredLocations"
+              label="Preferred locations"
+              fields={preferredLocationsFields}
+              append={() => preferredLocationsAppend({ name: "" })}
+              remove={(index) => preferredLocationsRemove(index)}
+            />
+            <RichTextField control={control} name="about" label="About me" />
+            <div className="flex items-center justify-end gap-3 border-t border-gray-100 pt-5">
+              <Button asChild variant="ghost">
+                <Link href="/applicant/profile">Cancel</Link>
+              </Button>
+              <LoadingButton type="submit" loading={isSubmitting}>
+                Save changes
+              </LoadingButton>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }

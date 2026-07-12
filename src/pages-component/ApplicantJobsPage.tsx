@@ -16,8 +16,15 @@ export async function ApplicantJobsPage({
 
   return (
     <section className="m-auto flex flex-col gap-6 px-0 md:px-4">
-      <h1 className="px-4 text-md font-bold md:text-lg">Your applications</h1>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1 px-4">
+        <h1 className="text-lg font-bold text-gray-900 md:text-xl">
+          Your applications
+        </h1>
+        <p className="text-sm text-gray-500">
+          Track the jobs you&apos;ve applied to.
+        </p>
+      </div>
+      <div className="flex flex-col gap-3">
         <ApplicantJobs userId={userId} searchParams={searchParams} />
       </div>
     </section>

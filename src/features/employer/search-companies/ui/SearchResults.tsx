@@ -8,7 +8,11 @@ export function SearchResults({ companies }: { companies: Company[] }) {
   return (
     <div className="flex h-full w-full flex-col gap-4">
       {companies.map((company) => (
-        <Link href={`/companies/${company.slug}`} key={company.slug}>
+        <Link
+          href={`/companies/${company.slug}`}
+          key={company.slug}
+          className="block"
+        >
           <SearchResultItem company={company} />
         </Link>
       ))}

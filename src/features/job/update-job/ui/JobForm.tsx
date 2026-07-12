@@ -2,10 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Job } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { EMPLOYMENT_TYPES, LOCATION_TYPES } from "@/shared/constants/tags";
+import { Button } from "@/shared/ui/button";
 import { Form, FormLabel } from "@/shared/ui/form";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
 import { SelectField } from "@/shared/ui/form-fields/SelectField";
@@ -67,47 +69,41 @@ export function JobForm({
 
   return (
     <div className="m-auto my-6 max-w-3xl space-y-6 px-4">
-      <div>
-        <h1 className="text-md font-semibold">{`Edit ${title} job post`}</h1>
+      <div className="flex flex-col gap-1 px-1">
+        <h1 className="text-xl font-bold text-gray-900">Edit job post</h1>
         <p className="text-sm text-muted-foreground">
-          Get your job posting seen by thousands of job seekers.
+          Update the details of this role.
         </p>
       </div>
-      <div className="space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card">
-        <div>
-          <h2 className="font-semibold">Job details</h2>
-          <p className="text-muted-foreground">
-            Provide a job description and details
-          </p>
-        </div>
+      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
         <Form {...form}>
           <form
-            className="space-y-4"
+            className="space-y-5"
             noValidate
             onSubmit={handleSubmit(onSubmit)}
           >
             <TextInputField
               control={control}
               name="title"
-              label="Job Title"
+              label="Job title"
               placeholder="e.g. Frontend Developer"
             />
             <SelectField
               control={control}
               name="employmentType"
-              label="Employment Type"
+              label="Employment type"
               options={EMPLOYMENT_TYPES}
             />
             <SelectField
               control={control}
               name="locationType"
-              label="Work Setup"
+              label="Work setup"
               options={LOCATION_TYPES}
             />
             <TextInputField
               control={control}
               name="location"
-              label="Office Location"
+              label="Office location"
             />
             <RichTextField
               control={control}
@@ -116,24 +112,29 @@ export function JobForm({
             />
             <div className="flex flex-col space-y-4">
               <FormLabel>Salary range</FormLabel>
-              <div className="flex justify-between space-x-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
                 <TextInputField
                   control={control}
                   type="number"
                   name="minSalary"
-                  label="Minimum Salary"
+                  label="Minimum salary"
                 />
                 <TextInputField
                   control={control}
                   type="number"
                   name="maxSalary"
-                  label="Maximum Salary"
+                  label="Maximum salary"
                 />
               </div>
             </div>
-            <LoadingButton type="submit" loading={isSubmitting}>
-              Update job post
-            </LoadingButton>
+            <div className="flex items-center justify-end gap-3 border-t border-gray-100 pt-5">
+              <Button asChild variant="ghost">
+                <Link href="/employer/jobs">Cancel</Link>
+              </Button>
+              <LoadingButton type="submit" loading={isSubmitting}>
+                Save changes
+              </LoadingButton>
+            </div>
           </form>
         </Form>
       </div>

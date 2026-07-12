@@ -24,7 +24,7 @@ export async function Navbar() {
 
   return (
     <header className="flex w-full items-center justify-center py-2">
-      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full bg-gray-50 px-3 py-2 shadow-sm lg:py-4">
+      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full border border-gray-100 bg-white px-4 py-2 shadow-soft lg:py-3">
         {/* Mobile Menu Links */}
         <MobileMenu role={role} />
         <Link
@@ -32,31 +32,30 @@ export async function Navbar() {
           aria-label="workifind home"
           className="flex w-fit items-center gap-2"
         >
-          <div className="flex w-fit items-center gap-2">
-            <IconBrand className="h-8 w-8 shrink-0" />
-            <span className="text-xl font-extrabold tracking-wider text-gray-800">
-              workifind
-            </span>
-          </div>
+          <IconBrand className="h-8 w-8 shrink-0" />
+          <span className="text-xl font-extrabold tracking-wider text-gray-800">
+            workifind
+          </span>
         </Link>
-        <div className="hidden gap-6 md:flex">
+        <div className="hidden items-center gap-8 md:flex">
           {menuLinks.map((item) => (
-            <NavLink key={item.title} {...item} />
+            <NavLink key={item.title} title={item.title} link={item.link} />
           ))}
           {/* Profile Link */}
           {role && <ProfileNavLink title="Profile" link={profileRoute(role)} />}
         </div>
-        <div className="flex gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3">
           <SignedOut>
             <SignInButton>
-              <Button className="rounded-full bg-gray-50 font-extrabold text-gray-800 hover:bg-gray-50 hover:text-indigo-600">
-                Log In
+              <Button
+                variant="ghost"
+                className="rounded-full font-semibold text-gray-700 hover:text-indigo-600"
+              >
+                Log in
               </Button>
             </SignInButton>
             <SignUpButton>
-              <Button className="rounded-full bg-indigo-600 font-extrabold text-gray-50 hover:bg-indigo-700">
-                Sign Up
-              </Button>
+              <Button className="rounded-full font-semibold">Sign up</Button>
             </SignUpButton>
           </SignedOut>
           <SignedIn>

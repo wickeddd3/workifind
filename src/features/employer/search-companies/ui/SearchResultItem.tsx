@@ -9,28 +9,34 @@ export function SearchResultItem({
   company: Company;
 }) {
   return (
-    <article className="flex cursor-pointer items-center space-x-4 rounded-md border border-gray-100 p-2 hover:bg-gray-50">
-      <Image
-        src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-        width={110}
-        height={110}
-        alt={companyName}
-        className="rounded-lg"
-      />
-      <div className="flex flex-col">
-        <h3 className="text-sm font-semibold text-gray-900 md:text-md">
+    <article className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-200 hover:shadow-card">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+        <Image
+          src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
+          width={56}
+          height={56}
+          alt={`${companyName} logo`}
+          className="h-full w-full object-contain"
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <h3 className="truncate text-sm font-semibold text-gray-900 md:text-md">
           {companyName}
         </h3>
-        <h4 className="text-xs font-medium text-gray-800 md:text-sm">
-          {industry}
-        </h4>
-        <h5 className="text-xs md:text-sm">{location}</h5>
-        <span className="mt-2 flex w-fit rounded-xl bg-gray-100 px-2">
-          <span className="w-full p-1 text-xs font-semibold text-gray-800">
-            {jobsCount || 0} jobs
-          </span>
-        </span>
+        {industry && (
+          <p className="truncate text-xs font-medium text-gray-500 md:text-sm">
+            {industry}
+          </p>
+        )}
+        {location && (
+          <p className="truncate text-xs text-gray-400 md:text-sm">
+            {location}
+          </p>
+        )}
       </div>
+      <span className="shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+        {jobsCount || 0} jobs
+      </span>
     </article>
   );
 }

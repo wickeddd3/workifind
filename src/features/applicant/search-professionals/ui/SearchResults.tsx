@@ -11,7 +11,11 @@ export function SearchResults({
   return (
     <div className="flex h-full w-full flex-col gap-4">
       {professionals.map((professional) => (
-        <Link href={`/professionals/${professional.id}`} key={professional.id}>
+        <Link
+          href={`/professionals/${professional.id}`}
+          key={professional.id}
+          className="block"
+        >
           <SearchResultItem professional={professional} />
         </Link>
       ))}

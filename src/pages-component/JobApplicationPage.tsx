@@ -24,7 +24,7 @@ export async function JobApplicationPage({ slug }: { slug: string }) {
   if (!applicant) notFound();
 
   return (
-    <section className="mx-auto h-full max-w-4xl p-4">
+    <section className="mx-3 my-6 max-w-4xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:mx-auto md:p-8">
       <JobApplicationForm job={job} applicant={applicant} />
     </section>
   );

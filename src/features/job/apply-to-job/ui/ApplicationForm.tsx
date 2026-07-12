@@ -89,11 +89,7 @@ export function ApplicationForm({
           )}
         />
         <div className="flex w-full justify-end">
-          <LoadingButton
-            type="submit"
-            loading={isSubmitting}
-            className="w-fit bg-indigo-600 hover:bg-indigo-700"
-          >
+          <LoadingButton type="submit" loading={isSubmitting} className="w-fit">
             Submit application
           </LoadingButton>
         </div>

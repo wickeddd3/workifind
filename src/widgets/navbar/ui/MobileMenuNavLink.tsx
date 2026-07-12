@@ -1,7 +1,11 @@
+"use client";
+
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { MenubarItem, MenubarShortcut } from "@/shared/ui/menubar";
+import { cn } from "@/shared/lib/utils";
+import { MenubarItem } from "@/shared/ui/menubar";
 
 export function MobileMenuNavLink({
   title = "",
@@ -12,16 +16,22 @@ export function MobileMenuNavLink({
   link: string;
   icon?: LucideIcon;
 }) {
+  const pathname = usePathname();
+  const isActive =
+    pathname === link || (link !== "/" && pathname.startsWith(`${link}/`));
+
   return (
     <MenubarItem asChild>
       <Link
         href={link}
-        className="flex w-full cursor-pointer items-center gap-3"
+        aria-current={isActive ? "page" : undefined}
+        className={cn(
+          "flex w-full cursor-pointer items-center gap-3 text-sm font-medium",
+          isActive ? "text-indigo-600" : "text-gray-700",
+        )}
       >
-        <span className="w-full text-sm font-medium tracking-wide text-gray-800 hover:text-indigo-600">
-          {title}
-        </span>
-        {Icon && <MenubarShortcut>{<Icon size="16" />}</MenubarShortcut>}
+        {Icon && <Icon size={16} className="shrink-0" aria-hidden="true" />}
+        {title}
       </Link>
     </MenubarItem>
   );

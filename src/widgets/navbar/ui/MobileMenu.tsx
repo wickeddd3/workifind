@@ -1,4 +1,6 @@
-import { Menu, User } from "lucide-react";
+"use client";
+
+import { Bookmark, BriefcaseBusiness, Menu, User } from "lucide-react";
 
 import {
   Menubar,
@@ -39,16 +41,25 @@ export function MobileMenu({ role }: { role: Role | undefined }) {
           {/* Applicant only Links */}
           {isApplicant && (
             <>
-              <MobileMenuNavLink title="Applied Jobs" link="/applicant/jobs" />
               <MobileMenuNavLink
-                title="Saved Jobs"
+                title="Applied jobs"
+                link="/applicant/jobs"
+                icon={BriefcaseBusiness}
+              />
+              <MobileMenuNavLink
+                title="Saved jobs"
                 link="/applicant/jobs/saved"
+                icon={Bookmark}
               />
             </>
           )}
           {/* Employer only Links */}
           {isEmployer && (
-            <MobileMenuNavLink title="My Jobs" link="/employer/jobs" />
+            <MobileMenuNavLink
+              title="My jobs"
+              link="/employer/jobs"
+              icon={BriefcaseBusiness}
+            />
           )}
         </MenubarContent>
       </MenubarMenu>

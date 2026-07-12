@@ -1,9 +1,5 @@
 import Markdown from "@/shared/ui/Markdown";
-import {
-  MediumText,
-  Paragraph,
-  SectionHeading,
-} from "@/shared/ui/typography/Typography";
+import { SectionHeading } from "@/shared/ui/typography/Typography";
 
 export function EmployerDetails({
   industry,
@@ -18,25 +14,35 @@ export function EmployerDetails({
     <div className="flex flex-col space-y-8">
       {(industry || location) && (
         <div className="flex flex-col space-y-4">
-          <SectionHeading>Company Overview</SectionHeading>
-          {industry && (
-            <div className="flex items-start space-x-12">
-              <MediumText className="text-gray-700">Industry</MediumText>
-              <Paragraph>{industry}</Paragraph>
-            </div>
-          )}
-          {location && (
-            <div className="flex items-start space-x-12">
-              <MediumText className="text-gray-700">Location</MediumText>
-              <Paragraph>{location}</Paragraph>
-            </div>
-          )}
+          <SectionHeading>Company overview</SectionHeading>
+          <div className="flex flex-col gap-3">
+            {industry && (
+              <div className="flex gap-4">
+                <span className="w-28 shrink-0 text-sm font-medium text-gray-500 md:text-md">
+                  Industry
+                </span>
+                <span className="text-sm text-gray-900 md:text-md">
+                  {industry}
+                </span>
+              </div>
+            )}
+            {location && (
+              <div className="flex gap-4">
+                <span className="w-28 shrink-0 text-sm font-medium text-gray-500 md:text-md">
+                  Location
+                </span>
+                <span className="text-sm text-gray-900 md:text-md">
+                  {location}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       )}
       {about && (
         <div className="flex flex-col space-y-4">
           <SectionHeading>About us</SectionHeading>
-          <div className="text-justify text-sm md:text-md">
+          <div className="text-sm md:text-md">
             <Markdown>{about}</Markdown>
           </div>
         </div>

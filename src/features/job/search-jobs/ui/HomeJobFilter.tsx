@@ -1,7 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
-import Image from "next/image";
+import { BriefcaseBusiness, SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -9,6 +8,7 @@ import {
   JOB_SALARY,
   LOCATION_TYPES,
 } from "@/shared/constants/tags";
+import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
@@ -16,6 +16,22 @@ import SimpleSelect from "@/shared/ui/simple-select";
 import { useSearchHistory } from "@/widgets/search-history";
 
 import { JobFilterSchema, type JobFilterSchemaType } from "./../model/schema";
+
+const TRUST_AVATARS = [
+  {
+    initials: "AM",
+    className: "bg-gradient-to-br from-indigo-500 to-indigo-600",
+  },
+  {
+    initials: "JD",
+    className: "bg-gradient-to-br from-violet-500 to-purple-600",
+  },
+  { initials: "SK", className: "bg-gradient-to-br from-sky-500 to-blue-600" },
+  {
+    initials: "RL",
+    className: "bg-gradient-to-br from-emerald-500 to-teal-600",
+  },
+];
 
 export function HomeJobFilter({
   defaultValues,
@@ -67,51 +83,30 @@ export function HomeJobFilter({
               Connecting talent with opportunity
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2 overflow-hidden">
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 1"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 2"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 3"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 4"
-              />
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-indigo-600 text-xs font-medium text-white">
-                <PlusIcon size={24} className="text-white" aria-hidden="true" />
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-3">
+              {TRUST_AVATARS.map((avatar) => (
+                <div
+                  key={avatar.initials}
+                  className={cn(
+                    "flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-white ring-4 ring-white",
+                    avatar.className,
+                  )}
+                  aria-hidden="true"
+                >
+                  {avatar.initials}
+                </div>
+              ))}
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-xs font-semibold text-white ring-4 ring-white">
+                +2K
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="flex items-center text-xl font-extrabold leading-4 text-gray-800">
-                12K
-                <PlusIcon
-                  size={20}
-                  className="text-gray-800"
-                  aria-hidden="true"
-                />
+              <p className="text-2xl font-bold tracking-tight text-gray-900">
+                12,000+
               </p>
               <p className="text-sm font-medium text-gray-600">
-                Open positions
+                professionals hired
               </p>
             </div>
           </div>

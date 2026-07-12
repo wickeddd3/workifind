@@ -7,29 +7,31 @@ import { SocialLink } from "./SocialLink";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-white">
-      <div className="mx-auto max-w-7xl space-y-5 px-3 py-5">
-        <div className="flex flex-col flex-wrap items-center justify-center gap-3 md:flex-row md:justify-between">
+    <footer className="border-t border-gray-100 bg-gray-50/50">
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col items-center gap-2 md:items-start">
             <FooterLogo />
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm text-gray-500">
               Connecting talent with opportunity
             </p>
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-wrap items-center justify-center gap-5">
+          <div className="flex flex-col items-center gap-4 md:items-end">
+            <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               {footerLinks.map(({ title, url }) => (
                 <FooterLink title={title} url={url} key={title} />
               ))}
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            </nav>
+            <div className="flex flex-wrap items-center justify-center gap-1">
               {socialLinks.map(({ icon, url, label }, index) => (
                 <SocialLink icon={icon} url={url} label={label} key={index} />
               ))}
             </div>
           </div>
         </div>
-        <FooterCopyright />
+        <div className="mt-8 border-t border-gray-100 pt-6">
+          <FooterCopyright />
+        </div>
       </div>
     </footer>
   );

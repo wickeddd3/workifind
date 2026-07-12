@@ -1,17 +1,29 @@
-import IllustrationJobSaved from "@/shared/ui/illustrations/IllustrationJobSaved";
+import { Bookmark } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@/shared/ui/button";
 
 export function EmptyPlaceholder({
-  message = "Start saving jobs that match your preferences",
+  message = "Save jobs that match your preferences and find them here anytime.",
 }: {
   message?: string;
 }) {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-2 rounded-2xl bg-gray-50 px-4 py-8">
-      <IllustrationJobSaved />
-      <h4 className="text-lg font-semibold">No saved jobs</h4>
-      <p className="text-center text-md font-normal text-muted-foreground">
-        {message}
-      </p>
+    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-gray-200 bg-gray-50/60 px-4 py-12 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+        <Bookmark size={26} aria-hidden="true" />
+      </div>
+      <div className="flex flex-col gap-1">
+        <h3 className="text-lg font-semibold text-gray-900">
+          No saved jobs yet
+        </h3>
+        <p className="mx-auto max-w-sm text-sm text-muted-foreground">
+          {message}
+        </p>
+      </div>
+      <Button asChild className="mt-1">
+        <Link href="/jobs">Browse jobs</Link>
+      </Button>
     </div>
   );
 }

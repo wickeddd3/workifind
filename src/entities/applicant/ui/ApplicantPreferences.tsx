@@ -23,16 +23,15 @@ export function ApplicantPreferences({
   return (
     <div className="flex flex-col space-y-4">
       <SectionHeading>About my next role</SectionHeading>
-      <div className="flex flex-col gap-2 rounded-xl border border-gray-100 p-4 shadow-soft">
+      <div className="divide-y divide-gray-100 rounded-xl border border-gray-100 shadow-soft">
         {availability && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1 p-4">
             <MediumText>Availability</MediumText>
             <span className="text-sm text-gray-900">{availability}</span>
           </div>
         )}
         {hasPreferredEmploymentTypes && (
-          <div className="flex flex-col gap-2">
-            <hr />
+          <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred employment types</MediumText>
             <span className="text-sm text-gray-900">
               {preferredEmploymentTypes.join(", ")}
@@ -40,8 +39,7 @@ export function ApplicantPreferences({
           </div>
         )}
         {hasPreferredLocationTypes && (
-          <div className="flex flex-col gap-2">
-            <hr />
+          <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred location types</MediumText>
             <span className="text-sm text-gray-900">
               {preferredLocationTypes.join(", ")}
@@ -49,24 +47,19 @@ export function ApplicantPreferences({
           </div>
         )}
         {hasPreferredLocations && (
-          <div className="flex flex-col gap-2">
-            <hr />
+          <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred locations</MediumText>
-            {preferredLocations.map((location, index) => (
-              <span
-                className="text-sm text-gray-900"
-                key={`${location?.name}-${index}`}
-              >
-                {location?.name}
-              </span>
-            ))}
+            <span className="text-sm text-gray-900">
+              {preferredLocations.map((location) => location?.name).join(", ")}
+            </span>
           </div>
         )}
         {availability && (
-          <div className="flex flex-col gap-2">
-            <hr />
+          <div className="flex flex-col gap-1 p-4">
             <MediumText>Salary expectation</MediumText>
-            <span className="text-sm text-gray-900">{salaryExpectation}</span>
+            <span className="text-sm text-gray-900">
+              {salaryExpectation.toLocaleString()}
+            </span>
           </div>
         )}
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, PlusIcon, SearchIcon } from "lucide-react";
-import Image from "next/image";
+import { BriefcaseBusiness, SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -9,6 +8,7 @@ import {
   JOB_SALARY,
   LOCATION_TYPES,
 } from "@/shared/constants/tags";
+import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
@@ -16,6 +16,22 @@ import SimpleSelect from "@/shared/ui/simple-select";
 import { useSearchHistory } from "@/widgets/search-history";
 
 import { JobFilterSchema, type JobFilterSchemaType } from "./../model/schema";
+
+const TRUST_AVATARS = [
+  {
+    initials: "AM",
+    className: "bg-gradient-to-br from-indigo-500 to-indigo-600",
+  },
+  {
+    initials: "JD",
+    className: "bg-gradient-to-br from-violet-500 to-purple-600",
+  },
+  { initials: "SK", className: "bg-gradient-to-br from-sky-500 to-blue-600" },
+  {
+    initials: "RL",
+    className: "bg-gradient-to-br from-emerald-500 to-teal-600",
+  },
+];
 
 export function HomeJobFilter({
   defaultValues,
@@ -67,161 +83,133 @@ export function HomeJobFilter({
               Connecting talent with opportunity
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2 overflow-hidden">
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 1"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 2"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 3"
-              />
-              <Image
-                className="inline-block h-11 w-11 rounded-full ring-4 ring-white"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                width={44}
-                height={44}
-                alt="Employer 4"
-              />
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-indigo-600 text-xs font-medium text-white">
-                <PlusIcon size={24} className="text-white" aria-hidden="true" />
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-3">
+              {TRUST_AVATARS.map((avatar) => (
+                <div
+                  key={avatar.initials}
+                  className={cn(
+                    "flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-white ring-4 ring-white",
+                    avatar.className,
+                  )}
+                  aria-hidden="true"
+                >
+                  {avatar.initials}
+                </div>
+              ))}
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-xs font-semibold text-white ring-4 ring-white">
+                +2K
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="flex items-center text-xl font-extrabold leading-4 text-gray-800">
-                12K
-                <PlusIcon
-                  size={20}
-                  className="text-gray-800"
-                  aria-hidden="true"
-                />
+              <p className="text-2xl font-bold tracking-tight text-gray-900">
+                12,000+
               </p>
               <p className="text-sm font-medium text-gray-600">
-                Open positions
+                professionals hired
               </p>
             </div>
           </div>
-          <div className="h-full w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 p-[3px]">
-            <form
-              action={handleFilterJobs}
-              key={JSON.stringify(defaultValues)}
-              className="h-full w-full rounded-xl border border-gray-100 bg-white p-4 shadow-card"
-            >
-              <div className="w-full space-y-4">
-                <div className="grid w-full grid-cols-1 items-center gap-2 md:grid-cols-3">
-                  <div className="flex w-full flex-col gap-3">
-                    <Label
-                      htmlFor="employmentType"
-                      className="font-medium text-gray-500"
-                    >
-                      Job type
-                    </Label>
-                    <SimpleSelect
-                      id="employmentType"
-                      name="employmentType"
-                      data-testid="job-type-select"
-                      className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues?.employmentType || ""}
-                    >
-                      <option value="">Select job type</option>
-                      {EMPLOYMENT_TYPES.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label}
-                        </option>
-                      ))}
-                    </SimpleSelect>
-                  </div>
-                  <div className="flex w-full flex-col gap-3">
-                    <Label
-                      htmlFor="salary"
-                      className="font-medium text-gray-500"
-                    >
-                      Job salary
-                    </Label>
-                    <SimpleSelect
-                      id="salary"
-                      name="salary"
-                      data-testid="job-salary-select"
-                      className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues?.salary || ""}
-                    >
-                      <option value="">Select job salary</option>
-                      {JOB_SALARY.map((salary) => (
-                        <option key={salary.value} value={salary.value}>
-                          {salary.name}
-                        </option>
-                      ))}
-                    </SimpleSelect>
-                  </div>
-                  <div className="flex w-full flex-col gap-3">
-                    <Label
-                      htmlFor="locationType"
-                      className="font-medium text-gray-500"
-                    >
-                      Location type
-                    </Label>
-                    <SimpleSelect
-                      id="locationType"
-                      name="locationType"
-                      data-testid="location-type-select"
-                      className="h-10 w-full pr-12 text-sm"
-                      defaultValue={defaultValues?.locationType || ""}
-                    >
-                      <option value="">Select location type</option>
-                      {LOCATION_TYPES.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label}
-                        </option>
-                      ))}
-                    </SimpleSelect>
-                  </div>
-                </div>
-                <div className="flex w-full flex-col items-end justify-between gap-2 md:flex-row">
-                  <div className="flex w-full flex-col gap-3">
-                    <Label htmlFor="q" className="font-medium text-gray-500">
-                      Keywords
-                    </Label>
-                    <Input
-                      id="q"
-                      name="q"
-                      data-testid="keywords-input"
-                      placeholder="Search by job title"
-                      className="w-full text-sm placeholder:text-sm placeholder:text-gray-900"
-                      defaultValue={defaultValues?.q}
-                    />
-                  </div>
-                  <Button
-                    className="mt-3 flex w-full items-center gap-2 rounded-full bg-emerald-500 shadow-sm hover:bg-emerald-600 md:my-0 md:w-fit"
-                    data-testid="search-button"
-                  >
-                    <SearchIcon
-                      size={18}
-                      className="text-white"
-                      strokeWidth={3}
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm font-bold uppercase tracking-wider text-white">
-                      Find jobs
-                    </span>
-                  </Button>
+          <form
+            action={handleFilterJobs}
+            key={JSON.stringify(defaultValues)}
+            className="w-full space-y-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-card"
+          >
+            <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-3">
+              <div className="flex w-full flex-col gap-2">
+                <Label
+                  htmlFor="employmentType"
+                  className="font-medium text-gray-700"
+                >
+                  Job type
+                </Label>
+                <SimpleSelect
+                  id="employmentType"
+                  name="employmentType"
+                  data-testid="job-type-select"
+                  className="h-10 w-full text-sm"
+                  defaultValue={defaultValues?.employmentType || ""}
+                >
+                  <option value="">Select job type</option>
+                  {EMPLOYMENT_TYPES.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </SimpleSelect>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label htmlFor="salary" className="font-medium text-gray-700">
+                  Salary
+                </Label>
+                <SimpleSelect
+                  id="salary"
+                  name="salary"
+                  data-testid="job-salary-select"
+                  className="h-10 w-full text-sm"
+                  defaultValue={defaultValues?.salary || ""}
+                >
+                  <option value="">Select salary</option>
+                  {JOB_SALARY.map((salary) => (
+                    <option key={salary.value} value={salary.value}>
+                      {salary.name}
+                    </option>
+                  ))}
+                </SimpleSelect>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label
+                  htmlFor="locationType"
+                  className="font-medium text-gray-700"
+                >
+                  Location
+                </Label>
+                <SimpleSelect
+                  id="locationType"
+                  name="locationType"
+                  data-testid="location-type-select"
+                  className="h-10 w-full text-sm"
+                  defaultValue={defaultValues?.locationType || ""}
+                >
+                  <option value="">Select location</option>
+                  {LOCATION_TYPES.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </SimpleSelect>
+              </div>
+            </div>
+            <div className="flex w-full flex-col items-end justify-between gap-3 md:flex-row">
+              <div className="flex w-full flex-col gap-2">
+                <Label htmlFor="q" className="font-medium text-gray-700">
+                  Keywords
+                </Label>
+                <div className="relative">
+                  <SearchIcon
+                    size={16}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <Input
+                    id="q"
+                    name="q"
+                    data-testid="keywords-input"
+                    placeholder="Search by job title"
+                    className="w-full pl-9 text-sm"
+                    defaultValue={defaultValues?.q}
+                  />
                 </div>
               </div>
-            </form>
-          </div>
+              <Button
+                className="flex h-10 w-full items-center gap-2 md:w-fit"
+                data-testid="search-button"
+              >
+                <SearchIcon size={16} aria-hidden="true" />
+                <span className="text-sm font-semibold">Find jobs</span>
+              </Button>
+            </div>
+          </form>
         </div>
         <div className="hidden h-[540px] w-full bg-colored-shapes bg-left bg-no-repeat lg:block lg:w-2/5"></div>
       </div>

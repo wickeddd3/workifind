@@ -7,16 +7,16 @@ import { EmployerPerks } from "./EmployerPerks";
 export function EmployerTabs({ employer }: { employer: Employer }) {
   return (
     <Tabs defaultValue="about" className="w-full shadow-none">
-      <TabsList className="w-full justify-start rounded-none border-b-2 border-gray-200 bg-white p-0 shadow-none">
+      <TabsList className="w-full justify-start gap-8 rounded-none border-b border-gray-200 bg-transparent p-0 shadow-none">
         <TabsTrigger
           value="about"
-          className="mr-8 rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-500 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
         >
           About
         </TabsTrigger>
         <TabsTrigger
           value="culture"
-          className="rounded-none text-sm font-extrabold capitalize tracking-wider text-gray-500 shadow-none data-[state=active]:font-extrabold data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
         >
           Life and culture
         </TabsTrigger>

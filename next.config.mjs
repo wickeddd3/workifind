@@ -33,9 +33,6 @@ const nextConfig = {
       {
         hostname: "gkmp2jrrgr3iczzg.public.blob.vercel-storage.com",
       },
-      {
-        hostname: "images.unsplash.com",
-      },
     ],
   },
   experimental: {

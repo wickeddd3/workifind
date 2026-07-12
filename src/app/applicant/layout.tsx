@@ -16,12 +16,12 @@ export default function ApplicantProfileLayout({
     },
     {
       icon: <BriefcaseBusiness size={20} />,
-      title: "Applied Jobs",
+      title: "Applied jobs",
       href: "/applicant/jobs",
     },
     {
       icon: <Bookmark size={20} />,
-      title: "Saved Jobs",
+      title: "Saved jobs",
       href: "/applicant/jobs/saved",
     },
   ];
@@ -29,8 +29,11 @@ export default function ApplicantProfileLayout({
   return (
     <Profile>
       <Profile.Sidebar>
-        <div className="px-4 pt-4 lg:px-8">
-          <h1 className="text-lg font-bold">Applicant Profile</h1>
+        <div className="px-4 pt-4 lg:px-6">
+          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+            Applicant
+          </p>
+          <h2 className="text-lg font-bold text-gray-900">Your dashboard</h2>
         </div>
         <Profile.Navigation>
           <Profile.NavigationList>

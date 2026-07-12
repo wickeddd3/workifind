@@ -1,3 +1,4 @@
+import { Badge } from "@/shared/ui/badge";
 import { SectionHeading } from "@/shared/ui/typography/Typography";
 
 export function ApplicantLanguages({
@@ -11,9 +12,13 @@ export function ApplicantLanguages({
     hasLanguages && (
       <div className="flex flex-col space-y-4">
         <SectionHeading>Languages</SectionHeading>
-        <span className="text-sm text-gray-900">
-          {languages?.map((item) => item?.name).join(", ")}
-        </span>
+        <div className="flex flex-wrap gap-2">
+          {languages.map((item, index) => (
+            <Badge variant="secondary" key={`${item?.name}-${index}`}>
+              {item?.name}
+            </Badge>
+          ))}
+        </div>
       </div>
     )
   );

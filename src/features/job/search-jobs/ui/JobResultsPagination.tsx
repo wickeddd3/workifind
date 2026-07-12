@@ -29,29 +29,29 @@ export function JobResultsPagination({
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between pt-2">
       <Link
         href={generatePageLink(currentPage - 1)}
         className={cn(
-          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
+          "flex items-center gap-2 rounded-lg border border-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 transition-colors hover:border-gray-200 hover:bg-gray-50 hover:text-indigo-600 md:text-sm",
           currentPage <= 1 && "invisible",
         )}
       >
-        <ArrowLeft size={16} />
-        Previous page
+        <ArrowLeft size={16} aria-hidden="true" />
+        Previous
       </Link>
-      <span className="text-xs font-semibold text-gray-950 md:text-sm lg:text-md">
+      <span className="text-xs font-medium text-gray-500 md:text-sm">
         Page {currentPage} of {totalPages}
       </span>
       <Link
         href={generatePageLink(currentPage + 1)}
         className={cn(
-          "flex items-center gap-2 text-xs font-semibold text-gray-950 md:text-sm lg:text-md",
+          "flex items-center gap-2 rounded-lg border border-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 transition-colors hover:border-gray-200 hover:bg-gray-50 hover:text-indigo-600 md:text-sm",
           currentPage >= totalPages && "invisible",
         )}
       >
-        Next page
-        <ArrowRight size={16} />
+        Next
+        <ArrowRight size={16} aria-hidden="true" />
       </Link>
     </div>
   );

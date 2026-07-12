@@ -14,7 +14,7 @@ export async function JobsPage({
         <section className="h-full w-full md:w-2/5">
           <JobsContent searchParams={searchParams} />
         </section>
-        <section className="sticky top-0 hidden h-fit rounded-xl border border-gray-100 bg-background p-6 shadow-card md:block md:w-3/5">
+        <section className="sticky top-4 hidden max-h-[calc(100vh-2rem)] overflow-y-auto rounded-xl border border-gray-100 bg-background p-6 shadow-card md:block md:w-3/5">
           <JobSelected slug={searchParams.job} key={searchParams.job} />
         </section>
       </div>

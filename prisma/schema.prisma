@@ -5,8 +5,10 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  provider = "prisma-client-js"
+  // `fullTextSearch` is gone: its `search` filter compiled to an expression
+  // Postgres cannot index. Job search now goes through the `searchVector`
+  // generated column and its GIN index — see job.service.ts.
 }
 
 datasource db {
@@ -87,6 +89,11 @@ model Job {
   updatedAt       DateTime         @updatedAt
   jobApplications JobApplication[]
   savedJobs       SavedJob[]
+
+  // Stored generated column maintained by Postgres — see the
+  // add_job_search_vector migration. Prisma cannot express `tsvector`, so it is
+  // declared Unsupported and queried through $queryRaw in job.service.ts.
+  searchVector Unsupported("tsvector")?
 
   // Public job search: filters on `approved`, then sorts by recency.
   @@index([approved, createdAt(sort: Desc)])

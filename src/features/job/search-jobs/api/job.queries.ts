@@ -24,11 +24,10 @@ export async function searchJobsQuery(queryParams: {
     // Calculate the number of rows to skip
     const skip = (page - 1) * size;
 
-    // Construct the search query
-    const searchString = query
-      ?.split(" ")
-      .filter((word) => word.length > 0)
-      .join(" & ");
+    // Passed through as plain text: the service uses `plainto_tsquery`, which
+    // tokenizes and ANDs the terms itself. Pre-joining with " & " would leave
+    // literal ampersands in the search text.
+    const searchString = query?.trim() ?? "";
 
     const results = await searchJobs({
       query: searchString,
@@ -60,11 +59,8 @@ export async function searchJobsCountQuery(queryParams: {
       locationType = "",
     } = queryParams;
 
-    // Construct the search query
-    const searchString = query
-      ?.split(" ")
-      .filter((word) => word.length > 0)
-      .join(" & ");
+    // See searchJobsQuery — plain text, not to_tsquery syntax.
+    const searchString = query?.trim() ?? "";
 
     const results = await searchJobsCount({
       query: searchString,

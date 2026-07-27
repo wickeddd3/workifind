@@ -10,4 +10,9 @@ export { JobHeader } from "./ui/JobHeader";
 export { buildJobPostingSchema } from "./lib/structured-data";
 
 /* API — server only */
-export { getJob, getJobBySlug } from "./api/job.queries";
+export {
+  getAllJobSlugs,
+  getJob,
+  getJobBySlug,
+  getRecentJobSlugs,
+} from "./api/job.queries";

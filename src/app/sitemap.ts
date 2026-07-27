@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
+import { getAllEmployerSlugs } from "@/entities/employer";
+import { getAllJobSlugs } from "@/entities/job";
 import { SITE_URL } from "@/shared/config/site";
-import prisma from "@/shared/lib/prisma";
 
 // Rebuild the sitemap hourly so newly posted jobs are discoverable quickly.
 export const revalidate = 3600;
@@ -25,30 +26,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  try {
-    const [jobs, companies] = await Promise.all([
-      prisma.job.findMany({ select: { slug: true, updatedAt: true } }),
-      prisma.employer.findMany({ select: { slug: true, updatedAt: true } }),
-    ]);
+  // Both queries yield an empty list if the database is unreachable at build
+  // time, so the sitemap degrades to the static routes above.
+  const [jobs, companies] = await Promise.all([
+    getAllJobSlugs(),
+    getAllEmployerSlugs(),
+  ]);
 
-    const jobRoutes: MetadataRoute.Sitemap = jobs.map((job) => ({
-      url: `${SITE_URL}/jobs/${job.slug}`,
-      lastModified: job.updatedAt,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    }));
+  const jobRoutes: MetadataRoute.Sitemap = jobs.map((job) => ({
+    url: `${SITE_URL}/jobs/${job.slug}`,
+    lastModified: job.updatedAt,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
 
-    // Company pages are indexed; candidate profiles are intentionally excluded.
-    const companyRoutes: MetadataRoute.Sitemap = companies.map((company) => ({
-      url: `${SITE_URL}/companies/${company.slug}`,
-      lastModified: company.updatedAt,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    }));
+  // Company pages are indexed; candidate profiles are intentionally excluded.
+  const companyRoutes: MetadataRoute.Sitemap = companies.map((company) => ({
+    url: `${SITE_URL}/companies/${company.slug}`,
+    lastModified: company.updatedAt,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
 
-    return [...staticRoutes, ...jobRoutes, ...companyRoutes];
-  } catch {
-    // If the database is unreachable at build time, still emit static routes.
-    return staticRoutes;
-  }
+  return [...staticRoutes, ...jobRoutes, ...companyRoutes];
 }

@@ -8,10 +8,7 @@ import {
   SuggestedCompanies,
   SuggestedCompaniesSkeleton,
 } from "@/widgets/companies-carousel";
-import {
-  InitialSavedJobs,
-  SavedJobsLoadingPlaceholder,
-} from "@/widgets/initial-saved-jobs";
+import { InitialSavedJobs } from "@/widgets/initial-saved-jobs";
 import { MarketingSection } from "@/widgets/marketing-section";
 import { LoadingPlaceholder } from "@/widgets/search-history";
 
@@ -32,11 +29,12 @@ export async function HomePage() {
       <div className="m-auto flex h-full max-w-7xl flex-wrap items-center gap-2 px-3 md:flex-col">
         <LazySearchHistory />
 
-        {/* Both hit the database, and neither blocks the hero above. Streaming
-            them lets the page paint on the first flush. */}
-        <Suspense fallback={<SavedJobsLoadingPlaceholder />}>
-          <InitialSavedJobs />
-        </Suspense>
+        {/* Per-viewer, so it resolves on the client and keeps this page
+            prerenderable. */}
+        <InitialSavedJobs />
+
+        {/* Public data — prerendered with the page, but kept behind a boundary
+            so an on-demand regeneration does not block the shell. */}
         <Suspense fallback={<SuggestedCompaniesSkeleton />}>
           <SuggestedCompanies hasSeeMoreButton={true} />
         </Suspense>

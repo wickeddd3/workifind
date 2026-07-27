@@ -1,46 +1,59 @@
-import { getApplicant } from "@/entities/applicant";
+"use client";
+
+import { useEffect, useState } from "react";
+
 import type { Job } from "@/entities/job";
-import { checkIfAlreadyApplied } from "@/entities/job-application";
-import { checkIfAlreadySaved } from "@/entities/saved-job";
-import { ApplyButton } from "@/features/job/apply-to-job";
-import { SaveButton } from "@/features/job/save-job";
-import type { UserRole } from "@/shared/lib/clerk.server";
+// Imported from their modules rather than the feature barrels: this is a client
+// component, so a barrel would pull its other exports into the browser bundle —
+// `apply-to-job` re-exports JobApplicationForm, which reaches Prisma through
+// the applicant entity.
+import { ApplyButton } from "@/features/job/apply-to-job/ui/ApplyButton";
+import { SaveButton } from "@/features/job/save-job/ui/SaveButton";
+
+import {
+  getJobActionState,
+  type JobActionState,
+} from "../api/job-actions.action";
 
 /**
  * The per-viewer half of a job page: whether *this* user has applied or saved.
  *
- * Auth is resolved by the caller and passed in, so the Clerk lookup can run in
- * parallel with the job query rather than after it.
+ * Resolved on the client so the surrounding page stays prerenderable. The job
+ * content is the same for every visitor and is what matters for SEO and LCP;
+ * only these two controls vary, and they matter to signed-in applicants alone.
+ *
+ * Renders nothing until the state arrives, so signed-out visitors — the
+ * majority here — never see controls appear and then vanish.
  */
-export async function JobActions({
-  job,
-  role,
-  userId,
-}: {
-  job: Job;
-  role: UserRole | undefined;
-  userId: string | undefined;
-}) {
-  // Signed-out visitors are the majority on a public job page, and none of the
-  // lookups below can match without a user. Bail before touching the database.
-  if (!userId || role !== "APPLICANT") return null;
+export function JobActions({ job }: { job: Job }) {
+  const [state, setState] = useState<JobActionState | null>(null);
 
-  // Independent once `userId` is known — these were three sequential awaits.
-  const [applicant, hasApplied, isSaved] = await Promise.all([
-    getApplicant(userId),
-    checkIfAlreadyApplied(userId, job.id),
-    checkIfAlreadySaved(userId, job.id),
-  ]);
+  useEffect(() => {
+    let active = true;
 
-  if (!applicant) return null;
+    getJobActionState(job.id)
+      .then((result) => {
+        if (active) setState(result);
+      })
+      .catch(() => {
+        // Leave the controls hidden rather than rendering a broken affordance.
+        if (active) setState(null);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [job.id]);
+
+  if (!state?.canAct || state.applicantId === null) return null;
 
   return (
     <div className="flex flex-wrap items-center gap-3 pt-1">
-      <ApplyButton job={job} hasApplied={hasApplied} />
+      <ApplyButton job={job} hasApplied={state.hasApplied} />
       <SaveButton
         jobId={job.id}
-        applicantId={applicant.id}
-        initialIsSaved={isSaved}
+        applicantId={state.applicantId}
+        initialIsSaved={state.isSaved}
       />
     </div>
   );

@@ -5,12 +5,11 @@ import {
   type LucideIcon,
   MapPin,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { type ReactNode } from "react";
 
-import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
 import { cn } from "@/shared/lib/utils";
+import { Avatar } from "@/shared/ui/avatar";
 import { relativeDate } from "@/shared/utils/format-date";
 
 import type { Job } from "../model/types";
@@ -54,15 +53,12 @@ export function JobHeader({
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-start gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-muted md:h-20 md:w-20">
-          <Image
-            src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-            alt={`${companyName} logo`}
-            width={80}
-            height={80}
-            className="h-full w-full object-contain"
-          />
-        </div>
+        <Avatar
+          name={companyName}
+          src={companyLogoUrl}
+          size={72}
+          className="rounded-2xl"
+        />
         <div className="flex min-w-0 flex-col gap-1">
           <Link href={`/jobs/${slug}`} className="w-fit">
             <h1 className="text-xl font-bold text-foreground hover:underline md:text-2xl lg:text-3xl">

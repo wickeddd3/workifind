@@ -1,9 +1,8 @@
 import { Banknote, Briefcase, Clock, MapPin } from "lucide-react";
-import Image from "next/image";
 
 import { getJobSalaryCompact, hasJobSalary, type Job } from "@/entities/job";
-import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
 import { cn } from "@/shared/lib/utils";
+import { Avatar } from "@/shared/ui/avatar";
 import { relativeDate } from "@/shared/utils/format-date";
 
 /** A listing posted within this window earns the "New" flag. */
@@ -39,7 +38,9 @@ export function JobItem({
   return (
     <article
       className={cn(
-        "group relative flex gap-3.5 overflow-hidden rounded-2xl border bg-card p-4 transition-all duration-200",
+        // `h-full` lets the card fill a grid track, so the home page's rows
+        // line up instead of each card sizing to its own meta.
+        "group relative flex h-full gap-3.5 overflow-hidden rounded-2xl border bg-card p-4 transition-all duration-200",
         isSelected
           ? "border-primary/40 shadow-selected"
           : "border-border shadow-soft hover:-translate-y-0.5 hover:border-ink-300 hover:shadow-card-hover",
@@ -55,15 +56,7 @@ export function JobItem({
         )}
       />
 
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
-        <Image
-          src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-          alt={`${companyName} logo`}
-          width={48}
-          height={48}
-          className="h-full w-full object-contain"
-        />
-      </div>
+      <Avatar name={companyName} src={companyLogoUrl} size={48} />
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         <div className="flex items-start justify-between gap-3">

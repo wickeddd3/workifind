@@ -6,7 +6,7 @@ import {
   getRecentJobSlugs,
   hasJobSalary,
 } from "@/entities/job";
-import { JobPage } from "@/pages-component/JobPage";
+import { JobPage } from "@/views/job";
 
 // The app's main organic landing surface. Job content is identical for every
 // visitor, so it is prerendered and refreshed hourly; the create/update/delete

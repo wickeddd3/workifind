@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ProfileSetupPage } from "@/pages-component/ProfileSetupPage";
+import { ProfileSetupPage } from "@/views/profile-setup";
 
 export const metadata: Metadata = {
   title: "Set up your profile",

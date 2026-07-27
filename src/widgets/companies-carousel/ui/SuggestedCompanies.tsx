@@ -1,6 +1,6 @@
+import { getSuggestedCompanies } from "@/entities/employer/queries";
 import { ViewMoreButton } from "@/shared/ui/ViewMoreButton";
 
-import { getSuggestedCompaniesQuery } from "../api/company.queries";
 import { CompaniesCarousel } from "./CompaniesCarousel";
 
 export async function SuggestedCompanies({
@@ -8,7 +8,7 @@ export async function SuggestedCompanies({
 }: {
   hasSeeMoreButton?: boolean;
 }) {
-  const companies = await getSuggestedCompaniesQuery({ size: 8 });
+  const companies = await getSuggestedCompanies(8);
 
   return (
     <section className="flex w-full flex-col space-y-2 py-2 md:py-4">
@@ -19,7 +19,7 @@ export async function SuggestedCompanies({
         See who&apos;s hiring and what it&apos;s like to work there.
       </p>
       <div className="flex gap-4 py-2">
-        <CompaniesCarousel companies={companies.data || []} />
+        <CompaniesCarousel companies={companies} />
       </div>
       {hasSeeMoreButton && (
         <ViewMoreButton text="See more" route="/companies" />

@@ -1,4 +1,4 @@
-import { ApplicantSavedJobsPage } from "@/pages-component/ApplicantSavedJobsPage";
+import { ApplicantSavedJobsPage } from "@/views/applicant-saved-jobs";
 
 export default async function Page({
   searchParams,

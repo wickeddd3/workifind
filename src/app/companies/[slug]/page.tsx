@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { getEmployerBySlug, getRecentEmployerSlugs } from "@/entities/employer";
-import { CompanyPage } from "@/pages-component/CompanyPage";
+import { CompanyPage } from "@/views/company";
 
 // Public company profiles are identical for every visitor, so they are
 // prerendered and refreshed hourly rather than rebuilt per request.

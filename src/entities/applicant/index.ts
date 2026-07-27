@@ -10,4 +10,4 @@ export { ApplicantSkills } from "./ui/ApplicantSkills";
 export type { Applicant } from "./model/types";
 
 /* API */
-export { getApplicant, getApplicantById } from "./api/applicant.queries";
+export * from "./queries";

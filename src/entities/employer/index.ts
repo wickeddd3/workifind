@@ -12,9 +12,4 @@ export type { Company, Employer } from "./model/types";
 export { buildOrganizationSchema } from "./lib/structured-data";
 
 /* API */
-export {
-  getAllEmployerSlugs,
-  getEmployer,
-  getEmployerBySlug,
-  getRecentEmployerSlugs,
-} from "./api/employer.queries";
+export * from "./queries";

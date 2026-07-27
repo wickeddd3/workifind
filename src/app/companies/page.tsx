@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CompaniesPage } from "@/pages-component/CompaniesPage";
+import { CompaniesPage } from "@/views/companies";
 
 export const metadata: Metadata = {
   title: "Explore companies",

@@ -1,4 +1,4 @@
-import { EmployerNewJobPage } from "@/pages-component/EmployerNewJobPage";
+import { EmployerNewJobPage } from "@/views/employer-job-new";
 
 export default async function Page() {
   return <EmployerNewJobPage />;

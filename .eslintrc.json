@@ -93,8 +93,8 @@
                   "@/features/**",
                   "@/widgets/*",
                   "@/widgets/**",
-                  "@/pages-component/*",
-                  "@/pages-component/**",
+                  "@/views/*",
+                  "@/views/**",
                   "@/app/*",
                   "@/app/**"
                 ],
@@ -118,8 +118,8 @@
                   "@/features/**",
                   "@/widgets/*",
                   "@/widgets/**",
-                  "@/pages-component/*",
-                  "@/pages-component/**",
+                  "@/views/*",
+                  "@/views/**",
                   "@/app/*",
                   "@/app/**"
                 ],
@@ -150,8 +150,8 @@
                 "group": [
                   "@/widgets/*",
                   "@/widgets/**",
-                  "@/pages-component/*",
-                  "@/pages-component/**",
+                  "@/views/*",
+                  "@/views/**",
                   "@/app/*",
                   "@/app/**"
                 ],
@@ -188,12 +188,7 @@
           {
             "patterns": [
               {
-                "group": [
-                  "@/pages-component/*",
-                  "@/pages-component/**",
-                  "@/app/*",
-                  "@/app/**"
-                ],
+                "group": ["@/views/*", "@/views/**", "@/app/*", "@/app/**"],
                 "message": "FSD: `widgets` may only import from `features`, `entities`, and `shared`."
               },
               {
@@ -219,7 +214,7 @@
       }
     },
     {
-      "files": ["src/pages-component/**", "src/app/**"],
+      "files": ["src/views/**", "src/app/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
@@ -227,7 +222,7 @@
             "patterns": [
               {
                 "group": [
-                  "@/pages-component/*/ui/**",
+                  "@/views/*/ui/**",
                   "@/widgets/*/ui/**",
                   "@/widgets/*/model/**",
                   "@/widgets/*/api/**",

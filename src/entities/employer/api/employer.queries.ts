@@ -3,7 +3,7 @@ import { cache } from "react";
 import prisma from "@/shared/lib/prisma";
 import { parseJsonField } from "@/shared/utils/parse-json";
 
-import type { Employer } from "../model/types";
+import type { Company, Employer } from "../model/types";
 
 export const getEmployer = cache(
   async (userId: string): Promise<Employer | null> => {
@@ -44,6 +44,28 @@ export const getEmployerBySlug = cache(
     }
   },
 );
+
+/** Newest companies with their open-job counts, for the companies carousel. */
+export async function getSuggestedCompanies(limit: number): Promise<Company[]> {
+  try {
+    const companies = await prisma.employer.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        _count: {
+          select: { jobs: true },
+        },
+      },
+      take: limit,
+    });
+
+    return companies.map((company) => ({
+      ...company,
+      jobsCount: company._count.jobs,
+    }));
+  } catch (error) {
+    return [];
+  }
+}
 
 /**
  * Newest company slugs, for prerendering `/companies/[slug]` at build time.

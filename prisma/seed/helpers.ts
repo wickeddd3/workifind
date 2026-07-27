@@ -19,7 +19,8 @@ export const SEED_PASSWORD =
 // own, exhausting connections). Disconnected by the entry points.
 export const prisma = new PrismaClient();
 
-const clerk = clerkClient();
+// Clerk v6 returns a promise from clerkClient(), so the client is resolved at
+// each call site rather than once at module scope.
 
 /* -------------------------------------------------------------------------- */
 /*  Logger                                                                     */
@@ -46,6 +47,8 @@ export async function createClerkUser(params: {
   publicMetadata: Record<string, unknown>;
 }) {
   try {
+    const clerk = await clerkClient();
+
     return await clerk.users.createUser({
       emailAddress: [params.emailAddress],
       password: params.password,
@@ -61,6 +64,8 @@ export async function createClerkUser(params: {
 
 export async function deleteClerkUser(userId: string): Promise<boolean> {
   try {
+    const clerk = await clerkClient();
+
     await clerk.users.deleteUser(userId);
     return true;
   } catch (error) {

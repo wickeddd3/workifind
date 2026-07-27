@@ -17,7 +17,7 @@ export type UserRole = "EMPLOYER" | "APPLICANT";
  * per request even on the fast path.
  */
 export const getAuthUser = cache(async () => {
-  const { userId, sessionClaims } = auth();
+  const { userId, sessionClaims } = await auth();
 
   if (!userId) return { role: undefined, userId: undefined };
 

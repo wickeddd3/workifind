@@ -6,8 +6,10 @@ const isProtectedRoute = createRouteMatcher([
   "/setup(.*)",
 ]);
 
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect();
+export default clerkMiddleware(async (auth, req) => {
+  // Clerk v6: `auth` is awaitable and `protect` hangs off it directly, rather
+  // than the v5 `auth().protect()`.
+  if (isProtectedRoute(req)) await auth.protect();
 });
 
 export const config = {

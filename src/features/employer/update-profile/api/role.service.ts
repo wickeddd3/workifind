@@ -4,7 +4,10 @@ import { clerkClient } from "@clerk/nextjs/server";
 // signed-in user from the browser, so storing an authorization role there lets
 // anyone grant themselves any role. Only the backend can write this one.
 export async function assignEmployerRole(userId: string) {
-  await clerkClient().users.updateUserMetadata(userId, {
+  // Clerk v6 returns a promise from clerkClient().
+  const clerk = await clerkClient();
+
+  await clerk.users.updateUserMetadata(userId, {
     publicMetadata: { role: "EMPLOYER" },
   });
 }

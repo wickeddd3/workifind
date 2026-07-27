@@ -1,5 +1,3 @@
-"use server";
-
 import type { SavedJob } from "@/entities/saved-job";
 
 import { getInitialSavedJobs } from "./saved-job.service";

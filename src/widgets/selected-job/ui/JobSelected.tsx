@@ -1,42 +1,27 @@
-import { getApplicant } from "@/entities/applicant";
 import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
-import { checkIfAlreadyApplied } from "@/entities/job-application";
-import { checkIfAlreadySaved } from "@/entities/saved-job";
-import { ApplyButton } from "@/features/job/apply-to-job";
-import { SaveButton } from "@/features/job/save-job";
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { JobActions } from "@/widgets/job-actions";
 
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 
 export async function JobSelected({ slug }: { slug: string }) {
   if (!slug) return <EmptyPlaceholder />;
 
-  const job = await getJobBySlug(slug);
-  if (!job) return <EmptyPlaceholder />;
+  // Independent lookups — the Clerk round trip overlaps the job query instead
+  // of queueing behind it.
+  const [job, { role, userId }] = await Promise.all([
+    getJobBySlug(slug),
+    getAuthUser(),
+  ]);
 
-  const { role, userId } = await getAuthUser();
-  const applicant = await getApplicant(userId || "");
-  const hasApplied = await checkIfAlreadyApplied(userId || "", job?.id || 0);
-  const isSaved = await checkIfAlreadySaved(userId || "", job?.id || 0);
-  const hasOption = role === "APPLICANT" && applicant && userId;
+  if (!job) return <EmptyPlaceholder />;
 
   return (
     <div className="m-auto h-full w-full">
       <div className="flex flex-col gap-4">
         <JobHeader
           job={job}
-          optionSlot={
-            hasOption && (
-              <>
-                <ApplyButton job={job} hasApplied={hasApplied} />
-                <SaveButton
-                  jobId={job.id}
-                  applicantId={applicant.id}
-                  initialIsSaved={isSaved}
-                />
-              </>
-            )
-          }
+          optionSlot={<JobActions job={job} role={role} userId={userId} />}
         />
         <JobDescription description={job.description} />
       </div>

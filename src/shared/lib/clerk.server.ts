@@ -1,8 +1,13 @@
 import { currentUser } from "@clerk/nextjs/server";
+import { cache } from "react";
 
 export type UserRole = "EMPLOYER" | "APPLICANT";
 
-export async function getAuthUser() {
+// `currentUser()` is a round trip to Clerk's Backend API, and a single render
+// resolves the user several times over — the navbar, the page body, and widgets
+// like InitialSavedJobs each ask independently. `cache` collapses those into one
+// call per request.
+export const getAuthUser = cache(async () => {
   const user = await currentUser();
 
   // Prioritize publicMetadata for security, fallback to unsafe for dev/onboarding
@@ -12,7 +17,7 @@ export async function getAuthUser() {
     role: role as UserRole | undefined,
     userId: user?.id,
   };
-}
+});
 
 /**
  * Assert the caller is authenticated and holds the required role.

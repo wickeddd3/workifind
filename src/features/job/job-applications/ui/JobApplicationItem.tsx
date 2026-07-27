@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 
 import { getJobSalary, hasJobSalary } from "@/entities/job";
-import type { JobApplication } from "@/entities/job-application";
+import type { JobApplicationWithJob } from "@/entities/job-application";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +23,7 @@ export function JobApplicationItem({
     job: { slug, title, employmentType, locationType, minSalary, maxSalary },
   },
 }: {
-  jobApplication: JobApplication;
+  jobApplication: JobApplicationWithJob;
 }) {
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-soft transition-all duration-200 hover:border-gray-200 hover:shadow-card">

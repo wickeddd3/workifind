@@ -1,7 +1,6 @@
 import { BadgeCheck, Briefcase, MapPin } from "lucide-react";
 
-import type { JobApplication } from "@/entities/job";
-
+import type { JobApplicationWithApplicant } from "../model/types";
 import { JobApplicationPitch } from "./JobApplicationPitch";
 
 export function JobApplicationItem({
@@ -10,7 +9,7 @@ export function JobApplicationItem({
     applicant: { firstName, lastName, experienced, profession, location },
   },
 }: {
-  jobApplication: JobApplication;
+  jobApplication: JobApplicationWithApplicant;
 }) {
   const initials =
     `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();

@@ -10,10 +10,4 @@
 /* Model */
 export { getJobSalary, hasJobSalary } from "./model/salary";
 export { JobSchema, type JobSchemaType } from "./model/schema";
-export type {
-  ApplicantJob,
-  EmployerJob,
-  Job,
-  JobApplication,
-  SavedJob,
-} from "./model/types";
+export type { EmployerJob, Job } from "./model/types";

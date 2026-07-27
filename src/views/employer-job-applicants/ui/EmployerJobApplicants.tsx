@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 
 import { JobDescription } from "@/entities/job";
-import { getJob, JobApplications, JobHeader } from "@/entities/job-application";
+import { JobHeaderCompact } from "@/entities/job";
+import { getJob, JobApplications } from "@/entities/job-application";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
@@ -16,7 +17,7 @@ export async function EmployerJobApplicants({ id }: { id: number }) {
 
   return (
     <section className="m-auto my-6 max-w-4xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
-      <JobHeader job={job} />
+      <JobHeaderCompact job={job} />
       <Tabs defaultValue="applicants" className="w-full shadow-none">
         <TabsList className="w-full justify-start gap-8 rounded-none border-b border-gray-200 bg-transparent p-0 shadow-none">
           <TabsTrigger

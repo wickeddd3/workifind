@@ -5,6 +5,7 @@ export * from "./client";
 export { JobApplicationSubmitted } from "./ui/JobApplicationSubmitted";
 export { JobDescription } from "./ui/JobDescription";
 export { JobHeader } from "./ui/JobHeader";
+export { JobHeaderCompact } from "./ui/JobHeaderCompact";
 
 /* Lib */
 export { buildJobPostingSchema } from "./lib/structured-data";

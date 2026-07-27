@@ -1,11 +1,10 @@
-import type { JobApplication } from "@/entities/job";
-
+import type { JobApplicationWithApplicant } from "../model/types";
 import { JobApplicationItem } from "./JobApplicationItem";
 
 export function JobApplications({
   jobApplications,
 }: {
-  jobApplications: JobApplication[];
+  jobApplications: JobApplicationWithApplicant[];
 }) {
   return (
     <div className="flex flex-col gap-4">

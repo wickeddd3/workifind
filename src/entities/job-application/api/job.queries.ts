@@ -1,7 +1,8 @@
-import type { ApplicantJob } from "@/entities/job";
 import db from "@/shared/lib/prisma";
 
-export async function getJob(id: number): Promise<ApplicantJob | null> {
+import type { JobWithApplications } from "../model/types";
+
+export async function getJob(id: number): Promise<JobWithApplications | null> {
   try {
     const job = await db.job.findUnique({
       where: { id },

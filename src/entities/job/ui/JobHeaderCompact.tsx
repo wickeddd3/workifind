@@ -7,10 +7,12 @@ import {
 } from "lucide-react";
 import { type ReactNode } from "react";
 
-import { getJobSalary, hasJobSalary, type Job } from "@/entities/job";
 import { relativeDate } from "@/shared/utils/format-date";
 
-export function JobHeader({
+import { getJobSalary, hasJobSalary } from "../model/salary";
+import type { Job } from "../model/types";
+
+export function JobHeaderCompact({
   job: {
     title,
     minSalary,

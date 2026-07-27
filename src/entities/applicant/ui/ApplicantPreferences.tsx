@@ -1,4 +1,5 @@
 import { MediumText, SectionHeading } from "@/shared/ui/typography/Typography";
+import { formatMoney } from "@/shared/utils/format-money";
 
 export function ApplicantPreferences({
   preferredEmploymentTypes,
@@ -54,11 +55,14 @@ export function ApplicantPreferences({
             </span>
           </div>
         )}
-        {availability && (
+        {/* Gated on the salary, not on `availability` — the copied condition
+            hid a stated expectation whenever availability was blank, and threw
+            on `.toLocaleString()` of a missing one whenever it was not. */}
+        {Boolean(salaryExpectation) && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Salary expectation</MediumText>
-            <span className="text-sm text-foreground">
-              {salaryExpectation.toLocaleString()}
+            <span className="tabular text-sm text-foreground">
+              {formatMoney(salaryExpectation)}
             </span>
           </div>
         )}

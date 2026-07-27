@@ -44,6 +44,25 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job | null> => {
 const LISTABLE = { approved: true, closed: false } as const;
 
 /**
+ * Newest listable jobs, for the home page.
+ *
+ * Returns an empty list rather than throwing: the home page is prerendered, and
+ * a database blip should cost the section, not the whole route.
+ */
+export async function getLatestJobs(limit: number): Promise<Job[]> {
+  try {
+    return await prisma.job.findMany({
+      where: LISTABLE,
+      orderBy: { createdAt: "desc" },
+      include: { employer: true },
+      take: limit,
+    });
+  } catch (error) {
+    return [];
+  }
+}
+
+/**
  * Newest listable job slugs, for prerendering `/jobs/[slug]` at build time.
  *
  * Returns an empty list if the database is unreachable, which lets the build

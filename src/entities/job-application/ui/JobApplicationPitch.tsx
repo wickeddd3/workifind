@@ -37,8 +37,8 @@ export function JobApplicationPitch({
           </Button>
         </CollapsibleTrigger>
       </div>
-      <CollapsibleContent className="w-full rounded-lg border border-gray-100 bg-gray-50 p-4">
-        <div className="w-full whitespace-pre-wrap break-words text-sm text-gray-700">
+      <CollapsibleContent className="w-full rounded-lg border border-border bg-muted p-4">
+        <div className="w-full whitespace-pre-wrap break-words text-sm text-foreground">
           {pitch}
         </div>
       </CollapsibleContent>

@@ -50,7 +50,7 @@ export const SectionHeading = ({ children, className }: TypographyProps) => (
   >
     <span
       aria-hidden="true"
-      className="h-5 w-1 shrink-0 rounded-full bg-indigo-500 md:h-6"
+      className="h-5 w-1 shrink-0 rounded-full bg-primary md:h-6"
     />
     {children}
   </h2>
@@ -77,5 +77,7 @@ export const SmallText = ({ children, className }: TypographyProps) => (
 );
 
 export const MutedText = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm italic text-gray-500", className)}>{children}</p>
+  <p className={cn("text-sm italic text-muted-foreground", className)}>
+    {children}
+  </p>
 );

@@ -10,7 +10,7 @@ export function FooterLink({
   return (
     <Link
       href={url}
-      className="text-xs font-medium text-gray-600 transition-colors hover:text-indigo-600 md:text-sm"
+      className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary md:text-sm"
     >
       {title}
     </Link>

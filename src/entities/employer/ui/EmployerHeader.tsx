@@ -23,7 +23,7 @@ export function EmployerHeader({
   return (
     <div className="flex items-start justify-between gap-4">
       <div className="flex min-w-0 items-center gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-20 md:w-20">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted md:h-20 md:w-20">
           <Image
             src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
             alt={`${companyName} logo`}
@@ -33,10 +33,10 @@ export function EmployerHeader({
           />
         </div>
         <div className="flex min-w-0 flex-col gap-2">
-          <NameHeading className="truncate text-lg font-bold text-gray-900 md:text-2xl">
+          <NameHeading className="truncate text-lg font-bold text-foreground md:text-2xl">
             {companyName}
           </NameHeading>
-          <div className="flex flex-col gap-1.5 text-sm text-gray-600 md:text-md">
+          <div className="flex flex-col gap-1.5 text-sm text-muted-foreground md:text-md">
             {companyWebsite && (
               <p className="flex items-center gap-2">
                 <LinkIcon size={15} className="shrink-0" aria-hidden="true" />
@@ -44,7 +44,7 @@ export function EmployerHeader({
                   href={`https://${companyWebsite}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="truncate text-gray-700 transition-colors hover:text-indigo-600 hover:underline"
+                  className="truncate text-foreground transition-colors hover:text-primary hover:underline"
                 >
                   {companyWebsite}
                 </a>
@@ -56,7 +56,7 @@ export function EmployerHeader({
                 <a
                   href={`mailto:${companyEmail}`}
                   rel="noreferrer"
-                  className="truncate text-gray-700 transition-colors hover:text-indigo-600 hover:underline"
+                  className="truncate text-foreground transition-colors hover:text-primary hover:underline"
                 >
                   {companyEmail}
                 </a>

@@ -14,9 +14,9 @@ export function SocialLink({
     <Link
       href={url}
       aria-label={label}
-      className="rounded-lg p-1 hover:bg-indigo-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+      className="rounded-lg p-1 hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
-      <Icon size="1.5em" className="text-gray-600" aria-hidden="true" />
+      <Icon size="1.5em" className="text-muted-foreground" aria-hidden="true" />
     </Link>
   );
 }

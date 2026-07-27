@@ -27,7 +27,7 @@ export function MobileMenuNavLink({
         aria-current={isActive ? "page" : undefined}
         className={cn(
           "flex w-full cursor-pointer items-center gap-3 text-sm font-medium",
-          isActive ? "text-indigo-600" : "text-gray-700",
+          isActive ? "text-primary" : "text-foreground",
         )}
       >
         {Icon && <Icon size={16} className="shrink-0" aria-hidden="true" />}

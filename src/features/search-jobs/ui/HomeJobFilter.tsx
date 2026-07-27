@@ -54,7 +54,10 @@ export function HomeJobFilter({
 
   return (
     <aside
-      className="w-full border-b border-border bg-gradient-to-b from-brand-50/60 to-background py-10 md:py-14"
+      // Tinted from `primary` rather than a fixed brand-50: a literal light
+      // step washed the hero out to pale grey under the dark theme and all but
+      // hid the badge on it.
+      className="w-full border-b border-border bg-gradient-to-b from-primary/[0.07] to-background py-10 md:py-14"
       data-testid="home-job-filter"
     >
       {/* Centred rather than a left column beside artwork: the previous layout
@@ -202,7 +205,9 @@ export function HomeJobFilter({
                 {avatar.initials}
               </div>
             ))}
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ink-900 text-2xs font-semibold text-white ring-4 ring-background">
+            {/* Inverts with the theme — a literal ink-900 disc vanished
+                against the dark background. */}
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-2xs font-semibold text-background ring-4 ring-background">
               +2K
             </div>
           </div>

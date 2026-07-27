@@ -70,12 +70,12 @@ export function JobForm({
   return (
     <div className="m-auto my-6 max-w-3xl space-y-6 px-4">
       <div className="flex flex-col gap-1 px-1">
-        <h1 className="text-xl font-bold text-gray-900">Edit job post</h1>
+        <h1 className="text-xl font-bold text-foreground">Edit job post</h1>
         <p className="text-sm text-muted-foreground">
           Update the details of this role.
         </p>
       </div>
-      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-card md:p-8">
         <Form {...form}>
           <form
             className="space-y-5"
@@ -127,7 +127,7 @@ export function JobForm({
                 />
               </div>
             </div>
-            <div className="flex items-center justify-end gap-3 border-t border-gray-100 pt-5">
+            <div className="flex items-center justify-end gap-3 border-t border-border pt-5">
               <Button asChild variant="ghost">
                 <Link href="/employer/jobs">Cancel</Link>
               </Button>

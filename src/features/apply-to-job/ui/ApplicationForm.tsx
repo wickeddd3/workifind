@@ -69,10 +69,10 @@ export function ApplicationForm({
           name="pitch"
           render={({ field: { value, onChange, ref } }) => (
             <FormItem>
-              <h3 className="text-md font-bold text-gray-900 md:text-lg">
+              <h3 className="text-md font-bold text-foreground md:text-lg">
                 Why you&apos;re a great fit
               </h3>
-              <div className="text-sm text-gray-600 md:text-md">
+              <div className="text-sm text-muted-foreground md:text-md">
                 Introduce yourself and share why this role is right for you —
                 highlight the skills, qualifications, and experience that make
                 you stand out.

@@ -27,9 +27,9 @@ export function EmployerPerks({
             {perks.map((item, index) => (
               <li
                 key={`${item?.name}-${index}`}
-                className="flex items-center gap-2 text-sm text-gray-800 md:text-md"
+                className="flex items-center gap-2 text-sm text-foreground md:text-md"
               >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Check size={13} aria-hidden="true" />
                 </span>
                 {item?.name}

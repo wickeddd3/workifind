@@ -20,7 +20,7 @@ export async function ApplicantPage() {
   if (!applicant) notFound();
 
   return (
-    <section className="mx-auto my-6 flex max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+    <section className="mx-auto my-6 flex max-w-4xl flex-col space-y-6 rounded-2xl border border-border bg-card p-6 shadow-card md:p-8">
       <ApplicantHeader applicant={applicant} hasEditButton={true} />
       <div className="flex flex-col gap-6">
         <ApplicantBio bio={applicant.about} />

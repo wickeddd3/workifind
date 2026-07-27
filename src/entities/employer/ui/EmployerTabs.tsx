@@ -7,16 +7,16 @@ import { EmployerPerks } from "./EmployerPerks";
 export function EmployerTabs({ employer }: { employer: Employer }) {
   return (
     <Tabs defaultValue="about" className="w-full shadow-none">
-      <TabsList className="w-full justify-start gap-8 rounded-none border-b border-gray-200 bg-transparent p-0 shadow-none">
+      <TabsList className="w-full justify-start gap-8 rounded-none border-b border-border bg-transparent p-0 shadow-none">
         <TabsTrigger
           value="about"
-          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-muted-foreground shadow-none transition-colors hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:!shadow-none md:text-md"
         >
           About
         </TabsTrigger>
         <TabsTrigger
           value="culture"
-          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+          className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-muted-foreground shadow-none transition-colors hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:!shadow-none md:text-md"
         >
           Life and culture
         </TabsTrigger>

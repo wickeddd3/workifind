@@ -7,12 +7,12 @@ import { SocialLink } from "./SocialLink";
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-100 bg-gray-50/50">
+    <footer className="border-t border-border bg-muted/50">
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col items-center gap-2 md:items-start">
             <FooterLogo />
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Connecting talent with opportunity
             </p>
           </div>
@@ -29,7 +29,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-100 pt-6">
+        <div className="mt-8 border-t border-border pt-6">
           <FooterCopyright />
         </div>
       </div>

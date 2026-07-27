@@ -63,9 +63,9 @@ export function JobItem({
   );
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-soft transition-all duration-200 hover:border-gray-200 hover:shadow-card">
+    <div className="flex flex-col gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-soft transition-all duration-200 hover:border-border hover:shadow-card">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="min-w-0 truncate text-sm font-semibold text-gray-900 md:text-md">
+        <h3 className="min-w-0 truncate text-sm font-semibold text-foreground md:text-md">
           {title}
         </h3>
         <DropdownMenu>
@@ -114,7 +114,7 @@ export function JobItem({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 md:text-sm">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:text-sm">
         {employmentType && (
           <span className="flex items-center gap-1">
             <Briefcase size={14} className="shrink-0" aria-hidden="true" />
@@ -133,7 +133,7 @@ export function JobItem({
             {getJobSalary(minSalary, maxSalary)}
           </span>
         )}
-        <span className="flex items-center gap-1 font-medium text-indigo-600">
+        <span className="flex items-center gap-1 font-medium text-primary">
           <Users size={14} className="shrink-0" aria-hidden="true" />
           {totalApplicants}
         </span>

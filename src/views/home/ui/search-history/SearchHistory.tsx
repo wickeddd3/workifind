@@ -45,12 +45,12 @@ export function SearchHistory() {
     hasHistory && (
       <section className="flex w-full flex-col gap-4 py-2 md:py-4">
         <div className="flex items-center justify-between gap-8">
-          <h2 className="text-md font-semibold text-gray-900 md:text-lg lg:text-xl">
+          <h2 className="text-md font-semibold text-foreground md:text-lg lg:text-xl">
             Recent searches
           </h2>
           <button
             type="button"
-            className="flex w-fit shrink-0 cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="flex w-fit shrink-0 cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             onClick={handleClearSearchFilters}
           >
             <Eraser size={14} aria-hidden="true" />
@@ -61,7 +61,7 @@ export function SearchHistory() {
           <button
             type="button"
             aria-label="Scroll recent searches left"
-            className="custom-prev shrink-0 cursor-pointer rounded-lg border border-gray-100 px-3 py-2 text-gray-600 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="custom-prev shrink-0 cursor-pointer rounded-lg border border-border px-3 py-2 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <ChevronLeft size={18} aria-hidden="true" />
           </button>
@@ -81,20 +81,20 @@ export function SearchHistory() {
               >
                 <Link
                   href={item?.query}
-                  className="group flex max-w-[220px] items-center gap-2 rounded-lg border border-gray-100 bg-white py-1.5 pl-3 pr-1.5 shadow-soft transition-colors hover:border-gray-200 hover:bg-gray-50"
+                  className="group flex max-w-[220px] items-center gap-2 rounded-lg border border-border bg-card py-1.5 pl-3 pr-1.5 shadow-soft transition-colors hover:border-border hover:bg-muted"
                 >
                   <SearchIcon
                     size={15}
-                    className="shrink-0 text-gray-400"
+                    className="shrink-0 text-muted-foreground"
                     aria-hidden="true"
                   />
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-gray-800">
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
                     {item?.title}
                   </span>
                   <button
                     type="button"
                     aria-label={`Remove ${item?.title} from recent searches`}
-                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700"
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                     onClick={(e) => handleRemoveSearchFilter(e, item?.query)}
                   >
                     <X size={14} aria-hidden="true" />
@@ -106,7 +106,7 @@ export function SearchHistory() {
           <button
             type="button"
             aria-label="Scroll recent searches right"
-            className="custom-next shrink-0 cursor-pointer rounded-lg border border-gray-100 px-3 py-2 text-gray-600 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="custom-next shrink-0 cursor-pointer rounded-lg border border-border px-3 py-2 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <ChevronRight size={18} aria-hidden="true" />
           </button>

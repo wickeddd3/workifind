@@ -8,7 +8,7 @@ import { searchCompaniesAction } from "../api/companies.action";
 export function SearchField({ query }: { query: string }) {
   return (
     <section className="flex flex-col gap-6 py-6">
-      <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
+      <h1 className="text-xl font-bold text-foreground md:text-2xl">
         {query ? <>Results for &ldquo;{query}&rdquo;</> : "Search companies"}
       </h1>
       <form
@@ -19,7 +19,7 @@ export function SearchField({ query }: { query: string }) {
         <div className="relative w-full">
           <SearchIcon
             size={18}
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
             aria-hidden="true"
           />
           <Input

@@ -16,13 +16,13 @@ export function SearchJumbotron({
   searchAction: (formData: FormData) => Promise<void>;
 }) {
   return (
-    <section className="flex h-full w-full items-center justify-between rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white px-4 py-6 shadow-card md:px-6 md:py-8 lg:px-8 lg:py-10">
+    <section className="flex h-full w-full items-center justify-between rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card to-card px-4 py-6 shadow-card md:px-6 md:py-8 lg:px-8 lg:py-10">
       <div className="flex w-full grow flex-col gap-4">
         <div className="space-y-2">
-          <h1 className="text-balance text-xl font-semibold tracking-tight text-gray-900 md:text-2xl lg:text-3xl">
+          <h1 className="text-balance text-xl font-semibold tracking-tight text-foreground md:text-2xl lg:text-3xl">
             {title}
           </h1>
-          <p className="text-balance text-md font-medium text-gray-600 md:text-lg">
+          <p className="text-balance text-md font-medium text-muted-foreground md:text-lg">
             {subtitle}
           </p>
         </div>
@@ -34,7 +34,7 @@ export function SearchJumbotron({
           <div className="relative w-full">
             <SearchIcon
               size={18}
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
               aria-hidden="true"
             />
             <Input
@@ -53,7 +53,7 @@ export function SearchJumbotron({
       </div>
       <div className="hidden shrink-0 items-center justify-center pl-8 md:flex lg:pl-14">
         <div className="relative flex items-center justify-center">
-          <div className="absolute h-44 w-44 rounded-full bg-indigo-200/50 blur-2xl"></div>
+          <div className="absolute h-44 w-44 rounded-full bg-primary/20 blur-2xl"></div>
           <IconSearch width={220} height={220} className="relative z-10" />
         </div>
       </div>

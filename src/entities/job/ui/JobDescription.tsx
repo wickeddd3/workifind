@@ -6,7 +6,7 @@ export function JobDescription({
   description: string | null;
 }) {
   return (
-    <div className="text-sm text-gray-900 md:text-md">
+    <div className="text-sm text-foreground md:text-md">
       {description && <Markdown>{description}</Markdown>}
     </div>
   );

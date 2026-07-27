@@ -26,7 +26,7 @@ export function MobileMenu() {
       <MenubarMenu>
         <MenubarTrigger
           aria-label="Open navigation menu"
-          className="cursor-pointer rounded-full bg-indigo-600 p-2 shadow-sm hover:bg-indigo-700 data-[state=closed]:bg-indigo-600 data-[state=open]:bg-indigo-700"
+          className="cursor-pointer rounded-full bg-primary p-2 shadow-sm hover:bg-primary/90 data-[state=closed]:bg-primary data-[state=open]:bg-primary/90"
         >
           <Menu size={18} className="text-white" aria-hidden="true" />
         </MenubarTrigger>

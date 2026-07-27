@@ -23,7 +23,7 @@ export function ApplyButton({
   }
 
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 md:text-sm">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary md:text-sm">
       <CircleCheckBig size={16} aria-hidden="true" />
       Already applied
     </span>

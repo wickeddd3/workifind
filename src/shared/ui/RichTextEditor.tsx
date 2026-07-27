@@ -18,7 +18,7 @@ const RichTextEditorImpl = dynamic(() => import("./RichTextEditorImpl"), {
   ssr: false,
   loading: () => (
     <div
-      className="min-h-[150px] animate-pulse rounded-md border bg-gray-50"
+      className="min-h-[150px] animate-pulse rounded-md border bg-muted"
       aria-hidden="true"
     />
   ),

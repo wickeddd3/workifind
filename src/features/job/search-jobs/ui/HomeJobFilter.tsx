@@ -8,12 +8,12 @@ import {
   JOB_SALARY,
   LOCATION_TYPES,
 } from "@/shared/constants/tags";
+import { useSearchHistory } from "@/shared/lib/use-search-history";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import SimpleSelect from "@/shared/ui/simple-select";
-import { useSearchHistory } from "@/widgets/search-history";
 
 import { JobFilterSchema, type JobFilterSchemaType } from "./../model/schema";
 

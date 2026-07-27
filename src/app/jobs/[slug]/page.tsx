@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import { getJobBySlug } from "@/entities/job";
-import { getJobSalary, hasJobSalary } from "@/entities/job/model/salary";
+import { getJobBySlug, getJobSalary, hasJobSalary } from "@/entities/job";
 import { JobPage } from "@/pages-component/JobPage";
 import prisma from "@/shared/lib/prisma";
 

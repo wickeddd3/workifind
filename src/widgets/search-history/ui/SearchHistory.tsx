@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import type { SearchHistoryItem } from "../model/useSearchHistory";
-import { useSearchHistory } from "../model/useSearchHistory";
+import type { SearchHistoryItem } from "@/shared/lib/use-search-history";
+import { useSearchHistory } from "@/shared/lib/use-search-history";
 
 export function SearchHistory() {
   const [history, setHistory] = useState<SearchHistoryItem[]>([]);

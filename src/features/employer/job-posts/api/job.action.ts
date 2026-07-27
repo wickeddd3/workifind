@@ -12,9 +12,14 @@ export async function deleteJobAction(
   try {
     const { userId } = await requireRole("EMPLOYER");
 
-    await deleteJob(userId, jobId);
+    const deleted = await deleteJob(userId, jobId);
 
+    // The public job page is prerendered, so a deleted post would keep being
+    // served from cache until the revalidation window elapsed.
+    if (deleted) revalidatePath(`/jobs/${deleted.slug}`);
     revalidatePath("/employer/jobs");
+    revalidatePath("/jobs");
+    revalidatePath("/sitemap.xml");
 
     return {
       success: true,

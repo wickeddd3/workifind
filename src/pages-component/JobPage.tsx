@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { getJobBySlug, JobDescription, JobHeader } from "@/entities/job";
-import { buildJobPostingSchema } from "@/shared/lib/structured-data";
+import {
+  buildJobPostingSchema,
+  getJobBySlug,
+  JobDescription,
+  JobHeader,
+} from "@/entities/job";
 import { JsonLd } from "@/shared/ui/JsonLd";
 import { JobActions } from "@/widgets/job-actions";
 

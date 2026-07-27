@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { getEmployerBySlug } from "@/entities/employer";
-import { EmployerHeader } from "@/entities/employer/ui/EmployerHeader";
-import { EmployerTabs } from "@/entities/employer/ui/EmployerTabs";
-import { buildOrganizationSchema } from "@/shared/lib/structured-data";
+import {
+  buildOrganizationSchema,
+  EmployerHeader,
+  EmployerTabs,
+  getEmployerBySlug,
+} from "@/entities/employer";
 import { JsonLd } from "@/shared/ui/JsonLd";
 
 export async function CompanyPage({ slug }: { slug: string }) {

@@ -8,5 +8,13 @@ export { EmployerTabs } from "./ui/EmployerTabs";
 /* Model */
 export type { Company, Employer } from "./model/types";
 
+/* Lib */
+export { buildOrganizationSchema } from "./lib/structured-data";
+
 /* API */
-export { getEmployer, getEmployerBySlug } from "./api/employer.queries";
+export {
+  getAllEmployerSlugs,
+  getEmployer,
+  getEmployerBySlug,
+  getRecentEmployerSlugs,
+} from "./api/employer.queries";

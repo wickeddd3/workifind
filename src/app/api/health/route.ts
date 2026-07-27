@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import prisma from "@/shared/lib/prisma";
+import { checkDatabaseConnection } from "@/shared/lib/db-health";
 
 // Never cache: probes must reflect the live state on every request.
 export const dynamic = "force-dynamic";
@@ -10,22 +10,14 @@ export const dynamic = "force-dynamic";
  * monitors. Returns 200 when the app can reach the database, 503 otherwise.
  */
 export async function GET() {
-  try {
-    // Cheap round-trip that confirms the DB connection is usable.
-    await prisma.$queryRaw`SELECT 1`;
+  const isUp = await checkDatabaseConnection();
 
-    return NextResponse.json(
-      { status: "ok", database: "up", timestamp: new Date().toISOString() },
-      { status: 200 },
-    );
-  } catch {
-    return NextResponse.json(
-      {
-        status: "error",
-        database: "down",
-        timestamp: new Date().toISOString(),
-      },
-      { status: 503 },
-    );
-  }
+  return NextResponse.json(
+    {
+      status: isUp ? "ok" : "error",
+      database: isUp ? "up" : "down",
+      timestamp: new Date().toISOString(),
+    },
+    { status: isUp ? 200 : 503 },
+  );
 }

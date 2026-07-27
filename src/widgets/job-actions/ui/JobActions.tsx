@@ -3,17 +3,16 @@
 import { useEffect, useState } from "react";
 
 import type { Job } from "@/entities/job";
-// Imported from their modules rather than the feature barrels: this is a client
-// component, so a barrel would pull its other exports into the browser bundle —
-// `apply-to-job` re-exports JobApplicationForm, which reaches Prisma through
-// the applicant entity.
-import { ApplyButton } from "@/features/job/apply-to-job/ui/ApplyButton";
-import { SaveButton } from "@/features/job/save-job/ui/SaveButton";
-
+// Taken from the `client` public APIs rather than `index`: this is a client
+// component, and those barrels also export server-only code — `apply-to-job`
+// re-exports JobApplicationForm, which reaches Prisma through the applicant
+// entity.
+import { ApplyButton } from "@/features/job/apply-to-job/client";
 import {
   getJobActionState,
   type JobActionState,
-} from "../api/job-actions.action";
+} from "@/features/job/job-actions/client";
+import { SaveButton } from "@/features/job/save-job/client";
 
 /**
  * The per-viewer half of a job page: whether *this* user has applied or saved.

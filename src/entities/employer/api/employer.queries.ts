@@ -44,3 +44,36 @@ export const getEmployerBySlug = cache(
     }
   },
 );
+
+/**
+ * Newest company slugs, for prerendering `/companies/[slug]` at build time.
+ *
+ * Returns an empty list if the database is unreachable, which lets the build
+ * fall back to rendering every company on first request.
+ */
+export async function getRecentEmployerSlugs(limit: number): Promise<string[]> {
+  try {
+    const employers = await prisma.employer.findMany({
+      select: { slug: true },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+
+    return employers.map(({ slug }) => slug);
+  } catch (error) {
+    return [];
+  }
+}
+
+/** Every company slug with its last-modified date, for the sitemap. */
+export async function getAllEmployerSlugs(): Promise<
+  { slug: string; updatedAt: Date }[]
+> {
+  try {
+    return await prisma.employer.findMany({
+      select: { slug: true, updatedAt: true },
+    });
+  } catch (error) {
+    return [];
+  }
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ProfessionalsPage } from "@/pages-component/ProfessionalsPage";
+import { ProfessionalsPage } from "@/views/professionals";
 
 // Candidate directory is kept out of the index to protect personal data.
 export const metadata: Metadata = {

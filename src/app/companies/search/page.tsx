@@ -1,4 +1,4 @@
-import { CompanySearchPage } from "@/pages-component/CompanySearchPage";
+import { CompanySearchPage } from "@/views/company-search";
 
 export default async function Page({
   searchParams,

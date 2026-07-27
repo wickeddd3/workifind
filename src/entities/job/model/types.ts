@@ -16,7 +16,8 @@ export interface JobApplication extends PrismaJobApplication {
 
 export interface EmployerJob extends PrismaJob {
   employer: Employer;
-  jobApplications: PrismaJobApplication[];
+  // Count only — the employer job list never renders individual applications.
+  _count: { jobApplications: number };
 }
 
 export interface ApplicantJob extends PrismaJob {

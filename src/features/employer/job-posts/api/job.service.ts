@@ -18,7 +18,10 @@ export async function getJobs(
       orderBy: { createdAt: "desc" },
       include: {
         employer: true,
-        jobApplications: true,
+        // The list only shows an applicant count. Loading the rows themselves
+        // is unbounded, and `JobItem` is a client component — every pitch would
+        // be serialized into the RSC payload to render a number.
+        _count: { select: { jobApplications: true } },
       },
       take, // limit,
       skip, // offset,

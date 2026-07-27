@@ -34,7 +34,7 @@ export function JobItem({
     title,
     employmentType,
     locationType,
-    jobApplications,
+    _count: { jobApplications: applicantCount },
     minSalary,
     maxSalary,
   },
@@ -53,12 +53,11 @@ export function JobItem({
     }
   };
 
-  const totalApplicants = useMemo(() => {
-    if (jobApplications && jobApplications.length > 0) {
-      return `${jobApplications.length} applicants`;
-    }
-    return "0 applicants";
-  }, [jobApplications]);
+  const totalApplicants = useMemo(
+    () =>
+      `${applicantCount} ${applicantCount === 1 ? "applicant" : "applicants"}`,
+    [applicantCount],
+  );
 
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3 shadow-soft transition-all duration-200 hover:border-gray-200 hover:shadow-card">
@@ -131,12 +130,10 @@ export function JobItem({
             {getJobSalary(minSalary, maxSalary)}
           </span>
         )}
-        {jobApplications && (
-          <span className="flex items-center gap-1 font-medium text-indigo-600">
-            <Users size={14} className="shrink-0" aria-hidden="true" />
-            {totalApplicants}
-          </span>
-        )}
+        <span className="flex items-center gap-1 font-medium text-indigo-600">
+          <Users size={14} className="shrink-0" aria-hidden="true" />
+          {totalApplicants}
+        </span>
       </div>
     </div>
   );

@@ -10,7 +10,9 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: workifind_db
     ports:
-      - "5432:5432"
+      # Host 5433 so this can run alongside other local projects that publish
+      # 5432. Containers still reach it on the internal port via `db:5432`.
+      - "5433:5432"
     networks:
       - workifind-network
     healthcheck:

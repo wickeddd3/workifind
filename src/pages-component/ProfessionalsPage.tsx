@@ -1,5 +1,10 @@
+import { Suspense } from "react";
+
 import { searchProfessionalsAction } from "@/features/applicant/search-professionals";
-import { SuggestedProfessionals } from "@/widgets/professionals-carousel";
+import {
+  SuggestedProfessionals,
+  SuggestedProfessionalsSkeleton,
+} from "@/widgets/professionals-carousel";
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
 
@@ -12,7 +17,10 @@ export async function ProfessionalsPage() {
         placeholder="Search by profession"
         searchAction={searchProfessionalsAction}
       />
-      <SuggestedProfessionals />
+      {/* The jumbotron and tips are static; only this section queries. */}
+      <Suspense fallback={<SuggestedProfessionalsSkeleton />}>
+        <SuggestedProfessionals />
+      </Suspense>
       <ProfessionalSearchTip />
     </div>
   );

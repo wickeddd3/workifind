@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import IconBrand from "@/shared/ui/icons/IconBrand";
+import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
 import { menuLinks } from "../model/navbar-links";
 import { MobileMenu } from "./MobileMenu";
@@ -16,7 +17,7 @@ import { ProfileNavLink } from "./ProfileNavLink";
 export function Navbar() {
   return (
     <header className="flex w-full items-center justify-center py-2">
-      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full border border-gray-100 bg-white px-4 py-2 shadow-soft lg:py-3">
+      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full border border-border bg-card px-4 py-2 shadow-soft lg:py-3">
         {/* Mobile Menu Links */}
         <MobileMenu />
         <Link
@@ -25,7 +26,7 @@ export function Navbar() {
           className="flex w-fit items-center gap-2"
         >
           <IconBrand className="h-8 w-8 shrink-0" />
-          <span className="text-xl font-extrabold tracking-wider text-gray-800">
+          <span className="text-xl font-extrabold tracking-wider text-foreground">
             workifind
           </span>
         </Link>
@@ -36,7 +37,10 @@ export function Navbar() {
           {/* Profile Link — renders itself only once a role is known. */}
           <ProfileNavLink />
         </div>
-        <NavbarAuthActions />
+        <div className="flex items-center gap-3">
+          <ThemeToggle className="hidden sm:inline-flex" />
+          <NavbarAuthActions />
+        </div>
       </nav>
     </header>
   );

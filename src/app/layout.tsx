@@ -8,6 +8,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
+import { THEME_INIT_SCRIPT, ThemeProvider } from "@/shared/lib/theme";
 import { Footer } from "@/widgets/footer";
 import { Navbar } from "@/widgets/navbar";
 
@@ -100,28 +101,42 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning: the inline script below stamps `class="dark"`
+    // and a colorScheme onto this element before React hydrates, so the client
+    // tree legitimately differs from the server's on this node alone.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Must run before first paint, so it cannot be a component. Without
+            it the page renders light and then snaps to dark on hydration. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body
-        className={`${inter.variable} ${plus_jakarta_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
+        // `min-h-screen`, not `h-screen`: a fixed viewport height made every
+        // page whose content is shorter than the viewport stretch its card to
+        // fill, and every page whose content is longer overflow the body. The
+        // footer still sits at the bottom on short pages via `flex-1` on main.
+        className={`${inter.variable} ${plus_jakarta_sans.variable} flex min-h-screen min-w-[350px] flex-col font-sans antialiased`}
       >
-        <ClerkProvider
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-          afterSignOutUrl="/"
-        >
-          <SpeedInsights />
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-indigo-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+        <ThemeProvider>
+          <ClerkProvider
+            publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+            afterSignOutUrl="/"
           >
-            Skip to main content
-          </a>
-          <Navbar />
-          <main id="main-content" className="w-full flex-1">
-            {children}
-          </main>
-          <Footer />
-          <DynamicToaster />
-        </ClerkProvider>
+            <SpeedInsights />
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              Skip to main content
+            </a>
+            <Navbar />
+            <main id="main-content" className="w-full flex-1">
+              {children}
+            </main>
+            <Footer />
+            <DynamicToaster />
+          </ClerkProvider>
+        </ThemeProvider>
         {/* Analytics loads after hydration rather than from <head>, so it no
             longer competes with the page's own scripts for the main thread.
             Both tags share a strategy, so gtag.js still runs before config. */}

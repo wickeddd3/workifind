@@ -15,5 +15,6 @@ export {
   getAllJobSlugs,
   getJob,
   getJobBySlug,
+  getLatestJobs,
   getRecentJobSlugs,
 } from "./api/job.queries";

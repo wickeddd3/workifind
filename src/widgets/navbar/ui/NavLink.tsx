@@ -22,7 +22,7 @@ export function NavLink({
       aria-current={isActive ? "page" : undefined}
       className={cn(
         "text-sm font-medium tracking-wide transition-colors",
-        isActive ? "text-indigo-600" : "text-gray-700 hover:text-indigo-600",
+        isActive ? "text-primary" : "text-foreground hover:text-primary",
       )}
     >
       {title}

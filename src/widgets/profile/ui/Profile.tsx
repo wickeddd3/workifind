@@ -22,7 +22,7 @@ export function Sidebar({ children }: SidebarProps) {
   return (
     <div
       id="application-sidebar"
-      className="w-full border-b border-gray-100 lg:w-[280px] lg:shrink-0 lg:border-b-0 lg:border-e"
+      className="w-full border-b border-border lg:w-[280px] lg:shrink-0 lg:border-b-0 lg:border-e"
     >
       {children}
     </div>

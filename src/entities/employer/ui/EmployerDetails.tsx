@@ -18,20 +18,20 @@ export function EmployerDetails({
           <div className="flex flex-col gap-3">
             {industry && (
               <div className="flex gap-4">
-                <span className="w-28 shrink-0 text-sm font-medium text-gray-500 md:text-md">
+                <span className="w-28 shrink-0 text-sm font-medium text-muted-foreground md:text-md">
                   Industry
                 </span>
-                <span className="text-sm text-gray-900 md:text-md">
+                <span className="text-sm text-foreground md:text-md">
                   {industry}
                 </span>
               </div>
             )}
             {location && (
               <div className="flex gap-4">
-                <span className="w-28 shrink-0 text-sm font-medium text-gray-500 md:text-md">
+                <span className="w-28 shrink-0 text-sm font-medium text-muted-foreground md:text-md">
                   Location
                 </span>
-                <span className="text-sm text-gray-900 md:text-md">
+                <span className="text-sm text-foreground md:text-md">
                   {location}
                 </span>
               </div>

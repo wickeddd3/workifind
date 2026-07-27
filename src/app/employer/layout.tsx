@@ -25,10 +25,10 @@ export default function EmployerProfileLayout({
     <Profile>
       <Profile.Sidebar>
         <div className="px-4 pt-4 lg:px-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Employer
           </p>
-          <h2 className="text-lg font-bold text-gray-900">Your dashboard</h2>
+          <h2 className="text-lg font-bold text-foreground">Your dashboard</h2>
         </div>
         <Profile.Navigation>
           <Profile.NavigationList>

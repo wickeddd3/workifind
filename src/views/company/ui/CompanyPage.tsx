@@ -14,7 +14,9 @@ export async function CompanyPage({ slug }: { slug: string }) {
   if (!employer) notFound();
 
   return (
-    <div className="mx-3 my-6 flex h-full max-w-4xl flex-col space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:mx-auto md:p-8">
+    // See JobPage: `h-full` plus the vertical margin overflowed the main and
+    // pushed the card under the footer.
+    <div className="mx-3 my-6 flex max-w-4xl flex-col space-y-6 rounded-2xl border border-border bg-card p-6 shadow-card md:mx-auto md:my-10 md:p-8">
       <JsonLd data={buildOrganizationSchema(employer)} />
       <EmployerHeader
         as="h1"

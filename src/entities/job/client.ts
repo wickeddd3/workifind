@@ -8,6 +8,10 @@
  */
 
 /* Model */
-export { getJobSalary, hasJobSalary } from "./model/salary";
+export {
+  getJobSalary,
+  getJobSalaryCompact,
+  hasJobSalary,
+} from "./model/salary";
 export { JobSchema, type JobSchemaType } from "./model/schema";
 export type { EmployerJob, Job } from "./model/types";

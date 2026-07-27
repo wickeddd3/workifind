@@ -1,29 +1,68 @@
-import IllustrationJobHunt from "@/shared/ui/illustrations/IllustrationJobHunt";
-import IllustrationJobOffer from "@/shared/ui/illustrations/IllustrationJobOffer";
+import { ArrowRight, Search, Users } from "lucide-react";
+import Link from "next/link";
+
+import { cn } from "@/shared/lib/utils";
+
+/**
+ * The two audiences the product serves, each pointing at where that audience
+ * starts.
+ *
+ * Previously a pair of illustrated cards with no link on them — decorative
+ * dead ends in the last slot of the page. The artwork was also fixed light
+ * (white and near-white fills), so it glared on a dark surface; icon tiles
+ * built from tokens carry the same distinction and follow the theme.
+ */
+const PATHS = [
+  {
+    href: "/jobs",
+    icon: Search,
+    title: "Find a role that grows your career",
+    body: "Browse openings from companies hiring now and apply in a couple of clicks.",
+    cta: "Browse jobs",
+    tone: "bg-primary/10 text-primary",
+  },
+  {
+    href: "/employer/jobs/new",
+    icon: Users,
+    title: "Hire people who truly fit your team",
+    body: "Post a role and reach candidates already looking for what you offer.",
+    cta: "Post a job",
+    tone: "bg-feature-subtle text-feature-subtle-foreground",
+  },
+];
 
 export function MarketingSection() {
   return (
-    <section className="grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2">
-      <div className="h-full w-full">
-        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
-          <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
-            Find a role that grows your career
+    <section className="grid w-full grid-cols-1 gap-4 py-2 md:py-4 lg:grid-cols-2">
+      {PATHS.map(({ href, icon: Icon, title, body, cta, tone }) => (
+        <Link
+          key={href}
+          href={href}
+          className="group flex h-full flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:p-6"
+        >
+          <span
+            className={cn(
+              "flex h-11 w-11 items-center justify-center rounded-xl",
+              tone,
+            )}
+            aria-hidden="true"
+          >
+            <Icon size={22} />
+          </span>
+          <h2 className="text-balance text-lg font-bold text-foreground md:text-xl">
+            {title}
           </h2>
-          <div className="relative flex items-center justify-center">
-            <IllustrationJobHunt width={180} height={180} className="z-10" />
-          </div>
-        </div>
-      </div>
-      <div className="h-full w-full">
-        <div className="flex w-full flex-col flex-wrap items-center justify-center rounded-2xl border border-indigo-100/70 bg-gradient-to-br from-indigo-50 via-white to-white p-4 shadow-card transition-all duration-200 hover:shadow-card-hover md:flex-row md:flex-nowrap md:justify-between md:p-4">
-          <h2 className="text-balance px-4 text-center text-lg font-extrabold tracking-wider text-indigo-500 md:text-start md:text-xl lg:text-2xl">
-            Hire people who truly fit your team
-          </h2>
-          <div className="relative flex items-center justify-center">
-            <IllustrationJobOffer width={180} height={180} className="z-10" />
-          </div>
-        </div>
-      </div>
+          <p className="text-sm text-muted-foreground md:text-md">{body}</p>
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-primary">
+            {cta}
+            <ArrowRight
+              size={16}
+              className="transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </span>
+        </Link>
+      ))}
     </section>
   );
 }

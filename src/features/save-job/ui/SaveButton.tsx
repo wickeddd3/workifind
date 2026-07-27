@@ -50,7 +50,7 @@ export function SaveButton({
       className={cn(
         "w-fit gap-2 px-5",
         isSaved &&
-          "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-700",
+          "border-primary/25 bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
       )}
     >
       <Bookmark

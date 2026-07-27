@@ -29,7 +29,7 @@ export function NavbarAuthActions() {
         <SignInButton>
           <Button
             variant="ghost"
-            className="rounded-full font-semibold text-gray-700 hover:text-indigo-600"
+            className="rounded-full font-semibold text-foreground hover:text-primary"
           >
             Log in
           </Button>

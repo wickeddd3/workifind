@@ -23,7 +23,7 @@ export function ProfessionalsCarousel({
         clickable: true,
       }}
       modules={[Pagination]}
-      className="w-full [&_>_.swiper-pagination_>_.swiper-pagination-bullet-active]:bg-indigo-500 [&_>_.swiper-wrapper]:py-4"
+      className="w-full [&_>_.swiper-pagination_>_.swiper-pagination-bullet-active]:bg-primary [&_>_.swiper-wrapper]:py-4"
     >
       {professionals.map((professional) => (
         <SwiperSlide style={{ width: "276px" }} key={professional.id}>

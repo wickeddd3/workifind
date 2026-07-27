@@ -19,10 +19,10 @@ export async function EmployerJobsPage({
   return (
     <section className="m-auto my-6 flex max-w-5xl flex-col gap-6 px-0 md:px-4">
       <div className="flex flex-col gap-1 px-4">
-        <h1 className="text-lg font-bold text-gray-900 md:text-xl">
+        <h1 className="text-lg font-bold text-foreground md:text-xl">
           Your job posts
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           Manage the roles you&apos;re hiring for.
         </p>
       </div>

@@ -10,13 +10,13 @@ export async function ProfileSetupPage() {
     return (
       <div className="m-auto my-4 flex max-w-3xl flex-col gap-6 px-3 md:my-10">
         <div className="space-y-1">
-          <h1 className="text-md font-bold text-gray-900 md:text-lg">
+          <h1 className="text-md font-bold text-foreground md:text-lg">
             Set up your profile
           </h1>
-          <h2 className="text-sm font-medium text-gray-900 md:text-md">
+          <h2 className="text-sm font-medium text-foreground md:text-md">
             How will you use workifind?
           </h2>
-          <p className="text-xs font-normal text-gray-600 md:text-sm">
+          <p className="text-xs font-normal text-muted-foreground md:text-sm">
             Pick the profile that fits you — find work as an Applicant, or hire
             talent as an Employer.
           </p>
@@ -26,16 +26,16 @@ export async function ProfileSetupPage() {
           <TabsList className="w-full">
             <TabsTrigger
               value="applicant"
-              className="w-full text-xs font-bold uppercase tracking-wider text-gray-900 md:text-sm"
+              className="w-full text-xs font-bold uppercase tracking-wider text-foreground md:text-sm"
             >
               Applicant
             </TabsTrigger>
-            <span className="px-6 text-xs font-semibold tracking-tighter text-gray-900 md:text-sm">
+            <span className="px-6 text-xs font-semibold tracking-tighter text-foreground md:text-sm">
               OR
             </span>
             <TabsTrigger
               value="employer"
-              className="w-full text-xs font-bold uppercase tracking-wider text-gray-900 md:text-sm"
+              className="w-full text-xs font-bold uppercase tracking-wider text-foreground md:text-sm"
             >
               Employer
             </TabsTrigger>

@@ -1,7 +1,6 @@
-import Link from "next/link";
-
 import type { Job } from "@/entities/job";
 
+import { JobCardLink } from "./JobCardLink";
 import { JobItem } from "./JobItem";
 
 interface JobResultsProps {
@@ -11,35 +10,45 @@ interface JobResultsProps {
 }
 
 export function JobResults({ jobs, searchParams, page }: JobResultsProps) {
-  const { q, employmentType, salary, locationType } = searchParams;
+  const {
+    q,
+    employmentType,
+    salary,
+    locationType,
+    sort,
+    job: selectedSlug,
+  } = searchParams;
 
-  function getLinkUrl(jobSlug: string): string {
-    const searchParams = new URLSearchParams({
+  /** The current filter state, with `job` swapped to the previewed listing. */
+  function getPreviewUrl(jobSlug: string): string {
+    const params = new URLSearchParams({
       ...(q && { q: q.trim() }),
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
+      ...(sort && { sort }),
       ...(jobSlug && { job: jobSlug }),
       ...(page && { page: page.toString() }),
     });
 
-    return `/jobs?${searchParams.toString()}`;
+    return `/jobs?${params.toString()}`;
   }
 
+  // A list of results is a list: it gives assistive tech the item count and
+  // lets users jump between rows.
   return (
-    <div className="flex flex-col gap-3">
+    <ul className="flex flex-col gap-3">
       {jobs.map((job) => (
-        <Link
-          href={getLinkUrl(job.slug)}
-          scroll={false}
-          key={job.id}
-          className="block"
-          passHref
-          legacyBehavior
-        >
-          <JobItem job={job} />
-        </Link>
+        <li key={job.id}>
+          <JobCardLink
+            href={`/jobs/${job.slug}`}
+            previewHref={getPreviewUrl(job.slug)}
+            isSelected={job.slug === selectedSlug}
+          >
+            <JobItem job={job} isSelected={job.slug === selectedSlug} />
+          </JobCardLink>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

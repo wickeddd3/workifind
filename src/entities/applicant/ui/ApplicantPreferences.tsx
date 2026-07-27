@@ -1,4 +1,5 @@
 import { MediumText, SectionHeading } from "@/shared/ui/typography/Typography";
+import { formatMoney } from "@/shared/utils/format-money";
 
 export function ApplicantPreferences({
   preferredEmploymentTypes,
@@ -23,17 +24,17 @@ export function ApplicantPreferences({
   return (
     <div className="flex flex-col space-y-4">
       <SectionHeading>About my next role</SectionHeading>
-      <div className="divide-y divide-gray-100 rounded-xl border border-gray-100 shadow-soft">
+      <div className="divide-y divide-border rounded-xl border border-border shadow-soft">
         {availability && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Availability</MediumText>
-            <span className="text-sm text-gray-900">{availability}</span>
+            <span className="text-sm text-foreground">{availability}</span>
           </div>
         )}
         {hasPreferredEmploymentTypes && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred employment types</MediumText>
-            <span className="text-sm text-gray-900">
+            <span className="text-sm text-foreground">
               {preferredEmploymentTypes.join(", ")}
             </span>
           </div>
@@ -41,7 +42,7 @@ export function ApplicantPreferences({
         {hasPreferredLocationTypes && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred location types</MediumText>
-            <span className="text-sm text-gray-900">
+            <span className="text-sm text-foreground">
               {preferredLocationTypes.join(", ")}
             </span>
           </div>
@@ -49,16 +50,19 @@ export function ApplicantPreferences({
         {hasPreferredLocations && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Preferred locations</MediumText>
-            <span className="text-sm text-gray-900">
+            <span className="text-sm text-foreground">
               {preferredLocations.map((location) => location?.name).join(", ")}
             </span>
           </div>
         )}
-        {availability && (
+        {/* Gated on the salary, not on `availability` — the copied condition
+            hid a stated expectation whenever availability was blank, and threw
+            on `.toLocaleString()` of a missing one whenever it was not. */}
+        {Boolean(salaryExpectation) && (
           <div className="flex flex-col gap-1 p-4">
             <MediumText>Salary expectation</MediumText>
-            <span className="text-sm text-gray-900">
-              {salaryExpectation.toLocaleString()}
+            <span className="tabular text-sm text-foreground">
+              {formatMoney(salaryExpectation)}
             </span>
           </div>
         )}

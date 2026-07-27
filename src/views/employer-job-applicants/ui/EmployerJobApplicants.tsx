@@ -16,19 +16,19 @@ export async function EmployerJobApplicants({ id }: { id: number }) {
   if (!job) notFound();
 
   return (
-    <section className="m-auto my-6 max-w-4xl space-y-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-card md:p-8">
+    <section className="m-auto my-6 max-w-4xl space-y-6 rounded-2xl border border-border bg-card p-6 shadow-card md:p-8">
       <JobHeaderCompact job={job} />
       <Tabs defaultValue="applicants" className="w-full shadow-none">
-        <TabsList className="w-full justify-start gap-8 rounded-none border-b border-gray-200 bg-transparent p-0 shadow-none">
+        <TabsList className="w-full justify-start gap-8 rounded-none border-b border-border bg-transparent p-0 shadow-none">
           <TabsTrigger
             value="description"
-            className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+            className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-muted-foreground shadow-none transition-colors hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:!shadow-none md:text-md"
           >
             Description
           </TabsTrigger>
           <TabsTrigger
             value="applicants"
-            className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-gray-500 shadow-none transition-colors hover:text-gray-800 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600 data-[state=active]:!shadow-none md:text-md"
+            className="-mb-px rounded-none border-b-2 border-transparent px-0 pb-3 text-sm font-semibold text-muted-foreground shadow-none transition-colors hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:!shadow-none md:text-md"
           >
             Applicants
           </TabsTrigger>

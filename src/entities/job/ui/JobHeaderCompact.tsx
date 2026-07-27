@@ -48,9 +48,11 @@ export function JobHeaderCompact({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-bold text-gray-900 md:text-2xl">{title}</h1>
+        <h1 className="text-xl font-bold text-foreground md:text-2xl">
+          {title}
+        </h1>
         {createdAt && (
-          <p className="text-xs text-gray-400 md:text-sm">
+          <p className="text-xs text-muted-foreground md:text-sm">
             Posted {relativeDate(createdAt)}
           </p>
         )}
@@ -59,7 +61,7 @@ export function JobHeaderCompact({
         {metaItems.map(({ key, icon: Icon, label }) => (
           <span
             key={key}
-            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 md:text-sm"
+            className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground md:text-sm"
           >
             <Icon size={14} className="shrink-0" aria-hidden="true" />
             {label}

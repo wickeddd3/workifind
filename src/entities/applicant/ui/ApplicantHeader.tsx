@@ -28,19 +28,19 @@ export function ApplicantHeader({
   const hasContact = Boolean(email || location || phoneNumber);
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-gray-50 p-4 md:p-6">
+    <div className="flex flex-col gap-4 rounded-xl bg-muted p-4 md:p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-lg font-semibold text-white md:h-16 md:w-16">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-semibold text-white md:h-16 md:w-16">
             {initials}
           </div>
           <div className="flex min-w-0 flex-col gap-1">
             <div className="flex items-center gap-2">
-              <NameHeading className="truncate text-lg font-bold text-gray-900 md:text-xl">
+              <NameHeading className="truncate text-lg font-bold text-foreground md:text-xl">
                 {`${firstName} ${lastName}`}
               </NameHeading>
               {hasExperience && (
-                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-700">
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
                   <BadgeCheck
                     size={14}
                     className="shrink-0"
@@ -51,7 +51,7 @@ export function ApplicantHeader({
               )}
             </div>
             {profession && (
-              <p className="truncate text-sm font-medium text-gray-500 md:text-md">
+              <p className="truncate text-sm font-medium text-muted-foreground md:text-md">
                 {profession}
               </p>
             )}
@@ -66,7 +66,7 @@ export function ApplicantHeader({
         )}
       </div>
       {hasContact && (
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
           {email && (
             <span className="flex min-w-0 items-center gap-1.5">
               <Mail size={15} className="shrink-0" aria-hidden="true" />

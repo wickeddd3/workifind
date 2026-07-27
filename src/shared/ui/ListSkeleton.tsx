@@ -17,18 +17,18 @@ export function ListSkeleton({
       <div className="flex flex-col gap-2">
         {Array.from({ length: rows }).map((_, row) => (
           <div
-            className="flex flex-col gap-2 rounded-lg bg-gray-50 px-4 py-2"
+            className="flex flex-col gap-2 rounded-lg bg-muted px-4 py-2"
             key={row}
           >
             <div className="flex items-center justify-between">
-              <div className="h-7 w-2/5 rounded bg-gray-200" />
-              <span className="h-7 w-7 rounded-lg bg-gray-200" />
+              <div className="h-7 w-2/5 rounded bg-muted" />
+              <span className="h-7 w-7 rounded-lg bg-muted" />
             </div>
             <div className="flex flex-col gap-1">
               {Array.from({ length: metaLines }).map((_, line) => (
                 <div className="flex w-1/4 items-center gap-1.5" key={line}>
-                  <span className="h-4 w-4 rounded-full bg-gray-200" />
-                  <p className="h-3 w-full rounded bg-gray-200" />
+                  <span className="h-4 w-4 rounded-full bg-muted" />
+                  <p className="h-3 w-full rounded bg-muted" />
                 </div>
               ))}
             </div>

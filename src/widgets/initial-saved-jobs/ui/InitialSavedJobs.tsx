@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import {
   getInitialSavedJobsState,
   type InitialSavedJobsState,
-} from "../api/saved-job.action";
+} from "@/features/job/saved-jobs/client";
+
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { LoadingPlaceholder } from "./LoadingPlaceholder";
 import { SavedJobs } from "./SavedJobs";

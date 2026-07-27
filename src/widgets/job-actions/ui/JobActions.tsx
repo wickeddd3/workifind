@@ -8,12 +8,11 @@ import type { Job } from "@/entities/job";
 // re-exports JobApplicationForm, which reaches Prisma through the applicant
 // entity.
 import { ApplyButton } from "@/features/job/apply-to-job/client";
-import { SaveButton } from "@/features/job/save-job/client";
-
 import {
   getJobActionState,
   type JobActionState,
-} from "../api/job-actions.action";
+} from "@/features/job/job-actions/client";
+import { SaveButton } from "@/features/job/save-job/client";
 
 /**
  * The per-viewer half of a job page: whether *this* user has applied or saved.

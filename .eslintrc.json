@@ -242,6 +242,10 @@
                   "@/entities/*/lib/**"
                 ],
                 "message": "FSD: import slices through their public API (`index` or `client`), not their internal segments."
+              },
+              {
+                "group": ["@/shared/lib/prisma"],
+                "message": "FSD: routing and page composition must not reach the database directly. Add a query to the entity that owns the data and call that instead."
               }
             ]
           }

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import { JobResultsSkeleton, JobsContent } from "@/features/job/search-jobs";
-import { JobFilter } from "@/features/job/search-jobs/client";
+import { JobResultsSkeleton, JobsContent } from "@/features/search-jobs";
+import { JobFilter } from "@/features/search-jobs/client";
 import { JobDetailSkeleton, JobSelected } from "@/widgets/selected-job";
 
 export async function JobsPage({

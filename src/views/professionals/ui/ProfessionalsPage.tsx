@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { searchProfessionalsAction } from "@/features/applicant/search-professionals";
+import { searchProfessionalsAction } from "@/features/search-professionals";
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
 

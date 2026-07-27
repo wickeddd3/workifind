@@ -1,7 +1,4 @@
-import {
-  SearchContent,
-  SearchField,
-} from "@/features/applicant/search-professionals";
+import { SearchContent, SearchField } from "@/features/search-professionals";
 
 export async function ProfessionalSearchPage({
   searchParams,

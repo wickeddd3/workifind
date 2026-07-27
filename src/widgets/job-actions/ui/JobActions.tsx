@@ -7,12 +7,12 @@ import type { Job } from "@/entities/job";
 // component, and those barrels also export server-only code — `apply-to-job`
 // re-exports JobApplicationForm, which reaches Prisma through the applicant
 // entity.
-import { ApplyButton } from "@/features/job/apply-to-job/client";
+import { ApplyButton } from "@/features/apply-to-job/client";
 import {
   getJobActionState,
   type JobActionState,
-} from "@/features/job/job-actions/client";
-import { SaveButton } from "@/features/job/save-job/client";
+} from "@/features/job-actions/client";
+import { SaveButton } from "@/features/save-job/client";
 
 /**
  * The per-viewer half of a job page: whether *this* user has applied or saved.

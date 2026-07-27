@@ -37,6 +37,13 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job | null> => {
 });
 
 /**
+ * A job the public is allowed to land on. Anything else is either awaiting
+ * moderation or no longer accepting applicants, so it should neither be
+ * prerendered nor advertised to crawlers.
+ */
+const LISTABLE = { approved: true, closed: false } as const;
+
+/**
  * Newest listable job slugs, for prerendering `/jobs/[slug]` at build time.
  *
  * Returns an empty list if the database is unreachable, which lets the build
@@ -45,7 +52,7 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job | null> => {
 export async function getRecentJobSlugs(limit: number): Promise<string[]> {
   try {
     const jobs = await prisma.job.findMany({
-      where: { approved: true, closed: false },
+      where: LISTABLE,
       select: { slug: true },
       orderBy: { createdAt: "desc" },
       take: limit,
@@ -57,18 +64,13 @@ export async function getRecentJobSlugs(limit: number): Promise<string[]> {
   }
 }
 
-/**
- * Every job slug with its last-modified date, for the sitemap.
- *
- * Note this is deliberately unfiltered, matching the sitemap's existing
- * behaviour — unlike `getRecentJobSlugs`, it includes unapproved and closed
- * jobs.
- */
+/** Every listable job slug with its last-modified date, for the sitemap. */
 export async function getAllJobSlugs(): Promise<
   { slug: string; updatedAt: Date }[]
 > {
   try {
     return await prisma.job.findMany({
+      where: LISTABLE,
       select: { slug: true, updatedAt: true },
     });
   } catch (error) {

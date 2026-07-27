@@ -37,6 +37,7 @@ model Employer {
   updatedAt      DateTime @updatedAt
   jobs           Job[]
 
+  @@index([createdAt(sort: Desc)])
   @@map("employers")
 }
 
@@ -63,6 +64,7 @@ model Applicant {
   jobApplications          JobApplication[]
   savedJobs                SavedJob[]
 
+  @@index([createdAt(sort: Desc)])
   @@map("applicants")
 }
 
@@ -86,6 +88,14 @@ model Job {
   jobApplications JobApplication[]
   savedJobs       SavedJob[]
 
+  // Public job search: filters on `approved`, then sorts by recency.
+  @@index([approved, createdAt(sort: Desc)])
+  // Employer dashboard: an employer's own posts, most recent first.
+  @@index([userId, createdAt(sort: Desc)])
+  // Facet filters — the planner can bitmap-AND these with the index above.
+  @@index([employmentType])
+  @@index([locationType])
+  @@index([employerId])
   @@map("jobs")
 }
 
@@ -100,6 +110,10 @@ model JobApplication {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  // `checkIfAlreadyApplied` looks up by (userId, jobId) on every job page.
+  @@index([userId, jobId])
+  @@index([jobId])
+  @@index([applicantId])
   @@map("jobApplications")
 }
 
@@ -113,5 +127,9 @@ model SavedJob {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  // `checkIfAlreadySaved` looks up by (userId, jobId) on every job page.
+  @@index([userId, jobId])
+  @@index([jobId])
+  @@index([applicantId])
   @@map("savedJobs")
 }

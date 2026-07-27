@@ -77,6 +77,176 @@
         "@typescript-eslint/no-unsafe-argument": "warn",
         "@typescript-eslint/no-unsafe-return": "warn"
       }
+    },
+    {
+      "files": ["src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/entities/*",
+                  "@/entities/**",
+                  "@/features/*",
+                  "@/features/**",
+                  "@/widgets/*",
+                  "@/widgets/**",
+                  "@/pages-component/*",
+                  "@/pages-component/**",
+                  "@/app/*",
+                  "@/app/**"
+                ],
+                "message": "FSD: `shared` is the bottom layer and may not import from any layer above it. Move the domain-aware part up into the entity or feature that owns it."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/entities/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/features/*",
+                  "@/features/**",
+                  "@/widgets/*",
+                  "@/widgets/**",
+                  "@/pages-component/*",
+                  "@/pages-component/**",
+                  "@/app/*",
+                  "@/app/**"
+                ],
+                "message": "FSD: `entities` may only import from `shared`. Anything that needs a feature or widget belongs in a higher layer."
+              },
+              {
+                "group": [
+                  "@/entities/*/ui/**",
+                  "@/entities/*/model/**",
+                  "@/entities/*/api/**",
+                  "@/entities/*/lib/**"
+                ],
+                "message": "FSD: import another entity through its public API (`@/entities/<slice>` or `@/entities/<slice>/client`), not its internal segments."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/features/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/widgets/*",
+                  "@/widgets/**",
+                  "@/pages-component/*",
+                  "@/pages-component/**",
+                  "@/app/*",
+                  "@/app/**"
+                ],
+                "message": "FSD: `features` may only import from `entities` and `shared`. Reusable logic that a widget also needs belongs in `shared` or its own feature."
+              },
+              {
+                "group": [
+                  "@/features/*/*/ui/**",
+                  "@/features/*/*/model/**",
+                  "@/features/*/*/api/**",
+                  "@/features/*/*/lib/**"
+                ],
+                "message": "FSD: import another feature through its public API (`index` or `client`), not its internal segments."
+              },
+              {
+                "group": [
+                  "@/entities/*/ui/**",
+                  "@/entities/*/model/**",
+                  "@/entities/*/api/**",
+                  "@/entities/*/lib/**"
+                ],
+                "message": "FSD: import entities through their public API — `@/entities/<slice>`, or `@/entities/<slice>/client` from a client component."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/widgets/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/pages-component/*",
+                  "@/pages-component/**",
+                  "@/app/*",
+                  "@/app/**"
+                ],
+                "message": "FSD: `widgets` may only import from `features`, `entities`, and `shared`."
+              },
+              {
+                "group": [
+                  "@/widgets/*/ui/**",
+                  "@/widgets/*/model/**",
+                  "@/widgets/*/api/**",
+                  "@/widgets/*/lib/**",
+                  "@/features/*/*/ui/**",
+                  "@/features/*/*/model/**",
+                  "@/features/*/*/api/**",
+                  "@/features/*/*/lib/**",
+                  "@/entities/*/ui/**",
+                  "@/entities/*/model/**",
+                  "@/entities/*/api/**",
+                  "@/entities/*/lib/**"
+                ],
+                "message": "FSD: import slices through their public API (`index` or `client`), not their internal segments."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/pages-component/**", "src/app/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/pages-component/*/ui/**",
+                  "@/widgets/*/ui/**",
+                  "@/widgets/*/model/**",
+                  "@/widgets/*/api/**",
+                  "@/widgets/*/lib/**",
+                  "@/features/*/*/ui/**",
+                  "@/features/*/*/model/**",
+                  "@/features/*/*/api/**",
+                  "@/features/*/*/lib/**",
+                  "@/entities/*/ui/**",
+                  "@/entities/*/model/**",
+                  "@/entities/*/api/**",
+                  "@/entities/*/lib/**"
+                ],
+                "message": "FSD: import slices through their public API (`index` or `client`), not their internal segments."
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "settings": {

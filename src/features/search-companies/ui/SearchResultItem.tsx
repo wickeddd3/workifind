@@ -1,7 +1,5 @@
-import Image from "next/image";
-
 import { type Company } from "@/entities/employer";
-import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
+import { Avatar } from "@/shared/ui/avatar";
 
 export function SearchResultItem({
   company: { companyName, companyLogoUrl, industry, location, jobsCount },
@@ -10,15 +8,7 @@ export function SearchResultItem({
 }) {
   return (
     <article className="flex items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-border hover:shadow-card">
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
-        <Image
-          src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-          width={56}
-          height={56}
-          alt={`${companyName} logo`}
-          className="h-full w-full object-contain"
-        />
-      </div>
+      <Avatar name={companyName} src={companyLogoUrl} size={56} />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h3 className="truncate text-sm font-semibold text-foreground md:text-md">
           {companyName}

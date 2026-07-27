@@ -1,8 +1,7 @@
 import { Link as LinkIcon, Mail, Pencil } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
-import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
+import { Avatar } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 
 export function EmployerHeader({
@@ -23,15 +22,12 @@ export function EmployerHeader({
   return (
     <div className="flex items-start justify-between gap-4">
       <div className="flex min-w-0 items-center gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted md:h-20 md:w-20">
-          <Image
-            src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-            alt={`${companyName} logo`}
-            width={80}
-            height={80}
-            className="h-full w-full object-contain"
-          />
-        </div>
+        <Avatar
+          name={companyName}
+          src={companyLogoUrl}
+          size={72}
+          className="rounded-2xl"
+        />
         <div className="flex min-w-0 flex-col gap-2">
           <NameHeading className="truncate text-lg font-bold text-foreground md:text-2xl">
             {companyName}

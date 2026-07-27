@@ -1,9 +1,8 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import type { Job } from "@/entities/job";
-import { DEFAULT_COMPANY_LOGO } from "@/shared/constants/logo";
+import { Avatar } from "@/shared/ui/avatar";
 
 export function JobDetails({
   job: {
@@ -16,15 +15,12 @@ export function JobDetails({
 }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted md:h-20 md:w-20">
-        <Image
-          src={companyLogoUrl || DEFAULT_COMPANY_LOGO}
-          alt={`${companyName} logo`}
-          width={80}
-          height={80}
-          className="h-full w-full object-contain"
-        />
-      </div>
+      <Avatar
+        name={companyName}
+        src={companyLogoUrl}
+        size={72}
+        className="rounded-2xl"
+      />
       <div className="flex min-w-0 flex-col gap-0.5">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Applying for

@@ -1,5 +1,10 @@
+import { Suspense } from "react";
+
 import { searchCompaniesAction } from "@/features/employer/search-companies";
-import { SuggestedCompanies } from "@/widgets/companies-carousel/ui/SuggestedCompanies";
+import {
+  SuggestedCompanies,
+  SuggestedCompaniesSkeleton,
+} from "@/widgets/companies-carousel";
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { CompanySearchTip } from "@/widgets/search-tip-section";
 
@@ -12,7 +17,10 @@ export async function CompaniesPage() {
         placeholder="Search by company name"
         searchAction={searchCompaniesAction}
       />
-      <SuggestedCompanies />
+      {/* The jumbotron and tips are static; only this section queries. */}
+      <Suspense fallback={<SuggestedCompaniesSkeleton />}>
+        <SuggestedCompanies />
+      </Suspense>
       <CompanySearchTip />
     </div>
   );

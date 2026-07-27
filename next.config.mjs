@@ -29,6 +29,10 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
   images: {
+    // Serve AVIF/WebP to browsers that accept them; Next falls back to the
+    // original format otherwise. Company logos are the bulk of the image
+    // payload on the job and company lists.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         hostname: "gkmp2jrrgr3iczzg.public.blob.vercel-storage.com",

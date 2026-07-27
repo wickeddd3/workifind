@@ -95,11 +95,11 @@ export function JobHeader({
         )}
       </div>
 
-      {optionSlot && (
-        <div className="flex flex-wrap items-center gap-3 pt-1">
-          {optionSlot}
-        </div>
-      )}
+      {/* The slot owns its own layout wrapper — an async slot component is
+          always a truthy element even when it ultimately renders nothing, so
+          wrapping it here would leave an empty padded row for signed-out
+          visitors. */}
+      {optionSlot}
     </div>
   );
 }

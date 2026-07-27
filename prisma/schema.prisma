@@ -5,8 +5,10 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  provider = "prisma-client-js"
+  // `fullTextSearch` is gone: its `search` filter compiled to an expression
+  // Postgres cannot index. Job search now goes through the `searchVector`
+  // generated column and its GIN index — see job.service.ts.
 }
 
 datasource db {
@@ -37,6 +39,7 @@ model Employer {
   updatedAt      DateTime @updatedAt
   jobs           Job[]
 
+  @@index([createdAt(sort: Desc)])
   @@map("employers")
 }
 
@@ -63,6 +66,7 @@ model Applicant {
   jobApplications          JobApplication[]
   savedJobs                SavedJob[]
 
+  @@index([createdAt(sort: Desc)])
   @@map("applicants")
 }
 
@@ -86,6 +90,19 @@ model Job {
   jobApplications JobApplication[]
   savedJobs       SavedJob[]
 
+  // Stored generated column maintained by Postgres — see the
+  // add_job_search_vector migration. Prisma cannot express `tsvector`, so it is
+  // declared Unsupported and queried through $queryRaw in job.service.ts.
+  searchVector Unsupported("tsvector")?
+
+  // Public job search: filters on `approved`, then sorts by recency.
+  @@index([approved, createdAt(sort: Desc)])
+  // Employer dashboard: an employer's own posts, most recent first.
+  @@index([userId, createdAt(sort: Desc)])
+  // Facet filters — the planner can bitmap-AND these with the index above.
+  @@index([employmentType])
+  @@index([locationType])
+  @@index([employerId])
   @@map("jobs")
 }
 
@@ -100,6 +117,10 @@ model JobApplication {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  // `checkIfAlreadyApplied` looks up by (userId, jobId) on every job page.
+  @@index([userId, jobId])
+  @@index([jobId])
+  @@index([applicantId])
   @@map("jobApplications")
 }
 
@@ -113,5 +134,9 @@ model SavedJob {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  // `checkIfAlreadySaved` looks up by (userId, jobId) on every job page.
+  @@index([userId, jobId])
+  @@index([jobId])
+  @@index([applicantId])
   @@map("savedJobs")
 }

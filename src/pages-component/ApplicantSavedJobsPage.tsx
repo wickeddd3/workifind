@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { ApplicantSavedJobs } from "@/features/job/saved-jobs";
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { ListSkeleton } from "@/shared/ui/ListSkeleton";
 
 export async function ApplicantSavedJobsPage({
   searchParams,
@@ -25,7 +27,12 @@ export async function ApplicantSavedJobsPage({
         </p>
       </div>
       <div className="flex flex-col gap-3">
-        <ApplicantSavedJobs userId={userId} searchParams={searchParams} />
+        <Suspense
+          key={JSON.stringify(searchParams)}
+          fallback={<ListSkeleton rows={5} metaLines={3} />}
+        >
+          <ApplicantSavedJobs userId={userId} searchParams={searchParams} />
+        </Suspense>
       </div>
     </section>
   );

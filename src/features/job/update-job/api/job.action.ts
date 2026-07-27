@@ -1,6 +1,7 @@
 "use server";
 
 import type { Job } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 import { requireRole } from "@/shared/lib/clerk.server";
 
@@ -22,6 +23,12 @@ export async function updateJobAction(
     const sanitizedData = mapJobForm(parsed.data);
 
     const job = await updateJob(userId, id, sanitizedData);
+
+    // /jobs/[slug] is prerendered, so an edit would otherwise not surface until
+    // the hourly revalidation window elapsed.
+    if (job) revalidatePath(`/jobs/${job.slug}`);
+    revalidatePath("/jobs");
+    revalidatePath("/employer/jobs");
 
     return { success: true, data: job, message: "Updated successfully" };
   } catch (error) {

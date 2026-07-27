@@ -19,7 +19,10 @@ export async function toggleSaveJobAction(
       // unsaveJob is already scoped by userId, so it can only remove the
       // caller's own saved rows.
       await unsaveJob(userId, jobId);
-      revalidatePath(`/jobs/${jobId}`);
+      // Not the job page: it is prerendered and no longer depends on save
+      // state, which JobActions resolves per viewer on the client. The previous
+      // `/jobs/${jobId}` was a no-op anyway — that route is keyed by slug.
+      revalidatePath("/applicant/jobs/saved");
       return {
         success: true,
         data: false,
@@ -33,7 +36,7 @@ export async function toggleSaveJobAction(
       }
 
       await saveJob({ userId, applicantId: applicant.id, jobId });
-      revalidatePath(`/jobs/${jobId}`);
+      revalidatePath("/applicant/jobs/saved");
       return {
         success: true,
         data: true,

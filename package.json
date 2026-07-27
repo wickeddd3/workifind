@@ -12,10 +12,11 @@
     "db:deploy": "prisma migrate deploy",
     "seed": "npx tsx prisma/seed/index.ts",
     "seed:clean": "npx tsx prisma/seed/clean.ts",
+    "backfill:roles": "npx tsx prisma/scripts/backfill-user-roles.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.2.4",
+    "@clerk/nextjs": "^6.39.6",
     "@hookform/resolvers": "^3.9.0",
     "@next/bundle-analyzer": "^14.2.11",
     "@prisma/client": "^5.16.2",
@@ -37,7 +38,7 @@
     "lucide-react": "^0.406.0",
     "markdown-draft-js": "^2.4.0",
     "nanoid": "^5.0.7",
-    "next": "14.2.4",
+    "next": "^14.2.35",
     "prisma": "^5.16.2",
     "react": "^18",
     "react-dom": "^18",

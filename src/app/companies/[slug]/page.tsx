@@ -2,6 +2,29 @@ import type { Metadata } from "next";
 
 import { getEmployerBySlug } from "@/entities/employer";
 import { CompanyPage } from "@/pages-component/CompanyPage";
+import prisma from "@/shared/lib/prisma";
+
+// Public company profiles are identical for every visitor, so they are
+// prerendered and refreshed hourly rather than rebuilt per request.
+export const revalidate = 3600;
+
+// Slugs not listed here are still served — Next renders them on first request
+// and caches the result.
+export async function generateStaticParams() {
+  try {
+    const employers = await prisma.employer.findMany({
+      select: { slug: true },
+      orderBy: { createdAt: "desc" },
+      take: 200,
+    });
+
+    return employers.map(({ slug }) => ({ slug }));
+  } catch {
+    // The database may be unreachable at build time; fall back to rendering
+    // every company on demand.
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params: { slug },

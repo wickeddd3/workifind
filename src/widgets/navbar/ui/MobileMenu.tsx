@@ -9,11 +9,15 @@ import {
   MenubarTrigger,
 } from "@/shared/ui/menubar";
 
-import { profileRoute, type Role } from "../model/get-profile-route";
+import { profileRoute } from "../model/get-profile-route";
 import { menuLinks } from "../model/navbar-links";
+import { useUserRole } from "../model/use-user-role";
 import { MobileMenuNavLink } from "./MobileMenuNavLink";
 
-export function MobileMenu({ role }: { role: Role | undefined }) {
+// Reads its own role rather than taking it as a prop, so the server component
+// that renders it never has to touch auth.
+export function MobileMenu() {
+  const { role } = useUserRole();
   const isApplicant = role === "APPLICANT";
   const isEmployer = role === "EMPLOYER";
 

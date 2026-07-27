@@ -14,7 +14,8 @@ export async function unsaveJobAction(
 
     await unsaveJob(userId, jobId);
 
-    revalidatePath(`/jobs/${jobId}`);
+    // The job page is prerendered and no longer depends on save state, which
+    // JobActions resolves per viewer on the client.
     revalidatePath("/applicant/jobs/saved");
     return {
       success: true,

@@ -30,12 +30,15 @@ export async function JobsPage({
           </Suspense>
         </section>
 
-        {/* `self-start` keeps the pane hugging its content — as a flex child it
+        {/* Sticks clear of the filter bar rather than under it: --filter-bar-h
+            is published by JobFilter, which measures itself, since the bar's
+            height moves with the breakpoint and with the refinements being
+            open. The fallback matches its tallest resting state.
+
+            `self-start` keeps the pane hugging its content — as a flex child it
             otherwise stretched to the full height of the results column and
-            rendered a short posting as a mostly empty card. Offset by the
-            sticky filter bar so its scroll region starts below it, not under
-            it. */}
-        <section className="sticky top-[6.5rem] hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-card md:block md:w-[58%] lg:w-3/5">
+            rendered a short posting as a mostly empty card. */}
+        <section className="sticky top-[calc(var(--filter-bar-h,10.25rem)+1.25rem)] hidden max-h-[calc(100vh-var(--filter-bar-h,10.25rem)-2.5rem)] self-start overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-card md:block md:w-[58%] lg:w-3/5">
           <Suspense key={searchParams.job} fallback={<JobDetailSkeleton />}>
             <JobSelected slug={searchParams.job} />
           </Suspense>

@@ -2,7 +2,7 @@
 
 import { SearchIcon, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   EMPLOYMENT_TYPES,
@@ -36,6 +36,30 @@ export function JobFilter({
     searchParams.locationType,
   ].filter(Boolean).length;
 
+  // The detail pane sticks below this bar, and the bar's height changes with
+  // the breakpoint and with the refinements being open — a fixed offset left
+  // the pane sliding underneath it. Publish the measured height so the pane's
+  // own offset and max-height can be derived from one source.
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = barRef.current;
+    if (!node) return;
+
+    const publishHeight = () => {
+      document.documentElement.style.setProperty(
+        "--filter-bar-h",
+        `${node.getBoundingClientRect().height}px`,
+      );
+    };
+
+    publishHeight();
+    const observer = new ResizeObserver(publishHeight);
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
   const { saveSearchFilter } = useSearchHistory({
     localStorageName: "workifind.search-history",
   });
@@ -60,7 +84,7 @@ export function JobFilter({
   }
 
   return (
-    <div className="border-b border-border bg-card">
+    <div ref={barRef} className="border-b border-border bg-card">
       <form
         action={handleFilterJobs}
         key={JSON.stringify(searchParams)}

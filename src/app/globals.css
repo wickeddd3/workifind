@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "swiper/css";
-@import "swiper/css/navigation";
-@import "swiper/css/pagination";
+/* Swiper's stylesheets are imported by the three components that actually use
+   it (the two carousels and the search history strip) rather than here, so they
+   ship with those chunks instead of on every route. */
 
 @layer base {
   :root {

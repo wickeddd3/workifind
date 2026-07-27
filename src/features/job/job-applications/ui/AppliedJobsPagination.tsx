@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { cn } from "@/shared/lib/utils";
 
-export function JobApplicationsPagination({
+export function AppliedJobsPagination({
   currentPage,
   totalPages,
 }: {

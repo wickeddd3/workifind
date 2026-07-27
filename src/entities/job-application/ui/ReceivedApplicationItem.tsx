@@ -3,7 +3,7 @@ import { BadgeCheck, Briefcase, MapPin } from "lucide-react";
 import type { JobApplicationWithApplicant } from "../model/types";
 import { JobApplicationPitch } from "./JobApplicationPitch";
 
-export function JobApplicationItem({
+export function ReceivedApplicationItem({
   jobApplication: {
     pitch,
     applicant: { firstName, lastName, experienced, profession, location },

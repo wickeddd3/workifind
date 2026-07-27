@@ -1,8 +1,8 @@
 import type { JobApplicationWithJob } from "@/entities/job-application";
 
-import { JobApplicationItem } from "./JobApplicationItem";
+import { AppliedJobItem } from "./AppliedJobItem";
 
-export function JobApplications({
+export function AppliedJobs({
   jobApplications,
 }: {
   jobApplications: JobApplicationWithJob[];
@@ -10,7 +10,7 @@ export function JobApplications({
   return (
     <>
       {jobApplications.map((jobApplication) => (
-        <JobApplicationItem
+        <AppliedJobItem
           jobApplication={jobApplication}
           key={jobApplication.id}
         />

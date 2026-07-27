@@ -1,5 +1,5 @@
 /* UI */
-export { JobApplications } from "./ui/JobApplications";
+export { ReceivedApplications } from "./ui/ReceivedApplications";
 export { SubmittedLoadingPlaceholder } from "./ui/SubmittedLoadingPlaceholder";
 
 /* Model */

@@ -1,6 +1,6 @@
 import type { Job } from "@/entities/job";
 
-import { searchJobs, searchJobsCount } from "./job.service";
+import { type JobSort, searchJobs, searchJobsCount } from "./job.service";
 
 export async function searchJobsQuery(queryParams: {
   query: string;
@@ -9,6 +9,7 @@ export async function searchJobsQuery(queryParams: {
   locationType: string;
   size: number;
   page: number;
+  sort: JobSort;
 }): Promise<{ success: boolean; data: Job[] | null; message: string }> {
   try {
     // Destructure query parameters
@@ -19,6 +20,7 @@ export async function searchJobsQuery(queryParams: {
       locationType = "",
       size = 10,
       page = 1,
+      sort = "newest",
     } = queryParams;
 
     // Calculate the number of rows to skip
@@ -36,6 +38,7 @@ export async function searchJobsQuery(queryParams: {
       locationType,
       take: size,
       skip,
+      sort,
     });
 
     return { success: true, data: results, message: "Queried successfully" };

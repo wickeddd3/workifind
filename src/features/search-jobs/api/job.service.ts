@@ -10,6 +10,26 @@ interface JobFilters {
   locationType: string;
 }
 
+/** The orderings the results header offers. Anything else falls back to date. */
+export type JobSort = "newest" | "salary";
+
+/**
+ * Sorting by pay uses the top of the band, then recency as the tie-breaker —
+ * without it, the many jobs sharing a band would come back in an arbitrary
+ * order that shifts between pages.
+ */
+function orderBy(sort: JobSort): Prisma.JobOrderByWithRelationInput[] {
+  return sort === "salary"
+    ? [{ maxSalary: "desc" }, { createdAt: "desc" }]
+    : [{ createdAt: "desc" }];
+}
+
+function orderBySql(sort: JobSort): Prisma.Sql {
+  return sort === "salary"
+    ? Prisma.sql`ORDER BY "maxSalary" DESC, "createdAt" DESC`
+    : Prisma.sql`ORDER BY "createdAt" DESC`;
+}
+
 /**
  * Salary bands are stored as a min/max pair where either end may be 0 to mean
  * "unspecified", so a match is any row whose stated bounds don't exclude the
@@ -90,10 +110,10 @@ function buildWhereInput({
 }
 
 export async function searchJobs(
-  queryParams: JobFilters & { take: number; skip: number },
+  queryParams: JobFilters & { take: number; skip: number; sort: JobSort },
 ): Promise<Job[]> {
   try {
-    const { query, employmentType, salary, locationType, take, skip } =
+    const { query, employmentType, salary, locationType, take, skip, sort } =
       queryParams;
 
     // No text search — stay in the query builder. This is the common case
@@ -103,7 +123,7 @@ export async function searchJobs(
     if (!query) {
       return await db.job.findMany({
         where: buildWhereInput({ employmentType, salary, locationType }),
-        orderBy: { createdAt: "desc" },
+        orderBy: orderBy(sort),
         include: { employer: true },
         take,
         skip,
@@ -116,15 +136,18 @@ export async function searchJobs(
     const matches = await db.$queryRaw<{ id: number }[]>`
       SELECT "id" FROM "jobs"
       WHERE ${buildWhere(queryParams)}
-      ORDER BY "createdAt" DESC
+      ${orderBySql(sort)}
       LIMIT ${take} OFFSET ${skip}
     `;
 
     if (matches.length === 0) return [];
 
+    // The hydration query has to repeat the ordering — an `IN` lookup makes no
+    // promise about row order, so sorting only in the ID query would let the
+    // page come back shuffled.
     return await db.job.findMany({
       where: { id: { in: matches.map((m) => m.id) } },
-      orderBy: { createdAt: "desc" },
+      orderBy: orderBy(sort),
       include: { employer: true },
     });
   } catch (error) {

@@ -111,7 +111,11 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body
-        className={`${inter.variable} ${plus_jakarta_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
+        // `min-h-screen`, not `h-screen`: a fixed viewport height made every
+        // page whose content is shorter than the viewport stretch its card to
+        // fill, and every page whose content is longer overflow the body. The
+        // footer still sits at the bottom on short pages via `flex-1` on main.
+        className={`${inter.variable} ${plus_jakarta_sans.variable} flex min-h-screen min-w-[350px] flex-col font-sans antialiased`}
       >
         <ThemeProvider>
           <ClerkProvider

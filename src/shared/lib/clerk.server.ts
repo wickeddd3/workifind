@@ -10,8 +10,11 @@ export type UserRole = "EMPLOYER" | "APPLICANT";
 export const getAuthUser = cache(async () => {
   const user = await currentUser();
 
-  // Prioritize publicMetadata for security, fallback to unsafe for dev/onboarding
-  const role = user?.publicMetadata?.role || user?.unsafeMetadata?.role;
+  // `publicMetadata` only. Reading `unsafeMetadata` as a fallback would defeat
+  // the point of writing the role to `publicMetadata`: a user can set their own
+  // `unsafeMetadata` from the browser, so any role found there is self-asserted
+  // and must never be trusted for authorization.
+  const role = user?.publicMetadata?.role;
 
   return {
     role: role as UserRole | undefined,

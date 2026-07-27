@@ -1,4 +1,4 @@
-import { EmployerEditPage } from "@/pages-component/EmployerEditPage";
+import { EmployerEditPage } from "@/views/employer-profile-edit";
 
 export default async function Page() {
   return <EmployerEditPage />;

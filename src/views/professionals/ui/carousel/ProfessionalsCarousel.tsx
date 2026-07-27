@@ -3,9 +3,10 @@
 import "swiper/css";
 import "swiper/css/pagination";
 
-import type { Applicant } from "@prisma/client";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import type { Applicant } from "@/entities/applicant";
 
 import { ProfessionalCard } from "./ProfessionalCard";
 

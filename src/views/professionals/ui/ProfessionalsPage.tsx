@@ -1,12 +1,11 @@
 import { Suspense } from "react";
 
 import { searchProfessionalsAction } from "@/features/applicant/search-professionals";
-import {
-  SuggestedProfessionals,
-  SuggestedProfessionalsSkeleton,
-} from "@/widgets/professionals-carousel";
 import { SearchJumbotron } from "@/widgets/search-jumbotron";
 import { ProfessionalSearchTip } from "@/widgets/search-tip-section";
+
+import { SuggestedProfessionals } from "./carousel/SuggestedProfessionals";
+import { SuggestedProfessionalsSkeleton } from "./carousel/SuggestedProfessionalsSkeleton";
 
 export async function ProfessionalsPage() {
   return (

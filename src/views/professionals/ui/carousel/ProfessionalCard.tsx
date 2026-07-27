@@ -1,6 +1,7 @@
-import type { Applicant } from "@prisma/client";
 import { BadgeCheck, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
+
+import type { Applicant } from "@/entities/applicant";
 
 export function ProfessionalCard({
   professional: {

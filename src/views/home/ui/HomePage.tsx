@@ -8,13 +8,16 @@ import {
   SuggestedCompanies,
   SuggestedCompaniesSkeleton,
 } from "@/widgets/companies-carousel";
-import { InitialSavedJobs } from "@/widgets/initial-saved-jobs";
-import { MarketingSection } from "@/widgets/marketing-section";
-import { LoadingPlaceholder } from "@/widgets/search-history";
+
+import { MarketingSection } from "./MarketingSection";
+import { InitialSavedJobs } from "./saved-jobs/InitialSavedJobs";
+import { LoadingPlaceholder } from "./search-history/LoadingPlaceholder";
 
 const LazySearchHistory = dynamic(
   () =>
-    import("@/widgets/search-history").then((module) => module.SearchHistory),
+    import("./search-history/SearchHistory").then(
+      (module) => module.SearchHistory,
+    ),
   {
     loading: () => <LoadingPlaceholder />,
     ssr: false,

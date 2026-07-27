@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ProfessionalPage } from "@/pages-component/ProfessionalPage";
+import { ProfessionalPage } from "@/views/professional";
 
 // Candidate profiles carry personal data, so they are intentionally kept out
 // of the search index (see the SEO indexing decision).

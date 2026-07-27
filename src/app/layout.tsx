@@ -101,21 +101,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-P6XBN1CMQ5"
-        ></Script>
-        <Script id="google-analytics">
-          {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-P6XBN1CMQ5');
-            `}
-        </Script>
-      </head>
       <body
         className={`${inter.variable} ${plus_jakarta_sans.variable} flex h-screen min-w-[350px] flex-col font-sans antialiased`}
       >
@@ -137,6 +122,22 @@ export default function RootLayout({
           <Footer />
           <DynamicToaster />
         </ClerkProvider>
+        {/* Analytics loads after hydration rather than from <head>, so it no
+            longer competes with the page's own scripts for the main thread.
+            Both tags share a strategy, so gtag.js still runs before config. */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-P6XBN1CMQ5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-P6XBN1CMQ5');
+            `}
+        </Script>
       </body>
     </html>
   );

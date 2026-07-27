@@ -1,4 +1,4 @@
-import { JobResultsSkeleton } from "@/features/job/search-jobs";
+import { JobResultsSkeleton } from "@/features/search-jobs";
 import { JobDetailSkeleton } from "@/widgets/selected-job";
 
 // Mirrors the two-panel layout in `JobsPage` so navigating into /jobs paints the

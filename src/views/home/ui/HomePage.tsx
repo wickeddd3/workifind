@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-import { HomeJobFilter } from "@/features/job/search-jobs/client";
+import { HomeJobFilter } from "@/features/search-jobs/client";
 import { buildWebsiteSchema } from "@/shared/lib/structured-data";
 import { JsonLd } from "@/shared/ui/JsonLd";
 import {

@@ -1,5 +1,5 @@
-import { ProfileForm as NewApplicant } from "@/features/applicant/create-profile";
-import { ProfileForm as NewEmployer } from "@/features/employer/create-profile";
+import { ProfileForm as NewApplicant } from "@/features/create-applicant-profile";
+import { ProfileForm as NewEmployer } from "@/features/create-employer-profile";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 

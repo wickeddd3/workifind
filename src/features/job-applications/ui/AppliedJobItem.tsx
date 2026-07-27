@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 
-export function JobApplicationItem({
+export function AppliedJobItem({
   jobApplication: {
     job: { slug, title, employmentType, locationType, minSalary, maxSalary },
   },

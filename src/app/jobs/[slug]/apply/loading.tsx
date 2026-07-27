@@ -1,4 +1,4 @@
-import { LoadingPlaceholder } from "@/features/job/apply-to-job";
+import { LoadingPlaceholder } from "@/features/apply-to-job";
 
 export default function Loading() {
   return (

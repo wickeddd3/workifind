@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { JobDescription } from "@/entities/job";
 import { JobHeaderCompact } from "@/entities/job";
-import { getJob, JobApplications } from "@/entities/job-application";
+import { getJob, ReceivedApplications } from "@/entities/job-application";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
@@ -37,7 +37,7 @@ export async function EmployerJobApplicants({ id }: { id: number }) {
           <JobDescription description={job.description} />
         </TabsContent>
         <TabsContent value="applicants" className="py-6">
-          <JobApplications jobApplications={job.jobApplications || []} />
+          <ReceivedApplications jobApplications={job.jobApplications || []} />
         </TabsContent>
       </Tabs>
     </section>

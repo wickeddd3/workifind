@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { getEmployer } from "@/entities/employer";
-import { ProfileForm } from "@/features/employer/update-profile";
+import { ProfileForm } from "@/features/update-employer-profile";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function EmployerEditPage() {

@@ -2,9 +2,9 @@ import {
   getJobApplicationsCountQuery,
   getJobApplicationsQuery,
 } from "../api/job-application.queries";
+import { AppliedJobs } from "./AppliedJobs";
+import { AppliedJobsPagination } from "./AppliedJobsPagination";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
-import { JobApplications } from "./JobApplications";
-import { JobApplicationsPagination } from "./JobApplicationsPagination";
 
 export async function ApplicantJobs({
   userId,
@@ -29,8 +29,8 @@ export async function ApplicantJobs({
 
   return (
     <>
-      <JobApplications jobApplications={results.data || []} />
-      <JobApplicationsPagination
+      <AppliedJobs jobApplications={results.data || []} />
+      <AppliedJobsPagination
         currentPage={currentPage}
         totalPages={Math.ceil((totalResults.data || 0) / size)}
       />

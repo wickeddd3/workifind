@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { searchCompaniesAction } from "@/features/employer/search-companies";
+import { searchCompaniesAction } from "@/features/search-companies";
 import {
   SuggestedCompanies,
   SuggestedCompaniesSkeleton,

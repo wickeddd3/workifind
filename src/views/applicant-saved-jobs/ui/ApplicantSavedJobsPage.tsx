@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { ApplicantSavedJobs } from "@/features/job/saved-jobs";
+import { ApplicantSavedJobs } from "@/features/saved-jobs";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ListSkeleton } from "@/shared/ui/ListSkeleton";
 

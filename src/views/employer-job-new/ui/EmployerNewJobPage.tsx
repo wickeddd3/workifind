@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { getEmployer } from "@/entities/employer";
-import { JobForm } from "@/features/job/create-job";
+import { JobForm } from "@/features/create-job";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function EmployerNewJobPage() {

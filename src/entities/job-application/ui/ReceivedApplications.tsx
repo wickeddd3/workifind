@@ -1,7 +1,7 @@
 import type { JobApplicationWithApplicant } from "../model/types";
-import { JobApplicationItem } from "./JobApplicationItem";
+import { ReceivedApplicationItem } from "./ReceivedApplicationItem";
 
-export function JobApplications({
+export function ReceivedApplications({
   jobApplications,
 }: {
   jobApplications: JobApplicationWithApplicant[];
@@ -9,7 +9,7 @@ export function JobApplications({
   return (
     <div className="flex flex-col gap-4">
       {jobApplications.map((jobApplication) => (
-        <JobApplicationItem
+        <ReceivedApplicationItem
           jobApplication={jobApplication}
           key={jobApplication.id}
         />

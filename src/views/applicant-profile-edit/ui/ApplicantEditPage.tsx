@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { getApplicant } from "@/entities/applicant";
-import { ProfileForm } from "@/features/applicant/update-profile";
+import { ProfileForm } from "@/features/update-applicant-profile";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 export async function ApplicantEditPage() {

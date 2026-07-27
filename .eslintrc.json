@@ -126,13 +126,8 @@
                 "message": "FSD: `entities` may only import from `shared`. Anything that needs a feature or widget belongs in a higher layer."
               },
               {
-                "group": [
-                  "@/entities/*/ui/**",
-                  "@/entities/*/model/**",
-                  "@/entities/*/api/**",
-                  "@/entities/*/lib/**"
-                ],
-                "message": "FSD: import another entity through its public API (`@/entities/<slice>` or `@/entities/<slice>/client`), not its internal segments."
+                "group": ["@/entities/*"],
+                "message": "FSD: entities are siblings and must not import each other. In practice the shared type or component belongs to one of them and is merely filed under the wrong slice — move it there. If a dependency is genuinely essential, add a cross-import API at `entities/<owner>/@x/<consumer>.ts` and allow that path here; this rule blocks it too, deliberately, so the exception is a decision rather than a default."
               }
             ]
           }

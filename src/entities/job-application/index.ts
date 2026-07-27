@@ -1,10 +1,13 @@
 /* UI */
 export { JobApplications } from "./ui/JobApplications";
-export { JobHeader } from "./ui/JobHeader";
 export { SubmittedLoadingPlaceholder } from "./ui/SubmittedLoadingPlaceholder";
 
 /* Model */
-export type { JobApplication } from "./model/types";
+export type {
+  JobApplicationWithApplicant,
+  JobApplicationWithJob,
+  JobWithApplications,
+} from "./model/types";
 
 /* API */
 export { getJob } from "./api/job.queries";

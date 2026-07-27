@@ -1,4 +1,4 @@
-import { type JobApplication } from "@/entities/job-application";
+import { type JobApplicationWithJob } from "@/entities/job-application";
 import prisma from "@/shared/lib/prisma";
 
 export async function getJobApplications(
@@ -7,7 +7,7 @@ export async function getJobApplications(
     take: number;
     skip: number;
   },
-): Promise<JobApplication[]> {
+): Promise<JobApplicationWithJob[]> {
   try {
     const { take, skip } = queryParams;
 

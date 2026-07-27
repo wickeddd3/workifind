@@ -1,11 +1,11 @@
-import type { JobApplication } from "@/entities/job-application";
+import type { JobApplicationWithJob } from "@/entities/job-application";
 
 import { JobApplicationItem } from "./JobApplicationItem";
 
 export function JobApplications({
   jobApplications,
 }: {
-  jobApplications: JobApplication[];
+  jobApplications: JobApplicationWithJob[];
 }) {
   return (
     <>

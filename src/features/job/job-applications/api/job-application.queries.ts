@@ -1,4 +1,4 @@
-import type { JobApplication } from "@/entities/job-application";
+import type { JobApplicationWithJob } from "@/entities/job-application";
 
 import {
   getJobApplications,
@@ -13,7 +13,7 @@ export async function getJobApplicationsQuery(
   },
 ): Promise<{
   success: boolean;
-  data: JobApplication[] | null;
+  data: JobApplicationWithJob[] | null;
   message: string;
 }> {
   try {

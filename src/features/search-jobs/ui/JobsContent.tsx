@@ -16,7 +16,16 @@ export async function JobsContent({
 }: {
   searchParams: Record<string, string>;
 }) {
-  const { q, page, employmentType, salary, locationType, sort } = searchParams;
+  const {
+    q,
+    page,
+    employmentType,
+    salary,
+    locationType,
+    location,
+    industry,
+    sort,
+  } = searchParams;
 
   const jobsPerPage = 10;
   const currentPage = page ? parseInt(page) : 1;
@@ -25,6 +34,8 @@ export async function JobsContent({
     employmentType: employmentType ?? "",
     salary: salary ?? "",
     locationType: locationType ?? "",
+    location: location ?? "",
+    industry: industry ?? "",
     size: jobsPerPage,
     page: currentPage,
     sort: parseSort(sort),

@@ -1,16 +1,33 @@
 import type { Job } from "@/entities/job";
 
-import { type JobSort, searchJobs, searchJobsCount } from "./job.service";
+import {
+  type JobSort,
+  normalizeLocation,
+  searchJobs,
+  searchJobsCount,
+} from "./job.service";
 
-export async function searchJobsQuery(queryParams: {
+/**
+ * The facets the results page filters on. Kept as one type so the list query
+ * and the count query cannot take different sets — a count that disagrees with
+ * the page it labels is worse than either being wrong alone.
+ */
+interface JobSearchFilters {
   query: string;
   employmentType: string;
   salary: string;
   locationType: string;
-  size: number;
-  page: number;
-  sort: JobSort;
-}): Promise<{ success: boolean; data: Job[] | null; message: string }> {
+  location: string;
+  industry: string;
+}
+
+export async function searchJobsQuery(
+  queryParams: JobSearchFilters & {
+    size: number;
+    page: number;
+    sort: JobSort;
+  },
+): Promise<{ success: boolean; data: Job[] | null; message: string }> {
   try {
     // Destructure query parameters
     const {
@@ -18,6 +35,8 @@ export async function searchJobsQuery(queryParams: {
       employmentType = "",
       salary = "",
       locationType = "",
+      location = "",
+      industry = "",
       size = 10,
       page = 1,
       sort = "newest",
@@ -36,6 +55,8 @@ export async function searchJobsQuery(queryParams: {
       employmentType,
       salary,
       locationType,
+      location: normalizeLocation(location),
+      industry,
       take: size,
       skip,
       sort,
@@ -47,12 +68,9 @@ export async function searchJobsQuery(queryParams: {
   }
 }
 
-export async function searchJobsCountQuery(queryParams: {
-  query: string;
-  employmentType: string;
-  salary: string;
-  locationType: string;
-}): Promise<{ success: boolean; data: number | null; message: string }> {
+export async function searchJobsCountQuery(
+  queryParams: JobSearchFilters,
+): Promise<{ success: boolean; data: number | null; message: string }> {
   try {
     // Destructure query parameters
     const {
@@ -60,6 +78,8 @@ export async function searchJobsCountQuery(queryParams: {
       employmentType = "",
       salary = "",
       locationType = "",
+      location = "",
+      industry = "",
     } = queryParams;
 
     // See searchJobsQuery — plain text, not to_tsquery syntax.
@@ -70,6 +90,8 @@ export async function searchJobsCountQuery(queryParams: {
       employmentType,
       salary,
       locationType,
+      location: normalizeLocation(location),
+      industry,
     });
 
     return { success: true, data: results, message: "Queried successfully" };

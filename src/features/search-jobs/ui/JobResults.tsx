@@ -1,5 +1,6 @@
 import type { Job } from "@/entities/job";
 
+import { buildJobsUrl } from "../lib/job-search-url";
 import { JobCardLink } from "./JobCardLink";
 import { JobItem } from "./JobItem";
 
@@ -10,28 +11,20 @@ interface JobResultsProps {
 }
 
 export function JobResults({ jobs, searchParams, page }: JobResultsProps) {
-  const {
-    q,
-    employmentType,
-    salary,
-    locationType,
-    sort,
-    job: selectedSlug,
-  } = searchParams;
+  const { job: selectedSlug } = searchParams;
 
-  /** The current filter state, with `job` swapped to the previewed listing. */
+  /**
+   * The current filter state, with `job` swapped to the previewed listing.
+   *
+   * Built from the shared helper rather than re-listing the params by hand:
+   * the hand-rolled version had to be extended for every new facet, and
+   * forgetting one meant clicking a card silently dropped that filter.
+   */
   function getPreviewUrl(jobSlug: string): string {
-    const params = new URLSearchParams({
-      ...(q && { q: q.trim() }),
-      ...(employmentType && { employmentType }),
-      ...(salary && { salary }),
-      ...(locationType && { locationType }),
-      ...(sort && { sort }),
-      ...(jobSlug && { job: jobSlug }),
-      ...(page && { page: page.toString() }),
+    return buildJobsUrl(searchParams, {
+      job: jobSlug,
+      page: page?.toString(),
     });
-
-    return `/jobs?${params.toString()}`;
   }
 
   // A list of results is a list: it gives assistive tech the item count and

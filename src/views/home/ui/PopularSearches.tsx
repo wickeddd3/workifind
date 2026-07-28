@@ -17,8 +17,14 @@ const POPULAR_SEARCHES: { label: string; href: string }[] = [
   { label: "Internships", href: "/jobs?employmentType=Internship" },
   { label: "Contract work", href: "/jobs?employmentType=Contract" },
   { label: "$100k and up", href: "/jobs?salary=100000" },
-  { label: "Engineering", href: "/jobs?q=Engineer" },
-  { label: "Design", href: "/jobs?q=Designer" },
+  // Industry is a real facet now, so these narrow by the employer's sector
+  // rather than hoping the word appears in a job title.
+  {
+    label: "Technology",
+    href: "/jobs?industry=Information+%26+Communication+Technology",
+  },
+  { label: "Healthcare", href: "/jobs?industry=Healthcare+%26+Medical" },
+  { label: "Design", href: "/jobs?industry=Design+%26+Architecture" },
 ];
 
 export function PopularSearches() {

@@ -40,6 +40,9 @@ model Employer {
   jobs           Job[]
 
   @@index([createdAt(sort: Desc)])
+  // Job search filters by industry through this relation, so the planner needs
+  // to narrow employers by it before joining.
+  @@index([industry])
   @@map("employers")
 }
 

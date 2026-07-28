@@ -1,11 +1,12 @@
 "use client";
 
-import { SearchIcon, SlidersHorizontal } from "lucide-react";
+import { MapPin, SearchIcon, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import {
   EMPLOYMENT_TYPES,
+  INDUSTRY_TYPES,
   JOB_SALARY,
   LOCATION_TYPES,
 } from "@/shared/constants/tags";
@@ -34,6 +35,7 @@ export function JobFilter({
     searchParams.employmentType,
     searchParams.salary,
     searchParams.locationType,
+    searchParams.industry,
   ].filter(Boolean).length;
 
   // The detail pane sticks below this bar, and the bar's height changes with
@@ -66,13 +68,15 @@ export function JobFilter({
 
   async function handleFilterJobs(formData: FormData) {
     const values = Object.fromEntries(formData.entries());
-    const { q, employmentType, salary, locationType } =
+    const { q, location, employmentType, salary, locationType, industry } =
       JobFilterSchema.parse(values);
     const queryParams = new URLSearchParams({
       ...(q && { q: q.trim() }),
+      ...(location && { location: location.trim() }),
       ...(employmentType && { employmentType }),
       ...(salary && { salary }),
       ...(locationType && { locationType }),
+      ...(industry && { industry }),
       // Ordering is a view preference, so it survives a new search.
       ...(searchParams.sort && { sort: searchParams.sort }),
     });
@@ -90,8 +94,9 @@ export function JobFilter({
         key={JSON.stringify(searchParams)}
         className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-4 lg:py-5"
       >
-        {/* Keywords and submit stay on one line at every size — this is the
-            control people came to use. */}
+        {/* "What" and "where" side by side, the pairing every job board opens
+            with — `location` is free text on a posting, so this is a substring
+            match rather than a fixed list. */}
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <Label htmlFor="q" className="sr-only">
@@ -105,9 +110,26 @@ export function JobFilter({
             <Input
               id="q"
               name="q"
-              placeholder="Search by job title, company, or keyword"
+              placeholder="Job title, company, or keyword"
               className="h-12 w-full rounded-xl pl-11 text-sm"
               defaultValue={searchParams.q}
+            />
+          </div>
+          <div className="relative flex-1 sm:max-w-xs">
+            <Label htmlFor="location" className="sr-only">
+              Location
+            </Label>
+            <MapPin
+              size={18}
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
+            <Input
+              id="location"
+              name="location"
+              placeholder="City or region"
+              className="h-12 w-full rounded-xl pl-11 text-sm"
+              defaultValue={searchParams.location}
             />
           </div>
 
@@ -138,7 +160,7 @@ export function JobFilter({
         <div
           id="job-refinements"
           className={cn(
-            "grid-cols-1 gap-3 sm:grid-cols-3",
+            "grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4",
             // Always laid out on large screens; toggled below that.
             showRefinements ? "grid" : "hidden lg:grid",
           )}
@@ -202,6 +224,28 @@ export function JobFilter({
             >
               <option value="">Any arrangement</option>
               {LOCATION_TYPES.map((type) => (
+                <option key={type.value} value={type.value}>
+                  {type.label}
+                </option>
+              ))}
+            </SimpleSelect>
+          </div>
+
+          <div className="flex w-full flex-col gap-1.5">
+            <Label
+              htmlFor="industry"
+              className="text-xs font-medium text-muted-foreground"
+            >
+              Industry
+            </Label>
+            <SimpleSelect
+              id="industry"
+              name="industry"
+              className="h-10 w-full text-sm"
+              defaultValue={searchParams.industry || ""}
+            >
+              <option value="">Any industry</option>
+              {INDUSTRY_TYPES.map((type) => (
                 <option key={type.value} value={type.value}>
                   {type.label}
                 </option>

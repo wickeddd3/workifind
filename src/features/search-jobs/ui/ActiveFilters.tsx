@@ -16,13 +16,16 @@ function salaryLabel(value: string) {
 }
 
 function activeChips(searchParams: JobSearchParams) {
-  const { q, employmentType, salary, locationType } = searchParams;
+  const { q, location, employmentType, salary, locationType, industry } =
+    searchParams;
 
   const chips: { key: JobSearchKey; label: string }[] = [];
   if (q) chips.push({ key: "q", label: `“${q}”` });
+  if (location) chips.push({ key: "location", label: `in ${location}` });
   if (employmentType)
     chips.push({ key: "employmentType", label: employmentType });
   if (locationType) chips.push({ key: "locationType", label: locationType });
+  if (industry) chips.push({ key: "industry", label: industry });
   if (salary) chips.push({ key: "salary", label: salaryLabel(salary) });
 
   return chips;

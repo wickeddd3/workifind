@@ -9,9 +9,11 @@
 
 export const JOB_SEARCH_KEYS = [
   "q",
+  "location",
   "employmentType",
   "salary",
   "locationType",
+  "industry",
   "sort",
   "job",
   "page",

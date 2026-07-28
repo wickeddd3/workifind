@@ -1,5 +1,12 @@
 import { cache } from "react";
 
+// FSD cross-import, declared deliberately: this slice counts a company's open
+// roles, and which roles count as open is owned by the job slice. The
+// alternative is a third copy of that condition, which is the exact drift that
+// left closed jobs searchable. Narrow by construction — `@x/employer` exposes
+// the policy constant and nothing else.
+// eslint-disable-next-line no-restricted-imports
+import { LISTABLE_JOB } from "@/entities/job/@x/employer";
 import prisma from "@/shared/lib/prisma";
 import { parseJsonField } from "@/shared/utils/parse-json";
 
@@ -52,7 +59,11 @@ export async function getSuggestedCompanies(limit: number): Promise<Company[]> {
       orderBy: { createdAt: "desc" },
       include: {
         _count: {
-          select: { jobs: true },
+          // The card advertises this as an open-role count, but it was an
+          // unfiltered total — a company whose roles were all closed or still
+          // awaiting moderation still read "4 jobs", and the listing behind it
+          // was empty.
+          select: { jobs: { where: LISTABLE_JOB } },
         },
       },
       take: limit,

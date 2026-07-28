@@ -4,7 +4,7 @@ import { JobDetailSkeleton } from "@/widgets/selected-job";
 // query resolves.
 export default function Loading() {
   return (
-    <section className="mx-3 my-6 h-full w-full max-w-4xl grow space-y-5 rounded-2xl border border-border bg-card p-6 shadow-card md:mx-auto md:p-8">
+    <section className="mx-3 my-6 w-full max-w-4xl space-y-5 rounded-2xl border border-border bg-card p-6 shadow-card md:mx-auto md:my-10 md:p-8">
       <JobDetailSkeleton />
     </section>
   );

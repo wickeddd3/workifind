@@ -130,6 +130,11 @@ export default function RootLayout({
               Skip to main content
             </a>
             <Navbar />
+            {/* Deliberately a block, not a flex column. Making it flex would
+                let pages fill it with `flex-1`, but it also turns every page
+                root into a flex item — and the eighteen page roots that centre
+                themselves with `mx-auto` + `max-w-*` would then shrink to their
+                content width instead of filling to that cap. */}
             <main id="main-content" className="w-full flex-1">
               {children}
             </main>

@@ -14,6 +14,10 @@ export function SearchPagination({
   totalPages,
   query,
 }: PaginationProps) {
+  // A single page of results needs no pager — "Page 1 of 1" beside two dead
+  // arrows is chrome that states the obvious. Matches the jobs pager.
+  if (totalPages <= 1) return null;
+
   const q = query;
 
   function generatePageLink(page: number) {

@@ -1,7 +1,6 @@
 import { SearchIcon } from "lucide-react";
 
 import { Button } from "@/shared/ui/button";
-import IconSearch from "@/shared/ui/icons/IconSearch";
 import { Input } from "@/shared/ui/input";
 
 export function SearchJumbotron({
@@ -15,8 +14,12 @@ export function SearchJumbotron({
   placeholder: string;
   searchAction: (formData: FormData) => Promise<void>;
 }) {
+  // The illustration that sat to the right of this was the same question mark
+  // the empty-state uses — beside "Discover companies worth working for" it
+  // read as confusion rather than search. Dropped rather than replaced: the
+  // banner is a search field, and it does not need a picture of one.
   return (
-    <section className="flex h-full w-full items-center justify-between rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card to-card px-4 py-6 shadow-card md:px-6 md:py-8 lg:px-8 lg:py-10">
+    <section className="flex w-full items-center rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card to-card px-4 py-6 shadow-card md:px-6 md:py-8 lg:px-8 lg:py-10">
       <div className="flex w-full grow flex-col gap-4">
         <div className="space-y-2">
           <h1 className="text-balance text-xl font-semibold tracking-tight text-foreground md:text-2xl lg:text-3xl">
@@ -50,12 +53,6 @@ export function SearchJumbotron({
             <span className="font-semibold">Search</span>
           </Button>
         </form>
-      </div>
-      <div className="hidden shrink-0 items-center justify-center pl-8 md:flex lg:pl-14">
-        <div className="relative flex items-center justify-center">
-          <div className="absolute h-44 w-44 rounded-full bg-primary/20 blur-2xl"></div>
-          <IconSearch width={220} height={220} className="relative z-10" />
-        </div>
       </div>
     </section>
   );

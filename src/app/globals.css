@@ -146,9 +146,7 @@
   body {
     @apply bg-background text-foreground;
     text-rendering: optimizeLegibility;
-    font-feature-settings:
-      "cv11",
-      "ss01";
+    font-feature-settings: "cv11", "ss01";
   }
   /* Headings use the display typeface with tighter tracking for a more
      refined, modern hierarchy. Body text stays on Inter (font-sans). */
@@ -185,4 +183,69 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* ---------------------------------------------------------------------------
+   react-draft-wysiwyg, under the dark theme
+   ---------------------------------------------------------------------------
+   The vendor stylesheet is fixed light — fifteen `background: white` rules and
+   twenty-one #F1F1F1 borders — so the job description editor rendered a white
+   toolbar and white dropdowns on a dark form.
+
+   These live outside @layer so they are never reordered below the vendor sheet,
+   which arrives in a lazily-loaded chunk. `.dark .rdw-*` is two classes against
+   the vendor's one, so specificity carries it without !important.
+   ------------------------------------------------------------------------- */
+
+.dark .rdw-editor-toolbar,
+.dark .rdw-dropdown-wrapper,
+.dark .rdw-option-wrapper {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+
+.dark .rdw-option-wrapper:hover,
+.dark .rdw-dropdown-wrapper:hover {
+  background: hsl(var(--muted));
+  box-shadow: none;
+}
+
+.dark .rdw-option-active {
+  background: hsl(var(--muted));
+  box-shadow: inset 0 0 0 1px hsl(var(--ring));
+}
+
+/* The toolbar controls are black PNG sprites, not glyphs, so they have to be
+   inverted rather than recoloured. */
+.dark .rdw-option-wrapper img,
+.dark .rdw-dropdown-carettoopen,
+.dark .rdw-dropdown-carettoclose {
+  filter: invert(1) brightness(1.75);
+}
+
+.dark .rdw-dropdown-optionwrapper,
+.dark .rdw-link-modal,
+.dark .rdw-colorpicker-modal,
+.dark .rdw-embedded-modal,
+.dark .rdw-emoji-modal,
+.dark .rdw-image-modal {
+  background: hsl(var(--popover));
+  border-color: hsl(var(--border));
+  color: hsl(var(--popover-foreground));
+  box-shadow: none;
+}
+
+.dark .rdw-dropdownoption-default:hover,
+.dark .rdw-dropdownoption-highlighted,
+.dark .rdw-dropdownoption-active {
+  background: hsl(var(--muted));
+}
+
+.dark .rdw-link-modal input,
+.dark .rdw-image-modal input,
+.dark .rdw-embedded-modal input {
+  background: hsl(var(--background));
+  border-color: hsl(var(--input));
+  color: hsl(var(--foreground));
 }

@@ -8,6 +8,7 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/shared/ui/menubar";
+import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
 import { profileRoute } from "../model/get-profile-route";
 import { menuLinks } from "../model/navbar-links";
@@ -65,6 +66,14 @@ export function MobileMenu() {
               icon={BriefcaseBusiness}
             />
           )}
+          {/* The navbar's own toggle is desktop-only for want of room, so
+              without this a phone had no way to change theme at all. */}
+          <div className="mt-1 flex items-center justify-between gap-3 border-t border-border px-2 pb-1 pt-3">
+            <span className="text-sm font-medium text-muted-foreground">
+              Theme
+            </span>
+            <ThemeToggle />
+          </div>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

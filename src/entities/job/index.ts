@@ -7,6 +7,9 @@ export { JobDescription } from "./ui/JobDescription";
 export { JobHeader } from "./ui/JobHeader";
 export { JobHeaderCompact } from "./ui/JobHeaderCompact";
 
+/* Model — server-side policy */
+export { LISTABLE_JOB } from "./model/listable";
+
 /* Lib */
 export { buildJobPostingSchema } from "./lib/structured-data";
 

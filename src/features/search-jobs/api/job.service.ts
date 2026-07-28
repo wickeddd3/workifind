@@ -1,7 +1,14 @@
 import { Prisma } from "@prisma/client";
 
-import type { Job } from "@/entities/job";
+import { type Job, LISTABLE_JOB } from "@/entities/job";
 import db from "@/shared/lib/prisma";
+
+/**
+ * The raw-SQL half of the listable filter, interpolated from the same constant
+ * the query-builder path uses so the two cannot drift — which is precisely how
+ * closed jobs stayed searchable while being excluded from the sitemap.
+ */
+const LISTABLE_SQL = Prisma.sql`"approved" = ${LISTABLE_JOB.approved} AND "closed" = ${LISTABLE_JOB.closed}`;
 
 interface JobFilters {
   query: string;
@@ -58,7 +65,7 @@ function buildWhere({
   salary,
   locationType,
 }: JobFilters): Prisma.Sql {
-  const conditions: Prisma.Sql[] = [Prisma.sql`"approved" = true`];
+  const conditions: Prisma.Sql[] = [LISTABLE_SQL];
 
   if (query) {
     conditions.push(
@@ -104,7 +111,7 @@ function buildWhereInput({
       salaryFilter,
       employmentType ? { employmentType } : {},
       locationType ? { locationType } : {},
-      { approved: true },
+      LISTABLE_JOB,
     ],
   };
 }

@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import prisma from "@/shared/lib/prisma";
 
+import { LISTABLE_JOB } from "../model/listable";
 import type { Job } from "../model/types";
 
 export const getJob = cache(async (id: number): Promise<Job | null> => {
@@ -40,8 +41,11 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job | null> => {
  * A job the public is allowed to land on. Anything else is either awaiting
  * moderation or no longer accepting applicants, so it should neither be
  * prerendered nor advertised to crawlers.
+ *
+ * Defined in `model/listable` so the search service shares it rather than
+ * keeping a second, looser copy.
  */
-const LISTABLE = { approved: true, closed: false } as const;
+const LISTABLE = LISTABLE_JOB;
 
 /**
  * Newest listable jobs, for the home page.

@@ -127,7 +127,7 @@
               },
               {
                 "group": ["@/entities/*"],
-                "message": "FSD: entities are siblings and must not import each other. In practice the shared type or component belongs to one of them and is merely filed under the wrong slice — move it there. If a dependency is genuinely essential, add a cross-import API at `entities/<owner>/@x/<consumer>.ts` and allow that path here; this rule blocks it too, deliberately, so the exception is a decision rather than a default."
+                "message": "FSD: entities are siblings and must not import each other. In practice the shared type or component belongs to one of them and is merely filed under the wrong slice — move it there. If a dependency is genuinely essential, add a cross-import API at `entities/<owner>/@x/<consumer>.ts` and disable this rule on that single import line with a comment saying why; a blanket allowance in this config cannot express it, because a negated glob cannot re-include a path whose parent directory the positive pattern already excluded."
               }
             ]
           }

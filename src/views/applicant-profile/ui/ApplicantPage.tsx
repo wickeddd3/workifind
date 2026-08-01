@@ -30,14 +30,17 @@ export async function ApplicantPage() {
   // titles, same order — so moving between reading and editing never asks the
   // owner to re-find where something lives.
   return (
-    <div className="mx-auto my-6 flex w-full max-w-4xl flex-col gap-4 px-3 md:my-10">
+    // Width, padding and gap match the edit page exactly — the two render the
+    // same sections, so a difference here reads as the page jumping when you
+    // switch between them.
+    <div className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
       {completeness.missing.length > 0 && (
         <ProfileCompleteness completeness={completeness} />
       )}
 
       <section
         id="contact"
-        className="scroll-mt-24 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6"
+        className="flex scroll-mt-24 flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6"
       >
         <ApplicantHeader applicant={applicant} hasEditButton={true} />
       </section>

@@ -29,7 +29,8 @@ export function ProfileForm({ applicant }: { applicant: Applicant }) {
   const completeness = getProfileCompleteness(applicant);
 
   return (
-    <div className="m-auto my-6 w-full max-w-3xl space-y-5 px-4 md:my-10">
+    // Mirrors the profile page's container — see the note there.
+    <div className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
       <div className="flex flex-wrap items-end justify-between gap-3 px-1">
         <div className="flex flex-col gap-1">
           <h1 className="text-xl font-bold text-foreground">

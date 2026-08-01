@@ -34,11 +34,15 @@ export function ProfileSectionCard({
   return (
     <section
       id={id}
+      // Surface and padding are kept identical to `ProfileSection` on the
+      // profile page — these two render the same sections in the same order,
+      // and any difference between them shows up as the page shifting when you
+      // move between reading and editing.
       // Clears the sticky navbar when linked to from a completeness prompt.
-      className="scroll-mt-24 rounded-2xl border border-border bg-card shadow-card"
+      className="scroll-mt-24 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6"
     >
-      <form noValidate onSubmit={onSubmit}>
-        <div className="flex flex-wrap items-start justify-between gap-3 p-5 pb-0 md:p-6 md:pb-0">
+      <form noValidate onSubmit={onSubmit} className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="flex flex-col gap-0.5">
             <h2 className="text-md font-semibold text-foreground">{title}</h2>
             {description && (
@@ -74,7 +78,7 @@ export function ProfileSectionCard({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 p-5 md:p-6">{children}</div>
+        <div className="flex flex-col gap-4">{children}</div>
       </form>
     </section>
   );

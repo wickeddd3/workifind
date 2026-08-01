@@ -38,8 +38,10 @@ export function ProfileSection({
   return (
     <section
       id={id}
+      // Surface and padding are kept identical to `ProfileSectionCard` on the
+      // edit page — see the note there.
       // Clears the sticky navbar when arrived at via an anchor.
-      className="scroll-mt-24 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6"
+      className="flex scroll-mt-24 flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <SectionHeading>{title}</SectionHeading>
@@ -55,7 +57,7 @@ export function ProfileSection({
         )}
       </div>
 
-      <div className="pt-4">
+      <div>
         {isEmpty ? (
           <p className="text-sm text-muted-foreground">
             {emptyPrompt ?? "Nothing here yet."}

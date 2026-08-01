@@ -20,8 +20,10 @@ export async function ProfessionalPage({ id }: { id: string }) {
   // the empty ones, since `ProfileSection` drops a section with nothing in it
   // when there is no `editHref`. A visitor has no use for "no languages listed".
   return (
-    <div className="mx-auto my-6 flex w-full max-w-4xl flex-col gap-4 px-3 md:my-10">
-      <section className="rounded-2xl border border-border bg-card p-5 shadow-card md:p-6">
+    // Same container as the owner's profile page, so the public view of a
+    // professional and the owner's own view of it are the same page.
+    <div className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
+      <section className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6">
         <ApplicantHeader applicant={applicant} as="h1" />
       </section>
 

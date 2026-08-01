@@ -16,6 +16,7 @@ export { buildJobPostingSchema } from "./lib/structured-data";
 /* API — server only */
 export {
   getAllJobSlugs,
+  getEmployerJob,
   getJob,
   getJobBySlug,
   getLatestJobs,

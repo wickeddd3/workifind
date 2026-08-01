@@ -6,8 +6,9 @@ import {
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
+  getApplicantById,
+  ProfileSection,
 } from "@/entities/applicant";
-import { getApplicantById } from "@/entities/applicant";
 
 export async function ProfessionalPage({ id }: { id: string }) {
   const applicantId = parseInt(id);
@@ -15,15 +16,52 @@ export async function ProfessionalPage({ id }: { id: string }) {
 
   if (!applicant) notFound();
 
+  // The same panels the owner sees, without the edit affordances — and without
+  // the empty ones, since `ProfileSection` drops a section with nothing in it
+  // when there is no `editHref`. A visitor has no use for "no languages listed".
   return (
-    // See JobPage: `h-full` plus the vertical margin overflowed the main and
-    // pushed the card under the footer.
-    <section className="mx-3 my-6 flex max-w-4xl flex-col space-y-6 rounded-2xl border border-border bg-card p-6 shadow-card md:mx-auto md:my-10 md:p-8">
-      <ApplicantHeader applicant={applicant} as="h1" />
-      <div className="flex flex-col gap-6">
+    // Same container as the owner's profile page, so the public view of a
+    // professional and the owner's own view of it are the same page.
+    <div className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
+      <section className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6">
+        <ApplicantHeader applicant={applicant} as="h1" />
+      </section>
+
+      <ProfileSection
+        id="about"
+        title="About me"
+        isEmpty={!applicant.about?.trim()}
+      >
         <ApplicantBio bio={applicant.about} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="skills"
+        title="Skills"
+        isEmpty={!applicant.skills?.length}
+      >
         <ApplicantSkills skills={applicant.skills} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="languages"
+        title="Languages"
+        isEmpty={!applicant.languages?.length}
+      >
         <ApplicantLanguages languages={applicant.languages} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="preferences"
+        title="Job preferences"
+        isEmpty={
+          !applicant.availability &&
+          !applicant.salaryExpectation &&
+          !applicant.preferredEmploymentTypes?.length &&
+          !applicant.preferredLocationTypes?.length &&
+          !applicant.preferredLocations?.length
+        }
+      >
         <ApplicantPreferences
           preferredEmploymentTypes={applicant.preferredEmploymentTypes}
           preferredLocationTypes={applicant.preferredLocationTypes}
@@ -31,7 +69,7 @@ export async function ProfessionalPage({ id }: { id: string }) {
           availability={applicant.availability}
           salaryExpectation={applicant.salaryExpectation}
         />
-      </div>
-    </section>
+      </ProfileSection>
+    </div>
   );
 }

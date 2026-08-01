@@ -1,17 +1,15 @@
 import Markdown from "@/shared/ui/Markdown";
-import { SectionHeading } from "@/shared/ui/typography/Typography";
 
+/**
+ * Body only — `ProfileSection` supplies the heading and decides what an empty
+ * bio looks like, which differs between the owner's page and a visitor's.
+ */
 export function ApplicantBio({ bio }: { bio: string | null }) {
+  if (!bio) return null;
+
   return (
-    bio && (
-      <div className="flex flex-col space-y-4">
-        <SectionHeading>About me</SectionHeading>
-        {bio && (
-          <div className="text-justify text-sm md:text-md">
-            <Markdown>{bio}</Markdown>
-          </div>
-        )}
-      </div>
-    )
+    <div className="text-sm md:text-md">
+      <Markdown>{bio}</Markdown>
+    </div>
   );
 }

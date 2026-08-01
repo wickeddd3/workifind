@@ -1,25 +1,20 @@
 import { Badge } from "@/shared/ui/badge";
-import { SectionHeading } from "@/shared/ui/typography/Typography";
 
+/** Body only — see `ProfileSection` for the heading and the empty case. */
 export function ApplicantLanguages({
   languages,
 }: {
   languages: { name: string }[];
 }) {
-  const hasLanguages = languages && languages.length > 0;
+  if (!languages?.length) return null;
 
   return (
-    hasLanguages && (
-      <div className="flex flex-col space-y-4">
-        <SectionHeading>Languages</SectionHeading>
-        <div className="flex flex-wrap gap-2">
-          {languages.map((item, index) => (
-            <Badge variant="secondary" key={`${item?.name}-${index}`}>
-              {item?.name}
-            </Badge>
-          ))}
-        </div>
-      </div>
-    )
+    <ul className="flex flex-wrap gap-2">
+      {languages.map((item, index) => (
+        <li key={`${item?.name}-${index}`}>
+          <Badge variant="secondary">{item?.name}</Badge>
+        </li>
+      ))}
+    </ul>
   );
 }

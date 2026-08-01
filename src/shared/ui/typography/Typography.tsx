@@ -41,16 +41,17 @@ export const Heading3 = ({ children, className }: TypographyProps) => (
 // primary heading. Renders an <h2> so heading order stays valid (no level
 // skips) while keeping the level-4 visual scale. A small indigo accent bar
 // gives profile/detail sections consistent visual structure.
+//
+// Sized to match the section titles on the profile editor. It used to run to
+// 20px on desktop against the editor's 16px, so the same section read larger
+// when viewing it than when editing it.
 export const SectionHeading = ({ children, className }: TypographyProps) => (
   <h2
-    className={cn(
-      "flex items-center gap-2.5 text-md font-medium md:text-xl",
-      className,
-    )}
+    className={cn("flex items-center gap-2.5 text-md font-semibold", className)}
   >
     <span
       aria-hidden="true"
-      className="h-5 w-1 shrink-0 rounded-full bg-primary md:h-6"
+      className="h-4 w-1 shrink-0 rounded-full bg-primary md:h-[18px]"
     />
     {children}
   </h2>

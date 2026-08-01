@@ -75,13 +75,24 @@ export function ProfileForm({
 
   async function onSubmit(values: EmployerProfileSchemaType) {
     const response = await updateEmployerAction(id, values);
-    if (response.success) {
-      router.push("/employer/profile");
-      router.refresh();
+
+    // A failed save used to do nothing at all — no message, no toast, the form
+    // simply sat there looking unsubmitted.
+    if (!response.success) {
       toast({
-        title: "Company profile updated",
+        variant: "destructive",
+        title: "Couldn't save",
+        description:
+          "Something went wrong saving your profile. Please try again.",
       });
+      return;
     }
+
+    router.push("/employer/profile");
+    router.refresh();
+    toast({
+      title: "Company profile updated",
+    });
   }
 
   return (

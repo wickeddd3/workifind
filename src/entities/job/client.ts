@@ -7,6 +7,9 @@
  * those are safe from either entry point.
  */
 
+/* UI — presentational only, safe in the browser */
+export { JobCard } from "./ui/JobCard";
+
 /* Model */
 export {
   getJobSalary,

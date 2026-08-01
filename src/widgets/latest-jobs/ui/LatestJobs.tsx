@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { getLatestJobs } from "@/entities/job";
-import { JobItem } from "@/features/search-jobs";
+import { JobCard } from "@/entities/job";
 
 /**
  * Newest openings on the home page.
@@ -49,7 +49,7 @@ export async function LatestJobs({ limit = 6 }: { limit?: number }) {
               href={`/jobs/${job.slug}`}
               className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <JobItem job={job} />
+              <JobCard job={job} />
             </Link>
           </li>
         ))}

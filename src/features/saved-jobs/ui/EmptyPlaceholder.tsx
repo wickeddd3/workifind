@@ -1,25 +1,14 @@
 import { Bookmark } from "lucide-react";
-import Link from "next/link";
 
-import { Button } from "@/shared/ui/button";
+import { EmptyState } from "@/shared/ui/EmptyState";
 
 export function EmptyPlaceholder({ message }: { message?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-muted/60 px-4 py-16 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-        <Bookmark size={26} aria-hidden="true" />
-      </div>
-      <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-foreground">
-          {message ?? "No saved jobs yet"}
-        </h3>
-        <p className="mx-auto max-w-sm text-sm text-muted-foreground">
-          Bookmark jobs that catch your eye and revisit them here anytime.
-        </p>
-      </div>
-      <Button asChild className="mt-1">
-        <Link href="/jobs">Browse jobs</Link>
-      </Button>
-    </div>
+    <EmptyState
+      icon={Bookmark}
+      title={message ?? "No saved jobs yet"}
+      description="Bookmark jobs that catch your eye and revisit them here anytime."
+      action={{ label: "Browse jobs", href: "/jobs" }}
+    />
   );
 }

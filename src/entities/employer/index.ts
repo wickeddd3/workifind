@@ -1,11 +1,16 @@
 /* UI */
+export { CompanyProfileCompleteness } from "./ui/CompanyProfileCompleteness";
 export { EmployerDetails } from "./ui/EmployerDetails";
 export { EmployerHeader } from "./ui/EmployerHeader";
 export { EmployerLoadingPlaceholder } from "./ui/EmployerLoadingPlaceholder";
+export { EmployerOverview } from "./ui/EmployerOverview";
+export { EmployerPerkList } from "./ui/EmployerPerkList";
 export { EmployerPerks } from "./ui/EmployerPerks";
+export { EmployerRichText } from "./ui/EmployerRichText";
 export { EmployerTabs } from "./ui/EmployerTabs";
 
 /* Model */
+export { getCompanyProfileCompleteness } from "./model/completeness";
 export type { Company, Employer } from "./model/types";
 
 /* Lib */

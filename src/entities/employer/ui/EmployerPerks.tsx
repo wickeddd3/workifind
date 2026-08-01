@@ -1,8 +1,9 @@
-import { Check } from "lucide-react";
-
-import Markdown from "@/shared/ui/Markdown";
 import { SectionHeading } from "@/shared/ui/typography/Typography";
 
+import { EmployerPerkList } from "./EmployerPerkList";
+import { EmployerRichText } from "./EmployerRichText";
+
+/** The "Life and culture" tab of a public company page — see `EmployerDetails`. */
 export function EmployerPerks({
   pitch,
   perks,
@@ -15,27 +16,13 @@ export function EmployerPerks({
       {pitch && (
         <div className="flex flex-col space-y-4">
           <SectionHeading>Why join us?</SectionHeading>
-          <div className="text-sm md:text-md">
-            <Markdown>{pitch}</Markdown>
-          </div>
+          <EmployerRichText>{pitch}</EmployerRichText>
         </div>
       )}
       {perks && perks.length > 0 && (
         <div className="flex flex-col space-y-4">
           <SectionHeading>Perks</SectionHeading>
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {perks.map((item, index) => (
-              <li
-                key={`${item?.name}-${index}`}
-                className="flex items-center gap-2 text-sm text-foreground md:text-md"
-              >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Check size={13} aria-hidden="true" />
-                </span>
-                {item?.name}
-              </li>
-            ))}
-          </ul>
+          <EmployerPerkList perks={perks} />
         </div>
       )}
     </div>

@@ -3,12 +3,12 @@
 import type { Applicant } from "@/entities/applicant";
 import { Form } from "@/shared/ui/form";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
+import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
   ApplicantAboutSchema,
   type ApplicantAboutSchemaType,
 } from "../../model/schema";
-import { ProfileSectionCard } from "../ProfileSectionCard";
 import { useProfileSection } from "../use-profile-section";
 
 export function AboutSection({ applicant }: { applicant: Applicant }) {

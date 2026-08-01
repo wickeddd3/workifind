@@ -22,9 +22,3 @@ export interface JobApplicationWithJob extends PrismaJobApplication {
 export interface JobApplicationWithApplicant extends PrismaJobApplication {
   applicant: Applicant;
 }
-
-/** A job together with the applications it has received. */
-export interface JobWithApplications extends Job {
-  employer: Employer;
-  jobApplications: JobApplicationWithApplicant[];
-}

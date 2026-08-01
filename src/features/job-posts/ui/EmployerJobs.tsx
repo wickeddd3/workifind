@@ -24,13 +24,21 @@ export async function EmployerJobs({
   if (!hasJobs)
     return <EmptyPlaceholder message="You haven't posted any jobs yet" />;
 
+  const total = totalResults.data || 0;
+
   return (
-    <>
+    // Same frame as the applicant's applied and saved lists: a count, the rows,
+    // the pager.
+    <div className="flex flex-col gap-3">
+      <p className="text-sm text-muted-foreground">
+        <span className="tabular font-semibold text-foreground">{total}</span>{" "}
+        {total === 1 ? "job post" : "job posts"}
+      </p>
       <Jobs jobs={results.data || []} />
       <JobsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil((totalResults.data || 0) / size)}
+        totalPages={Math.ceil(total / size)}
       />
-    </>
+    </div>
   );
 }

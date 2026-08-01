@@ -15,6 +15,10 @@ import { SectionHeading } from "@/shared/ui/typography/Typography";
  * the owner they stay, carrying the prompt to fill them, because a section that
  * disappears when empty is one the owner can never find their way into. That
  * asymmetry is the whole reason `editHref` decides it.
+ *
+ * It knows nothing about applicants or employers: both profiles are read as a
+ * stack of these, and a second copy of the card was how the two drifted apart
+ * in the first place.
  */
 export function ProfileSection({
   id,

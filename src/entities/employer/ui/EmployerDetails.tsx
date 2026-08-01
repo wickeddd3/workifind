@@ -1,6 +1,14 @@
-import Markdown from "@/shared/ui/Markdown";
 import { SectionHeading } from "@/shared/ui/typography/Typography";
 
+import { EmployerOverview } from "./EmployerOverview";
+import { EmployerRichText } from "./EmployerRichText";
+
+/**
+ * The "About" tab of a public company page.
+ *
+ * Composes the same headingless blocks the owner's profile page stacks into
+ * cards, so the two pages can never describe a company differently.
+ */
 export function EmployerDetails({
   industry,
   location,
@@ -15,36 +23,13 @@ export function EmployerDetails({
       {(industry || location) && (
         <div className="flex flex-col space-y-4">
           <SectionHeading>Company overview</SectionHeading>
-          <div className="flex flex-col gap-3">
-            {industry && (
-              <div className="flex gap-4">
-                <span className="w-28 shrink-0 text-sm font-medium text-muted-foreground md:text-md">
-                  Industry
-                </span>
-                <span className="text-sm text-foreground md:text-md">
-                  {industry}
-                </span>
-              </div>
-            )}
-            {location && (
-              <div className="flex gap-4">
-                <span className="w-28 shrink-0 text-sm font-medium text-muted-foreground md:text-md">
-                  Location
-                </span>
-                <span className="text-sm text-foreground md:text-md">
-                  {location}
-                </span>
-              </div>
-            )}
-          </div>
+          <EmployerOverview industry={industry} location={location} />
         </div>
       )}
       {about && (
         <div className="flex flex-col space-y-4">
           <SectionHeading>About us</SectionHeading>
-          <div className="text-sm md:text-md">
-            <Markdown>{about}</Markdown>
-          </div>
+          <EmployerRichText>{about}</EmployerRichText>
         </div>
       )}
     </div>

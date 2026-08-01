@@ -1,47 +1,50 @@
 "use client";
 
-import { ChevronsUpDown, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/shared/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/shared/ui/collapsible";
+import { cn } from "@/shared/lib/utils";
 
-export function JobApplicationPitch({
-  title = "Applicant pitch",
-  pitch = "",
-}: {
-  title: string;
-  pitch: string;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
+/**
+ * Roughly how much pitch fits in the two clamped lines the card shows. Anything
+ * under it is already fully visible, so offering to expand it would be a button
+ * that does nothing.
+ */
+const CLAMP_THRESHOLD = 180;
+
+/**
+ * What the applicant wrote, on the employer's list.
+ *
+ * Shown inline and clamped rather than hidden behind a collapsed drawer. The
+ * pitch is the one thing on the card that is not on the applicant's profile, so
+ * a list where every pitch starts closed is a list you have to open item by
+ * item to triage at all.
+ */
+export function JobApplicationPitch({ pitch }: { pitch: string }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!pitch?.trim()) return null;
+
+  const isLong = pitch.length > CLAMP_THRESHOLD;
 
   return (
-    <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      className="w-full space-y-2"
-    >
-      <div className="flex w-fit items-center justify-between space-x-4">
-        <h4 className="flex items-center gap-2 text-sm font-semibold">
-          <MessageSquare size={18} />
-          {title}
-        </h4>
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="sm" className="w-9 p-0">
-            <ChevronsUpDown className="h-4 w-4" />
-            <span className="sr-only">Toggle</span>
-          </Button>
-        </CollapsibleTrigger>
-      </div>
-      <CollapsibleContent className="w-full rounded-lg border border-border bg-muted p-4">
-        <div className="w-full whitespace-pre-wrap break-words text-sm text-foreground">
-          {pitch}
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
+    <div className="flex flex-col items-start gap-1.5 rounded-xl bg-muted/60 p-3">
+      <p
+        className={cn(
+          "whitespace-pre-wrap break-words text-sm text-foreground",
+          isLong && !isExpanded && "line-clamp-2",
+        )}
+      >
+        {pitch}
+      </p>
+      {isLong && (
+        <button
+          type="button"
+          onClick={() => setIsExpanded((open) => !open)}
+          className="rounded text-xs font-semibold text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          {isExpanded ? "Show less" : "Read full pitch"}
+        </button>
+      )}
+    </div>
   );
 }

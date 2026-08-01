@@ -20,6 +20,30 @@ export const getJob = cache(async (id: number): Promise<Job | null> => {
   }
 });
 
+/**
+ * One of the employer's own posts, by id.
+ *
+ * Scoped to the owner, so the pages behind `/employer/jobs/[id]` cannot be read
+ * by pasting someone else's id into the URL. `getJob` above answers "show me
+ * this job" for the public pages, where every listing is fair game; this one
+ * answers "show me my job", which is a different question and needs the userId
+ * to answer it.
+ */
+export const getEmployerJob = cache(
+  async (userId: string, id: number): Promise<Job | null> => {
+    try {
+      return await prisma.job.findFirst({
+        where: { id, userId },
+        include: {
+          employer: true,
+        },
+      });
+    } catch (error) {
+      return null;
+    }
+  },
+);
+
 // Deduped per request: `/jobs/[slug]` resolves the same slug in both
 // `generateMetadata` and the page body, which would otherwise be two queries.
 export const getJobBySlug = cache(async (slug: string): Promise<Job | null> => {

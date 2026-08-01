@@ -6,6 +6,7 @@ export { ApplicantLoadingPlaceholder } from "./ui/ApplicantLoadingPlaceholder";
 export { ApplicantPreferences } from "./ui/ApplicantPreferences";
 export { ApplicantSkills } from "./ui/ApplicantSkills";
 export { ProfileCompleteness } from "./ui/ProfileCompleteness";
+export { ProfileSection } from "./ui/ProfileSection";
 
 /* Model */
 export {

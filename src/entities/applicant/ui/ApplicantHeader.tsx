@@ -28,7 +28,10 @@ export function ApplicantHeader({
   const hasContact = Boolean(email || location || phoneNumber);
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-muted p-4 md:p-6">
+    // No surface of its own: both profile pages now place this inside a
+    // `ProfileSection`-style card, and a tinted panel within a card read as a
+    // box inside a box.
+    <div className="flex flex-col gap-4">
       <div className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-semibold text-white md:h-16 md:w-16">

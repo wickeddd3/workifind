@@ -1,21 +1,16 @@
 import { Badge } from "@/shared/ui/badge";
-import { SectionHeading } from "@/shared/ui/typography/Typography";
 
+/** Body only — see `ProfileSection` for the heading and the empty case. */
 export function ApplicantSkills({ skills }: { skills: { name: string }[] }) {
-  const hasSkills = skills && skills.length > 0;
+  if (!skills?.length) return null;
 
   return (
-    hasSkills && (
-      <div className="flex flex-col space-y-4">
-        <SectionHeading>Skills</SectionHeading>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill, index) => (
-            <Badge variant="secondary" key={`${skill.name}-${index}`}>
-              {skill?.name}
-            </Badge>
-          ))}
-        </div>
-      </div>
-    )
+    <ul className="flex flex-wrap gap-2">
+      {skills.map((skill, index) => (
+        <li key={`${skill?.name}-${index}`}>
+          <Badge variant="secondary">{skill?.name}</Badge>
+        </li>
+      ))}
+    </ul>
   );
 }

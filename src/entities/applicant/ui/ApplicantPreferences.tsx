@@ -1,6 +1,7 @@
-import { MediumText, SectionHeading } from "@/shared/ui/typography/Typography";
+import { MediumText } from "@/shared/ui/typography/Typography";
 import { formatMoney } from "@/shared/utils/format-money";
 
+/** Body only — see `ProfileSection` for the heading and the empty case. */
 export function ApplicantPreferences({
   preferredEmploymentTypes,
   preferredLocationTypes,
@@ -14,59 +15,50 @@ export function ApplicantPreferences({
   availability: string;
   salaryExpectation: number;
 }) {
-  const hasPreferredEmploymentTypes =
-    preferredEmploymentTypes && preferredEmploymentTypes.length > 0;
-  const hasPreferredLocationTypes =
-    preferredLocationTypes && preferredLocationTypes.length > 0;
-  const hasPreferredLocations =
-    preferredLocations && preferredLocations.length > 0;
+  const rows: { label: string; value: string; tabular?: boolean }[] = [];
+
+  if (availability) rows.push({ label: "Availability", value: availability });
+  if (preferredEmploymentTypes?.length) {
+    rows.push({
+      label: "Preferred employment types",
+      value: preferredEmploymentTypes.join(", "),
+    });
+  }
+  if (preferredLocationTypes?.length) {
+    rows.push({
+      label: "Preferred location types",
+      value: preferredLocationTypes.join(", "),
+    });
+  }
+  if (preferredLocations?.length) {
+    rows.push({
+      label: "Preferred locations",
+      value: preferredLocations.map((location) => location?.name).join(", "),
+    });
+  }
+  // Gated on the salary, not on `availability` — the copied condition hid a
+  // stated expectation whenever availability was blank, and threw on a missing
+  // one whenever it was not.
+  if (salaryExpectation) {
+    rows.push({
+      label: "Salary expectation",
+      value: formatMoney(salaryExpectation),
+      tabular: true,
+    });
+  }
+
+  if (rows.length === 0) return null;
 
   return (
-    <div className="flex flex-col space-y-4">
-      <SectionHeading>About my next role</SectionHeading>
-      <div className="divide-y divide-border rounded-xl border border-border shadow-soft">
-        {availability && (
-          <div className="flex flex-col gap-1 p-4">
-            <MediumText>Availability</MediumText>
-            <span className="text-sm text-foreground">{availability}</span>
-          </div>
-        )}
-        {hasPreferredEmploymentTypes && (
-          <div className="flex flex-col gap-1 p-4">
-            <MediumText>Preferred employment types</MediumText>
-            <span className="text-sm text-foreground">
-              {preferredEmploymentTypes.join(", ")}
-            </span>
-          </div>
-        )}
-        {hasPreferredLocationTypes && (
-          <div className="flex flex-col gap-1 p-4">
-            <MediumText>Preferred location types</MediumText>
-            <span className="text-sm text-foreground">
-              {preferredLocationTypes.join(", ")}
-            </span>
-          </div>
-        )}
-        {hasPreferredLocations && (
-          <div className="flex flex-col gap-1 p-4">
-            <MediumText>Preferred locations</MediumText>
-            <span className="text-sm text-foreground">
-              {preferredLocations.map((location) => location?.name).join(", ")}
-            </span>
-          </div>
-        )}
-        {/* Gated on the salary, not on `availability` — the copied condition
-            hid a stated expectation whenever availability was blank, and threw
-            on `.toLocaleString()` of a missing one whenever it was not. */}
-        {Boolean(salaryExpectation) && (
-          <div className="flex flex-col gap-1 p-4">
-            <MediumText>Salary expectation</MediumText>
-            <span className="tabular text-sm text-foreground">
-              {formatMoney(salaryExpectation)}
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
+    <dl className="divide-y divide-border overflow-hidden rounded-xl border border-border">
+      {rows.map(({ label, value, tabular }) => (
+        <div key={label} className="flex flex-col gap-1 p-4">
+          <dt>
+            <MediumText className="text-muted-foreground">{label}</MediumText>
+          </dt>
+          <dd className={tabular ? "tabular text-sm" : "text-sm"}>{value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

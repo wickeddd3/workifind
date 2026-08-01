@@ -14,8 +14,13 @@ export async function getJobApplications(
     return await prisma.jobApplication.findMany({
       where: { userId },
       include: {
-        job: true,
+        // The employer comes with the job: the list names the company you
+        // applied to, which it previously could not, having never loaded it.
+        job: { include: { employer: true } },
       },
+      // Most recent application first — this is a log of what you have done,
+      // and the last thing you did is the thing you are checking on.
+      orderBy: { createdAt: "desc" },
       take, // limit,
       skip, // offset,
     });

@@ -1,8 +1,8 @@
 import type { Job } from "@/entities/job";
+import { JobCard } from "@/entities/job";
 
 import { buildJobsUrl } from "../lib/job-search-url";
 import { JobCardLink } from "./JobCardLink";
-import { JobItem } from "./JobItem";
 
 interface JobResultsProps {
   jobs: Job[];
@@ -38,7 +38,7 @@ export function JobResults({ jobs, searchParams, page }: JobResultsProps) {
             previewHref={getPreviewUrl(job.slug)}
             isSelected={job.slug === selectedSlug}
           >
-            <JobItem job={job} isSelected={job.slug === selectedSlug} />
+            <JobCard job={job} isSelected={job.slug === selectedSlug} />
           </JobCardLink>
         </li>
       ))}

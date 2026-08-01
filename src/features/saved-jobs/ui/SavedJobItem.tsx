@@ -1,120 +1,78 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import {
-  Banknote,
-  BookmarkMinus,
-  Briefcase,
-  EllipsisVertical,
-  Fullscreen,
-  MapPin,
-} from "lucide-react";
+import { Bookmark, BookmarkX } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-import { getJobSalary, hasJobSalary } from "@/entities/job/client";
+import { JobCard } from "@/entities/job/client";
 import { type SavedJob } from "@/entities/saved-job";
-import { Button } from "@/shared/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
-import { useToast } from "@/shared/ui/use-toast";
+import { relativeDate } from "@/shared/utils/format-date";
 
 import { unsaveJobAction } from "../api/saved-job.action";
 
+/**
+ * One saved job.
+ *
+ * The row is a link to the posting, and unsaving is a single button rather than
+ * a menu — with two items, one of which was "View", the menu cost a click to
+ * reach what the row itself can now do.
+ *
+ * The button is layered over the card rather than placed inside it: a button
+ * nested in an anchor is invalid, so the anchor wraps only the card and the
+ * card reserves the corner for it.
+ */
 export function SavedJobItem({
-  savedJob: {
-    job: {
-      id,
-      slug,
-      title,
-      employmentType,
-      locationType,
-      minSalary,
-      maxSalary,
-    },
-  },
+  savedJob: { job, createdAt },
 }: {
   savedJob: SavedJob;
 }) {
-  const { toast } = useToast();
-  const { user } = useUser();
+  const router = useRouter();
+  const [isRemoving, setIsRemoving] = useState(false);
 
-  const handleUnsaveJob = async (id: number) => {
-    const response = await unsaveJobAction(id);
+  async function handleUnsave() {
+    setIsRemoving(true);
+    const response = await unsaveJobAction(job.id);
 
-    if (response.success) {
-      toast({
-        title: "Removed from your saved jobs",
-      });
+    if (!response.success) {
+      setIsRemoving(false);
+      return;
     }
-  };
+
+    // Refresh so the row actually leaves the list. It used to toast and stay,
+    // which read as the unsave having failed.
+    router.refresh();
+  }
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-soft transition-all duration-200 hover:border-border hover:shadow-card">
-      <div className="flex items-start justify-between gap-3">
-        <h3 className="min-w-0 truncate text-sm font-semibold text-foreground md:text-md">
-          {title}
-        </h3>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="shrink-0">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              aria-label={`Actions for ${title}`}
-            >
-              <EllipsisVertical
-                size={16}
-                className="shrink-0"
-                aria-hidden="true"
-              />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end">
-            <DropdownMenuGroup>
-              {user && (
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={() => handleUnsaveJob(id)}
-                >
-                  <BookmarkMinus className="mr-2 h-4 w-4" />
-                  <span>Unsave</span>
-                </DropdownMenuItem>
-              )}
-              <Link href={`/jobs/${slug}`} target="_blank">
-                <DropdownMenuItem className="cursor-pointer">
-                  <Fullscreen className="mr-2 h-4 w-4" />
-                  <span>View</span>
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground md:text-sm">
-        {employmentType && (
-          <span className="flex items-center gap-1">
-            <Briefcase size={14} className="shrink-0" aria-hidden="true" />
-            {employmentType}
-          </span>
-        )}
-        {locationType && (
-          <span className="flex items-center gap-1">
-            <MapPin size={14} className="shrink-0" aria-hidden="true" />
-            {locationType}
-          </span>
-        )}
-        {hasJobSalary(minSalary, maxSalary) && (
-          <span className="flex items-center gap-1">
-            <Banknote size={14} className="shrink-0" aria-hidden="true" />
-            {getJobSalary(minSalary, maxSalary)}
-          </span>
-        )}
-      </div>
+    <div className="relative">
+      <Link
+        href={`/jobs/${job.slug}`}
+        className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <JobCard
+          job={job}
+          // Reserves the top-right corner for the button layered above, so a
+          // long title truncates before it reaches it.
+          action={<span className="block h-8 w-8" aria-hidden="true" />}
+          note={
+            <>
+              <Bookmark size={14} className="shrink-0" aria-hidden="true" />
+              Saved {relativeDate(createdAt)}
+            </>
+          }
+        />
+      </Link>
+
+      <button
+        type="button"
+        onClick={handleUnsave}
+        disabled={isRemoving}
+        aria-label={`Remove ${job.title} from saved jobs`}
+        className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:border-destructive/40 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50"
+      >
+        <BookmarkX size={16} aria-hidden="true" />
+      </button>
     </div>
   );
 }

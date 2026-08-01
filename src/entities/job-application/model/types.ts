@@ -10,7 +10,9 @@ import type {
  * Backs the "my applications" list.
  */
 export interface JobApplicationWithJob extends PrismaJobApplication {
-  job: Job;
+  // The employer is part of the shape: the list shows which company you applied
+  // to, and the card that renders it needs the name and logo.
+  job: Job & { employer: Employer };
 }
 
 /**

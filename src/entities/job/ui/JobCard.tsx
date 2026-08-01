@@ -1,9 +1,26 @@
 import { Banknote, Briefcase, Clock, MapPin } from "lucide-react";
+import type { ReactNode } from "react";
 
-import { getJobSalaryCompact, hasJobSalary, type Job } from "@/entities/job";
 import { cn } from "@/shared/lib/utils";
 import { Avatar } from "@/shared/ui/avatar";
 import { relativeDate } from "@/shared/utils/format-date";
+
+import { getJobSalaryCompact, hasJobSalary } from "../model/salary";
+import type { Job } from "../model/types";
+
+/**
+ * The job card, used by every list that shows a job: search results, the home
+ * page, applied jobs and saved jobs.
+ *
+ * It lives in the entity because it is presentational domain UI — the shape of
+ * a job as a row. It previously sat inside the search feature, which put it out
+ * of reach of the applicant's own lists; those grew their own cards instead,
+ * and both ended up without the company name, the logo or a date.
+ *
+ * The two slots are what let one card serve four lists. `action` takes a
+ * trailing control (a menu, an unsave button); `note` replaces the posted-date
+ * with something the list cares about more ("Applied 3 days ago").
+ */
 
 /** A listing posted within this window earns the "New" flag. */
 const NEW_JOB_DAYS = 3;
@@ -13,7 +30,7 @@ function isRecentlyPosted(createdAt: Date) {
   return ageInDays <= NEW_JOB_DAYS;
 }
 
-export function JobItem({
+export function JobCard({
   job: {
     title,
     employmentType,
@@ -25,15 +42,21 @@ export function JobItem({
     employer: { companyName, companyLogoUrl },
   },
   isSelected = false,
+  action,
+  note,
 }: {
   job: Job;
   isSelected?: boolean;
+  action?: ReactNode;
+  note?: ReactNode;
 }) {
   // A fully-remote job stores "Remote" as both the arrangement and the place,
   // which rendered as "Remote · Remote". Collapse the duplicate.
   const place = location && location !== locationType ? location : null;
   const showSalary = hasJobSalary(minSalary, maxSalary);
-  const isNew = createdAt ? isRecentlyPosted(createdAt) : false;
+  // The "New" flag is about the posting; a list showing its own note (applied,
+  // saved) is not asking that question, so the two never compete for the slot.
+  const isNew = !note && !action && createdAt && isRecentlyPosted(createdAt);
 
   return (
     <article
@@ -80,6 +103,7 @@ export function JobItem({
               New
             </span>
           )}
+          {action && <div className="shrink-0">{action}</div>}
         </div>
 
         {/* Salary leads the meta and carries the only strong weight in it — it
@@ -109,12 +133,15 @@ export function JobItem({
             </span>
           )}
           {place && <span className="min-w-0 truncate">{place}</span>}
-          {createdAt && (
-            <span className="ml-auto flex shrink-0 items-center gap-1 text-muted-foreground/80">
-              <Clock size={14} className="shrink-0" aria-hidden="true" />
-              {relativeDate(createdAt)}
-            </span>
-          )}
+
+          <span className="ml-auto flex shrink-0 items-center gap-1 text-muted-foreground/80">
+            {note ?? (
+              <>
+                <Clock size={14} className="shrink-0" aria-hidden="true" />
+                {createdAt && relativeDate(createdAt)}
+              </>
+            )}
+          </span>
         </div>
       </div>
     </article>

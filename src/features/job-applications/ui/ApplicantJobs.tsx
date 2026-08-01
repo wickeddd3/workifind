@@ -27,13 +27,19 @@ export async function ApplicantJobs({
   if (!hasJobs)
     return <EmptyPlaceholder message="You haven't applied to any jobs yet" />;
 
+  const total = totalResults.data || 0;
+
   return (
-    <>
+    <div className="flex flex-col gap-3">
+      <p className="text-sm text-muted-foreground">
+        <span className="tabular font-semibold text-foreground">{total}</span>{" "}
+        {total === 1 ? "application" : "applications"}
+      </p>
       <AppliedJobs jobApplications={results.data || []} />
       <AppliedJobsPagination
         currentPage={currentPage}
-        totalPages={Math.ceil((totalResults.data || 0) / size)}
+        totalPages={Math.ceil(total / size)}
       />
-    </>
+    </div>
   );
 }

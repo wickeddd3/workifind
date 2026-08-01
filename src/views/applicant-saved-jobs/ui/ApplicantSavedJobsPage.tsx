@@ -17,8 +17,8 @@ export async function ApplicantSavedJobsPage({
   if (!isApplicant || !userId) return notFound();
 
   return (
-    <section className="m-auto flex flex-col gap-6 px-0 md:px-4">
-      <div className="flex flex-col gap-1 px-4">
+    <section className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
+      <div className="flex flex-col gap-1">
         <h1 className="text-lg font-bold text-foreground md:text-xl">
           Your saved jobs
         </h1>
@@ -26,14 +26,12 @@ export async function ApplicantSavedJobsPage({
           Jobs you&apos;ve bookmarked to revisit later.
         </p>
       </div>
-      <div className="flex flex-col gap-3">
-        <Suspense
-          key={JSON.stringify(searchParams)}
-          fallback={<ListSkeleton rows={5} metaLines={3} />}
-        >
-          <ApplicantSavedJobs userId={userId} searchParams={searchParams} />
-        </Suspense>
-      </div>
+      <Suspense
+        key={JSON.stringify(searchParams)}
+        fallback={<ListSkeleton rows={5} metaLines={3} />}
+      >
+        <ApplicantSavedJobs userId={userId} searchParams={searchParams} />
+      </Suspense>
     </section>
   );
 }

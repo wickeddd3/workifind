@@ -6,11 +6,14 @@ import type { ReactNode } from "react";
 import { LoadingButton } from "@/shared/ui/LoadingButton";
 
 /**
- * The shell every profile section shares: a heading, its fields, and a Save
- * that belongs to that section alone.
+ * The shell every profile section shares on an editor page: a heading, its
+ * fields, and a Save that belongs to that section alone.
  *
  * `id` doubles as the scroll anchor the completeness prompts link to, so
  * "Add your skills" lands on the skills card.
+ *
+ * Shared by the applicant and employer editors — they are the same page with
+ * different fields, and keeping one shell is what stops the two from drifting.
  */
 export function ProfileSectionCard({
   id,

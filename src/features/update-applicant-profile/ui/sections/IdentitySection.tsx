@@ -5,12 +5,12 @@ import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { Form } from "@/shared/ui/form";
 import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
   ApplicantIdentitySchema,
   type ApplicantIdentitySchemaType,
 } from "../../model/schema";
-import { ProfileSectionCard } from "../ProfileSectionCard";
 import { useProfileSection } from "../use-profile-section";
 
 export function IdentitySection({ applicant }: { applicant: Applicant }) {

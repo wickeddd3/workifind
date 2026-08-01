@@ -7,8 +7,8 @@ import {
   ApplicantPreferences,
   ApplicantSkills,
   getApplicantById,
-  ProfileSection,
 } from "@/entities/applicant";
+import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
 
 export async function ProfessionalPage({ id }: { id: string }) {
   const applicantId = parseInt(id);

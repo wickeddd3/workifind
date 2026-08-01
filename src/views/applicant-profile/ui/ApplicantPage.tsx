@@ -9,9 +9,9 @@ import {
   getApplicant,
   getProfileCompleteness,
   ProfileCompleteness,
-  ProfileSection,
 } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
+import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
 
 const EDIT = "/applicant/profile/edit";
 

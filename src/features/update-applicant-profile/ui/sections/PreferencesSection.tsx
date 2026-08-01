@@ -13,12 +13,12 @@ import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
 import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
   ApplicantPreferencesSchema,
   type ApplicantPreferencesSchemaType,
 } from "../../model/schema";
-import { ProfileSectionCard } from "../ProfileSectionCard";
 import { useProfileSection } from "../use-profile-section";
 
 const locationTypes = LOCATION_TYPES.map((type) => type.value);

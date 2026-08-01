@@ -1,9 +1,11 @@
 import { Loader2 } from "lucide-react";
 
-import { Button } from "@/shared/ui/button";
+import { Button, type ButtonProps } from "@/shared/ui/button";
 
-interface LoadingButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// Extends the Button's own props rather than raw button attributes, so
+// `variant` and `size` reach it. Typed as HTMLButtonElement attributes before,
+// which silently excluded both.
+interface LoadingButtonProps extends ButtonProps {
   loading: boolean;
 }
 

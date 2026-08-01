@@ -3,6 +3,7 @@ import type { Prisma } from "@prisma/client";
 import applicantsJson from "./applicants.data.json";
 import employersJson from "./employers.data.json";
 import jobsJson from "./jobs.data.json";
+import pitchesJson from "./pitches.data.json";
 
 /* -------------------------------------------------------------------------- */
 /*  Deterministic seed records — sourced from the JSON files in this folder    */
@@ -48,6 +49,10 @@ export type JobSeed = {
 export const employers = employersJson as EmployerSeed[];
 export const applicants = applicantsJson as ApplicantSeed[];
 export const jobs = jobsJson as JobSeed[];
+/** Cover letters, cycled through as applications are created. Deliberately of
+ *  differing lengths: the applicants list clamps long ones behind a toggle, so
+ *  a seed of uniform paragraphs would never exercise either state. */
+export const pitches = pitchesJson as string[];
 
 /* -------------------------------------------------------------------------- */
 /*  Mappers: JSON record -> Prisma create input                               */
@@ -101,6 +106,27 @@ export function buildApplicantData(
     preferredLocations: asNamedJson(applicant.preferredLocations),
     preferredEmploymentTypes: applicant.preferredEmploymentTypes,
     preferredLocationTypes: applicant.preferredLocationTypes,
+  };
+}
+
+export function buildJobApplicationData(params: {
+  /** The applicant's Clerk id — `JobApplication.userId` is the applier, not the
+   *  job's owner. */
+  userId: string;
+  applicantId: number;
+  jobId: number;
+  pitch: string;
+  createdAt: Date;
+}): Prisma.JobApplicationUncheckedCreateInput {
+  return {
+    userId: params.userId,
+    applicantId: params.applicantId,
+    jobId: params.jobId,
+    pitch: params.pitch,
+    // Set explicitly so the seeded list spans days rather than arriving in one
+    // indistinguishable batch — the applicants list sorts on this and shows it
+    // as "Applied 3 days ago".
+    createdAt: params.createdAt,
   };
 }
 

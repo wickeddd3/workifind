@@ -91,6 +91,29 @@ export async function getLatestJobs(limit: number): Promise<Job[]> {
 }
 
 /**
+ * One company's open roles, for its public profile at `/companies/[slug]`.
+ *
+ * Filtered through `LISTABLE` like every other public listing, so a closed or
+ * unmoderated post never surfaces here — the same condition the company card's
+ * open-role count is derived from, which keeps the count and this list in step.
+ */
+export async function getCompanyJobs(
+  employerId: number,
+  limit: number,
+): Promise<Job[]> {
+  try {
+    return await prisma.job.findMany({
+      where: { ...LISTABLE, employerId },
+      orderBy: { createdAt: "desc" },
+      include: { employer: true },
+      take: limit,
+    });
+  } catch (error) {
+    return [];
+  }
+}
+
+/**
  * Newest listable job slugs, for prerendering `/jobs/[slug]` at build time.
  *
  * Returns an empty list if the database is unreachable, which lets the build

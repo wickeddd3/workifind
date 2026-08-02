@@ -8,6 +8,8 @@ import {
 } from "@/entities/employer";
 import { JsonLd } from "@/shared/ui/JsonLd";
 
+import { CompanyJobs } from "./CompanyJobs";
+
 export async function CompanyPage({ slug }: { slug: string }) {
   const employer = await getEmployerBySlug(slug);
 
@@ -25,7 +27,15 @@ export async function CompanyPage({ slug }: { slug: string }) {
         companyWebsite={employer.companyWebsite}
         companyLogoUrl={employer.companyLogoUrl}
       />
-      <EmployerTabs employer={employer} />
+      <EmployerTabs
+        employer={employer}
+        openJobs={
+          <CompanyJobs
+            employerId={employer.id}
+            companyName={employer.companyName}
+          />
+        }
+      />
     </div>
   );
 }

@@ -8,9 +8,15 @@ import {
   ApplicantSkills,
   getApplicantById,
 } from "@/entities/applicant";
+import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
 
 export async function ProfessionalPage({ id }: { id: string }) {
+  // Candidate profiles carry personal data, so only employers may read them.
+  const { userId, role } = await getAuthUser();
+
+  if (!userId || role !== "EMPLOYER") return notFound();
+
   const applicantId = parseInt(id);
   const applicant = await getApplicantById(applicantId);
 
@@ -20,7 +26,7 @@ export async function ProfessionalPage({ id }: { id: string }) {
   // the empty ones, since `ProfileSection` drops a section with nothing in it
   // when there is no `editHref`. A visitor has no use for "no languages listed".
   return (
-    // Same container as the owner's profile page, so the public view of a
+    // Same container as the owner's profile page, so an employer's view of a
     // professional and the owner's own view of it are the same page.
     <div className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
       <section className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-card md:p-6">

@@ -4,6 +4,9 @@ const isProtectedRoute = createRouteMatcher([
   "/employer(.*)",
   "/applicant(.*)",
   "/setup(.*)",
+  // Employers-only, so a signed-out visitor gets the sign-in redirect rather
+  // than the 404 the pages themselves return for the wrong role.
+  "/professionals(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

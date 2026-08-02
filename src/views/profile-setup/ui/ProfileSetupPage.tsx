@@ -22,23 +22,15 @@ export async function ProfileSetupPage() {
           </p>
         </div>
         <hr />
-        <Tabs defaultValue="applicant" className="w-full">
+        {/* `segmented` because this is a choice between two profiles, not
+            navigation — the filled track is what says the two are exclusive.
+            The "OR" that used to sit between the triggers is gone: a tablist
+            may only contain tabs, and the segmented shape already carries what
+            the word was there to say. */}
+        <Tabs defaultValue="applicant" variant="segmented" className="w-full">
           <TabsList className="w-full">
-            <TabsTrigger
-              value="applicant"
-              className="w-full text-xs font-bold uppercase tracking-wider text-foreground md:text-sm"
-            >
-              Applicant
-            </TabsTrigger>
-            <span className="px-6 text-xs font-semibold tracking-tighter text-foreground md:text-sm">
-              OR
-            </span>
-            <TabsTrigger
-              value="employer"
-              className="w-full text-xs font-bold uppercase tracking-wider text-foreground md:text-sm"
-            >
-              Employer
-            </TabsTrigger>
+            <TabsTrigger value="applicant">Applicant</TabsTrigger>
+            <TabsTrigger value="employer">Employer</TabsTrigger>
           </TabsList>
           <TabsContent value="applicant">
             <NewApplicant />

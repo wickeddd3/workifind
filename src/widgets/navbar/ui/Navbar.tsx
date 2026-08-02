@@ -3,10 +3,9 @@ import Link from "next/link";
 import IconBrand from "@/shared/ui/icons/IconBrand";
 import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
-import { menuLinks } from "../model/navbar-links";
 import { MobileMenu } from "./MobileMenu";
 import { NavbarAuthActions } from "./NavbarAuthActions";
-import { NavLink } from "./NavLink";
+import { NavMenuLinks } from "./NavMenuLinks";
 import { ProfileNavLink } from "./ProfileNavLink";
 
 /**
@@ -31,9 +30,8 @@ export function Navbar() {
           </span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
-          {menuLinks.map((item) => (
-            <NavLink key={item.title} title={item.title} link={item.link} />
-          ))}
+          {/* Menu links — role-aware, so they resolve their own auth state. */}
+          <NavMenuLinks />
           {/* Profile Link — renders itself only once a role is known. */}
           <ProfileNavLink />
         </div>

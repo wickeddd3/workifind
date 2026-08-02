@@ -11,7 +11,7 @@ import {
 import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
 import { profileRoute } from "../model/get-profile-route";
-import { menuLinks } from "../model/navbar-links";
+import { visibleMenuLinks } from "../model/navbar-links";
 import { useUserRole } from "../model/use-user-role";
 import { MobileMenuNavLink } from "./MobileMenuNavLink";
 
@@ -32,7 +32,7 @@ export function MobileMenu() {
           <Menu size={18} className="text-white" aria-hidden="true" />
         </MenubarTrigger>
         <MenubarContent>
-          {menuLinks.map((item) => (
+          {visibleMenuLinks(role).map((item) => (
             <MobileMenuNavLink key={item.title} {...item} />
           ))}
           {/* Profile Link  */}

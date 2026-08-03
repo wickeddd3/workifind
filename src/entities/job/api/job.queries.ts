@@ -5,7 +5,7 @@ import prisma from "@/shared/lib/prisma";
 import { LISTABLE_JOB } from "../model/listable";
 import type { Job } from "../model/types";
 
-export const getJob = cache(async (id: number): Promise<Job | null> => {
+export const getJob = cache(async (id: string): Promise<Job | null> => {
   try {
     const job = await prisma.job.findUnique({
       where: { id },
@@ -30,7 +30,7 @@ export const getJob = cache(async (id: number): Promise<Job | null> => {
  * to answer it.
  */
 export const getEmployerJob = cache(
-  async (userId: string, id: number): Promise<Job | null> => {
+  async (userId: string, id: string): Promise<Job | null> => {
     try {
       return await prisma.job.findFirst({
         where: { id, userId },
@@ -98,7 +98,7 @@ export async function getLatestJobs(limit: number): Promise<Job[]> {
  * open-role count is derived from, which keeps the count and this list in step.
  */
 export async function getCompanyJobs(
-  employerId: number,
+  employerId: string,
   limit: number,
 ): Promise<Job[]> {
   try {

@@ -4,7 +4,7 @@ import db from "@/shared/lib/prisma";
 
 export async function updateJob(
   userId: string,
-  id: number,
+  id: string,
   data: Prisma.JobUpdateInput,
 ): Promise<Job | null> {
   try {

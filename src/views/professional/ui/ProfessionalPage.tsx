@@ -20,8 +20,7 @@ export async function ProfessionalPage({ id }: { id: string }) {
 
   if (!userId || role !== "EMPLOYER") return notFound();
 
-  const applicantId = parseInt(id);
-  const applicant = await getApplicantById(applicantId);
+  const applicant = await getApplicantById(id);
 
   if (!applicant) notFound();
 

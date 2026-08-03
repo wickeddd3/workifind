@@ -197,8 +197,8 @@ export function buildJobApplicationData(params: {
   /** The applicant's Clerk id — `JobApplication.userId` is the applier, not the
    *  job's owner. */
   userId: string;
-  applicantId: number;
-  jobId: number;
+  applicantId: string;
+  jobId: string;
   pitch: string;
   createdAt: Date;
 }): Prisma.JobApplicationUncheckedCreateInput {
@@ -216,15 +216,20 @@ export function buildJobApplicationData(params: {
 
 export function buildJobData(
   userId: string,
-  employerId: number,
+  employerId: string,
   job: JobSeed,
   index: number,
+  /** The employer's position in the seed list, e.g. `e2`. The slug is built
+   *  from this rather than from `employerId`, which is now a uuid: it would
+   *  make the slug unreadable, and it changes on every run, so re-seeding would
+   *  no longer produce the same slugs. */
+  employerRef: string,
 ): Prisma.JobUncheckedCreateInput {
   return {
     userId,
     employerId,
     title: job.title,
-    slug: slugify(job.title, `${employerId}-${index + 1}`),
+    slug: slugify(job.title, `${employerRef}-${index + 1}`),
     employmentType: job.employmentType,
     locationType: job.locationType,
     location: job.location,

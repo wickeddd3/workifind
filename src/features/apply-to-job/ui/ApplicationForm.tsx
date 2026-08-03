@@ -27,8 +27,8 @@ export function ApplicationForm({
   jobId,
   jobSlug,
 }: {
-  applicantId: number;
-  jobId: number;
+  applicantId: string;
+  jobId: string;
   jobSlug: string;
 }) {
   const router = useRouter();

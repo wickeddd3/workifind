@@ -12,8 +12,8 @@ import {
 import { saveJobApplication } from "./job-application.service";
 
 export async function saveJobApplicationAction(
-  applicantId: number,
-  jobId: number,
+  applicantId: string,
+  jobId: string,
   formData: JobApplicationSchemaType,
 ): Promise<{ success: boolean; data: JobApplication | null; message: string }> {
   try {

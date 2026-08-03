@@ -10,7 +10,7 @@ import { JobSchema, type JobSchemaType } from "../model/schema";
 import { updateJob } from "./job.service";
 
 export async function updateJobAction(
-  id: number,
+  id: string,
   formData: JobSchemaType,
 ): Promise<{ success: boolean; data: Job | null; message: string }> {
   try {

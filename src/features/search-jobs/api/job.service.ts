@@ -204,7 +204,7 @@ export async function searchJobs(
     // The employers join is unconditional even though only the industry filter
     // reads it. `employerId` is a required FK, so an inner join cannot drop a
     // row, and one query shape is easier to reason about than two.
-    const matches = await db.$queryRaw<{ id: number }[]>`
+    const matches = await db.$queryRaw<{ id: string }[]>`
       SELECT j."id"
       FROM "jobs" j
       JOIN "employers" e ON e."id" = j."employerId"

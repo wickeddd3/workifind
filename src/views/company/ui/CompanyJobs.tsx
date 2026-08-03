@@ -20,7 +20,7 @@ export async function CompanyJobs({
   employerId,
   companyName,
 }: {
-  employerId: number;
+  employerId: string;
   companyName: string;
 }) {
   // One over the cap, which is what tells a full page apart from an exact

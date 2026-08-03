@@ -1,11 +1,15 @@
 import { buildJobData, jobs } from "../data";
 import { logger, prisma } from "../helpers";
 
-export async function seedJobs(userId: string, employerId: number) {
+export async function seedJobs(
+  userId: string,
+  employerId: string,
+  employerRef: string,
+) {
   for (let i = 0; i < jobs.length; i++) {
     try {
       const job = await prisma.job.create({
-        data: buildJobData(userId, employerId, jobs[i], i),
+        data: buildJobData(userId, employerId, jobs[i], i, employerRef),
       });
       logger.info(`↳ Job ${i + 1}/${jobs.length}: ${job.title}`);
     } catch (error) {

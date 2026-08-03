@@ -23,7 +23,7 @@ enum Role {
 }
 
 model Employer {
-  id             Int      @id @default(autoincrement())
+  id             String   @id @default(uuid())
   slug           String   @unique
   companyName    String
   companyEmail   String?
@@ -47,7 +47,7 @@ model Employer {
 }
 
 model Applicant {
-  id                       Int                      @id @default(autoincrement())
+  id                       String                   @id @default(uuid())
   firstName                String
   lastName                 String
   email                    String
@@ -90,7 +90,7 @@ model Applicant {
 // reader in a different timezone. See `shared/utils/format-month.ts`.
 
 model ApplicantExperience {
-  id             Int       @id @default(autoincrement())
+  id             String    @id @default(uuid())
   title          String
   company        String
   employmentType String?
@@ -101,7 +101,7 @@ model ApplicantExperience {
   current        Boolean   @default(false)
   description    String?
   applicant      Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-  applicantId    Int
+  applicantId    String
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
@@ -111,7 +111,7 @@ model ApplicantExperience {
 }
 
 model ApplicantEducation {
-  id           Int       @id @default(autoincrement())
+  id           String    @id @default(uuid())
   school       String
   degree       String?
   fieldOfStudy String?
@@ -121,7 +121,7 @@ model ApplicantEducation {
   current      Boolean   @default(false)
   description  String?
   applicant    Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-  applicantId  Int
+  applicantId  String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
@@ -130,7 +130,7 @@ model ApplicantEducation {
 }
 
 model ApplicantCertification {
-  id            Int       @id @default(autoincrement())
+  id            String    @id @default(uuid())
   name          String
   issuer        String?
   issueDate     DateTime?
@@ -138,7 +138,7 @@ model ApplicantCertification {
   credentialId  String?
   credentialUrl String?
   applicant     Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-  applicantId   Int
+  applicantId   String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -147,7 +147,7 @@ model ApplicantCertification {
 }
 
 model Job {
-  id              Int              @id @default(autoincrement())
+  id              String           @id @default(uuid())
   slug            String           @unique
   title           String
   employmentType  String
@@ -160,7 +160,7 @@ model Job {
   closed          Boolean          @default(false)
   userId          String
   employer        Employer         @relation(fields: [employerId], references: [id])
-  employerId      Int
+  employerId      String
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   jobApplications JobApplication[]
@@ -183,13 +183,13 @@ model Job {
 }
 
 model JobApplication {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   pitch       String
   userId      String
   applicant   Applicant @relation(fields: [applicantId], references: [id])
-  applicantId Int
+  applicantId String
   job         Job       @relation(fields: [jobId], references: [id])
-  jobId       Int
+  jobId       String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -201,12 +201,12 @@ model JobApplication {
 }
 
 model SavedJob {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   userId      String
   applicant   Applicant @relation(fields: [applicantId], references: [id])
-  applicantId Int
+  applicantId String
   job         Job       @relation(fields: [jobId], references: [id])
-  jobId       Int
+  jobId       String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 

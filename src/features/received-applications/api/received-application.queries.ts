@@ -7,7 +7,7 @@ import {
 
 export async function getReceivedApplicationsQuery(
   userId: string,
-  jobId: number,
+  jobId: string,
   queryParams: {
     size?: number;
     page?: number;
@@ -35,7 +35,7 @@ export async function getReceivedApplicationsQuery(
 
 export async function getReceivedApplicationsCountQuery(
   userId: string,
-  jobId: number,
+  jobId: string,
 ): Promise<{ success: boolean; data: number | null; message: string }> {
   try {
     const results = await getReceivedApplicationsCount(userId, jobId);

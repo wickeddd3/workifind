@@ -38,7 +38,7 @@ export async function getSavedJobsCount(userId: string): Promise<number> {
   }
 }
 
-export async function unsaveJob(userId: string, jobId: number): Promise<void> {
+export async function unsaveJob(userId: string, jobId: string): Promise<void> {
   try {
     await db.savedJob.deleteMany({ where: { userId, jobId } });
   } catch (error) {

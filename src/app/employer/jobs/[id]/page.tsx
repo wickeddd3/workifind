@@ -5,5 +5,5 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  return <EmployerJobPage id={parseInt(id)} />;
+  return <EmployerJobPage id={id} />;
 }

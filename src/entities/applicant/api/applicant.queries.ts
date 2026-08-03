@@ -109,7 +109,7 @@ export async function getSuggestedApplicants(
 
 /** Backs the public professional page, which renders the whole profile. */
 export const getApplicantById = cache(
-  async (id: number): Promise<ApplicantProfile | null> => {
+  async (id: string): Promise<ApplicantProfile | null> => {
     try {
       const applicant = await prisma.applicant.findUnique({
         where: { id },

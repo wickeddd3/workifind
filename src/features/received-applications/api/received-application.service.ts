@@ -12,7 +12,7 @@ import prisma from "@/shared/lib/prisma";
  */
 export async function getReceivedApplications(
   userId: string,
-  jobId: number,
+  jobId: string,
   queryParams: {
     take: number;
     skip: number;
@@ -45,7 +45,7 @@ export async function getReceivedApplications(
 
 export async function getReceivedApplicationsCount(
   userId: string,
-  jobId: number,
+  jobId: string,
 ): Promise<number> {
   try {
     return await prisma.jobApplication.count({

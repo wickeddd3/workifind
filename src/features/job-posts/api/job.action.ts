@@ -7,7 +7,7 @@ import { requireRole } from "@/shared/lib/clerk.server";
 import { deleteJob } from "./job.service";
 
 export async function deleteJobAction(
-  jobId: number,
+  jobId: string,
 ): Promise<{ success: boolean; data: boolean; message: string }> {
   try {
     const { userId } = await requireRole("EMPLOYER");

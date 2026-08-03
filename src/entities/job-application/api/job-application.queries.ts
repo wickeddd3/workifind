@@ -2,7 +2,7 @@ import prisma from "@/shared/lib/prisma";
 
 export async function checkIfAlreadyApplied(
   userId: string,
-  jobId: number,
+  jobId: string,
 ): Promise<boolean> {
   try {
     const jobApplication = await prisma.jobApplication.findFirst({

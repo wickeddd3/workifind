@@ -50,7 +50,7 @@ export async function getInitialSavedJobsState(): Promise<InitialSavedJobsState>
 }
 
 export async function unsaveJobAction(
-  jobId: number,
+  jobId: string,
 ): Promise<{ success: boolean; data: boolean; message: string }> {
   try {
     const { userId } = await requireRole("APPLICANT");

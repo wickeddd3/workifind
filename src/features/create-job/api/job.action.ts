@@ -11,7 +11,7 @@ import { JobSchema, type JobSchemaType } from "../model/schema";
 import { createJob } from "./job.service";
 
 export async function createJobAction(
-  employerId: number,
+  employerId: string,
   formData: JobSchemaType,
 ): Promise<{ success: boolean; data: Job | null; message: string }> {
   try {

@@ -108,11 +108,15 @@ export const pitches = pitchesJson as string[];
 const asNamedJson = (names: string[]) =>
   names.map((name) => JSON.stringify({ name }));
 
+// `position` is explicit for the same reason the app writes it — these rows
+// are created in one statement and share a `createdAt`, so nothing else records
+// the order they were listed in.
 const asSkillRows = (skills: SkillSeed[]) =>
-  skills.map((skill) =>
+  skills.map((skill, position) =>
     typeof skill === "string"
-      ? { name: skill, level: null, years: null }
+      ? { position, name: skill, level: null, years: null }
       : {
+          position,
           name: skill.name,
           level: skill.level ?? null,
           years: skill.years ?? null,
@@ -120,10 +124,14 @@ const asSkillRows = (skills: SkillSeed[]) =>
   );
 
 const asLanguageRows = (languages: LanguageSeed[]) =>
-  languages.map((language) =>
+  languages.map((language, position) =>
     typeof language === "string"
-      ? { name: language, proficiency: null }
-      : { name: language.name, proficiency: language.proficiency ?? null },
+      ? { position, name: language, proficiency: null }
+      : {
+          position,
+          name: language.name,
+          proficiency: language.proficiency ?? null,
+        },
   );
 
 // CV dates are stored as the first of the month in UTC — see
@@ -181,7 +189,10 @@ export function buildApplicantData(
     skills: { create: asSkillRows(applicant.skills) },
     languages: { create: asLanguageRows(applicant.languages) },
     preferredLocations: {
-      create: applicant.preferredLocations.map((name) => ({ name })),
+      create: applicant.preferredLocations.map((name, position) => ({
+        position,
+        name,
+      })),
     },
     experiences: {
       create: applicant.experiences.map((experience) => ({

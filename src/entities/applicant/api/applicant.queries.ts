@@ -33,14 +33,14 @@ const profileInclude = {
   certifications: {
     orderBy: [{ issueDate: { sort: "desc", nulls: "last" } }, { id: "asc" }],
   },
-  // These three keep the order they were entered in. They carry no date to sort
-  // by, and ranking skills by level would put the self-assessment ahead of the
-  // ordering the owner chose — which is itself a statement about what they lead
-  // with. `createdAt` is stable across a section save because that save
-  // rewrites every row in the set.
-  skills: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
-  languages: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
-  preferredLocations: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
+  // These three keep the order the owner arranged, held in `position`. Ranking
+  // skills by level would put the self-assessment ahead of that ordering, which
+  // is itself a statement about what they lead with. `createdAt` cannot stand
+  // in for it: a section save writes every row in one statement, so they all
+  // share a timestamp and the order falls through to a random uuid.
+  skills: { orderBy: { position: "asc" } },
+  languages: { orderBy: { position: "asc" } },
+  preferredLocations: { orderBy: { position: "asc" } },
 } satisfies Prisma.ApplicantInclude;
 
 export const getApplicant = cache(

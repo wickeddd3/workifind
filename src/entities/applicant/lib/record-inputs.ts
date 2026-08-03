@@ -57,10 +57,17 @@ export function toEducationCreateInputs(
   }));
 }
 
+/**
+ * The three short lists keep the order the owner arranged, so each entry's
+ * index is written to `position`. Nothing else records it: a section save
+ * rewrites the whole set in one statement, giving every row the same
+ * `createdAt`, so ordering by that reshuffles the list on every save.
+ */
 export function toSkillCreateInputs(
   entries: ApplicantSkillEntry[] = [],
 ): Prisma.ApplicantSkillCreateWithoutApplicantInput[] {
-  return entries.map((entry) => ({
+  return entries.map((entry, position) => ({
+    position,
     name: entry.name,
     level: orNull(entry.level),
     // Null, not 0, when the field was left blank — 0 would read on the profile
@@ -72,7 +79,8 @@ export function toSkillCreateInputs(
 export function toLanguageCreateInputs(
   entries: ApplicantLanguageEntry[] = [],
 ): Prisma.ApplicantLanguageCreateWithoutApplicantInput[] {
-  return entries.map((entry) => ({
+  return entries.map((entry, position) => ({
+    position,
     name: entry.name,
     proficiency: orNull(entry.proficiency),
   }));
@@ -81,7 +89,7 @@ export function toLanguageCreateInputs(
 export function toPreferredLocationCreateInputs(
   entries: ApplicantPreferredLocationEntry[] = [],
 ): Prisma.ApplicantPreferredLocationCreateWithoutApplicantInput[] {
-  return entries.map((entry) => ({ name: entry.name }));
+  return entries.map((entry, position) => ({ position, name: entry.name }));
 }
 
 export function toCertificationCreateInputs(

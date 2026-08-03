@@ -4,6 +4,10 @@ const isProtectedRoute = createRouteMatcher([
   "/employer(.*)",
   "/applicant(.*)",
   "/setup(.*)",
+  // Clerk's own account management. `/settings` is deliberately absent — the
+  // theme lives there and is a per-browser preference, so it has to stay
+  // reachable without an account.
+  "/account(.*)",
   // Employers-only, so a signed-out visitor gets the sign-in redirect rather
   // than the 404 the pages themselves return for the wrong role.
   "/professionals(.*)",

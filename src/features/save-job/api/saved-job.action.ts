@@ -8,8 +8,8 @@ import { requireRole } from "@/shared/lib/clerk.server";
 import { saveJob, unsaveJob } from "./saved-job.service";
 
 export async function toggleSaveJobAction(
-  applicantId: number,
-  jobId: number,
+  applicantId: string,
+  jobId: string,
   isCurrentlySaved: boolean,
 ): Promise<{ success: boolean; data: boolean; message: string }> {
   try {

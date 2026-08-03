@@ -43,7 +43,7 @@ export async function getJobsCount(userId: string): Promise<number> {
 
 export async function deleteJob(
   userId: string,
-  jobId: number,
+  jobId: string,
 ): Promise<Job | null> {
   try {
     return await db.job.delete({

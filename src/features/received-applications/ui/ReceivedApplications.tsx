@@ -16,7 +16,7 @@ export async function ReceivedApplications({
   searchParams,
 }: {
   userId: string;
-  jobId: number;
+  jobId: string;
   searchParams: Record<string, string>;
 }) {
   const { page } = searchParams;

@@ -17,7 +17,7 @@ import { useToast } from "@/shared/ui/use-toast";
 import { createJobAction } from "../api/job.action";
 import { JobSchema, type JobSchemaType } from "../model/schema";
 
-export function JobForm({ employerId }: { employerId: number }) {
+export function JobForm({ employerId }: { employerId: string }) {
   const router = useRouter();
   const { toast } = useToast();
 

@@ -6,7 +6,7 @@ export function ReceivedApplicationsPagination({
   currentPage,
   totalPages,
 }: {
-  jobId: number;
+  jobId: string;
   currentPage: number;
   totalPages: number;
 }) {

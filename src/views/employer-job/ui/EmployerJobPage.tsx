@@ -4,7 +4,7 @@ import { getEmployerJob } from "@/entities/job";
 import { JobForm } from "@/features/update-job";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
-export async function EmployerJobPage({ id }: { id: number }) {
+export async function EmployerJobPage({ id }: { id: string }) {
   const { userId, role } = await getAuthUser();
 
   if (role !== "EMPLOYER" || !userId) notFound();

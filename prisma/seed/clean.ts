@@ -32,10 +32,30 @@ async function clean() {
 
   // 1. Remove the Clerk users first (see idempotency note above).
   let deleted = 0;
+  let failed = 0;
   for (const userId of userIds) {
     if (await deleteClerkUser(userId)) deleted++;
+    else failed++;
   }
   logger.success(`Removed ${deleted}/${userIds.length} Clerk user(s).`);
+
+  // Stop before touching the database if any of them survived. These rows are
+  // the only record of which Clerk users belong to the seed — delete them while
+  // the users are still there and nothing can ever find them again: this script
+  // has nothing left to match on, and `seed` cannot recreate them either,
+  // because their email addresses are taken. That is exactly how the instance
+  // ended up with ten unreachable users once already, when the Clerk key was
+  // not loaded and every deletion here failed silently.
+  if (failed > 0) {
+    logger.error(
+      `${failed} Clerk user(s) could not be removed. Leaving the database ` +
+        `untouched so this can be retried — its rows are the only way back to ` +
+        `those users. Run npm run seed:clean-orphans if they are already ` +
+        `stranded.`,
+    );
+    process.exitCode = 1;
+    return;
+  }
 
   // 2. Remove the DB rows in FK-safe order, scoped to those owners.
   const where = { userId: { in: userIds } };

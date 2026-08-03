@@ -29,8 +29,10 @@ export async function seedEmployers() {
         `Employer ${i + 1}/${employers.length}: ${employer.companyName}`,
       );
 
-      // Each employer gets the full set of deterministic job templates.
-      await seedJobs(clerkUser.id, employer.id);
+      // Each employer gets the full set of deterministic job templates. The
+      // seed position is passed alongside the id — it, not the uuid, is what
+      // keeps the job slugs stable across runs.
+      await seedJobs(clerkUser.id, employer.id, `e${i + 1}`);
     } catch (error) {
       logger.error(`Employer create failed for ${employerSeed.email}`, error);
     }

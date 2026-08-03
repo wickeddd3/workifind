@@ -10,7 +10,7 @@ export interface JobActionState {
   canAct: boolean;
   hasApplied: boolean;
   isSaved: boolean;
-  applicantId: number | null;
+  applicantId: string | null;
 }
 
 const NO_ACTIONS: JobActionState = {
@@ -30,7 +30,7 @@ const NO_ACTIONS: JobActionState = {
  * cannot be used to read another user's application state.
  */
 export async function getJobActionState(
-  jobId: number,
+  jobId: string,
 ): Promise<JobActionState> {
   try {
     const { role, userId } = await getAuthUser();

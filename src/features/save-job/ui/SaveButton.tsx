@@ -13,8 +13,8 @@ export function SaveButton({
   applicantId,
   initialIsSaved,
 }: {
-  jobId: number;
-  applicantId: number;
+  jobId: string;
+  applicantId: string;
   initialIsSaved: boolean;
 }) {
   const [isSaved, setIsSaved] = useState(initialIsSaved);

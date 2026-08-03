@@ -45,7 +45,7 @@ export async function seedJobApplications() {
   let created = 0;
   let skipped = 0;
   let position = 0;
-  let employerId: number | null = null;
+  let employerId: string | null = null;
 
   for (const job of jobs) {
     if (job.employerId !== employerId) {

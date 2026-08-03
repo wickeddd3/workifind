@@ -7,7 +7,5 @@ export default async function Page({
   params: { id: string };
   searchParams: Record<string, string>;
 }) {
-  return (
-    <EmployerJobApplicants id={parseInt(id)} searchParams={searchParams} />
-  );
+  return <EmployerJobApplicants id={id} searchParams={searchParams} />;
 }

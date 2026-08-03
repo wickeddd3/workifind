@@ -19,7 +19,7 @@ export async function EmployerJobApplicants({
   id,
   searchParams,
 }: {
-  id: number;
+  id: string;
   searchParams: Record<string, string>;
 }) {
   const { userId, role } = await getAuthUser();

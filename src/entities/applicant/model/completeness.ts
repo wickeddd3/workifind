@@ -1,4 +1,4 @@
-import type { Applicant } from "./types";
+import type { ApplicantProfile } from "./types";
 
 /**
  * How complete a profile is, section by section.
@@ -8,11 +8,22 @@ import type { Applicant } from "./types";
  * fill in. Identity is excluded deliberately: name, profession and email are
  * required to create a profile at all, so counting them would start everyone at
  * a flattering number that never moves.
+ *
+ * Certifications are excluded for the opposite reason. Plenty of professions
+ * award none, so counting them would leave those candidates permanently short
+ * of 100% with nothing they could honestly do about it.
  */
 
 export interface ProfileSectionStatus {
   /** Matches the edit page's section ids, so a prompt can link straight to it. */
-  id: "about" | "skills" | "languages" | "preferences" | "contact";
+  id:
+    | "about"
+    | "skills"
+    | "languages"
+    | "preferences"
+    | "contact"
+    | "experience"
+    | "education";
   label: string;
   /** What the user should do, phrased as the action. */
   prompt: string;
@@ -34,7 +45,7 @@ function hasText(value?: string | null) {
 }
 
 export function getProfileCompleteness(
-  applicant: Applicant,
+  applicant: ApplicantProfile,
 ): ProfileCompleteness {
   const sections: ProfileSectionStatus[] = [
     {
@@ -48,6 +59,18 @@ export function getProfileCompleteness(
       label: "About me",
       prompt: "Write an About me",
       complete: hasText(applicant.about),
+    },
+    {
+      id: "experience",
+      label: "Work experience",
+      prompt: "Add a role you've held",
+      complete: applicant.experiences?.length > 0,
+    },
+    {
+      id: "education",
+      label: "Education",
+      prompt: "Add your education",
+      complete: applicant.educations?.length > 0,
     },
     {
       id: "skills",

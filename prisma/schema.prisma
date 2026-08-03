@@ -47,7 +47,7 @@ model Employer {
 }
 
 model Applicant {
-  id                       Int              @id @default(autoincrement())
+  id                       Int                      @id @default(autoincrement())
   firstName                String
   lastName                 String
   email                    String
@@ -63,14 +63,87 @@ model Applicant {
   preferredLocationTypes   String[]
   preferredLocations       Json
   salaryExpectation        Int
-  userId                   String           @unique
-  createdAt                DateTime         @default(now())
-  updatedAt                DateTime         @updatedAt
+  userId                   String                   @unique
+  createdAt                DateTime                 @default(now())
+  updatedAt                DateTime                 @updatedAt
   jobApplications          JobApplication[]
   savedJobs                SavedJob[]
+  experiences              ApplicantExperience[]
+  educations               ApplicantEducation[]
+  certifications           ApplicantCertification[]
 
   @@index([createdAt(sort: Desc)])
   @@map("applicants")
+}
+
+// The three CV record types below are rows rather than Json columns — unlike
+// `skills` and `languages`, which are bare names. Each has several typed fields
+// and a date the profile is ordered by, and a `startDate` inside a Json blob is
+// a string no query can sort on.
+//
+// `onDelete: Cascade` is what lets `prisma.applicant.deleteMany` still work in
+// the seed cleanup, which deletes profiles by their owner's userId — these rows
+// carry no userId of their own to be scoped by.
+//
+// Dates are stored as the first of the month in UTC: a CV states "March 2024",
+// not a day, and anchoring to UTC keeps the stored month from shifting under a
+// reader in a different timezone. See `shared/utils/format-month.ts`.
+
+model ApplicantExperience {
+  id             Int       @id @default(autoincrement())
+  title          String
+  company        String
+  employmentType String?
+  location       String?
+  startDate      DateTime
+  endDate        DateTime?
+  /// Set when the role is ongoing, in which case `endDate` is null.
+  current        Boolean   @default(false)
+  description    String?
+  applicant      Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId    Int
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Always read as one applicant's whole history, newest first.
+  @@index([applicantId, current(sort: Desc), startDate(sort: Desc)])
+  @@map("applicantExperiences")
+}
+
+model ApplicantEducation {
+  id           Int       @id @default(autoincrement())
+  school       String
+  degree       String?
+  fieldOfStudy String?
+  startDate    DateTime?
+  endDate      DateTime?
+  /// Set while still studying, in which case `endDate` is null.
+  current      Boolean   @default(false)
+  description  String?
+  applicant    Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId  Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([applicantId, current(sort: Desc), startDate(sort: Desc)])
+  @@map("applicantEducations")
+}
+
+model ApplicantCertification {
+  id            Int       @id @default(autoincrement())
+  name          String
+  issuer        String?
+  issueDate     DateTime?
+  expiryDate    DateTime?
+  credentialId  String?
+  credentialUrl String?
+  applicant     Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId   Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([applicantId, issueDate(sort: Desc)])
+  @@map("applicantCertifications")
 }
 
 model Job {

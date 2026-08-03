@@ -2,11 +2,14 @@ import { notFound } from "next/navigation";
 
 import {
   ApplicantBio,
+  ApplicantCertificationList,
+  ApplicantEducationList,
+  ApplicantExperienceList,
   ApplicantHeader,
   ApplicantLanguages,
   ApplicantPreferences,
   ApplicantSkills,
-  getApplicant,
+  getApplicantProfile,
   getProfileCompleteness,
   ProfileCompleteness,
 } from "@/entities/applicant";
@@ -20,7 +23,7 @@ export async function ApplicantPage() {
 
   if (!userId) notFound();
 
-  const applicant = await getApplicant(userId);
+  const applicant = await getApplicantProfile(userId);
 
   if (!applicant) notFound();
 
@@ -53,6 +56,36 @@ export async function ApplicantPage() {
         emptyPrompt="Tell employers who you are and what you're looking for."
       >
         <ApplicantBio bio={applicant.about} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="experience"
+        title="Work experience"
+        editHref={`${EDIT}#experience`}
+        isEmpty={!applicant.experiences?.length}
+        emptyPrompt="Add the roles you've held — this is the first thing employers read."
+      >
+        <ApplicantExperienceList experiences={applicant.experiences} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="education"
+        title="Education"
+        editHref={`${EDIT}#education`}
+        isEmpty={!applicant.educations?.length}
+        emptyPrompt="Add where you studied."
+      >
+        <ApplicantEducationList educations={applicant.educations} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="certifications"
+        title="Certifications"
+        editHref={`${EDIT}#certifications`}
+        isEmpty={!applicant.certifications?.length}
+        emptyPrompt="Add any licences or certificates you hold."
+      >
+        <ApplicantCertificationList certifications={applicant.certifications} />
       </ProfileSection>
 
       <ProfileSection

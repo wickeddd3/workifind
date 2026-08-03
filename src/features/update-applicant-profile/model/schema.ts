@@ -1,6 +1,14 @@
 import validator from "validator";
 import { z } from "zod";
 
+import {
+  ApplicantCertificationEntrySchema,
+  ApplicantEducationEntrySchema,
+  ApplicantExperienceEntrySchema,
+  // From `client`, not the full barrel: the section components are
+  // `"use client"` and import this file, so the barrel's query re-exports would
+  // put PrismaClient in the browser bundle.
+} from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { requiredNumeric, requiredString } from "@/shared/schema/utils";
 
@@ -64,6 +72,27 @@ export const ApplicantLanguagesSchema = z.object({
   languages: z.array(ApplicantLanguageSchema).optional(),
 });
 
+/**
+ * The three CV sections. Their entry shapes live in the applicant entity,
+ * because the create-profile flow writes the same records and validating them
+ * two different ways is how the rest of this profile already drifted.
+ *
+ * The caps are there so one section save cannot become an unbounded write; they
+ * are far above any real CV.
+ */
+
+export const ApplicantExperienceSchema = z.object({
+  experiences: z.array(ApplicantExperienceEntrySchema).max(30).optional(),
+});
+
+export const ApplicantEducationSchema = z.object({
+  educations: z.array(ApplicantEducationEntrySchema).max(20).optional(),
+});
+
+export const ApplicantCertificationsSchema = z.object({
+  certifications: z.array(ApplicantCertificationEntrySchema).max(30).optional(),
+});
+
 export const ApplicantPreferencesSchema = z.object({
   availability: requiredString.max(100),
   preferredEmploymentTypes: z.array(z.string()).optional(),
@@ -86,6 +115,9 @@ export const ApplicantPreferencesSchema = z.object({
 export const APPLICANT_SECTION_SCHEMAS = {
   identity: ApplicantIdentitySchema,
   about: ApplicantAboutSchema,
+  experience: ApplicantExperienceSchema,
+  education: ApplicantEducationSchema,
+  certifications: ApplicantCertificationsSchema,
   skills: ApplicantSkillsSchema,
   languages: ApplicantLanguagesSchema,
   preferences: ApplicantPreferencesSchema,
@@ -106,6 +138,15 @@ export type ApplicantIdentitySchemaType = z.infer<
   typeof ApplicantIdentitySchema
 >;
 export type ApplicantAboutSchemaType = z.infer<typeof ApplicantAboutSchema>;
+export type ApplicantExperienceSchemaType = z.infer<
+  typeof ApplicantExperienceSchema
+>;
+export type ApplicantEducationSchemaType = z.infer<
+  typeof ApplicantEducationSchema
+>;
+export type ApplicantCertificationsSchemaType = z.infer<
+  typeof ApplicantCertificationsSchema
+>;
 export type ApplicantSkillsSchemaType = z.infer<typeof ApplicantSkillsSchema>;
 export type ApplicantLanguagesSchemaType = z.infer<
   typeof ApplicantLanguagesSchema
@@ -126,6 +167,9 @@ export type ApplicantPreferencesSchemaType = z.infer<
 export const ApplicantProfileSchema = ApplicantIdentitySchema.merge(
   ApplicantAboutSchema,
 )
+  .merge(ApplicantExperienceSchema)
+  .merge(ApplicantEducationSchema)
+  .merge(ApplicantCertificationsSchema)
   .merge(ApplicantSkillsSchema)
   .merge(ApplicantLanguagesSchema)
   .merge(ApplicantPreferencesSchema);

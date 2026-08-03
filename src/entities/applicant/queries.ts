@@ -7,5 +7,6 @@
 export {
   getApplicant,
   getApplicantById,
+  getApplicantProfile,
   getSuggestedApplicants,
 } from "./api/applicant.queries";

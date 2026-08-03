@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getApplicant } from "@/entities/applicant";
+import { getApplicantProfile } from "@/entities/applicant";
 import { ProfileForm } from "@/features/update-applicant-profile";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
@@ -9,7 +9,7 @@ export async function ApplicantEditPage() {
 
   if (!userId) notFound();
 
-  const applicant = await getApplicant(userId);
+  const applicant = await getApplicantProfile(userId);
 
   if (!applicant) notFound();
 

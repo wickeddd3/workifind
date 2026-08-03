@@ -2,25 +2,25 @@ import type { Prisma } from "@prisma/client";
 import { cache } from "react";
 
 import prisma from "@/shared/lib/prisma";
-import { parseJsonField } from "@/shared/utils/parse-json";
 
 import type { Applicant, ApplicantProfile } from "../model/types";
 
 /**
- * The CV records, ordered the way a CV reads: ongoing first, then most recent.
+ * Everything an applicant lists, ordered the way a profile reads.
  *
  * Ordering here rather than in the components means the profile page, the
  * public page and the editor all show the same sequence — and the editor's
  * field arrays start from it, so saving a section does not silently reshuffle
  * what the owner was looking at.
+ *
+ * `nulls: "last"` wherever the date is optional: Postgres sorts NULLS FIRST on
+ * a descending column, which would float an undated entry above a dated one and
+ * make the least informative record the first thing read.
  */
 const profileInclude = {
   experiences: {
     orderBy: [{ current: "desc" }, { startDate: "desc" }, { id: "asc" }],
   },
-  // `nulls: "last"` where the date is optional: Postgres sorts NULLS FIRST on a
-  // descending column, which would float an undated entry above a dated one and
-  // make the least informative record the first thing read.
   educations: {
     orderBy: [
       { current: "desc" },
@@ -33,34 +33,20 @@ const profileInclude = {
   certifications: {
     orderBy: [{ issueDate: { sort: "desc", nulls: "last" } }, { id: "asc" }],
   },
+  // These three keep the order they were entered in. They carry no date to sort
+  // by, and ranking skills by level would put the self-assessment ahead of the
+  // ordering the owner chose — which is itself a statement about what they lead
+  // with. `createdAt` is stable across a section save because that save
+  // rewrites every row in the set.
+  skills: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
+  languages: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
+  preferredLocations: { orderBy: [{ createdAt: "asc" }, { id: "asc" }] },
 } satisfies Prisma.ApplicantInclude;
-
-/** The three Json columns hold arrays of stringified `{ name }` objects. */
-function withParsedLists<
-  T extends {
-    skills: Prisma.JsonValue;
-    languages: Prisma.JsonValue;
-    preferredLocations: Prisma.JsonValue;
-  },
->(applicant: T) {
-  return {
-    ...applicant,
-    skills: parseJsonField(applicant.skills),
-    languages: parseJsonField(applicant.languages),
-    preferredLocations: parseJsonField(applicant.preferredLocations),
-  };
-}
 
 export const getApplicant = cache(
   async (userId: string): Promise<Applicant | null> => {
     try {
-      const applicant = await prisma.applicant.findUnique({
-        where: { userId },
-      });
-
-      if (!applicant) return null;
-
-      return withParsedLists(applicant);
+      return await prisma.applicant.findUnique({ where: { userId } });
     } catch (error) {
       return null;
     }
@@ -68,7 +54,7 @@ export const getApplicant = cache(
 );
 
 /**
- * An applicant with their CV records, for the pages that render a whole
+ * An applicant with everything they list, for the pages that render a whole
  * profile.
  *
  * Separate from `getApplicant` because the job flows call that one on every job
@@ -77,14 +63,10 @@ export const getApplicant = cache(
 export const getApplicantProfile = cache(
   async (userId: string): Promise<ApplicantProfile | null> => {
     try {
-      const applicant = await prisma.applicant.findUnique({
+      return await prisma.applicant.findUnique({
         where: { userId },
         include: profileInclude,
       });
-
-      if (!applicant) return null;
-
-      return withParsedLists(applicant);
     } catch (error) {
       return null;
     }
@@ -96,12 +78,10 @@ export async function getSuggestedApplicants(
   limit: number,
 ): Promise<Applicant[]> {
   try {
-    const applicants = await prisma.applicant.findMany({
+    return await prisma.applicant.findMany({
       orderBy: { createdAt: "desc" },
       take: limit,
     });
-
-    return applicants.map(withParsedLists);
   } catch (error) {
     return [];
   }
@@ -111,14 +91,10 @@ export async function getSuggestedApplicants(
 export const getApplicantById = cache(
   async (id: string): Promise<ApplicantProfile | null> => {
     try {
-      const applicant = await prisma.applicant.findUnique({
+      return await prisma.applicant.findUnique({
         where: { id },
         include: profileInclude,
       });
-
-      if (!applicant) return null;
-
-      return withParsedLists(applicant);
     } catch (error) {
       return null;
     }

@@ -6,6 +6,9 @@ import type {
   ApplicantCertificationEntry,
   ApplicantEducationEntry,
   ApplicantExperienceEntry,
+  ApplicantLanguageEntry,
+  ApplicantPreferredLocationEntry,
+  ApplicantSkillEntry,
 } from "../model/records";
 
 /**
@@ -52,6 +55,33 @@ export function toEducationCreateInputs(
     current: entry.current,
     description: orNull(entry.description),
   }));
+}
+
+export function toSkillCreateInputs(
+  entries: ApplicantSkillEntry[] = [],
+): Prisma.ApplicantSkillCreateWithoutApplicantInput[] {
+  return entries.map((entry) => ({
+    name: entry.name,
+    level: orNull(entry.level),
+    // Null, not 0, when the field was left blank — 0 would read on the profile
+    // as a claim of no experience with the skill.
+    years: entry.years?.trim() ? Number(entry.years) : null,
+  }));
+}
+
+export function toLanguageCreateInputs(
+  entries: ApplicantLanguageEntry[] = [],
+): Prisma.ApplicantLanguageCreateWithoutApplicantInput[] {
+  return entries.map((entry) => ({
+    name: entry.name,
+    proficiency: orNull(entry.proficiency),
+  }));
+}
+
+export function toPreferredLocationCreateInputs(
+  entries: ApplicantPreferredLocationEntry[] = [],
+): Prisma.ApplicantPreferredLocationCreateWithoutApplicantInput[] {
+  return entries.map((entry) => ({ name: entry.name }));
 }
 
 export function toCertificationCreateInputs(

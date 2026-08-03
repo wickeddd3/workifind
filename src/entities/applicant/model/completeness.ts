@@ -37,7 +37,7 @@ export interface ProfileCompleteness {
 }
 
 function hasItems(list?: { name: string }[] | null) {
-  return Boolean(list?.some((item) => item?.name?.trim()));
+  return Boolean(list?.length);
 }
 
 function hasText(value?: string | null) {

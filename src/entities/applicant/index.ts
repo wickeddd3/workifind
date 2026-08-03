@@ -10,6 +10,13 @@ export { ApplicantPreferences } from "./ui/ApplicantPreferences";
 export { ApplicantSkills } from "./ui/ApplicantSkills";
 export { ProfileCompleteness } from "./ui/ProfileCompleteness";
 
+// The form field groups — `ExperienceEntryFields`, `SkillEntryFields`,
+// `PreferencesFields` and the rest — are deliberately absent. They are
+// `"use client"`, and re-exporting them here put them in the client reference
+// manifest of every route that reads this barrel, including the two profile
+// pages that render no form at all. Their only consumers are client
+// components, which import from `./client`.
+
 // The record field groups — `ExperienceEntryFields` and friends — are
 // deliberately absent. They are `"use client"`, and re-exporting them here put
 // them in the client reference manifest of every route that reads this barrel,
@@ -35,6 +42,9 @@ export {
   toCertificationCreateInputs,
   toEducationCreateInputs,
   toExperienceCreateInputs,
+  toLanguageCreateInputs,
+  toPreferredLocationCreateInputs,
+  toSkillCreateInputs,
 } from "./lib/record-inputs";
 
 /* API */

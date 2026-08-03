@@ -1,6 +1,8 @@
 import { MediumText } from "@/shared/ui/typography/Typography";
 import { formatMoney } from "@/shared/utils/format-money";
 
+import type { ApplicantPreferredLocation } from "../model/types";
+
 /** Body only — see `ProfileSection` for the heading and the empty case. */
 export function ApplicantPreferences({
   preferredEmploymentTypes,
@@ -11,7 +13,7 @@ export function ApplicantPreferences({
 }: {
   preferredEmploymentTypes: string[];
   preferredLocationTypes: string[];
-  preferredLocations: { name: string }[];
+  preferredLocations: ApplicantPreferredLocation[];
   availability: string;
   salaryExpectation: number;
 }) {

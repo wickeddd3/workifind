@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 
 import {
   ApplicantBio,
+  ApplicantCertificationList,
+  ApplicantEducationList,
+  ApplicantExperienceList,
   ApplicantHeader,
   ApplicantLanguages,
   ApplicantPreferences,
@@ -39,6 +42,30 @@ export async function ProfessionalPage({ id }: { id: string }) {
         isEmpty={!applicant.about?.trim()}
       >
         <ApplicantBio bio={applicant.about} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="experience"
+        title="Work experience"
+        isEmpty={!applicant.experiences?.length}
+      >
+        <ApplicantExperienceList experiences={applicant.experiences} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="education"
+        title="Education"
+        isEmpty={!applicant.educations?.length}
+      >
+        <ApplicantEducationList educations={applicant.educations} />
+      </ProfileSection>
+
+      <ProfileSection
+        id="certifications"
+        title="Certifications"
+        isEmpty={!applicant.certifications?.length}
+      >
+        <ApplicantCertificationList certifications={applicant.certifications} />
       </ProfileSection>
 
       <ProfileSection

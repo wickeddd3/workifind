@@ -10,29 +10,31 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
-import { Input } from "@/shared/ui/input";
+import { Textarea } from "@/shared/ui/textarea";
 
-interface TextInputFieldProps<T extends FieldValues> {
+interface TextAreaFieldProps<T extends FieldValues> {
   control: Control<T>;
-  name: Path<T>; // Ensures the name matches a key in the form schema
+  name: Path<T>;
   label: string;
-  type?: string;
   placeholder?: string;
+  rows?: number;
   className?: string;
-  /** For a field another answer has made moot, e.g. the end date of an
-   *  ongoing role. */
-  disabled?: boolean;
 }
 
-export const TextInputField = <T extends FieldValues>({
+/**
+ * Plain multi-line text, as opposed to `RichTextField`, which loads a WYSIWYG
+ * editor. Used where the text is a note on one record — what you did in a role,
+ * what a course covered — and formatting would be noise; loading the editor per
+ * entry would also mean a dozen of them on one page.
+ */
+export const TextAreaField = <T extends FieldValues>({
   control,
   name,
   label,
-  type = "text",
   placeholder,
+  rows = 3,
   className,
-  disabled,
-}: TextInputFieldProps<T>) => (
+}: TextAreaFieldProps<T>) => (
   <FormField
     control={control}
     name={name}
@@ -40,12 +42,7 @@ export const TextInputField = <T extends FieldValues>({
       <FormItem className={cn("grow", className)}>
         <FormLabel>{label}</FormLabel>
         <FormControl>
-          <Input
-            {...field}
-            type={type}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
+          <Textarea {...field} rows={rows} placeholder={placeholder} />
         </FormControl>
         <FormMessage />
       </FormItem>

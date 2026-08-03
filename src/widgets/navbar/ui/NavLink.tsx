@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/shared/lib/utils";
 
+import { isActiveLink } from "../model/is-active-link";
+
 export function NavLink({
   title = "",
   link = "/",
@@ -13,8 +15,7 @@ export function NavLink({
   link: string;
 }) {
   const pathname = usePathname();
-  const isActive =
-    pathname === link || (link !== "/" && pathname.startsWith(`${link}/`));
+  const isActive = isActiveLink(pathname, link);
 
   return (
     <Link

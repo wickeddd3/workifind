@@ -1,18 +1,28 @@
 import {
+  Bookmark,
   BriefcaseBusiness,
   Building2,
   type LucideIcon,
+  Settings,
+  User,
+  UserCog,
   Users,
 } from "lucide-react";
 
-import type { Role } from "./get-profile-route";
+import { profileRoute, type Role } from "./get-profile-route";
 
-type MenuLink = {
+export type MenuLink = {
   title: string;
   link: string;
   icon: LucideIcon;
   /** Roles allowed to see the link. Omitted means everyone, signed out included. */
   roles?: Role[];
+  /**
+   * Highlight only on an exact path match. Needed where one link's path is a
+   * prefix of another's — `/applicant/jobs` and `/applicant/jobs/saved` sit
+   * side by side in the account menu, and prefix matching lit both at once.
+   */
+  exact?: boolean;
 };
 
 export const menuLinks: MenuLink[] = [
@@ -46,4 +56,46 @@ export function visibleMenuLinks(role: Role | undefined): MenuLink[] {
   );
 }
 
-export const mobileMenuLinks = [];
+/**
+ * The personal links behind the avatar — the things that belong to *you*
+ * rather than to the site. Kept out of `menuLinks` deliberately: the header's
+ * own nav is the same for everyone with a given role, while these follow the
+ * signed-in user and change with them.
+ *
+ * A function rather than a table because the profile route itself depends on
+ * the role.
+ */
+export function accountMenuLinks(role: Role | undefined): MenuLink[] {
+  return [
+    { title: "Profile", link: profileRoute(role), icon: User },
+    ...(role === "APPLICANT"
+      ? [
+          {
+            title: "Applied jobs",
+            link: "/applicant/jobs",
+            icon: BriefcaseBusiness,
+            exact: true,
+          },
+          {
+            title: "Saved jobs",
+            link: "/applicant/jobs/saved",
+            icon: Bookmark,
+          },
+        ]
+      : []),
+    ...(role === "EMPLOYER"
+      ? [{ title: "My jobs", link: "/employer/jobs", icon: BriefcaseBusiness }]
+      : []),
+  ];
+}
+
+/**
+ * Account administration, which is the same for every signed-in user — the
+ * Clerk-backed identity page and the app's own preferences. Separated from
+ * `accountMenuLinks` so the dropdown can rule between "what I do here" and
+ * "how this account works".
+ */
+export const accountSettingsLinks: MenuLink[] = [
+  { title: "Manage account", link: "/account", icon: UserCog },
+  { title: "Settings", link: "/settings", icon: Settings },
+];

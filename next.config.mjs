@@ -37,6 +37,10 @@ const nextConfig = {
       {
         hostname: "gkmp2jrrgr3iczzg.public.blob.vercel-storage.com",
       },
+      {
+        // Clerk-hosted profile pictures, shown on the navbar avatar.
+        hostname: "img.clerk.com",
+      },
     ],
   },
   experimental: {

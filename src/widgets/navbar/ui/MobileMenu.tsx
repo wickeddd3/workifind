@@ -1,6 +1,6 @@
 "use client";
 
-import { Bookmark, BriefcaseBusiness, Menu, User } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import {
   Menubar,
@@ -8,19 +8,22 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/shared/ui/menubar";
-import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
-import { profileRoute } from "../model/get-profile-route";
 import { visibleMenuLinks } from "../model/navbar-links";
 import { useUserRole } from "../model/use-user-role";
 import { MobileMenuNavLink } from "./MobileMenuNavLink";
 
-// Reads its own role rather than taking it as a prop, so the server component
-// that renders it never has to touch auth.
+/**
+ * The site's navigation on small screens — the same links the desktop bar
+ * shows, and only those.
+ *
+ * It used to carry the user's own links and the theme switch as well, which
+ * made a phone's hamburger and its avatar two menus with overlapping contents
+ * and no rule for which held what. The avatar owns everything personal at
+ * every width now; this owns the site.
+ */
 export function MobileMenu() {
   const { role } = useUserRole();
-  const isApplicant = role === "APPLICANT";
-  const isEmployer = role === "EMPLOYER";
 
   return (
     <Menubar className="block border-none bg-transparent md:hidden">
@@ -35,45 +38,6 @@ export function MobileMenu() {
           {visibleMenuLinks(role).map((item) => (
             <MobileMenuNavLink key={item.title} {...item} />
           ))}
-          {/* Profile Link  */}
-          {role && (
-            <MobileMenuNavLink
-              title="Profile"
-              link={profileRoute(role)}
-              icon={User}
-            />
-          )}
-          {/* Applicant only Links */}
-          {isApplicant && (
-            <>
-              <MobileMenuNavLink
-                title="Applied jobs"
-                link="/applicant/jobs"
-                icon={BriefcaseBusiness}
-              />
-              <MobileMenuNavLink
-                title="Saved jobs"
-                link="/applicant/jobs/saved"
-                icon={Bookmark}
-              />
-            </>
-          )}
-          {/* Employer only Links */}
-          {isEmployer && (
-            <MobileMenuNavLink
-              title="My jobs"
-              link="/employer/jobs"
-              icon={BriefcaseBusiness}
-            />
-          )}
-          {/* The navbar's own toggle is desktop-only for want of room, so
-              without this a phone had no way to change theme at all. */}
-          <div className="mt-1 flex items-center justify-between gap-3 border-t border-border px-2 pb-1 pt-3">
-            <span className="text-sm font-medium text-muted-foreground">
-              Theme
-            </span>
-            <ThemeToggle />
-          </div>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

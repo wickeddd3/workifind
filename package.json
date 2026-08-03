@@ -10,9 +10,10 @@
     "lintfix": "eslint --fix ./src/**/* --ext .ts,tsx,.js,.jsx --format stylish",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "seed": "npx tsx prisma/seed/index.ts",
-    "seed:clean": "npx tsx prisma/seed/clean.ts",
-    "backfill:roles": "npx tsx prisma/scripts/backfill-user-roles.ts",
+    "seed": "npx tsx --env-file-if-exists=.env prisma/seed/index.ts",
+    "seed:clean": "npx tsx --env-file-if-exists=.env prisma/seed/clean.ts",
+    "seed:clean-orphans": "npx tsx --env-file-if-exists=.env prisma/scripts/clean-orphaned-clerk-users.ts",
+    "backfill:roles": "npx tsx --env-file-if-exists=.env prisma/scripts/backfill-user-roles.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

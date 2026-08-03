@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 import { Button } from "@/shared/ui/button";
 
-import { PostJobButton } from "./PostJobButton";
+import { UserAccountMenu } from "./UserAccountMenu";
 
 /**
  * Sign-in / sign-out affordances for the navbar.
@@ -39,9 +33,9 @@ export function NavbarAuthActions() {
         </SignUpButton>
       </SignedOut>
       <SignedIn>
-        {/* Employer-only; renders null for everyone else. */}
-        <PostJobButton />
-        <UserButton />
+        {/* Everything personal — profile, job lists, account, sign out —
+            hangs off the avatar rather than competing for room in the bar. */}
+        <UserAccountMenu />
       </SignedIn>
     </div>
   );

@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { JobListSkeleton } from "@/entities/job";
 import { ApplicantJobs } from "@/features/job-applications";
 import { getAuthUser } from "@/shared/lib/clerk.server";
-import { ListSkeleton } from "@/shared/ui/ListSkeleton";
+import { ApplicantJobsTabs } from "@/widgets/applicant-jobs-tabs";
 
 export async function ApplicantJobsPage({
   searchParams,
@@ -18,17 +19,10 @@ export async function ApplicantJobsPage({
 
   return (
     <section className="mx-auto my-6 flex w-full max-w-3xl flex-col gap-4 px-4 md:my-10">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-lg font-bold text-foreground md:text-xl">
-          Your applications
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          Track the jobs you&apos;ve applied to.
-        </p>
-      </div>
+      <ApplicantJobsTabs description="Track the jobs you've applied to." />
       <Suspense
         key={JSON.stringify(searchParams)}
-        fallback={<ListSkeleton rows={5} metaLines={3} />}
+        fallback={<JobListSkeleton />}
       >
         <ApplicantJobs userId={userId} searchParams={searchParams} />
       </Suspense>

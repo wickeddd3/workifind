@@ -1,17 +1,20 @@
 import Link from "next/link";
 
 import IconBrand from "@/shared/ui/icons/IconBrand";
-import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
 import { MobileMenu } from "./MobileMenu";
 import { NavbarAuthActions } from "./NavbarAuthActions";
 import { NavMenuLinks } from "./NavMenuLinks";
-import { ProfileNavLink } from "./ProfileNavLink";
 
 /**
  * Renders in the root layout, so nothing here may read auth on the server —
  * that would opt every route in the app out of static rendering. The
  * auth-dependent pieces are client components that resolve their own state.
+ *
+ * The bar carries the site's own navigation and nothing else. Anything that
+ * belongs to the signed-in user — profile, their job lists, account, theme —
+ * lives behind the avatar or on the settings page, so the bar stops growing a
+ * new item every time the product does.
  */
 export function Navbar() {
   return (
@@ -32,13 +35,8 @@ export function Navbar() {
         <div className="hidden items-center gap-8 md:flex">
           {/* Menu links — role-aware, so they resolve their own auth state. */}
           <NavMenuLinks />
-          {/* Profile Link — renders itself only once a role is known. */}
-          <ProfileNavLink />
         </div>
-        <div className="flex items-center gap-3">
-          <ThemeToggle className="hidden sm:inline-flex" />
-          <NavbarAuthActions />
-        </div>
+        <NavbarAuthActions />
       </nav>
     </header>
   );

@@ -1,5 +1,4 @@
 import {
-  Bookmark,
   BriefcaseBusiness,
   Building2,
   type LucideIcon,
@@ -68,20 +67,11 @@ export function visibleMenuLinks(role: Role | undefined): MenuLink[] {
 export function accountMenuLinks(role: Role | undefined): MenuLink[] {
   return [
     { title: "Profile", link: profileRoute(role), icon: User },
+    // One entry, not two: the saved list is a tab on the applications page
+    // now, so a second link here would point at half of a page the first one
+    // already reaches.
     ...(role === "APPLICANT"
-      ? [
-          {
-            title: "Applied jobs",
-            link: "/applicant/jobs",
-            icon: BriefcaseBusiness,
-            exact: true,
-          },
-          {
-            title: "Saved jobs",
-            link: "/applicant/jobs/saved",
-            icon: Bookmark,
-          },
-        ]
+      ? [{ title: "My jobs", link: "/applicant/jobs", icon: BriefcaseBusiness }]
       : []),
     ...(role === "EMPLOYER"
       ? [{ title: "My jobs", link: "/employer/jobs", icon: BriefcaseBusiness }]

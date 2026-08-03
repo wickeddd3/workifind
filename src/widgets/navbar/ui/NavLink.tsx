@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { isActiveLink } from "@/shared/lib/is-active-link";
 import { cn } from "@/shared/lib/utils";
-
-import { isActiveLink } from "../model/is-active-link";
 
 export function NavLink({
   title = "",

@@ -24,6 +24,39 @@ export type EmployerSeed = PersonSeed & {
   perks: string[];
 };
 
+/** `YYYY-MM`, as the app stores and edits CV dates. */
+type MonthSeed = string;
+
+export type ExperienceSeed = {
+  title: string;
+  company: string;
+  employmentType?: string;
+  location?: string;
+  startDate: MonthSeed;
+  endDate?: MonthSeed;
+  current: boolean;
+  description?: string;
+};
+
+export type EducationSeed = {
+  school: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  startDate?: MonthSeed;
+  endDate?: MonthSeed;
+  current: boolean;
+  description?: string;
+};
+
+export type CertificationSeed = {
+  name: string;
+  issuer?: string;
+  issueDate?: MonthSeed;
+  expiryDate?: MonthSeed;
+  credentialId?: string;
+  credentialUrl?: string;
+};
+
 export type ApplicantSeed = PersonSeed & {
   profession: string;
   experienced: string;
@@ -34,6 +67,12 @@ export type ApplicantSeed = PersonSeed & {
   preferredLocations: string[];
   preferredEmploymentTypes: string[];
   preferredLocationTypes: string[];
+  // Deliberately uneven across the seeded people: one has no work history and
+  // one has education with no dates, so the profile pages are exercised with
+  // their empty and undated cases rather than six identical full profiles.
+  experiences: ExperienceSeed[];
+  educations: EducationSeed[];
+  certifications: CertificationSeed[];
 };
 
 export type JobSeed = {
@@ -61,6 +100,17 @@ export const pitches = pitchesJson as string[];
 // Json columns store stringified `{ name }` objects, matching the app's format.
 const asNamedJson = (names: string[]) =>
   names.map((name) => JSON.stringify({ name }));
+
+// CV dates are stored as the first of the month in UTC — see
+// `src/shared/utils/format-month.ts`. Inlined rather than imported because the
+// seed runs outside the Next build and does not resolve the `@/` alias.
+const asMonth = (value?: string) => {
+  if (!value) return null;
+
+  const [year, month] = value.split("-").map(Number);
+
+  return new Date(Date.UTC(year, month - 1, 1));
+};
 
 // Deterministic slug: kebab-cased text plus a stable ref so re-seeding always
 // produces the same (unique) slugs.
@@ -106,6 +156,40 @@ export function buildApplicantData(
     preferredLocations: asNamedJson(applicant.preferredLocations),
     preferredEmploymentTypes: applicant.preferredEmploymentTypes,
     preferredLocationTypes: applicant.preferredLocationTypes,
+    experiences: {
+      create: applicant.experiences.map((experience) => ({
+        title: experience.title,
+        company: experience.company,
+        employmentType: experience.employmentType ?? null,
+        location: experience.location ?? null,
+        startDate: asMonth(experience.startDate)!,
+        // An ongoing role has no end, matching what the app writes.
+        endDate: experience.current ? null : asMonth(experience.endDate),
+        current: experience.current,
+        description: experience.description ?? null,
+      })),
+    },
+    educations: {
+      create: applicant.educations.map((education) => ({
+        school: education.school,
+        degree: education.degree ?? null,
+        fieldOfStudy: education.fieldOfStudy ?? null,
+        startDate: asMonth(education.startDate),
+        endDate: education.current ? null : asMonth(education.endDate),
+        current: education.current,
+        description: education.description ?? null,
+      })),
+    },
+    certifications: {
+      create: applicant.certifications.map((certification) => ({
+        name: certification.name,
+        issuer: certification.issuer ?? null,
+        issueDate: asMonth(certification.issueDate),
+        expiryDate: asMonth(certification.expiryDate),
+        credentialId: certification.credentialId ?? null,
+        credentialUrl: certification.credentialUrl ?? null,
+      })),
+    },
   };
 }
 

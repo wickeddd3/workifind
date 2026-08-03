@@ -63,7 +63,7 @@ export function PreferencesSection({
             {/* A plain Label, not FormLabel: that one calls useFormField and
                 needs a surrounding FormField, which a group heading has no
                 business being inside. */}
-            <Label>Preferred locations</Label>
+            <Label>Locations</Label>
             <RepeatableFieldset
               variant="row"
               itemLabel="location"

@@ -24,6 +24,9 @@ export function PreferredLocationEntryFields<T extends FieldValues>({
       control={control}
       name={`preferredLocations.${index}.name` as Path<T>}
       label="Location"
+      // The group heading above the list already says Locations; showing this
+      // on every row read "Locations / Location / Location".
+      labelHidden
       placeholder="e.g. Austin, or Remote"
     />
   );

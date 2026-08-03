@@ -322,7 +322,7 @@ export function ProfileForm() {
             hint="What you're looking for. Employers filter on these."
           >
             <PreferencesFields control={control} />
-            <Label className="pt-1">Preferred locations</Label>
+            <Label className="pt-1">Locations</Label>
             <RepeatableFieldset
               variant="row"
               itemLabel="location"

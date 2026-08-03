@@ -52,15 +52,17 @@ export function RepeatableFieldset({
 
       {fields.map((field, index) =>
         isRow ? (
-          <div key={field.id} className="flex items-start gap-2">
+          // Aligned to the bottom of the entry rather than the top: the button
+          // is the same height as an input, so this lines the two up whether or
+          // not the row's fields show their labels — a fixed top offset only
+          // worked for the labelled case.
+          <div key={field.id} className="flex items-end gap-2">
             <div className="grow">{children(index)}</div>
             <Button
               variant="link"
               size="icon"
               type="button"
-              // Clears the field label and its 8px gap so the button lines up
-              // with the inputs beside it rather than with their captions.
-              className="mt-7 shrink-0 text-muted-foreground hover:text-destructive"
+              className="shrink-0 text-muted-foreground hover:text-destructive"
               aria-label={`Remove ${itemLabel} ${index + 1}`}
               onClick={() => onRemove(index)}
             >

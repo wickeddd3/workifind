@@ -22,6 +22,13 @@ interface TextInputFieldProps<T extends FieldValues> {
   /** For a field another answer has made moot, e.g. the end date of an
    *  ongoing role. */
   disabled?: boolean;
+  /** A unit shown inside the field, e.g. "$". Decoration only — it is not part
+   *  of the value, and is hidden from screen readers, which get the label. */
+  prefix?: string;
+  /** Keeps the label for screen readers but takes it off the screen. For a
+   *  field inside a repeating list whose group heading already names it, where
+   *  showing it would read "Locations / Location / Location". */
+  labelHidden?: boolean;
 }
 
 export const TextInputField = <T extends FieldValues>({
@@ -32,20 +39,33 @@ export const TextInputField = <T extends FieldValues>({
   placeholder,
   className,
   disabled,
+  prefix,
+  labelHidden,
 }: TextInputFieldProps<T>) => (
   <FormField
     control={control}
     name={name}
     render={({ field }) => (
       <FormItem className={cn("grow", className)}>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel className={cn(labelHidden && "sr-only")}>{label}</FormLabel>
         <FormControl>
-          <Input
-            {...field}
-            type={type}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
+          <div className="relative">
+            {prefix && (
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-muted-foreground"
+              >
+                {prefix}
+              </span>
+            )}
+            <Input
+              {...field}
+              type={type}
+              placeholder={placeholder}
+              disabled={disabled}
+              className={cn(prefix && "pl-7")}
+            />
+          </div>
         </FormControl>
         <FormMessage />
       </FormItem>

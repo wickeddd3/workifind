@@ -1,6 +1,14 @@
 import validator from "validator";
 import { z } from "zod";
 
+import {
+  ApplicantCertificationEntrySchema,
+  ApplicantEducationEntrySchema,
+  ApplicantExperienceEntrySchema,
+  // From `client`, not the full barrel: `ui/ProfileForm.tsx` is `"use client"`
+  // and imports this file, so the barrel's query re-exports would put
+  // PrismaClient in the browser bundle.
+} from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { requiredNumeric, requiredString } from "@/shared/schema/utils";
 
@@ -34,6 +42,12 @@ export const ApplicantProfileSchema = z.object({
   ),
   skills: z.array(ApplicantSkillSchema).optional(),
   languages: z.array(ApplicantLanguageSchema).optional(),
+  // The CV records are validated by the same entry schemas the editor uses, so
+  // a profile created here and one edited later obey identical rules. All three
+  // are optional: someone can finish signing up and fill them in afterwards.
+  experiences: z.array(ApplicantExperienceEntrySchema).max(30).optional(),
+  educations: z.array(ApplicantEducationEntrySchema).max(20).optional(),
+  certifications: z.array(ApplicantCertificationEntrySchema).max(30).optional(),
   availability: requiredString.max(100),
   preferredEmploymentTypes: z.array(z.string()).optional(),
   preferredLocationTypes: z.array(z.string()).optional(),

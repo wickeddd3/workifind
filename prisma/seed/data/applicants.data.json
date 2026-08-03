@@ -6,13 +6,32 @@
     "profession": "Software Engineer",
     "experienced": "With experience",
     "skills": [
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "Node.js"
+      {
+        "name": "JavaScript",
+        "level": "Expert",
+        "years": 6
+      },
+      {
+        "name": "TypeScript",
+        "level": "Advanced",
+        "years": 4
+      },
+      {
+        "name": "React",
+        "level": "Expert",
+        "years": 5
+      },
+      {
+        "name": "Node.js",
+        "level": "Intermediate",
+        "years": 3
+      }
     ],
     "languages": [
-      "English"
+      {
+        "name": "English",
+        "proficiency": "Native"
+      }
     ],
     "availability": "2 weeks",
     "salaryExpectation": 90000,
@@ -75,13 +94,30 @@
     "profession": "Data Analyst",
     "experienced": "With experience",
     "skills": [
-      "Python",
-      "SQL",
-      "Tableau"
+      {
+        "name": "Python",
+        "level": "Advanced",
+        "years": 5
+      },
+      {
+        "name": "SQL",
+        "level": "Expert",
+        "years": 6
+      },
+      {
+        "name": "Tableau",
+        "level": "Intermediate"
+      }
     ],
     "languages": [
-      "English",
-      "Vietnamese"
+      {
+        "name": "English",
+        "proficiency": "Fluent"
+      },
+      {
+        "name": "Vietnamese",
+        "proficiency": "Native"
+      }
     ],
     "availability": "4 weeks",
     "salaryExpectation": 70000,
@@ -140,13 +176,27 @@
     "profession": "UX Designer",
     "experienced": "With experience",
     "skills": [
-      "Figma",
-      "User Research",
+      {
+        "name": "Figma",
+        "level": "Expert",
+        "years": 5
+      },
+      {
+        "name": "User Research",
+        "level": "Advanced",
+        "years": 4
+      },
       "Prototyping"
     ],
     "languages": [
-      "English",
-      "Spanish"
+      {
+        "name": "English",
+        "proficiency": "Fluent"
+      },
+      {
+        "name": "Spanish",
+        "proficiency": "Native"
+      }
     ],
     "availability": "Now",
     "salaryExpectation": 80000,
@@ -227,12 +277,26 @@
     "profession": "Financial Analyst",
     "experienced": "With experience",
     "skills": [
-      "Excel",
-      "Financial Modeling",
-      "Forecasting"
+      {
+        "name": "Excel",
+        "level": "Expert",
+        "years": 7
+      },
+      {
+        "name": "Financial Modeling",
+        "level": "Advanced",
+        "years": 5
+      },
+      {
+        "name": "Forecasting",
+        "level": "Advanced"
+      }
     ],
     "languages": [
-      "English"
+      {
+        "name": "English",
+        "proficiency": "Native"
+      }
     ],
     "availability": "8 weeks",
     "salaryExpectation": 75000,
@@ -291,13 +355,30 @@
     "profession": "Registered Nurse",
     "experienced": "With experience",
     "skills": [
-      "Patient Care",
-      "Triage",
-      "EHR"
+      {
+        "name": "Patient Care",
+        "level": "Expert",
+        "years": 8
+      },
+      {
+        "name": "Triage",
+        "level": "Expert",
+        "years": 6
+      },
+      {
+        "name": "EHR",
+        "level": "Intermediate"
+      }
     ],
     "languages": [
-      "English",
-      "Korean"
+      {
+        "name": "English",
+        "proficiency": "Professional"
+      },
+      {
+        "name": "Korean",
+        "proficiency": "Native"
+      }
     ],
     "availability": "12+ weeks",
     "salaryExpectation": 85000,

@@ -1,18 +1,27 @@
 import { Badge } from "@/shared/ui/badge";
 
-/** Body only — see `ProfileSection` for the heading and the empty case. */
+import type { ApplicantLanguage } from "../model/types";
+
+/** Body only — see `ApplicantSkills` for why these stay badges. */
 export function ApplicantLanguages({
   languages,
 }: {
-  languages: { name: string }[];
+  languages: ApplicantLanguage[];
 }) {
   if (!languages?.length) return null;
 
   return (
     <ul className="flex flex-wrap gap-2">
-      {languages.map((item, index) => (
-        <li key={`${item?.name}-${index}`}>
-          <Badge variant="secondary">{item?.name}</Badge>
+      {languages.map((language) => (
+        <li key={language.id}>
+          <Badge variant="secondary" className="gap-1.5">
+            {language.name}
+            {language.proficiency && (
+              <span className="font-normal text-muted-foreground">
+                {language.proficiency}
+              </span>
+            )}
+          </Badge>
         </li>
       ))}
     </ul>

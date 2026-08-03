@@ -2,9 +2,14 @@
 
 import { useFieldArray } from "react-hook-form";
 
-import type { Applicant } from "@/entities/applicant";
+import {
+  type ApplicantProfile,
+  EMPTY_SKILL_ENTRY,
+  SkillEntryFields,
+  toSkillEntries,
+} from "@/entities/applicant/client";
 import { Form } from "@/shared/ui/form";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
+import { RepeatableFieldset } from "@/shared/ui/form-fields/RepeatableFieldset";
 import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
@@ -13,12 +18,12 @@ import {
 } from "../../model/schema";
 import { useProfileSection } from "../use-profile-section";
 
-export function SkillsSection({ applicant }: { applicant: Applicant }) {
+export function SkillsSection({ applicant }: { applicant: ApplicantProfile }) {
   const { form, onSubmit, isDirty, isSubmitting, justSaved } =
     useProfileSection<ApplicantSkillsSchemaType>({
       section: "skills",
       schema: ApplicantSkillsSchema,
-      defaultValues: { skills: applicant.skills ?? [] },
+      defaultValues: { skills: toSkillEntries(applicant.skills) },
     });
 
   const { fields, append, remove } = useFieldArray<
@@ -30,21 +35,23 @@ export function SkillsSection({ applicant }: { applicant: Applicant }) {
     <ProfileSectionCard
       id="skills"
       title="Skills"
-      description="What you work with. These are matched against job descriptions."
+      description="What you work with. These are matched against job descriptions — the level and years are optional."
       isDirty={isDirty}
       isSubmitting={isSubmitting}
       justSaved={justSaved}
       onSubmit={onSubmit}
     >
       <Form {...form}>
-        <DynamicListField
-          control={form.control}
-          name="skills"
-          label="Skills"
+        <RepeatableFieldset
+          variant="row"
+          itemLabel="skill"
+          emptyPrompt="No skills yet. These are what employers search on."
           fields={fields}
-          append={() => append({ name: "" })}
-          remove={(index) => remove(index)}
-        />
+          onAdd={() => append(EMPTY_SKILL_ENTRY)}
+          onRemove={(index) => remove(index)}
+        >
+          {(index) => <SkillEntryFields control={form.control} index={index} />}
+        </RepeatableFieldset>
       </Form>
     </ProfileSectionCard>
   );

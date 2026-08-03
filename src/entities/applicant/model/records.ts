@@ -1,6 +1,7 @@
 import validator from "validator";
 import { z } from "zod";
 
+import { LANGUAGE_PROFICIENCIES, SKILL_LEVELS } from "@/shared/constants/tags";
 import { requiredString } from "@/shared/schema/utils";
 import {
   MONTH_INPUT_PATTERN,
@@ -11,6 +12,9 @@ import type {
   ApplicantCertification,
   ApplicantEducation,
   ApplicantExperience,
+  ApplicantLanguage,
+  ApplicantPreferredLocation,
+  ApplicantSkill,
 } from "./types";
 
 /**
@@ -111,6 +115,53 @@ export const ApplicantCertificationEntrySchema = z
     message: "Expiry can't be before the issue date",
   });
 
+/* -------------------------------------------------------------------------- */
+/*  The shorter lists                                                          */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A value the user either picked from a fixed list or left alone.
+ *
+ * Written as a refinement rather than a `z.enum`, because an unset select
+ * submits `""` and an enum would reject that as loudly as it rejects nonsense.
+ */
+function optionalChoice(options: { value: string }[], message: string) {
+  const values = options.map((option) => option.value);
+
+  return z
+    .string()
+    .trim()
+    .refine((value) => !value || values.includes(value), message)
+    .optional();
+}
+
+export const ApplicantSkillEntrySchema = z.object({
+  name: requiredString.max(80),
+  level: optionalChoice(SKILL_LEVELS, "Pick a level from the list"),
+  // A string, not a number: an empty number input yields NaN, which reports as
+  // "Expected number, received nan" on a field the user simply left blank.
+  years: z
+    .string()
+    .trim()
+    .refine(
+      (value) => !value || (/^\d{1,2}$/.test(value) && Number(value) <= 60),
+      "Enter a whole number of years",
+    )
+    .optional(),
+});
+
+export const ApplicantLanguageEntrySchema = z.object({
+  name: requiredString.max(80),
+  proficiency: optionalChoice(
+    LANGUAGE_PROFICIENCIES,
+    "Pick a proficiency from the list",
+  ),
+});
+
+export const ApplicantPreferredLocationEntrySchema = z.object({
+  name: requiredString.max(100),
+});
+
 export type ApplicantExperienceEntry = z.infer<
   typeof ApplicantExperienceEntrySchema
 >;
@@ -119,6 +170,13 @@ export type ApplicantEducationEntry = z.infer<
 >;
 export type ApplicantCertificationEntry = z.infer<
   typeof ApplicantCertificationEntrySchema
+>;
+export type ApplicantSkillEntry = z.infer<typeof ApplicantSkillEntrySchema>;
+export type ApplicantLanguageEntry = z.infer<
+  typeof ApplicantLanguageEntrySchema
+>;
+export type ApplicantPreferredLocationEntry = z.infer<
+  typeof ApplicantPreferredLocationEntrySchema
 >;
 
 /* -------------------------------------------------------------------------- */
@@ -153,6 +211,21 @@ export const EMPTY_CERTIFICATION_ENTRY: ApplicantCertificationEntry = {
   expiryDate: "",
   credentialId: "",
   credentialUrl: "",
+};
+
+export const EMPTY_SKILL_ENTRY: ApplicantSkillEntry = {
+  name: "",
+  level: "",
+  years: "",
+};
+
+export const EMPTY_LANGUAGE_ENTRY: ApplicantLanguageEntry = {
+  name: "",
+  proficiency: "",
+};
+
+export const EMPTY_PREFERRED_LOCATION_ENTRY: ApplicantPreferredLocationEntry = {
+  name: "",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -205,4 +278,31 @@ export function toCertificationEntries(
     credentialId: record.credentialId ?? "",
     credentialUrl: record.credentialUrl ?? "",
   }));
+}
+
+export function toSkillEntries(
+  records: ApplicantSkill[] = [],
+): ApplicantSkillEntry[] {
+  return records.map((record) => ({
+    name: record.name,
+    level: record.level ?? "",
+    // The form holds years as text; null becomes "" so the input stays blank
+    // rather than showing a 0 nobody entered.
+    years: record.years === null ? "" : String(record.years),
+  }));
+}
+
+export function toLanguageEntries(
+  records: ApplicantLanguage[] = [],
+): ApplicantLanguageEntry[] {
+  return records.map((record) => ({
+    name: record.name,
+    proficiency: record.proficiency ?? "",
+  }));
+}
+
+export function toPreferredLocationEntries(
+  records: ApplicantPreferredLocation[] = [],
+): ApplicantPreferredLocationEntry[] {
+  return records.map((record) => ({ name: record.name }));
 }

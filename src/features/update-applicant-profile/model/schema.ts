@@ -5,24 +5,15 @@ import {
   ApplicantCertificationEntrySchema,
   ApplicantEducationEntrySchema,
   ApplicantExperienceEntrySchema,
+  ApplicantLanguageEntrySchema,
+  ApplicantPreferredLocationEntrySchema,
+  ApplicantSkillEntrySchema,
   // From `client`, not the full barrel: the section components are
   // `"use client"` and import this file, so the barrel's query re-exports would
   // put PrismaClient in the browser bundle.
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { requiredNumeric, requiredString } from "@/shared/schema/utils";
-
-export const ApplicantSkillSchema = z.object({
-  name: z.string(),
-});
-
-export const ApplicantLanguageSchema = z.object({
-  name: z.string(),
-});
-
-export const ApplicantLocationSchema = z.object({
-  name: z.string(),
-});
 
 /* -------------------------------------------------------------------------- */
 /*  Sections                                                                    */
@@ -65,11 +56,11 @@ export const ApplicantAboutSchema = z.object({
 });
 
 export const ApplicantSkillsSchema = z.object({
-  skills: z.array(ApplicantSkillSchema).optional(),
+  skills: z.array(ApplicantSkillEntrySchema).max(60).optional(),
 });
 
 export const ApplicantLanguagesSchema = z.object({
-  languages: z.array(ApplicantLanguageSchema).optional(),
+  languages: z.array(ApplicantLanguageEntrySchema).max(20).optional(),
 });
 
 /**
@@ -97,7 +88,10 @@ export const ApplicantPreferencesSchema = z.object({
   availability: requiredString.max(100),
   preferredEmploymentTypes: z.array(z.string()).optional(),
   preferredLocationTypes: z.array(z.string()).optional(),
-  preferredLocations: z.array(ApplicantLocationSchema).optional(),
+  preferredLocations: z
+    .array(ApplicantPreferredLocationEntrySchema)
+    .max(20)
+    .optional(),
   salaryExpectation: z
     .union([
       z.string().optional(),

@@ -2,9 +2,14 @@
 
 import { useFieldArray } from "react-hook-form";
 
-import type { Applicant } from "@/entities/applicant";
+import {
+  type ApplicantProfile,
+  EMPTY_LANGUAGE_ENTRY,
+  LanguageEntryFields,
+  toLanguageEntries,
+} from "@/entities/applicant/client";
 import { Form } from "@/shared/ui/form";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
+import { RepeatableFieldset } from "@/shared/ui/form-fields/RepeatableFieldset";
 import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
@@ -13,12 +18,16 @@ import {
 } from "../../model/schema";
 import { useProfileSection } from "../use-profile-section";
 
-export function LanguagesSection({ applicant }: { applicant: Applicant }) {
+export function LanguagesSection({
+  applicant,
+}: {
+  applicant: ApplicantProfile;
+}) {
   const { form, onSubmit, isDirty, isSubmitting, justSaved } =
     useProfileSection<ApplicantLanguagesSchemaType>({
       section: "languages",
       schema: ApplicantLanguagesSchema,
-      defaultValues: { languages: applicant.languages ?? [] },
+      defaultValues: { languages: toLanguageEntries(applicant.languages) },
     });
 
   const { fields, append, remove } = useFieldArray<
@@ -30,21 +39,25 @@ export function LanguagesSection({ applicant }: { applicant: Applicant }) {
     <ProfileSectionCard
       id="languages"
       title="Languages"
-      description="Languages you can work in."
+      description="Languages you can work in, and how well."
       isDirty={isDirty}
       isSubmitting={isSubmitting}
       justSaved={justSaved}
       onSubmit={onSubmit}
     >
       <Form {...form}>
-        <DynamicListField
-          control={form.control}
-          name="languages"
-          label="Languages"
+        <RepeatableFieldset
+          variant="row"
+          itemLabel="language"
+          emptyPrompt="No languages listed yet."
           fields={fields}
-          append={() => append({ name: "" })}
-          remove={(index) => remove(index)}
-        />
+          onAdd={() => append(EMPTY_LANGUAGE_ENTRY)}
+          onRemove={(index) => remove(index)}
+        >
+          {(index) => (
+            <LanguageEntryFields control={form.control} index={index} />
+          )}
+        </RepeatableFieldset>
       </Form>
     </ProfileSectionCard>
   );

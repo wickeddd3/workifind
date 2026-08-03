@@ -57,11 +57,16 @@ export type CertificationSeed = {
   credentialUrl?: string;
 };
 
+/** A skill is either a bare name or one carrying its level. Both forms are
+ *  allowed so the JSON stays readable where the extra detail adds nothing. */
+export type SkillSeed = string | { name: string; level?: string; years?: number };
+export type LanguageSeed = string | { name: string; proficiency?: string };
+
 export type ApplicantSeed = PersonSeed & {
   profession: string;
   experienced: string;
-  skills: string[];
-  languages: string[];
+  skills: SkillSeed[];
+  languages: LanguageSeed[];
   availability: string;
   salaryExpectation: number;
   preferredLocations: string[];
@@ -97,9 +102,37 @@ export const pitches = pitchesJson as string[];
 /*  Mappers: JSON record -> Prisma create input                               */
 /* -------------------------------------------------------------------------- */
 
-// Json columns store stringified `{ name }` objects, matching the app's format.
+// The employer `perks` Json column stores stringified `{ name }` objects,
+// matching the app's format. The applicant lists that used to look like this
+// are rows now — see `buildApplicantData`.
 const asNamedJson = (names: string[]) =>
   names.map((name) => JSON.stringify({ name }));
+
+// `position` is explicit for the same reason the app writes it — these rows
+// are created in one statement and share a `createdAt`, so nothing else records
+// the order they were listed in.
+const asSkillRows = (skills: SkillSeed[]) =>
+  skills.map((skill, position) =>
+    typeof skill === "string"
+      ? { position, name: skill, level: null, years: null }
+      : {
+          position,
+          name: skill.name,
+          level: skill.level ?? null,
+          years: skill.years ?? null,
+        },
+  );
+
+const asLanguageRows = (languages: LanguageSeed[]) =>
+  languages.map((language, position) =>
+    typeof language === "string"
+      ? { position, name: language, proficiency: null }
+      : {
+          position,
+          name: language.name,
+          proficiency: language.proficiency ?? null,
+        },
+  );
 
 // CV dates are stored as the first of the month in UTC — see
 // `src/shared/utils/format-month.ts`. Inlined rather than imported because the
@@ -149,13 +182,18 @@ export function buildApplicantData(
     email: applicant.email,
     profession: applicant.profession,
     experienced: applicant.experienced,
-    skills: asNamedJson(applicant.skills),
-    languages: asNamedJson(applicant.languages),
     availability: applicant.availability,
     salaryExpectation: applicant.salaryExpectation,
-    preferredLocations: asNamedJson(applicant.preferredLocations),
     preferredEmploymentTypes: applicant.preferredEmploymentTypes,
     preferredLocationTypes: applicant.preferredLocationTypes,
+    skills: { create: asSkillRows(applicant.skills) },
+    languages: { create: asLanguageRows(applicant.languages) },
+    preferredLocations: {
+      create: applicant.preferredLocations.map((name, position) => ({
+        position,
+        name,
+      })),
+    },
     experiences: {
       create: applicant.experiences.map((experience) => ({
         title: experience.title,

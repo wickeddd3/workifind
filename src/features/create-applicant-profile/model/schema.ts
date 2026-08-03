@@ -5,24 +5,15 @@ import {
   ApplicantCertificationEntrySchema,
   ApplicantEducationEntrySchema,
   ApplicantExperienceEntrySchema,
+  ApplicantLanguageEntrySchema,
+  ApplicantPreferredLocationEntrySchema,
+  ApplicantSkillEntrySchema,
   // From `client`, not the full barrel: `ui/ProfileForm.tsx` is `"use client"`
   // and imports this file, so the barrel's query re-exports would put
   // PrismaClient in the browser bundle.
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { requiredNumeric, requiredString } from "@/shared/schema/utils";
-
-export const ApplicantSkillSchema = z.object({
-  name: z.string(),
-});
-
-export const ApplicantLanguageSchema = z.object({
-  name: z.string(),
-});
-
-export const ApplicantLocationSchema = z.object({
-  name: z.string(),
-});
 
 export const ApplicantProfileSchema = z.object({
   firstName: requiredString.max(100),
@@ -40,8 +31,8 @@ export const ApplicantProfileSchema = z.object({
     (value) => WORK_EXPERIENCE_TYPES.map((type) => type.value).includes(value),
     "Invalid experience type",
   ),
-  skills: z.array(ApplicantSkillSchema).optional(),
-  languages: z.array(ApplicantLanguageSchema).optional(),
+  skills: z.array(ApplicantSkillEntrySchema).max(60).optional(),
+  languages: z.array(ApplicantLanguageEntrySchema).max(20).optional(),
   // The CV records are validated by the same entry schemas the editor uses, so
   // a profile created here and one edited later obey identical rules. All three
   // are optional: someone can finish signing up and fill them in afterwards.
@@ -51,7 +42,10 @@ export const ApplicantProfileSchema = z.object({
   availability: requiredString.max(100),
   preferredEmploymentTypes: z.array(z.string()).optional(),
   preferredLocationTypes: z.array(z.string()).optional(),
-  preferredLocations: z.array(ApplicantLocationSchema).optional(),
+  preferredLocations: z
+    .array(ApplicantPreferredLocationEntrySchema)
+    .max(20)
+    .optional(),
   salaryExpectation: z
     .union([
       z.string().optional(),

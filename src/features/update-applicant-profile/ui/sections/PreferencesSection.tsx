@@ -2,17 +2,16 @@
 
 import { useFieldArray } from "react-hook-form";
 
-import type { Applicant } from "@/entities/applicant";
 import {
-  AVAILABILITY_TYPES,
-  EMPLOYMENT_TYPES,
-  LOCATION_TYPES,
-} from "@/shared/constants/tags";
+  type ApplicantProfile,
+  EMPTY_PREFERRED_LOCATION_ENTRY,
+  PreferencesFields,
+  PreferredLocationEntryFields,
+  toPreferredLocationEntries,
+} from "@/entities/applicant/client";
 import { Form } from "@/shared/ui/form";
-import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
-import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
-import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { RepeatableFieldset } from "@/shared/ui/form-fields/RepeatableFieldset";
+import { Label } from "@/shared/ui/label";
 import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
 import {
@@ -21,10 +20,11 @@ import {
 } from "../../model/schema";
 import { useProfileSection } from "../use-profile-section";
 
-const locationTypes = LOCATION_TYPES.map((type) => type.value);
-const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
-
-export function PreferencesSection({ applicant }: { applicant: Applicant }) {
+export function PreferencesSection({
+  applicant,
+}: {
+  applicant: ApplicantProfile;
+}) {
   const { form, onSubmit, isDirty, isSubmitting, justSaved } =
     useProfileSection<ApplicantPreferencesSchemaType>({
       section: "preferences",
@@ -33,7 +33,9 @@ export function PreferencesSection({ applicant }: { applicant: Applicant }) {
         availability: applicant.availability ?? "",
         preferredEmploymentTypes: applicant.preferredEmploymentTypes ?? [],
         preferredLocationTypes: applicant.preferredLocationTypes ?? [],
-        preferredLocations: applicant.preferredLocations ?? [],
+        preferredLocations: toPreferredLocationEntries(
+          applicant.preferredLocations,
+        ),
         salaryExpectation: applicant.salaryExpectation,
       },
     });
@@ -55,40 +57,29 @@ export function PreferencesSection({ applicant }: { applicant: Applicant }) {
     >
       <Form {...form}>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <TextInputField
-              control={form.control}
-              type="number"
-              name="salaryExpectation"
-              label="Salary expectation"
-            />
+          <PreferencesFields control={form.control} />
+
+          <div className="flex flex-col gap-3">
+            {/* A plain Label, not FormLabel: that one calls useFormField and
+                needs a surrounding FormField, which a group heading has no
+                business being inside. */}
+            <Label>Locations</Label>
+            <RepeatableFieldset
+              variant="row"
+              itemLabel="location"
+              emptyPrompt="No preferred locations yet."
+              fields={fields}
+              onAdd={() => append(EMPTY_PREFERRED_LOCATION_ENTRY)}
+              onRemove={(index) => remove(index)}
+            >
+              {(index) => (
+                <PreferredLocationEntryFields
+                  control={form.control}
+                  index={index}
+                />
+              )}
+            </RepeatableFieldset>
           </div>
-          <RadioGroupField
-            control={form.control}
-            options={AVAILABILITY_TYPES}
-            name="availability"
-            label="Availability"
-          />
-          <CheckboxGroupField
-            control={form.control}
-            options={locationTypes}
-            name="preferredLocationTypes"
-            label="Preferred location types"
-          />
-          <CheckboxGroupField
-            control={form.control}
-            options={employmentTypes}
-            name="preferredEmploymentTypes"
-            label="Preferred employment types"
-          />
-          <DynamicListField
-            control={form.control}
-            name="preferredLocations"
-            label="Preferred locations"
-            fields={fields}
-            append={() => append({ name: "" })}
-            remove={(index) => remove(index)}
-          />
         </div>
       </Form>
     </ProfileSectionCard>

@@ -47,7 +47,7 @@ model Employer {
 }
 
 model Applicant {
-  id                       String                   @id @default(uuid())
+  id                       String                       @id @default(uuid())
   firstName                String
   lastName                 String
   email                    String
@@ -56,30 +56,36 @@ model Applicant {
   about                    String?
   profession               String
   experienced              String
-  skills                   Json
-  languages                Json
   availability             String
   preferredEmploymentTypes String[]
   preferredLocationTypes   String[]
-  preferredLocations       Json
   salaryExpectation        Int
-  userId                   String                   @unique
-  createdAt                DateTime                 @default(now())
-  updatedAt                DateTime                 @updatedAt
+  userId                   String                       @unique
+  createdAt                DateTime                     @default(now())
+  updatedAt                DateTime                     @updatedAt
   jobApplications          JobApplication[]
   savedJobs                SavedJob[]
   experiences              ApplicantExperience[]
   educations               ApplicantEducation[]
   certifications           ApplicantCertification[]
+  // Were Json columns of stringified `{ name }` objects. They are rows now for
+  // the same reason the CV records are: a skill carries a level and a language
+  // a proficiency, and neither is a value a Json blob can be filtered or
+  // grouped by. `preferredLocations` gains no fields but moves with them —
+  // leaving one of the three behind would mean two ways to read the same shape.
+  skills                   ApplicantSkill[]
+  languages                ApplicantLanguage[]
+  preferredLocations       ApplicantPreferredLocation[]
 
   @@index([createdAt(sort: Desc)])
   @@map("applicants")
 }
 
-// The three CV record types below are rows rather than Json columns — unlike
-// `skills` and `languages`, which are bare names. Each has several typed fields
-// and a date the profile is ordered by, and a `startDate` inside a Json blob is
-// a string no query can sort on.
+// Everything an applicant lists rather than states once — roles, degrees,
+// certificates, skills, languages, preferred locations — is a row below. They
+// were Json columns of stringified objects, which meant no field inside one
+// could be sorted, filtered or indexed: a `startDate` was a string, and a skill
+// level had nowhere to live at all.
 //
 // `onDelete: Cascade` is what lets `prisma.applicant.deleteMany` still work in
 // the seed cleanup, which deletes profiles by their owner's userId — these rows
@@ -127,6 +133,66 @@ model ApplicantEducation {
 
   @@index([applicantId, current(sort: Desc), startDate(sort: Desc)])
   @@map("applicant_educations")
+}
+
+model ApplicantSkill {
+  id       String  @id @default(uuid())
+  name     String
+  /// Where the owner put it in the list. Explicit because the alternative does
+  /// not work: a section save writes every row in one statement, so they all
+  /// take the same `createdAt` — Postgres `now()` is transaction-start time —
+  /// and ordering then falls through to a random uuid, reshuffling the list on
+  /// every save.
+  position Int     @default(0)
+  /// One of SKILL_LEVELS. Optional: a skill is worth listing unqualified, and
+  /// forcing a self-assessment would make everyone pick the same one.
+  level    String?
+  /// Years worked with it. Null rather than 0 when unstated — 0 reads as a
+  /// claim of no experience.
+  years    Int?
+
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([applicantId, position])
+  // Employers will want "who knows React" before long, and the name is the only
+  // thing that question filters on.
+  @@index([name])
+  @@map("applicant_skills")
+}
+
+model ApplicantLanguage {
+  id          String  @id @default(uuid())
+  name        String
+  /// See `ApplicantSkill.position`.
+  position    Int     @default(0)
+  /// One of LANGUAGE_PROFICIENCIES.
+  proficiency String?
+
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([applicantId, position])
+  @@map("applicant_languages")
+}
+
+model ApplicantPreferredLocation {
+  id       String @id @default(uuid())
+  name     String
+  /// See `ApplicantSkill.position`.
+  position Int    @default(0)
+
+  applicant   Applicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([applicantId, position])
+  @@map("applicant_preferred_locations")
 }
 
 model ApplicantCertification {

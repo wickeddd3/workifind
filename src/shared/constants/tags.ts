@@ -218,6 +218,31 @@ export const JOB_SALARY = [
   },
 ];
 
+/**
+ * How well someone knows a skill. Deliberately four rungs with no numeric
+ * scale: a 1–10 self-rating invites everyone to pick 8, and gives a reader no
+ * way to compare two candidates who picked differently.
+ */
+export const SKILL_LEVELS = [
+  { label: "Beginner", value: "Beginner" },
+  { label: "Intermediate", value: "Intermediate" },
+  { label: "Advanced", value: "Advanced" },
+  { label: "Expert", value: "Expert" },
+];
+
+/**
+ * Language ability, in the terms job listings use rather than CEFR codes —
+ * "Professional" is a claim an employer can act on, "B2" is one they would have
+ * to look up.
+ */
+export const LANGUAGE_PROFICIENCIES = [
+  { label: "Native", value: "Native" },
+  { label: "Fluent", value: "Fluent" },
+  { label: "Professional", value: "Professional" },
+  { label: "Conversational", value: "Conversational" },
+  { label: "Basic", value: "Basic" },
+];
+
 export const WORK_EXPERIENCE_TYPES = [
   { id: "noExperience", value: "No experience", label: "No experience" },
   { id: "withExperience", value: "With experience", label: "With experience" },

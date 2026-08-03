@@ -1,5 +1,5 @@
-import { ApplicantJobsLoadingPlaceholder } from "@/features/job-applications";
+import { ApplicantSavedJobsLoading } from "@/views/applicant-saved-jobs";
 
 export default function Loading() {
-  return <ApplicantJobsLoadingPlaceholder />;
+  return <ApplicantSavedJobsLoading />;
 }

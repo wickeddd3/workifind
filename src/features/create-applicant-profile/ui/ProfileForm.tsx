@@ -11,21 +11,22 @@ import {
   EMPTY_CERTIFICATION_ENTRY,
   EMPTY_EDUCATION_ENTRY,
   EMPTY_EXPERIENCE_ENTRY,
+  EMPTY_LANGUAGE_ENTRY,
+  EMPTY_PREFERRED_LOCATION_ENTRY,
+  EMPTY_SKILL_ENTRY,
   ExperienceEntryFields,
+  LanguageEntryFields,
+  PreferencesFields,
+  PreferredLocationEntryFields,
+  SkillEntryFields,
 } from "@/entities/applicant/client";
-import {
-  AVAILABILITY_TYPES,
-  EMPLOYMENT_TYPES,
-  LOCATION_TYPES,
-  WORK_EXPERIENCE_TYPES,
-} from "@/shared/constants/tags";
+import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { Form } from "@/shared/ui/form";
-import { CheckboxGroupField } from "@/shared/ui/form-fields/CheckboxGroupField";
-import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
 import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
 import { RepeatableFieldset } from "@/shared/ui/form-fields/RepeatableFieldset";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
+import { Label } from "@/shared/ui/label";
 import { LoadingButton } from "@/shared/ui/LoadingButton";
 import { useToast } from "@/shared/ui/use-toast";
 
@@ -170,9 +171,6 @@ export function ProfileForm() {
     }
   }
 
-  const locationTypes = LOCATION_TYPES.map((type) => type.value);
-  const employmentTypes = EMPLOYMENT_TYPES.map((type) => type.value);
-
   return (
     <div className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-card">
       <div>
@@ -219,42 +217,47 @@ export function ProfileForm() {
               label="Phone Number"
             />
           </div>
-          <div className="flex justify-between space-x-4">
-            <TextInputField
-              control={control}
-              name="location"
-              label="Current Location"
-            />
-            <TextInputField
-              control={control}
-              type="number"
-              name="salaryExpectation"
-              label="Salary Expectation"
-            />
-          </div>
+          <TextInputField
+            control={control}
+            name="location"
+            label="Current Location"
+          />
           <RadioGroupField
             control={control}
             options={WORK_EXPERIENCE_TYPES}
             name="experienced"
             label="Work Experience"
           />
-          <DynamicListField
-            control={control}
-            name="skills"
+          <RecordGroup
             label="Skills"
-            fields={skillsFields}
-            append={() => skillsAppend({ name: "" })}
-            remove={(index) => skillsRemove(index)}
-          />
+            hint="What you work with. Employers match these against job descriptions."
+          >
+            <RepeatableFieldset
+              variant="row"
+              itemLabel="skill"
+              emptyPrompt="No skills added."
+              fields={skillsFields}
+              onAdd={() => skillsAppend(EMPTY_SKILL_ENTRY)}
+              onRemove={(index) => skillsRemove(index)}
+            >
+              {(index) => <SkillEntryFields control={control} index={index} />}
+            </RepeatableFieldset>
+          </RecordGroup>
 
-          <DynamicListField
-            control={control}
-            name="languages"
-            label="Languages"
-            fields={languagesFields}
-            append={() => languagesAppend({ name: "" })}
-            remove={(index) => languagesRemove(index)}
-          />
+          <RecordGroup label="Languages" hint="Languages you can work in.">
+            <RepeatableFieldset
+              variant="row"
+              itemLabel="language"
+              emptyPrompt="No languages added."
+              fields={languagesFields}
+              onAdd={() => languagesAppend(EMPTY_LANGUAGE_ENTRY)}
+              onRemove={(index) => languagesRemove(index)}
+            >
+              {(index) => (
+                <LanguageEntryFields control={control} index={index} />
+              )}
+            </RepeatableFieldset>
+          </RecordGroup>
           {/* The CV records. All three are optional here — the profile editor
               carries the same sections, so anyone who would rather not fill
               them in during signup loses nothing by skipping them. */}
@@ -314,32 +317,27 @@ export function ProfileForm() {
             </RepeatableFieldset>
           </RecordGroup>
 
-          <RadioGroupField
-            control={control}
-            options={AVAILABILITY_TYPES}
-            name="availability"
-            label="Availability"
-          />
-          <CheckboxGroupField
-            control={control}
-            options={locationTypes}
-            name="preferredLocationTypes"
-            label="Preferred location types"
-          />
-          <CheckboxGroupField
-            control={control}
-            options={employmentTypes}
-            name="preferredEmploymentTypes"
-            label="Preferred employment types"
-          />
-          <DynamicListField
-            control={control}
-            name="preferredLocations"
-            label="Preferred locations"
-            fields={preferredLocationsFields}
-            append={() => preferredLocationsAppend({ name: "" })}
-            remove={(index) => preferredLocationsRemove(index)}
-          />
+          <RecordGroup
+            label="Job preferences"
+            hint="What you're looking for. Employers filter on these."
+          >
+            <PreferencesFields control={control} />
+            <Label className="pt-1">Preferred locations</Label>
+            <RepeatableFieldset
+              variant="row"
+              itemLabel="location"
+              emptyPrompt="No preferred locations added."
+              fields={preferredLocationsFields}
+              onAdd={() =>
+                preferredLocationsAppend(EMPTY_PREFERRED_LOCATION_ENTRY)
+              }
+              onRemove={(index) => preferredLocationsRemove(index)}
+            >
+              {(index) => (
+                <PreferredLocationEntryFields control={control} index={index} />
+              )}
+            </RepeatableFieldset>
+          </RecordGroup>
           <RichTextField control={control} name="about" label="About me" />
           <LoadingButton type="submit" loading={isSubmitting}>
             Submit

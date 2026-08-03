@@ -4,6 +4,9 @@ import {
   toCertificationCreateInputs,
   toEducationCreateInputs,
   toExperienceCreateInputs,
+  toLanguageCreateInputs,
+  toPreferredLocationCreateInputs,
+  toSkillCreateInputs,
 } from "@/entities/applicant";
 
 import type {
@@ -11,14 +14,6 @@ import type {
   ApplicantSection,
   ApplicantSectionValues,
 } from "./schema";
-
-/**
- * The three list fields are Json columns holding an array of stringified
- * objects, so they are serialized on the way in.
- */
-function serializeList(list?: { name: string }[]) {
-  return list?.map((item) => JSON.stringify(item));
-}
 
 function toWholeNumber(value: unknown) {
   return parseInt(value?.toString() || "0");
@@ -88,11 +83,11 @@ export function mapApplicantSection<S extends ApplicantSection>(
     }
     case "skills": {
       const v = values as ApplicantSectionValues["skills"];
-      return { skills: serializeList(v.skills) };
+      return { skills: replaceAll(toSkillCreateInputs(v.skills)) };
     }
     case "languages": {
       const v = values as ApplicantSectionValues["languages"];
-      return { languages: serializeList(v.languages) };
+      return { languages: replaceAll(toLanguageCreateInputs(v.languages)) };
     }
     case "preferences": {
       const v = values as ApplicantSectionValues["preferences"];
@@ -100,7 +95,9 @@ export function mapApplicantSection<S extends ApplicantSection>(
         availability: v.availability,
         preferredEmploymentTypes: v.preferredEmploymentTypes,
         preferredLocationTypes: v.preferredLocationTypes,
-        preferredLocations: serializeList(v.preferredLocations),
+        preferredLocations: replaceAll(
+          toPreferredLocationCreateInputs(v.preferredLocations),
+        ),
         salaryExpectation: toWholeNumber(v.salaryExpectation),
       };
     }
@@ -113,16 +110,26 @@ export function mapApplicantSection<S extends ApplicantSection>(
 
 /** Whole-profile mapping, for flows that still write every field at once. */
 export function mapApplicantForm(formData: ApplicantProfileSchemaType) {
-  const { experiences, educations, certifications, ...fields } = formData;
+  const {
+    experiences,
+    educations,
+    certifications,
+    skills,
+    languages,
+    preferredLocations,
+    ...fields
+  } = formData;
 
   return {
     ...fields,
-    skills: serializeList(formData.skills),
-    languages: serializeList(formData.languages),
-    preferredLocations: serializeList(formData.preferredLocations),
     salaryExpectation: toWholeNumber(formData.salaryExpectation),
     experiences: { create: toExperienceCreateInputs(experiences) },
     educations: { create: toEducationCreateInputs(educations) },
     certifications: { create: toCertificationCreateInputs(certifications) },
+    skills: { create: toSkillCreateInputs(skills) },
+    languages: { create: toLanguageCreateInputs(languages) },
+    preferredLocations: {
+      create: toPreferredLocationCreateInputs(preferredLocations),
+    },
   };
 }

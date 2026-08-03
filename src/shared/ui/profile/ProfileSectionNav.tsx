@@ -4,13 +4,21 @@ import { useEffect, useState } from "react";
 
 import { cn } from "@/shared/lib/utils";
 
-import { PROFILE_SECTIONS } from "../model/sections";
-
 /** Clears the sticky navbar, and matches the sections' own `scroll-mt-24`. */
 const NAVBAR_OFFSET = 96;
 
+export interface ProfileNavSection {
+  id: string;
+  title: string;
+}
+
 /**
- * Jump links down the profile, with the section currently in view marked.
+ * Jump links down a profile, with the section currently in view marked.
+ *
+ * Takes its sections rather than knowing any: the applicant's profile and the
+ * company's are the same instrument over different content, and the list each
+ * one passes is the same list it renders, so the rail and the page cannot
+ * disagree about what exists.
  *
  * Desktop only. On a narrow screen the rail sits above the content rather than
  * beside it, so a list of links to things further down the same column is just
@@ -20,13 +28,17 @@ const NAVBAR_OFFSET = 96;
  * anchor and then scrolling on would otherwise leave the rail insisting you
  * were still where you landed.
  */
-export function ProfileSectionNav() {
-  const [activeId, setActiveId] = useState<string>(PROFILE_SECTIONS[0].id);
+export function ProfileSectionNav({
+  sections,
+}: {
+  sections: readonly ProfileNavSection[];
+}) {
+  const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "");
 
   useEffect(() => {
-    const elements = PROFILE_SECTIONS.map(({ id }) =>
-      document.getElementById(id),
-    ).filter((element): element is HTMLElement => element !== null);
+    const elements = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null);
 
     if (elements.length === 0) return;
 
@@ -51,7 +63,7 @@ export function ProfileSectionNav() {
 
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, []);
+  }, [sections]);
 
   return (
     <nav
@@ -59,7 +71,7 @@ export function ProfileSectionNav() {
       className="hidden rounded-2xl border border-border bg-card p-2 shadow-card lg:block"
     >
       <ul className="flex flex-col gap-0.5">
-        {PROFILE_SECTIONS.map(({ id, title }) => {
+        {sections.map(({ id, title }) => {
           const isActive = activeId === id;
 
           return (

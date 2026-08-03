@@ -15,8 +15,9 @@ import {
 } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
+import { ProfileSectionNav } from "@/shared/ui/profile/ProfileSectionNav";
 
-import { ProfileSectionNav } from "./ProfileSectionNav";
+import { PROFILE_SECTIONS } from "../model/sections";
 
 const EDIT = "/applicant/profile/edit";
 
@@ -57,7 +58,7 @@ export async function ApplicantPage() {
             <ProfileCompleteness completeness={completeness} />
           )}
 
-          <ProfileSectionNav />
+          <ProfileSectionNav sections={PROFILE_SECTIONS} />
         </aside>
 
         {/* Capped at the edit page's width rather than left to fill: the two

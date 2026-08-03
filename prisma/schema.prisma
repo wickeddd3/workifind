@@ -107,7 +107,7 @@ model ApplicantExperience {
 
   // Always read as one applicant's whole history, newest first.
   @@index([applicantId, current(sort: Desc), startDate(sort: Desc)])
-  @@map("applicantExperiences")
+  @@map("applicant_experiences")
 }
 
 model ApplicantEducation {
@@ -126,7 +126,7 @@ model ApplicantEducation {
   updatedAt    DateTime  @updatedAt
 
   @@index([applicantId, current(sort: Desc), startDate(sort: Desc)])
-  @@map("applicantEducations")
+  @@map("applicant_educations")
 }
 
 model ApplicantCertification {
@@ -143,7 +143,7 @@ model ApplicantCertification {
   updatedAt     DateTime  @updatedAt
 
   @@index([applicantId, issueDate(sort: Desc)])
-  @@map("applicantCertifications")
+  @@map("applicant_certifications")
 }
 
 model Job {
@@ -197,7 +197,7 @@ model JobApplication {
   @@index([userId, jobId])
   @@index([jobId])
   @@index([applicantId])
-  @@map("jobApplications")
+  @@map("job_applications")
 }
 
 model SavedJob {
@@ -214,5 +214,5 @@ model SavedJob {
   @@index([userId, jobId])
   @@index([jobId])
   @@index([applicantId])
-  @@map("savedJobs")
+  @@map("saved_jobs")
 }

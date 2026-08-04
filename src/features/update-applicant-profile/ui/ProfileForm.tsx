@@ -4,8 +4,10 @@ import {
   type ApplicantProfile,
   getProfileCompleteness,
   ProfileCompleteness,
+  toResumeSummary,
 } from "@/entities/applicant";
 import { Button } from "@/shared/ui/button";
+import { longLocalizedDate } from "@/shared/utils/format-date";
 
 import { AboutSection } from "./sections/AboutSection";
 import { CertificationsSection } from "./sections/CertificationsSection";
@@ -14,12 +16,13 @@ import { ExperienceSection } from "./sections/ExperienceSection";
 import { IdentitySection } from "./sections/IdentitySection";
 import { LanguagesSection } from "./sections/LanguagesSection";
 import { PreferencesSection } from "./sections/PreferencesSection";
+import { ResumeSection } from "./sections/ResumeSection";
 import { SkillsSection } from "./sections/SkillsSection";
 
 /**
  * The applicant profile editor.
  *
- * Eight sections, each saving on its own, mirroring the blocks the profile page
+ * Nine sections, each saving on its own, mirroring the blocks the profile page
  * renders. It replaced a single fourteen-field form with one Save, where
  * editing a skill re-validated everything — so a stale phone number could block
  * an unrelated change, and the resulting failure was silent.
@@ -34,6 +37,7 @@ import { SkillsSection } from "./sections/SkillsSection";
  */
 export function ProfileForm({ applicant }: { applicant: ApplicantProfile }) {
   const completeness = getProfileCompleteness(applicant);
+  const resume = toResumeSummary(applicant);
 
   return (
     // Mirrors the profile page's container — see the note there.
@@ -57,6 +61,16 @@ export function ProfileForm({ applicant }: { applicant: ApplicantProfile }) {
 
       <IdentitySection applicant={applicant} />
       <AboutSection applicant={applicant} />
+      {/* A summary, never the record: `ResumeSection` is a client component,
+          and `applicant.resumeUrl` is a permanent unauthenticated link to a
+          document full of personal data. The date is formatted here for the
+          same reason it is read here — see the note on the prop. */}
+      <ResumeSection
+        resume={resume}
+        uploadedLabel={
+          resume?.uploadedAt ? longLocalizedDate(resume.uploadedAt) : undefined
+        }
+      />
       <ExperienceSection applicant={applicant} />
       <EducationSection applicant={applicant} />
       <CertificationsSection applicant={applicant} />

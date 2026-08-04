@@ -63,6 +63,12 @@ export function mapApplicantSection<S extends ApplicantSection>(
       const v = values as ApplicantSectionValues["about"];
       return { about: v.about };
     }
+    case "resume": {
+      // Nothing to map. The résumé columns depend on an upload, which is async
+      // and can fail, so the action resolves them and merges the result in —
+      // the same split the employer editor uses for its logo.
+      return {};
+    }
     case "experience": {
       const v = values as ApplicantSectionValues["experience"];
       return {

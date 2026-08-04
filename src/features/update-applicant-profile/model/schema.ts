@@ -8,6 +8,7 @@ import {
   ApplicantLanguageEntrySchema,
   ApplicantPreferredLocationEntrySchema,
   ApplicantSkillEntrySchema,
+  ResumeUploadSchema,
   // From `client`, not the full barrel: the section components are
   // `"use client"` and import this file, so the barrel's query re-exports would
   // put PrismaClient in the browser bundle.
@@ -53,6 +54,24 @@ export const ApplicantIdentitySchema = z.object({
 
 export const ApplicantAboutSchema = z.object({
   about: z.string().trim().max(8000).optional(),
+});
+
+/**
+ * The résumé section.
+ *
+ * Two fields for one column, because "attach this file" and "take mine down"
+ * are different intents and a single optional upload cannot express the second:
+ * an empty file input is how every other save of this section looks, so it has
+ * to mean "leave it alone".
+ *
+ * `resumeToken` is the signed reference the upload route issued, not the file —
+ * the bytes went up when the file was chosen. Removal wins over an upload when
+ * both arrive: the request is contradictory, and taking a résumé down is the
+ * one of the two that must never silently fail.
+ */
+export const ApplicantResumeSchema = z.object({
+  resumeToken: ResumeUploadSchema,
+  removeResume: z.boolean().optional(),
 });
 
 export const ApplicantSkillsSchema = z.object({
@@ -109,6 +128,7 @@ export const ApplicantPreferencesSchema = z.object({
 export const APPLICANT_SECTION_SCHEMAS = {
   identity: ApplicantIdentitySchema,
   about: ApplicantAboutSchema,
+  resume: ApplicantResumeSchema,
   experience: ApplicantExperienceSchema,
   education: ApplicantEducationSchema,
   certifications: ApplicantCertificationsSchema,
@@ -132,6 +152,7 @@ export type ApplicantIdentitySchemaType = z.infer<
   typeof ApplicantIdentitySchema
 >;
 export type ApplicantAboutSchemaType = z.infer<typeof ApplicantAboutSchema>;
+export type ApplicantResumeSchemaType = z.infer<typeof ApplicantResumeSchema>;
 export type ApplicantExperienceSchemaType = z.infer<
   typeof ApplicantExperienceSchema
 >;
@@ -157,6 +178,10 @@ export type ApplicantPreferencesSchemaType = z.infer<
  * Composed from the sections above, not restated — the create-profile flow and
  * anything else that needs the whole shape stays in step with the sections by
  * construction.
+ *
+ * The résumé section is the one exception. Its value is a `File` and its effect
+ * is an upload, neither of which a whole-profile mapping to Prisma columns can
+ * express; a résumé is attached from its own section, once the profile exists.
  */
 export const ApplicantProfileSchema = ApplicantIdentitySchema.merge(
   ApplicantAboutSchema,

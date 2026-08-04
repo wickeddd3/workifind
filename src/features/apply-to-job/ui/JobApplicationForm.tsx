@@ -1,6 +1,10 @@
 import { Suspense } from "react";
 
-import { type Applicant, ApplicantHeader } from "@/entities/applicant";
+import {
+  type Applicant,
+  ApplicantHeader,
+  toResumeSummary,
+} from "@/entities/applicant";
 import type { Job } from "@/entities/job";
 
 import { ApplicationForm } from "./ApplicationForm";
@@ -29,6 +33,8 @@ export function JobApplicationForm({
           applicantId={applicant.id}
           jobId={job.id}
           jobSlug={job.slug}
+          // A summary, never the record — see the note on `ApplicationForm`.
+          profileResume={toResumeSummary(applicant)}
         />
       </section>
     </Suspense>

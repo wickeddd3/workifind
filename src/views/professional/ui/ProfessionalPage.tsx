@@ -8,8 +8,10 @@ import {
   ApplicantHeader,
   ApplicantLanguages,
   ApplicantPreferences,
+  ApplicantResume,
   ApplicantSkills,
   getApplicantById,
+  toResumeSummary,
 } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
@@ -23,6 +25,8 @@ export async function ProfessionalPage({ id }: { id: string }) {
   const applicant = await getApplicantById(id);
 
   if (!applicant) notFound();
+
+  const resume = toResumeSummary(applicant);
 
   // The same panels the owner sees, without the edit affordances — and without
   // the empty ones, since `ProfileSection` drops a section with nothing in it
@@ -41,6 +45,15 @@ export async function ProfessionalPage({ id }: { id: string }) {
         isEmpty={!applicant.about?.trim()}
       >
         <ApplicantBio bio={applicant.about} />
+      </ProfileSection>
+
+      {/* No `isEmpty` fallback needed: `ProfileSection` drops an empty section
+          for a visitor, and a résumé is exactly the kind of thing an employer
+          should not be told is absent in a section of its own. */}
+      <ProfileSection id="resume" title="Résumé" isEmpty={!resume}>
+        {resume && (
+          <ApplicantResume applicantId={applicant.id} resume={resume} />
+        )}
       </ProfileSection>
 
       <ProfileSection

@@ -18,6 +18,7 @@ export interface ProfileSectionStatus {
   /** Matches the edit page's section ids, so a prompt can link straight to it. */
   id:
     | "about"
+    | "resume"
     | "skills"
     | "languages"
     | "preferences"
@@ -59,6 +60,12 @@ export function getProfileCompleteness(
       label: "About me",
       prompt: "Write an About me",
       complete: hasText(applicant.about),
+    },
+    {
+      id: "resume",
+      label: "Résumé",
+      prompt: "Attach your résumé",
+      complete: Boolean(applicant.resumeUrl),
     },
     {
       id: "experience",

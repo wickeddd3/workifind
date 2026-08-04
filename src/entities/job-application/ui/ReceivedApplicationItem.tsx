@@ -1,8 +1,10 @@
 import { BadgeCheck, Clock, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 
+import { FileDownloadLink } from "@/shared/ui/FileDownloadLink";
 import { relativeDate } from "@/shared/utils/format-date";
 
+import { jobApplicationResumeHref } from "../model/resume";
 import type { JobApplicationWithApplicant } from "../model/types";
 import { JobApplicationPitch } from "./JobApplicationPitch";
 
@@ -19,7 +21,14 @@ import { JobApplicationPitch } from "./JobApplicationPitch";
  * to get to the profile behind them.
  */
 export function ReceivedApplicationItem({
-  jobApplication: { pitch, createdAt, applicant },
+  jobApplication: {
+    id: applicationId,
+    pitch,
+    createdAt,
+    resumeUrl,
+    resumeName,
+    applicant,
+  },
 }: {
   jobApplication: JobApplicationWithApplicant;
 }) {
@@ -89,6 +98,20 @@ export function ReceivedApplicationItem({
         </div>
 
         <JobApplicationPitch pitch={pitch} />
+
+        {/* The résumé as it was sent with this application, not whatever is on
+            the profile now — the applicant may have replaced it since, and an
+            employer reading a pitch needs the document it came with. Only
+            `resumeUrl` decides whether there is one; the URL itself stays on
+            the server and the link goes to the route that authorizes. */}
+        {resumeUrl && (
+          <FileDownloadLink
+            href={jobApplicationResumeHref(applicationId)}
+            name={resumeName ?? "Résumé"}
+            meta="Sent with this application"
+            className="mt-0.5 self-start"
+          />
+        )}
       </div>
     </article>
   );

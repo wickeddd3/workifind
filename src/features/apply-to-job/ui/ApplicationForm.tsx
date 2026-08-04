@@ -6,12 +6,20 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import {
+  getResumeFileError,
+  RESUME_ACCEPT,
+  RESUME_MAX_SIZE_LABEL,
+  RESUME_UPLOAD_ENDPOINT,
+  type ResumeSummary,
+} from "@/entities/applicant/client";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
 } from "@/shared/ui/form";
+import { UploadField } from "@/shared/ui/form-fields/UploadField";
 import { LoadingButton } from "@/shared/ui/LoadingButton";
 import RichTextEditor from "@/shared/ui/RichTextEditor";
 import { useToast } from "@/shared/ui/use-toast";
@@ -26,17 +34,24 @@ export function ApplicationForm({
   applicantId,
   jobId,
   jobSlug,
+  profileResume,
 }: {
   applicantId: string;
   jobId: string;
   jobSlug: string;
+  /**
+   * The résumé on the profile, which is what gets sent when nothing is
+   * attached here. A summary rather than the record — this is a client
+   * component, and the blob URL must not be serialized into the page.
+   */
+  profileResume: ResumeSummary | null;
 }) {
   const router = useRouter();
   const { toast } = useToast();
 
   const form = useForm<JobApplicationSchemaType>({
     resolver: zodResolver(JobApplicationSchema),
-    defaultValues: { pitch: "" },
+    defaultValues: { pitch: "", resumeToken: undefined },
   });
 
   const {
@@ -48,13 +63,24 @@ export function ApplicationForm({
   async function onSubmit(values: JobApplicationSchemaType) {
     const response = await saveJobApplicationAction(applicantId, jobId, values);
 
-    if (response.success) {
-      router.push(`/jobs/${jobSlug}/submitted`);
-      router.refresh();
+    if (!response.success) {
+      // A failed submit used to do nothing at all — no toast, no message, the
+      // form simply sat there. With a file in the mix that is worse: the most
+      // likely failure is the upload, and it is the one thing the applicant
+      // could act on.
       toast({
-        title: "Your application is on its way",
+        variant: "destructive",
+        title: "Couldn't send your application",
+        description: response.message,
       });
+      return;
     }
+
+    router.push(`/jobs/${jobSlug}/submitted`);
+    router.refresh();
+    toast({
+      title: "Your application is on its way",
+    });
   }
 
   return (
@@ -88,6 +114,26 @@ export function ApplicationForm({
             </FormItem>
           )}
         />
+        <div className="flex flex-col gap-2 border-t border-border pt-4">
+          <h3 className="text-md font-bold text-foreground md:text-lg">
+            Résumé
+          </h3>
+          <p className="text-sm text-muted-foreground md:text-md">
+            {profileResume
+              ? `${profileResume.name} goes with this application. Attach a different file below to send that instead — your profile keeps the one it has.`
+              : "You have no résumé on your profile. Attach one here to send it with this application."}
+          </p>
+          <UploadField
+            control={control}
+            name="resumeToken"
+            label={profileResume ? "Send a different file" : "Attach a résumé"}
+            endpoint={RESUME_UPLOAD_ENDPOINT}
+            accept={RESUME_ACCEPT}
+            validate={getResumeFileError}
+            description={`Optional. PDF, DOC or DOCX, up to ${RESUME_MAX_SIZE_LABEL}. It is sent when you submit.`}
+          />
+        </div>
+
         <div className="flex w-full justify-end">
           <LoadingButton type="submit" loading={isSubmitting} className="w-fit">
             Submit application

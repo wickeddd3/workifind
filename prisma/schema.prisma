@@ -60,6 +60,18 @@ model Applicant {
   preferredEmploymentTypes String[]
   preferredLocationTypes   String[]
   salaryExpectation        Int
+  /// The current résumé, in Vercel Blob. Never sent to the browser: the blob is
+  /// stored with public access and its URL is therefore a permanent bearer
+  /// token for a document full of personal data. Employers reach it through
+  /// `/api/applicants/[id]/resume`, which authorizes first and streams the
+  /// bytes, so the URL stays server-side.
+  resumeUrl                String?
+  /// The name the file was uploaded under, sanitized. Kept because the blob
+  /// path is a nanoid — without this the download arrives called `V1StGXR8`.
+  resumeName               String?
+  /// When the current résumé was uploaded, so the profile can say how stale it
+  /// is. `updatedAt` cannot: any other section save moves it.
+  resumeUploadedAt         DateTime?
   userId                   String                       @unique
   createdAt                DateTime                     @default(now())
   updatedAt                DateTime                     @updatedAt
@@ -251,6 +263,15 @@ model Job {
 model JobApplication {
   id          String    @id @default(uuid())
   pitch       String
+  /// The résumé as it was sent with this application — a snapshot, not a
+  /// reference. Copied from the applicant's profile at submission time, or set
+  /// from a file attached to this application alone.
+  ///
+  /// Snapshotting is the point: replacing the profile résumé must not rewrite
+  /// what an employer already received. That is also why replacing it never
+  /// deletes the old blob — applications still point at it.
+  resumeUrl   String?
+  resumeName  String?
   userId      String
   applicant   Applicant @relation(fields: [applicantId], references: [id])
   applicantId String

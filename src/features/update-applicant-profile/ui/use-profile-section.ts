@@ -21,14 +21,18 @@ export function useProfileSection<TValues extends FieldValues>({
   section,
   schema,
   defaultValues,
+  getResetValues,
 }: {
   section: ApplicantSection;
   schema: ZodType<TValues>;
   defaultValues: DefaultValues<TValues>;
+  /** Passed through for the résumé section — see `useSectionForm`. */
+  getResetValues?: (values: TValues) => DefaultValues<TValues>;
 }) {
   return useSectionForm<TValues>({
     schema,
     defaultValues,
+    getResetValues,
     // The payload union is discriminated on `section`, which the caller fixes;
     // the values are already validated against that section's schema by the
     // resolver, and re-validated server-side.

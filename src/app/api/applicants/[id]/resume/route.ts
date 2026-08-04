@@ -17,9 +17,11 @@ export const dynamic = "force-dynamic";
  * URL never leaves the server: the browser gets a path that is authorized again
  * on every request, and revoking access is a matter of clearing a column.
  *
- * Who may read it mirrors who may read the profile the résumé belongs to —
- * `ProfessionalPage` is employers-only — plus the owner, so an applicant can
- * check what they actually uploaded.
+ * Who may read it mirrors the `resume` column of `profileVisibility`: employers
+ * and the owner, and nobody else. The profile page itself is open to everyone
+ * now, which is exactly why this check cannot be inferred from being able to
+ * load that page — a signed-in candidate reads another candidate's profile and
+ * must still be refused the document.
  *
  * 404 rather than 403 throughout: whether a given person has a résumé on file
  * is itself something an unauthorized caller should not be able to learn.

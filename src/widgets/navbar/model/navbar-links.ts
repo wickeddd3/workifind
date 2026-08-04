@@ -39,9 +39,9 @@ export const menuLinks: MenuLink[] = [
     title: "Professionals",
     link: "/professionals",
     icon: Users,
-    // The candidate directory is a hiring tool, so applicants — and anyone not
-    // signed in — never see it. The pages behind it gate on the server too.
-    roles: ["EMPLOYER"],
+    // Open to everyone, signed out included. What differs by role is how much
+    // of a profile is returned, not whether the directory exists — see
+    // `profileVisibility` in the applicant entity.
   },
 ];
 

@@ -8,9 +8,11 @@ const isProtectedRoute = createRouteMatcher([
   // theme lives there and is a per-browser preference, so it has to stay
   // reachable without an account.
   "/account(.*)",
-  // Employers-only, so a signed-out visitor gets the sign-in redirect rather
-  // than the 404 the pages themselves return for the wrong role.
-  "/professionals(.*)",
+  // `/professionals(.*)` is deliberately absent. The directory is open to
+  // everyone now, and what changes with the visitor is how much of a profile
+  // comes back rather than whether one does — see `profileVisibility` in the
+  // applicant entity. Requiring a session here would have made that redaction
+  // unreachable: a signed-out visitor never got as far as the page.
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

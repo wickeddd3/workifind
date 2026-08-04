@@ -8,10 +8,12 @@ import {
   ApplicantHeader,
   ApplicantLanguages,
   ApplicantPreferences,
+  ApplicantResume,
   ApplicantSkills,
   getApplicantProfile,
   getProfileCompleteness,
   ProfileCompleteness,
+  toResumeSummary,
 } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 import { ProfileSection } from "@/shared/ui/profile/ProfileSection";
@@ -31,6 +33,7 @@ export async function ApplicantPage() {
   if (!applicant) notFound();
 
   const completeness = getProfileCompleteness(applicant);
+  const resume = toResumeSummary(applicant);
 
   // Two columns, split by what each is for. The rail answers "who am I here
   // and what's left to do" and stays put; the column beside it is the profile
@@ -73,6 +76,18 @@ export async function ApplicantPage() {
             emptyPrompt="Tell employers who you are and what you're looking for."
           >
             <ApplicantBio bio={applicant.about} />
+          </ProfileSection>
+
+          <ProfileSection
+            id="resume"
+            title="Résumé"
+            editHref={`${EDIT}#resume`}
+            isEmpty={!resume}
+            emptyPrompt="Attach a résumé — it goes out with every application you send."
+          >
+            {resume && (
+              <ApplicantResume applicantId={applicant.id} resume={resume} />
+            )}
           </ProfileSection>
 
           <ProfileSection

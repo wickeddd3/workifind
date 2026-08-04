@@ -7,6 +7,7 @@
  */
 export const PROFILE_SECTIONS = [
   { id: "about", title: "About me" },
+  { id: "resume", title: "Résumé" },
   { id: "experience", title: "Work experience" },
   { id: "education", title: "Education" },
   { id: "certifications", title: "Certifications" },

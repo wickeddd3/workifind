@@ -40,6 +40,11 @@ export async function createEmployerAction(
       userId,
       companyLogoUrl,
     });
+    // The service turns a failed write into `null` rather than throwing, so
+    // without this the caller was told the profile was created, redirected to
+    // it, and found nothing there. It also has to come before the role is
+    // assigned: an EMPLOYER with no employer row cannot reach setup again.
+    if (!employer) throw new Error("Create failed");
 
     // Clerk user role assignment
     await assignEmployerRole(userId);

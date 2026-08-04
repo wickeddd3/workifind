@@ -30,6 +30,11 @@ export async function createApplicantAction(
       ...sanitizedData,
       userId,
     });
+    // The service turns a failed write into `null` rather than throwing, so
+    // without this the caller was told the profile was created, redirected to
+    // it, and found nothing there. It also has to come before the role is
+    // assigned: an APPLICANT with no applicant row cannot reach setup again.
+    if (!applicant) throw new Error("Create failed");
 
     // Clerk user role assignment
     await assignApplicantRole(userId);

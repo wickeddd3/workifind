@@ -13,7 +13,7 @@ import {
   // PrismaClient in the browser bundle.
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
-import { requiredNumeric, requiredString } from "@/shared/schema/utils";
+import { optionalAmount, requiredString } from "@/shared/schema/utils";
 
 export const ApplicantProfileSchema = z.object({
   firstName: requiredString.max(100),
@@ -46,14 +46,7 @@ export const ApplicantProfileSchema = z.object({
     .array(ApplicantPreferredLocationEntrySchema)
     .max(20)
     .optional(),
-  salaryExpectation: z
-    .union([
-      z.string().optional(),
-      requiredNumeric.nonnegative(
-        "Salary expectation must be a non-negative number",
-      ),
-    ])
-    .transform((val) => (val === "" ? 0 : val)),
+  salaryExpectation: optionalAmount,
 });
 
 export type ApplicantProfileSchemaType = z.infer<typeof ApplicantProfileSchema>;

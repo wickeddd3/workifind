@@ -46,6 +46,15 @@ export {
   toPreferredLocationEntries,
   toSkillEntries,
 } from "./model/records";
+export {
+  getResumeFileError,
+  RESUME_ACCEPT,
+  RESUME_MAX_SIZE_LABEL,
+  RESUME_UPLOAD_ENDPOINT,
+  type ResumeSummary,
+  type ResumeUploadResult,
+  ResumeUploadSchema,
+} from "./model/resume";
 export type {
   Applicant,
   ApplicantCertification,

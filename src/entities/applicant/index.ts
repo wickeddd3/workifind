@@ -7,6 +7,7 @@ export { ApplicantHeader } from "./ui/ApplicantHeader";
 export { ApplicantLanguages } from "./ui/ApplicantLanguages";
 export { ApplicantLoadingPlaceholder } from "./ui/ApplicantLoadingPlaceholder";
 export { ApplicantPreferences } from "./ui/ApplicantPreferences";
+export { ApplicantResume } from "./ui/ApplicantResume";
 export { ApplicantSkills } from "./ui/ApplicantSkills";
 export { ProfileCompleteness } from "./ui/ProfileCompleteness";
 
@@ -29,6 +30,7 @@ export {
   type ProfileCompleteness as ProfileCompletenessResult,
 } from "./model/completeness";
 export * from "./model/records";
+export * from "./model/resume";
 export type {
   Applicant,
   ApplicantCertification,
@@ -48,4 +50,10 @@ export {
 } from "./lib/record-inputs";
 
 /* API */
+export {
+  resolveResumeUpload,
+  signResumeUpload,
+  type StoredResume,
+  uploadApplicantResume,
+} from "./api/resume.service";
 export * from "./queries";

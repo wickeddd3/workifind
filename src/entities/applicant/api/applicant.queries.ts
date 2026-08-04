@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { cache } from "react";
 
+import { logger } from "@/shared/lib/logger";
 import prisma from "@/shared/lib/prisma";
 
 import type { Applicant, ApplicantProfile } from "../model/types";
@@ -84,6 +85,36 @@ export async function getSuggestedApplicants(
     });
   } catch (error) {
     return [];
+  }
+}
+
+/** What the download route needs to authorize a request and stream the file. */
+export interface ApplicantResumeRecord {
+  userId: string;
+  resumeUrl: string | null;
+  resumeName: string | null;
+}
+
+/**
+ * The résumé columns for one applicant, and nothing else.
+ *
+ * Selected narrowly on purpose. `resumeUrl` is the one field on this record
+ * that must never reach a browser, so the query that does return it returns as
+ * little else as possible — its only caller is the route handler that streams
+ * the bytes, and `userId` is there so that handler can tell the owner from
+ * everyone else.
+ */
+export async function getApplicantResume(
+  id: string,
+): Promise<ApplicantResumeRecord | null> {
+  try {
+    return await prisma.applicant.findUnique({
+      where: { id },
+      select: { userId: true, resumeUrl: true, resumeName: true },
+    });
+  } catch (error) {
+    logger.error("Failed to load applicant résumé", error, { id });
+    return null;
   }
 }
 

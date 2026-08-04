@@ -12,6 +12,7 @@
     "db:deploy": "prisma migrate deploy",
     "seed": "npx tsx --env-file-if-exists=.env prisma/seed/index.ts",
     "seed:clean": "npx tsx --env-file-if-exists=.env prisma/seed/clean.ts",
+    "seed:clean-all": "npx tsx --env-file-if-exists=.env prisma/seed/clean.ts --with-clerk-users",
     "seed:clean-orphans": "npx tsx --env-file-if-exists=.env prisma/scripts/clean-orphaned-clerk-users.ts",
     "backfill:roles": "npx tsx --env-file-if-exists=.env prisma/scripts/backfill-user-roles.ts",
     "postinstall": "prisma generate"

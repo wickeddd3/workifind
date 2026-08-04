@@ -1,105 +1,83 @@
 import type { Prisma } from "@prisma/client";
 
-import applicantsJson from "./applicants.data.json";
-import employersJson from "./employers.data.json";
-import jobsJson from "./jobs.data.json";
-import pitchesJson from "./pitches.data.json";
+import { generateApplicants } from "./generate/applicants";
+import { generateEmployers } from "./generate/employers";
+import { generateJobsForEmployers } from "./generate/jobs";
+import { resetRandom } from "./generate/random";
+import type {
+  ApplicantSeed,
+  EmployerSeed,
+  JobSeed,
+  LanguageSeed,
+  SkillSeed,
+} from "./types";
+
+export { FRESH_GRADUATE_PITCHES, PITCH_TEMPLATES } from "./content/prose";
+export * from "./types";
 
 /* -------------------------------------------------------------------------- */
-/*  Deterministic seed records — sourced from the JSON files in this folder    */
+/*  How much gets seeded                                                       */
 /* -------------------------------------------------------------------------- */
 
-export type PersonSeed = {
-  firstName: string;
-  lastName: string;
-  email: string;
+/**
+ * Counts, overridable from the environment so a smoke test does not have to
+ * create four hundred and fifty Clerk users to prove the seeder still runs:
+ *
+ *   SEED_EMPLOYERS=5 SEED_APPLICANTS=10 SEED_JOBS=20 npm run seed
+ *
+ * The defaults are set by Clerk rather than by taste. Every employer and every
+ * applicant is a real Clerk user, so the people counts are what a free
+ * instance can carry comfortably; jobs cost nothing but a database row, which
+ * is why there are far more of them. Search, filtering and pagination all have
+ * enough to work on at two hundred.
+ */
+function fromEnv(name: string, fallback: number): number {
+  const raw = process.env[name];
+  const parsed = raw ? Number.parseInt(raw, 10) : NaN;
+
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+export const SEED_COUNTS = {
+  employers: fromEnv("SEED_EMPLOYERS", 30),
+  applicants: fromEnv("SEED_APPLICANTS", 30),
+  jobs: fromEnv("SEED_JOBS", 200),
 };
-
-export type EmployerSeed = PersonSeed & {
-  companyName: string;
-  companyWebsite: string;
-  industry: string;
-  location: string;
-  about: string;
-  perks: string[];
-};
-
-/** `YYYY-MM`, as the app stores and edits CV dates. */
-type MonthSeed = string;
-
-export type ExperienceSeed = {
-  title: string;
-  company: string;
-  employmentType?: string;
-  location?: string;
-  startDate: MonthSeed;
-  endDate?: MonthSeed;
-  current: boolean;
-  description?: string;
-};
-
-export type EducationSeed = {
-  school: string;
-  degree?: string;
-  fieldOfStudy?: string;
-  startDate?: MonthSeed;
-  endDate?: MonthSeed;
-  current: boolean;
-  description?: string;
-};
-
-export type CertificationSeed = {
-  name: string;
-  issuer?: string;
-  issueDate?: MonthSeed;
-  expiryDate?: MonthSeed;
-  credentialId?: string;
-  credentialUrl?: string;
-};
-
-/** A skill is either a bare name or one carrying its level. Both forms are
- *  allowed so the JSON stays readable where the extra detail adds nothing. */
-export type SkillSeed = string | { name: string; level?: string; years?: number };
-export type LanguageSeed = string | { name: string; proficiency?: string };
-
-export type ApplicantSeed = PersonSeed & {
-  profession: string;
-  experienced: string;
-  skills: SkillSeed[];
-  languages: LanguageSeed[];
-  availability: string;
-  salaryExpectation: number;
-  preferredLocations: string[];
-  preferredEmploymentTypes: string[];
-  preferredLocationTypes: string[];
-  // Deliberately uneven across the seeded people: one has no work history and
-  // one has education with no dates, so the profile pages are exercised with
-  // their empty and undated cases rather than six identical full profiles.
-  experiences: ExperienceSeed[];
-  educations: EducationSeed[];
-  certifications: CertificationSeed[];
-};
-
-export type JobSeed = {
-  title: string;
-  employmentType: string;
-  locationType: string;
-  location: string;
-  description: string;
-  minSalary: number;
-  maxSalary: number;
-};
-
-export const employers = employersJson as EmployerSeed[];
-export const applicants = applicantsJson as ApplicantSeed[];
-export const jobs = jobsJson as JobSeed[];
-/** Cover letters, cycled through as applications are created. Deliberately of
- *  differing lengths: the applicants list clamps long ones behind a toggle, so
- *  a seed of uniform paragraphs would never exercise either state. */
-export const pitches = pitchesJson as string[];
 
 /* -------------------------------------------------------------------------- */
-/*  Mappers: JSON record -> Prisma create input                               */
+/*  The seeded world                                                           */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Generated at import, from a fixed random seed.
+ *
+ * Deterministic on purpose: company and job slugs are derived from names and
+ * end up in URLs, so a re-seed that renamed everything would break every link
+ * anyone had saved. Same seed, same world.
+ *
+ * The order matters. `resetRandom` has to run before anything draws from the
+ * generator, and employers have to exist before the jobs that belong to them —
+ * which is also why these are module-level constants rather than functions the
+ * seeders call in whatever order they happen to run.
+ */
+resetRandom();
+
+export const employers: EmployerSeed[] = generateEmployers(
+  SEED_COUNTS.employers,
+);
+
+/** Aligned by index with `employers`: `jobsByEmployer[3]` is employer 3's list. */
+export const jobsByEmployer: JobSeed[][] = generateJobsForEmployers(
+  employers,
+  SEED_COUNTS.jobs,
+);
+
+export const applicants: ApplicantSeed[] = generateApplicants(
+  SEED_COUNTS.applicants,
+);
+
+/* -------------------------------------------------------------------------- */
+/*  Mappers: seed record -> Prisma create input                                */
 /* -------------------------------------------------------------------------- */
 
 // The employer `perks` Json column stores stringified `{ name }` objects,
@@ -180,6 +158,12 @@ export function buildApplicantData(
     firstName: applicant.firstName,
     lastName: applicant.lastName,
     email: applicant.email,
+    // These three were absent from the seed entirely, so every seeded profile
+    // rendered with an empty About, no location and no phone number — three of
+    // the first things an employer looks at.
+    phoneNumber: applicant.phoneNumber ?? null,
+    location: applicant.location ?? null,
+    about: applicant.about ?? null,
     profession: applicant.profession,
     experienced: applicant.experienced,
     availability: applicant.availability,

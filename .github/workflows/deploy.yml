@@ -28,6 +28,12 @@ jobs:
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
       NEXT_CLERK_SIGN_UP_FALLBACK_URL: /
       NEXT_CLERK_SIGN_IN_FALLBACK_URL: /
+      # File uploads. Neither is read during `next build` — the upload and
+      # download routes are `force-dynamic` and resolve these per request — but
+      # this block is the list of what the app needs, and one that omits half of
+      # it stops being worth reading.
+      BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+      UPLOAD_SIGNING_SECRET: ${{ secrets.UPLOAD_SIGNING_SECRET }}
 
     steps:
       - name: Checkout Code
@@ -65,6 +71,16 @@ jobs:
       # Link the Vercel CLI to the right project without an interactive login.
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    # `vercel deploy` builds and runs the app on Vercel, with Vercel's own
+    # environment — nothing set here reaches the deployed process. The variables
+    # the running app needs (see .env.example) are configured in the project's
+    # Settings → Environment Variables, and a missing one is not visible from
+    # here: this workflow goes green either way.
+    #
+    # BLOB_READ_WRITE_TOKEN and UPLOAD_SIGNING_SECRET are the two that fail
+    # closed at request time rather than at boot, so an omission surfaces as a
+    # résumé upload that 500s for a user, not as a failed deploy.
 
     steps:
       - name: Checkout Code

@@ -18,6 +18,13 @@ export { PreferredLocationEntryFields } from "./ui/PreferredLocationEntryFields"
 export { SkillEntryFields } from "./ui/SkillEntryFields";
 
 /* Model */
+export {
+  AVATAR_ACCEPT,
+  AVATAR_UPLOAD_ENDPOINT,
+  type AvatarUploadResult,
+  AvatarUploadSchema,
+  getAvatarFileError,
+} from "./model/avatar";
 export type {
   ApplicantCertificationEntry,
   ApplicantEducationEntry,

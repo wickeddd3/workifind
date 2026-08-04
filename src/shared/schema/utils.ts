@@ -1,3 +1,4 @@
+import validator from "validator";
 import { z } from "zod";
 
 export const requiredString = z.string().trim().min(1, "Required");
@@ -5,6 +6,39 @@ export const requiredBoolean = z.boolean({
   required_error: "Required",
   invalid_type_error: "Must be a boolean",
 });
+
+/**
+ * Spacing, brackets and dashes inside a phone number are presentation, not
+ * data: `+63 917 123 4567` and `+639171234567` are the same number, and
+ * `validator` only recognises the second.
+ */
+const PHONE_SEPARATORS = /[\s()./-]/g;
+
+/**
+ * A mobile number, or nothing.
+ *
+ * The check runs on the number with its separators removed, and what is stored
+ * is still what the person typed. Validating the compact form is the whole fix:
+ * `validator.isMobilePhone` matches no format a human writes down, so the field
+ * rejected `+63 917 123 4567` — including the numbers this project's own seeder
+ * generates, which made every seeded applicant's profile editor refuse to save
+ * a phone number it had just loaded.
+ *
+ * The message is spelled out here rather than left to default. The previous
+ * version wrapped the check in `.optional().or(z.literal(""))`, and a failing
+ * union reports "Invalid input" and hides which half was meant — so a wrong
+ * number said nothing about what a right one looks like.
+ */
+export const optionalPhone = z
+  .string()
+  .trim()
+  .max(30)
+  .refine(
+    (value) =>
+      !value || validator.isMobilePhone(value.replace(PHONE_SEPARATORS, "")),
+    "Enter a valid mobile number, e.g. +63 917 123 4567",
+  )
+  .optional();
 
 /**
  * A whole number typed into a `type="number"` input, or nothing at all.

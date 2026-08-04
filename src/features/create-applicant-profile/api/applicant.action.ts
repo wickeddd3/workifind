@@ -2,6 +2,7 @@
 
 import type { Applicant } from "@prisma/client";
 
+import { resolveAvatarUpload } from "@/entities/applicant";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 import { mapApplicantForm } from "../model/map-applicant-data";
@@ -26,8 +27,20 @@ export async function createApplicantAction(
     if (!parsed.success) throw new Error("Invalid input");
 
     const sanitizedData = mapApplicantForm(parsed.data);
+
+    // The picture is already in storage; what arrives here is a signed
+    // reference to it, and an unverifiable one is refused rather than ignored —
+    // saving the rest and quietly dropping the avatar would report success over
+    // a profile that is not what was filled in.
+    const { avatarToken } = parsed.data;
+    const avatarUrl = avatarToken
+      ? resolveAvatarUpload(avatarToken, userId)
+      : null;
+    if (avatarToken && !avatarUrl) throw new Error("Invalid avatar upload");
+
     const applicant = await createApplicant({
       ...sanitizedData,
+      avatarUrl,
       userId,
     });
     // The service turns a failed write into `null` rather than throwing, so

@@ -4,6 +4,7 @@ import type { Employer } from "@prisma/client";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 
+import { resolveLogoUpload } from "@/entities/employer";
 import { getEmployer } from "@/entities/employer/queries";
 import { requireRole } from "@/shared/lib/clerk.server";
 import { toSlug } from "@/shared/utils/format-text";
@@ -14,7 +15,6 @@ import {
   type EmployerSectionPayload,
 } from "../model/schema";
 import { updateEmployer } from "./employer.service";
-import { uploadEmployerLogo } from "./logo.service";
 
 /**
  * Save one section of the company profile.
@@ -55,8 +55,16 @@ export async function updateEmployerSectionAction(
     const data = mapEmployerSection(payload.section, parsed.data as never);
     const identity =
       payload.section === "identity"
-        ? await resolveIdentityExtras(parsed.data as IdentityValues, current)
+        ? resolveIdentityExtras(parsed.data as IdentityValues, current, userId)
         : {};
+
+    if (identity === null) {
+      return {
+        success: false,
+        data: null,
+        message: "That upload has expired. Please choose the file again.",
+      };
+    }
 
     const employer = await updateEmployer(userId, { ...data, ...identity });
     if (!employer) {
@@ -79,31 +87,38 @@ export async function updateEmployerSectionAction(
   }
 }
 
-type IdentityValues = { companyName: string; companyLogo?: File };
+type IdentityValues = { companyName: string; logoToken?: string };
 
 /**
- * The two identity columns that are derived rather than submitted.
+ * The two identity columns that are derived rather than submitted, or `null`
+ * when a reference was submitted that we will not act on.
  *
  * The slug is re-cut only when the company name actually changes. It used to be
  * regenerated on every save — with a fresh nanoid suffix each time — so editing
  * a perk silently moved the company's public URL and broke every link to it.
  *
- * The logo is only replaced when a new file uploaded successfully; omitting the
- * field leaves the existing `companyLogoUrl` alone instead of wiping it.
+ * The logo arrives as a signed token, the file itself having gone to the upload
+ * route already. No token means no change: this section is saved whenever the
+ * company email or website changes, and treating an absent token as "remove the
+ * logo" would wipe it on almost every save. A token that does not verify is a
+ * failure rather than a silent skip — the previous version dropped a failed
+ * upload on the floor and reported "Saved" over a logo that never landed.
  */
-async function resolveIdentityExtras(
+function resolveIdentityExtras(
   values: IdentityValues,
   current: { companyName: string },
-) {
+  userId: string,
+): { slug?: string; companyLogoUrl?: string } | null {
   const extras: { slug?: string; companyLogoUrl?: string } = {};
 
   if (values.companyName.trim() !== current.companyName.trim()) {
     extras.slug = `${toSlug(values.companyName)}-${nanoid(10)}`;
   }
 
-  if (values.companyLogo) {
-    const imageUrl = await uploadEmployerLogo(values.companyLogo);
-    if (imageUrl) extras.companyLogoUrl = imageUrl;
+  if (values.logoToken) {
+    const url = resolveLogoUpload(values.logoToken, userId);
+    if (!url) return null;
+    extras.companyLogoUrl = url;
   }
 
   return extras;

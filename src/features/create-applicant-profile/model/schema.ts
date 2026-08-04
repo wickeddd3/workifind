@@ -1,4 +1,3 @@
-import validator from "validator";
 import { z } from "zod";
 
 import {
@@ -8,22 +7,25 @@ import {
   ApplicantLanguageEntrySchema,
   ApplicantPreferredLocationEntrySchema,
   ApplicantSkillEntrySchema,
+  AvatarUploadSchema,
   // From `client`, not the full barrel: `ui/ProfileForm.tsx` is `"use client"`
   // and imports this file, so the barrel's query re-exports would put
   // PrismaClient in the browser bundle.
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
-import { optionalAmount, requiredString } from "@/shared/schema/utils";
+import {
+  optionalAmount,
+  optionalPhone,
+  requiredString,
+} from "@/shared/schema/utils";
 
 export const ApplicantProfileSchema = z.object({
+  /** The signed reference the upload route issued, not the file. */
+  avatarToken: AvatarUploadSchema,
   firstName: requiredString.max(100),
   lastName: requiredString.max(100),
   email: z.string().trim().max(100).email(),
-  phoneNumber: z
-    .string()
-    .refine(validator.isMobilePhone)
-    .optional()
-    .or(z.literal("")),
+  phoneNumber: optionalPhone,
   location: z.string().trim().max(100).optional(),
   about: z.string().trim().max(8000).optional(),
   profession: requiredString.max(100),

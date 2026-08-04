@@ -9,8 +9,9 @@ export function mapEmployerForm(formData: EmployerProfileSchemaType) {
   // Create slug using company name
   const slug = `${toSlug(formData.companyName)}-${nanoid(10)}`;
 
-  // Remove companyLogo from formData
-  const trimmedObject = removeObjectProperty(formData, "companyLogo");
+  // The logo token is a signed reference to an upload, not a column. The action
+  // verifies it and supplies `companyLogoUrl` itself.
+  const trimmedObject = removeObjectProperty(formData, "logoToken");
 
   return {
     ...trimmedObject,

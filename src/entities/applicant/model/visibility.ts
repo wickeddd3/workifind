@@ -38,6 +38,15 @@ export interface ProfileVisibility {
   resume: boolean;
   /** The surname in full, rather than as an initial. */
   fullName: boolean;
+  /**
+   * The profile picture.
+   *
+   * Tracks `fullName` today and is still its own flag: both answer "how
+   * identifiable is this candidate to this viewer", and a face is the more
+   * direct answer of the two. Folding it into `fullName` would mean a later
+   * decision about surnames silently republished everyone's photograph.
+   */
+  photo: boolean;
 }
 
 /**
@@ -55,15 +64,37 @@ export interface ProfileVisibility {
  * A signed-out visitor additionally sees the surname as an initial.
  */
 const VISIBILITY: Record<ProfileViewer, ProfileVisibility> = {
-  owner: { contact: true, salary: true, resume: true, fullName: true },
-  employer: { contact: true, salary: true, resume: true, fullName: true },
+  owner: {
+    contact: true,
+    salary: true,
+    resume: true,
+    fullName: true,
+    photo: true,
+  },
+  employer: {
+    contact: true,
+    salary: true,
+    resume: true,
+    fullName: true,
+    photo: true,
+  },
   professional: {
     contact: false,
     salary: false,
     resume: false,
     fullName: true,
+    photo: true,
   },
-  guest: { contact: false, salary: false, resume: false, fullName: false },
+  // A signed-out visitor gets the surname as an initial. Handing the same
+  // visitor a photograph would undo that in one step: the directory is
+  // crawlable, and a name-plus-face is the pairing the initial exists to break.
+  guest: {
+    contact: false,
+    salary: false,
+    resume: false,
+    fullName: false,
+    photo: false,
+  },
 };
 
 export function profileVisibility(viewer: ProfileViewer): ProfileVisibility {
@@ -110,6 +141,8 @@ export interface VisibleApplicantProfile
   resumeWithheld: boolean;
   /** Null when there is no résumé, or when this viewer may not see it. */
   resume: ResumeSummary | null;
+  /** Null when none was uploaded, or when this viewer may not see it. */
+  avatarUrl: string | null;
 }
 
 export function toVisibleApplicantProfile(
@@ -122,6 +155,7 @@ export function toVisibleApplicantProfile(
     email,
     phoneNumber,
     salaryExpectation,
+    avatarUrl,
     resumeUrl: _resumeUrl,
     resumeName: _resumeName,
     resumeUploadedAt: _resumeUploadedAt,
@@ -149,5 +183,6 @@ export function toVisibleApplicantProfile(
     salaryWithheld: !visibility.salary && hasSalary,
     resumeWithheld: !visibility.resume && Boolean(resume),
     resume: visibility.resume ? resume : null,
+    avatarUrl: visibility.photo ? avatarUrl : null,
   };
 }

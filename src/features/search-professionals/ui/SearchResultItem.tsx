@@ -1,5 +1,7 @@
 import { BadgeCheck, CalendarClock, Lock, MapPin, Wallet } from "lucide-react";
+import Image from "next/image";
 
+import type { ProfileVisibility } from "@/entities/applicant";
 import { cn } from "@/shared/lib/utils";
 import { formatMoneyCompact } from "@/shared/utils/format-money";
 
@@ -13,14 +15,16 @@ import type { ProfessionalSummaryRow } from "../api/professional.service";
  * an employer account could page through. The query behind this selects neither
  * field, so a later edit cannot put one back by accident.
  *
- * The salary expectation is the one figure here that is gated — `canSeeSalary`
- * comes from the same tier table the profile page reads, so a rival applicant
- * scanning the list learns no more than one opening a profile would.
+ * What *is* gated comes as one `visibility` object rather than a growing list
+ * of booleans, and it is the same tier table the profile page reads — so a
+ * rival applicant scanning the list learns no more than one opening a profile
+ * would, and a signed-out visitor gets neither the surname nor the face.
  */
 export function SearchResultItem({
   professional: {
     firstName,
     lastName,
+    avatarUrl,
     location,
     profession,
     experienced,
@@ -31,11 +35,11 @@ export function SearchResultItem({
     _count,
   },
   isSelected = false,
-  canSeeSalary = false,
+  visibility,
 }: {
   professional: ProfessionalSummaryRow;
   isSelected?: boolean;
-  canSeeSalary?: boolean;
+  visibility: ProfileVisibility;
 }) {
   const initials =
     `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();
@@ -51,8 +55,18 @@ export function SearchResultItem({
           : "border-border hover:border-primary/40",
       )}
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-semibold text-white">
-        {initials}
+      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-semibold text-white">
+        {visibility.photo && avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt=""
+            fill
+            sizes="48px"
+            className="object-cover"
+          />
+        ) : (
+          initials
+        )}
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
@@ -100,7 +114,7 @@ export function SearchResultItem({
             </span>
           )}
           {salaryExpectation > 0 &&
-            (canSeeSalary ? (
+            (visibility.salary ? (
               <span className="tabular flex items-center gap-1.5">
                 <Wallet size={13} className="shrink-0" aria-hidden="true" />
                 {formatMoneyCompact(salaryExpectation)}

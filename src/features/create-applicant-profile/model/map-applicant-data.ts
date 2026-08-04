@@ -20,6 +20,9 @@ export function mapApplicantForm(formData: ApplicantProfileSchemaType) {
     skills,
     languages,
     preferredLocations,
+    // Pulled out and dropped: this is a signed reference to an upload, not a
+    // column. The action verifies it and supplies `avatarUrl` itself.
+    avatarToken: _avatarToken,
     ...fields
   } = formData;
 

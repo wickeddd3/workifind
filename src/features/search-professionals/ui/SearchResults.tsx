@@ -48,16 +48,15 @@ export function SearchResults({
               isSelected={professional.id === selectedId}
               // Resolved per row rather than once for the list: an applicant
               // browsing the directory can appear in their own results, and the
-              // owner tier is what keeps their own figure visible to them.
-              canSeeSalary={
-                profileVisibility(
-                  resolveProfileViewer({
-                    ownerUserId: professional.userId,
-                    viewerUserId,
-                    viewerRole,
-                  }),
-                ).salary
-              }
+              // owner tier is what keeps their own figure — and their own face
+              // — visible to them.
+              visibility={profileVisibility(
+                resolveProfileViewer({
+                  ownerUserId: professional.userId,
+                  viewerUserId,
+                  viewerRole,
+                }),
+              )}
             />
           </ProfessionalCardLink>
         </li>

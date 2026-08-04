@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import {
+  AVATAR_ACCEPT,
+  AVATAR_UPLOAD_ENDPOINT,
   CertificationEntryFields,
   EducationEntryFields,
   EMPTY_CERTIFICATION_ENTRY,
@@ -15,6 +17,7 @@ import {
   EMPTY_PREFERRED_LOCATION_ENTRY,
   EMPTY_SKILL_ENTRY,
   ExperienceEntryFields,
+  getAvatarFileError,
   LanguageEntryFields,
   PreferencesFields,
   PreferredLocationEntryFields,
@@ -22,6 +25,7 @@ import {
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
 import { Form } from "@/shared/ui/form";
+import { ImageUploadField } from "@/shared/ui/form-fields/ImageUploadField";
 import { RadioGroupField } from "@/shared/ui/form-fields/RadioGroupField";
 import { RepeatableFieldset } from "@/shared/ui/form-fields/RepeatableFieldset";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
@@ -58,6 +62,7 @@ const STEPS: WizardStep<ApplicantProfileSchemaType>[] = [
     title: "Tell us about you",
     hint: "How employers will see and reach you.",
     fields: [
+      "avatarToken",
       "firstName",
       "lastName",
       "profession",
@@ -143,6 +148,7 @@ export function ProfileForm({ onExit }: { onExit?: () => void }) {
     location: "",
     about: "",
     profession: "",
+    avatarToken: undefined,
     experienced: "No experience",
     skills: [],
     languages: [],
@@ -290,6 +296,15 @@ export function ProfileForm({ onExit }: { onExit?: () => void }) {
         >
           {step.id === "basics" && (
             <WizardPanel id={step.id} title={step.title} hint={step.hint}>
+              <ImageUploadField
+                control={control}
+                name="avatarToken"
+                label="Profile picture"
+                endpoint={AVATAR_UPLOAD_ENDPOINT}
+                accept={AVATAR_ACCEPT}
+                validate={getAvatarFileError}
+                description="Optional. JPG, PNG or WebP, up to 2MB."
+              />
               <div className="grid gap-4 sm:grid-cols-2">
                 <TextInputField
                   control={control}
@@ -317,9 +332,10 @@ export function ProfileForm({ onExit }: { onExit?: () => void }) {
                 />
                 <TextInputField
                   control={control}
-                  type="number"
+                  type="tel"
                   name="phoneNumber"
                   label="Phone number"
+                  placeholder="+63 917 123 4567"
                 />
               </div>
               <TextInputField

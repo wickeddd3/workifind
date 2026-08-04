@@ -1,6 +1,10 @@
 import { Suspense } from "react";
 
-import { JobResultsSkeleton, JobsContent } from "@/features/search-jobs";
+import {
+  JOB_SEARCH_KEYS,
+  JobResultsSkeleton,
+  JobsContent,
+} from "@/features/search-jobs";
 import { JobFilter } from "@/features/search-jobs/client";
 import { JobDetailSkeleton, JobSelected } from "@/widgets/selected-job";
 
@@ -13,7 +17,17 @@ export async function JobsPage({
   // query is slower. The `key`s matter: without them React reuses the boundary
   // across navigations and the fallback never re-shows, so changing a filter
   // looks like nothing happened until the new results land.
-  const resultsKey = JSON.stringify(searchParams);
+  //
+  // `job` is deliberately excluded. It only picks which posting the detail pane
+  // shows, and keying the results on it made selecting a card tear the list down
+  // and re-run the skeleton — the list appeared to reload on every click.
+  // Dropping it leaves a re-render, which is all the selected-card highlight
+  // needs. Derived from the shared key list so a new facet cannot be forgotten.
+  const resultsKey = JSON.stringify(
+    JOB_SEARCH_KEYS.filter((key) => key !== "job").map(
+      (key) => searchParams[key],
+    ),
+  );
 
   return (
     <div className="flex flex-col">

@@ -2,6 +2,7 @@
 
 import type { Employer } from "@prisma/client";
 
+import { resolveLogoUpload } from "@/entities/employer";
 import { getAuthUser } from "@/shared/lib/clerk.server";
 
 import { mapEmployerForm } from "../model/map-employer-data";
@@ -10,7 +11,6 @@ import {
   type EmployerProfileSchemaType,
 } from "../model/schema";
 import { createEmployer } from "./employer.service";
-import { uploadEmployerLogo } from "./logo.service";
 import { assignEmployerRole } from "./role.service";
 
 export async function createEmployerAction(
@@ -28,12 +28,15 @@ export async function createEmployerAction(
 
     const sanitizedData = mapEmployerForm(parsed.data);
 
-    // Upload company logo and generate companyLogoUrl
-    let companyLogoUrl = null;
-    if (parsed.data.companyLogo) {
-      const imageUrl = await uploadEmployerLogo(parsed.data.companyLogo);
-      companyLogoUrl = imageUrl; // Get the uploaded file URL
-    }
+    // The logo is already in storage; what arrives here is a signed reference
+    // to it, and an unverifiable one is refused rather than ignored — saving
+    // the rest and quietly dropping the logo would report success over a
+    // profile that is not what was filled in.
+    const { logoToken } = parsed.data;
+    const companyLogoUrl = logoToken
+      ? resolveLogoUpload(logoToken, userId)
+      : null;
+    if (logoToken && !companyLogoUrl) throw new Error("Invalid logo upload");
 
     const employer = await createEmployer({
       ...sanitizedData,

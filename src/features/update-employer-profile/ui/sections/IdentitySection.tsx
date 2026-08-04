@@ -1,9 +1,13 @@
 "use client";
 
 import type { Employer } from "@/entities/employer";
-import { Avatar } from "@/shared/ui/avatar";
+import {
+  getLogoFileError,
+  LOGO_ACCEPT,
+  LOGO_UPLOAD_ENDPOINT,
+} from "@/entities/employer/client";
 import { Form } from "@/shared/ui/form";
-import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
+import { ImageUploadField } from "@/shared/ui/form-fields/ImageUploadField";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
 import { ProfileSectionCard } from "@/shared/ui/profile/ProfileSectionCard";
 
@@ -22,11 +26,13 @@ export function IdentitySection({ employer }: { employer: Employer }) {
         companyName: employer.companyName,
         companyEmail: employer.companyEmail ?? "",
         companyWebsite: employer.companyWebsite ?? "",
-        companyLogo: undefined,
+        // Undefined, not the current URL: the field holds a token for a *new*
+        // upload, and seeding it would make an untouched section look dirty.
+        logoToken: undefined,
       },
-      // The file has been uploaded by the time we get here; carrying it in the
-      // form state would upload it a second time on the next save.
-      getResetValues: (values) => ({ ...values, companyLogo: undefined }),
+      // The token has been spent by the time we get here; carrying it in the
+      // form state would reattach the same upload on the next save.
+      getResetValues: (values) => ({ ...values, logoToken: undefined }),
     });
 
   return (
@@ -63,21 +69,17 @@ export function IdentitySection({ employer }: { employer: Employer }) {
               placeholder="company.com"
             />
           </div>
-          <div className="flex items-end gap-4">
-            {/* The logo already in use, next to the field that replaces it —
-                a bare file input gave no sign of what was currently set. */}
-            <Avatar
-              name={employer.companyName}
-              src={employer.companyLogoUrl}
-              size={56}
-              className="shrink-0 rounded-2xl"
-            />
-            <FileUploadField
-              control={form.control}
-              name="companyLogo"
-              label="Company logo"
-            />
-          </div>
+          <ImageUploadField
+            control={form.control}
+            name="logoToken"
+            label="Company logo"
+            endpoint={LOGO_UPLOAD_ENDPOINT}
+            accept={LOGO_ACCEPT}
+            validate={getLogoFileError}
+            currentUrl={employer.companyLogoUrl}
+            shape="square"
+            description="JPG, PNG or WebP, up to 2MB."
+          />
         </div>
       </Form>
     </ProfileSectionCard>

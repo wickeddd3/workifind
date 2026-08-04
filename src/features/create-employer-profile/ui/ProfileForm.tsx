@@ -4,10 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 
+import {
+  getLogoFileError,
+  LOGO_ACCEPT,
+  LOGO_UPLOAD_ENDPOINT,
+} from "@/entities/employer/client";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { Form } from "@/shared/ui/form";
 import { DynamicListField } from "@/shared/ui/form-fields/DynamicListField";
-import { FileUploadField } from "@/shared/ui/form-fields/FileUploadField";
+import { ImageUploadField } from "@/shared/ui/form-fields/ImageUploadField";
 import { RichTextField } from "@/shared/ui/form-fields/RichEditorTextField";
 import { SelectField } from "@/shared/ui/form-fields/SelectField";
 import { TextInputField } from "@/shared/ui/form-fields/TextInputField";
@@ -39,7 +44,7 @@ const STEPS: WizardStep<EmployerProfileSchemaType>[] = [
     label: "Company",
     title: "About the company",
     hint: "What candidates see first, on your company page and on every job you post.",
-    fields: ["companyName", "industry", "location", "companyLogo"],
+    fields: ["companyName", "industry", "location", "logoToken"],
   },
   {
     id: "contact",
@@ -63,6 +68,7 @@ export function ProfileForm({ onExit }: { onExit?: () => void }) {
 
   const defaultValues: EmployerProfileSchemaType = {
     companyName: "",
+    logoToken: undefined,
     companyEmail: "",
     companyWebsite: "",
     industry: "",
@@ -173,10 +179,15 @@ export function ProfileForm({ onExit }: { onExit?: () => void }) {
                   placeholder="e.g. Makati, Metro Manila"
                 />
               </div>
-              <FileUploadField
+              <ImageUploadField
                 control={control}
-                name="companyLogo"
+                name="logoToken"
                 label="Company logo"
+                endpoint={LOGO_UPLOAD_ENDPOINT}
+                accept={LOGO_ACCEPT}
+                validate={getLogoFileError}
+                shape="square"
+                description="Optional. JPG, PNG or WebP, up to 2MB."
               />
             </WizardPanel>
           )}

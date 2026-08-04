@@ -11,10 +11,16 @@ export { EmployerTabs } from "./ui/EmployerTabs";
 
 /* Model */
 export { getCompanyProfileCompleteness } from "./model/completeness";
+export * from "./model/logo";
 export type { Company, Employer } from "./model/types";
 
 /* Lib */
 export { buildOrganizationSchema } from "./lib/structured-data";
 
 /* API */
+export {
+  resolveLogoUpload,
+  signLogoUpload,
+  uploadEmployerLogo,
+} from "./api/logo.service";
 export * from "./queries";

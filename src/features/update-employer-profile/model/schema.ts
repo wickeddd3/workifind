@@ -1,17 +1,11 @@
 import { z } from "zod";
 
+// From `client`, not the full barrel: the section components are `"use client"`
+// and import this file, so the barrel's query re-exports would put PrismaClient
+// in the browser bundle.
+import { LogoUploadSchema } from "@/entities/employer/client";
 import { INDUSTRY_TYPES } from "@/shared/constants/tags";
 import { requiredString } from "@/shared/schema/utils";
-
-const CompanyLogoSchema = z
-  .custom<File | undefined>()
-  .refine(
-    (file) => !file || (file instanceof File && file.type.startsWith("image/")),
-    "Must be an image file",
-  )
-  .refine((file) => {
-    return !file || file.size < 1024 * 1024 * 2;
-  }, "File must be less than 2MB");
 
 export const EmployerPerkSchema = z.object({
   name: z.string(),
@@ -37,7 +31,12 @@ export const EmployerIdentitySchema = z.object({
   companyName: requiredString.max(100),
   companyEmail: z.string().trim().max(100).email().optional().or(z.literal("")),
   companyWebsite: z.string().trim().max(100).optional().or(z.literal("")),
-  companyLogo: CompanyLogoSchema,
+  /**
+   * The signed reference the upload route issued, not the file. Absent means
+   * "leave the current logo alone" — this section is saved every time the
+   * company email changes, and an absent token must not read as "remove it".
+   */
+  logoToken: LogoUploadSchema,
 });
 
 export const EmployerOverviewSchema = z.object({

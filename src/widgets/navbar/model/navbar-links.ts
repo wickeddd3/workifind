@@ -24,9 +24,13 @@ export type MenuLink = {
   exact?: boolean;
 };
 
+/**
+ * Three parallel nouns. "Find jobs" was the odd one out, and left-aligning the
+ * bar put the three side by side where the mismatched verb showed.
+ */
 export const menuLinks: MenuLink[] = [
   {
-    title: "Find jobs",
+    title: "Jobs",
     link: "/jobs",
     icon: BriefcaseBusiness,
   },

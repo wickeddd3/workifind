@@ -19,20 +19,27 @@ import { NavMenuLinks } from "./NavMenuLinks";
 export function Navbar() {
   return (
     <header className="flex w-full items-center justify-center py-2">
-      <nav className="flex w-full max-w-7xl items-center justify-between rounded-full border border-border bg-card px-4 py-2 shadow-soft lg:py-3">
+      <nav className="flex w-full max-w-7xl items-center gap-2 rounded-full border border-border bg-card px-4 py-2 shadow-soft lg:py-3">
         {/* Mobile Menu Links */}
         <MobileMenu />
         <Link
           href="/"
           aria-label="workifind home"
-          className="flex w-fit items-center gap-2"
+          className="flex w-fit shrink-0 items-center gap-2"
         >
           <IconBrand className="h-8 w-8 shrink-0" />
           <span className="text-xl font-extrabold tracking-wider text-foreground">
             workifind
           </span>
         </Link>
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Sits directly against the brand rather than centred in the bar. The
+            links read as this site's sections, which is what a masthead group
+            says and what a floating middle cluster does not — and the group no
+            longer shifts sideways as role changes how many links there are.
+            The auth actions carry their own `ml-auto` to reach the far edge —
+            it cannot live on this group, which is `hidden` on a phone, and a
+            `display: none` box pushes nothing. */}
+        <div className="hidden items-center gap-6 md:flex lg:gap-8">
           {/* Menu links — role-aware, so they resolve their own auth state. */}
           <NavMenuLinks />
         </div>

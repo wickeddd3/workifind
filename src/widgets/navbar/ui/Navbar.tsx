@@ -32,14 +32,28 @@ export function Navbar() {
             workifind
           </span>
         </Link>
-        {/* Sits directly against the brand rather than centred in the bar. The
+        {/* Left-aligned against the brand rather than centred in the bar. The
             links read as this site's sections, which is what a masthead group
             says and what a floating middle cluster does not — and the group no
             longer shifts sideways as role changes how many links there are.
             The auth actions carry their own `ml-auto` to reach the far edge —
             it cannot live on this group, which is `hidden` on a phone, and a
-            `display: none` box pushes nothing. */}
-        <div className="hidden items-center gap-6 md:flex lg:gap-8">
+            `display: none` box pushes nothing.
+
+            The leading margin is set against the gap *inside* the group, not
+            picked to look right on its own: at the bar's `gap-2` alone the
+            wordmark sat 0.5rem from the first link while the links sat 1.5rem
+            apart, so the closest thing to "Jobs" was the brand and the three
+            read as a four-item list. The larger space now falls between the
+            groups, which is what makes them two.
+
+            Measured text to text, since `NavLink` carries `px-3` for its active
+            pill and that padding is part of what separates them: 1.75rem
+            within the group against 3.25rem to the brand, scaling to 2rem and
+            3.75rem at `lg`. That is why the flex gap here is `gap-1` and not
+            the `gap-6` it would be without the pills — the same visual result
+            reached with less of it coming from the gap property. */}
+        <div className="ml-8 hidden items-center gap-1 md:flex lg:ml-10 lg:gap-2">
           {/* Menu links — role-aware, so they resolve their own auth state. */}
           <NavMenuLinks />
         </div>

@@ -171,6 +171,18 @@
     @apply rounded-sm outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 
+  /* Scrolls, but paints no scrollbar. For panes that scroll inside a larger
+     page — the jobs split-view detail pane — where the second bar reads as
+     clutter next to the window's own. Scrolling itself is untouched: wheel,
+     trackpad, keyboard and the focus-follows-scroll behaviour all still work,
+     which is why this hides the chrome rather than setting `overflow: hidden`. */
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* WebKit, Chromium */
+  }
+
   /* Respect the user's reduced-motion preference: neutralize skeleton
      pulses, hover transitions, and Swiper slide animations (WCAG 2.3.3). */
   @media (prefers-reduced-motion: reduce) {

@@ -1,8 +1,9 @@
 "use server";
 
 import type { Job } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
+import { JOBS_SEARCH_TAG } from "@/features/search-jobs";
 import { requireRole } from "@/shared/lib/clerk.server";
 
 import { mapJobForm } from "../model/map-job-data";
@@ -29,6 +30,9 @@ export async function updateJobAction(
     if (job) revalidatePath(`/jobs/${job.slug}`);
     revalidatePath("/jobs");
     revalidatePath("/employer/jobs");
+    // An edit can close a job or move it out of a facet, changing the count the
+    // results header shows. That cache is keyed by tag, not by path.
+    revalidateTag(JOBS_SEARCH_TAG);
 
     return { success: true, data: job, message: "Updated successfully" };
   } catch (error) {

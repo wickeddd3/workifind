@@ -1,9 +1,10 @@
 "use server";
 
 import type { Job } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { getEmployer } from "@/entities/employer";
+import { JOBS_SEARCH_TAG } from "@/features/search-jobs";
 import { requireRole } from "@/shared/lib/clerk.server";
 
 import { mapJobForm } from "../model/map-job-data";
@@ -40,6 +41,9 @@ export async function createJobAction(
     revalidatePath("/jobs");
     revalidatePath("/employer/jobs");
     revalidatePath("/sitemap.xml");
+    // The search result count is cached separately from the route, so the path
+    // revalidations above do not reach it.
+    revalidateTag(JOBS_SEARCH_TAG);
 
     return { success: true, data: job, message: "Created successfully" };
   } catch (error) {

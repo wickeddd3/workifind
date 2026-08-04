@@ -66,21 +66,32 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
       POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+      NEXT_CLERK_SIGN_UP_FALLBACK_URL: /
+      NEXT_CLERK_SIGN_IN_FALLBACK_URL: /
+      BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+      UPLOAD_SIGNING_SECRET: ${{ secrets.UPLOAD_SIGNING_SECRET }}
       # Link the Vercel CLI to the right project without an interactive login.
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-    # `vercel deploy` builds and runs the app on Vercel, with Vercel's own
-    # environment — nothing set here reaches the deployed process. The variables
-    # the running app needs (see .env.example) are configured in the project's
-    # Settings → Environment Variables, and a missing one is not visible from
-    # here: this workflow goes green either way.
+    # The Vercel project itself holds no environment variables: GitHub secrets
+    # are the single source of truth, and the deploy step below hands them to
+    # Vercel per deployment (`--build-env` for `next build`, `--env` for the
+    # running functions). Both halves are needed — the build prerenders job and
+    # company pages against Postgres and mounts ClerkProvider, and the deployed
+    # functions read the same values again on every request.
     #
-    # BLOB_READ_WRITE_TOKEN and UPLOAD_SIGNING_SECRET are the two that fail
-    # closed at request time rather than at boot, so an omission surfaces as a
-    # résumé upload that 500s for a user, not as a failed deploy.
+    # The cost of that choice: a deployment triggered from anywhere other than
+    # this workflow — a dashboard redeploy, Vercel's own git integration, a
+    # preview build — gets an empty environment and fails. Adding a variable
+    # means adding it to `deploy_vars` below, not just to the dashboard.
 
     steps:
       - name: Checkout Code
@@ -108,4 +119,41 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel
-        run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        # Every variable the app needs, passed twice: `--build-env` reaches
+        # `next build` in Vercel's build container, `--env` reaches the
+        # functions at request time. Values come from the job environment
+        # above, so a secret is named here once rather than pasted twice.
+        run: |
+          deploy_vars=(
+            NEXT_PUBLIC_API_BASE_URL
+            POSTGRES_URL
+            POSTGRES_URL_NON_POOLING
+            NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+            CLERK_SECRET_KEY
+            NEXT_PUBLIC_CLERK_SIGN_UP_URL
+            NEXT_PUBLIC_CLERK_SIGN_IN_URL
+            NEXT_CLERK_SIGN_UP_FALLBACK_URL
+            NEXT_CLERK_SIGN_IN_FALLBACK_URL
+            BLOB_READ_WRITE_TOKEN
+            UPLOAD_SIGNING_SECRET
+          )
+
+          # An unset secret would otherwise deploy as an empty string and fail
+          # in production instead of here.
+          missing=()
+          for name in "${deploy_vars[@]}"; do
+            [[ -n "${!name}" ]] || missing+=("$name")
+          done
+          if (( ${#missing[@]} )); then
+            echo "::error::Missing GitHub secrets: ${missing[*]}"
+            exit 1
+          fi
+
+          flags=()
+          for name in "${deploy_vars[@]}"; do
+            flags+=(--build-env "$name=${!name}" --env "$name=${!name}")
+          done
+
+          vercel deploy --prod --yes --token="$VERCEL_TOKEN" "${flags[@]}"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

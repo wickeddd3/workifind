@@ -1,7 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
+import { JOBS_SEARCH_TAG } from "@/features/search-jobs";
 import { requireRole } from "@/shared/lib/clerk.server";
 
 import { deleteJob } from "./job.service";
@@ -20,6 +21,9 @@ export async function deleteJobAction(
     revalidatePath("/employer/jobs");
     revalidatePath("/jobs");
     revalidatePath("/sitemap.xml");
+    // A deleted post must leave the results count too, which is cached by tag
+    // rather than by path.
+    revalidateTag(JOBS_SEARCH_TAG);
 
     return {
       success: true,

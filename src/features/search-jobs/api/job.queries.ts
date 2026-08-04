@@ -1,3 +1,5 @@
+import { unstable_cache } from "next/cache";
+
 import type { Job } from "@/entities/job";
 
 import {
@@ -6,6 +8,33 @@ import {
   searchJobs,
   searchJobsCount,
 } from "./job.service";
+
+/**
+ * Invalidated by every action that changes what the search can return. Kept
+ * here rather than in the actions' own slices so the producer of the cache owns
+ * the name.
+ */
+export const JOBS_SEARCH_TAG = "jobs-search";
+
+/**
+ * The count behind the results header, memoized across requests.
+ *
+ * Selecting a job re-renders the whole route — `?job=` is a fresh URL, so the
+ * results panel is rebuilt even though its filters did not change. The list
+ * query has to re-run (see below), but the COUNT does not, and it is the
+ * expensive half: it scans the whole matching set rather than one page of it.
+ *
+ * A number survives the cache's JSON round trip intact, which is exactly what
+ * makes this safe to cache and the list query not.
+ */
+const cachedSearchJobsCount = unstable_cache(
+  searchJobsCount,
+  ["search-jobs-count"],
+  // The tag covers job mutations; the window bounds everything else that can
+  // move a count without going through them — an employer editing its industry,
+  // or a row changed outside the app.
+  { tags: [JOBS_SEARCH_TAG], revalidate: 60 },
+);
 
 /**
  * The facets the results page filters on. Kept as one type so the list query
@@ -21,6 +50,13 @@ interface JobSearchFilters {
   industry: string;
 }
 
+/**
+ * Deliberately not wrapped in `unstable_cache`, unlike the count beside it: the
+ * cache serializes through JSON, which would hand back `createdAt` as a string
+ * while the `Job` type still claims `Date`. `relativeDate` passes it straight to
+ * date-fns, which stopped coercing strings in v3 — every card's "Posted …" would
+ * render Invalid Date, and nothing in the types would say so.
+ */
 export async function searchJobsQuery(
   queryParams: JobSearchFilters & {
     size: number;
@@ -85,7 +121,7 @@ export async function searchJobsCountQuery(
     // See searchJobsQuery — plain text, not to_tsquery syntax.
     const searchString = query?.trim() ?? "";
 
-    const results = await searchJobsCount({
+    const results = await cachedSearchJobsCount({
       query: searchString,
       employmentType,
       salary,

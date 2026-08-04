@@ -51,8 +51,12 @@ export async function JobsPage({
 
             `self-start` keeps the pane hugging its content — as a flex child it
             otherwise stretched to the full height of the results column and
-            rendered a short posting as a mostly empty card. */}
-        <section className="sticky top-[calc(var(--filter-bar-h,10.25rem)+1.25rem)] hidden max-h-[calc(100vh-var(--filter-bar-h,10.25rem)-2.5rem)] self-start overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-card md:block md:w-[58%] lg:w-3/5">
+            rendered a short posting as a mostly empty card.
+
+            It still scrolls internally for a posting taller than the viewport,
+            but `no-scrollbar` keeps that bar unpainted: stacked against the
+            window's own scrollbar, two side by side read as clutter. */}
+        <section className="no-scrollbar sticky top-[calc(var(--filter-bar-h,10.25rem)+1.25rem)] hidden max-h-[calc(100vh-var(--filter-bar-h,10.25rem)-2.5rem)] self-start overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-card md:block md:w-[58%] lg:w-3/5">
           <Suspense key={searchParams.job} fallback={<JobDetailSkeleton />}>
             <JobSelected slug={searchParams.job} />
           </Suspense>

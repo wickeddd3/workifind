@@ -126,6 +126,7 @@ const summarySelect = {
   id: true,
   firstName: true,
   lastName: true,
+  avatarUrl: true,
   location: true,
   profession: true,
   experienced: true,

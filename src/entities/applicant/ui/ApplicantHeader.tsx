@@ -1,4 +1,5 @@
 import { BadgeCheck, Mail, MapPin, Phone, UserRoundPen } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/shared/lib/utils";
@@ -22,6 +23,8 @@ type HeaderApplicant = Pick<
   email?: string | null;
   phoneNumber?: string | null;
   location?: string | null;
+  /** Absent when never set, or when this viewer may not see it. */
+  avatarUrl?: string | null;
 };
 
 export function ApplicantHeader({
@@ -33,6 +36,7 @@ export function ApplicantHeader({
     location,
     profession,
     experienced,
+    avatarUrl,
   },
   hasEditButton = false,
   contactWithheld = false,
@@ -68,8 +72,21 @@ export function ApplicantHeader({
         isStacked ? "w-full flex-col items-center text-center" : "items-center",
       )}
     >
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-semibold text-white md:h-16 md:w-16">
-        {initials}
+      {/* The lettermark is the fallback rather than a placeholder image: a
+          shared grey glyph on every profile without a picture reads as a
+          failure, where initials on the brand gradient read as an absence. */}
+      <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-lg font-semibold text-white md:h-16 md:w-16">
+        {avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt=""
+            fill
+            sizes="64px"
+            className="object-cover"
+          />
+        ) : (
+          initials
+        )}
       </div>
       <div
         className={cn(

@@ -6,6 +6,7 @@
  */
 export {
   type ApplicantResumeRecord,
+  type ApplicantSummary,
   getApplicant,
   getApplicantById,
   getApplicantProfile,

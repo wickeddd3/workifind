@@ -1,23 +1,34 @@
-"use server";
-
 import type { Company } from "@/entities/employer";
 
-import { searchCompanies, searchCompaniesCount } from "./companies.service";
+import {
+  type CompanyFilters,
+  type CompanySort,
+  searchCompanies,
+  searchCompaniesCount,
+} from "./companies.service";
 
-export async function searchCompaniesQuery(queryParams: {
-  query: string;
-  size?: number;
-  page?: number;
-}): Promise<{ success: boolean; data: Company[] | null; message: string }> {
+// No `"use server"` here, unlike the version this replaces. These are read
+// queries called from a server component, and the directive does not make them
+// safer — it publishes each one as a POST endpoint the browser can invoke with
+// arbitrary arguments. The action that belongs in this slice is the one in
+// `companies.action.ts`, which redirects.
+
+export async function searchCompaniesQuery(
+  queryParams: CompanyFilters & {
+    size: number;
+    page: number;
+    sort: CompanySort;
+  },
+): Promise<{ success: boolean; data: Company[] | null; message: string }> {
   try {
-    // Destructure query parameters
-    const { query = "", size = 10, page = 1 } = queryParams;
-    // Calculate the number of rows to skip
-    const rowsToSkip = (page - 1) * size;
-    // Parse size to integer
-    const take = size ? size : 10;
+    const { size, page, sort, ...filters } = queryParams;
 
-    const results = await searchCompanies(query, take, rowsToSkip);
+    const results = await searchCompanies({
+      ...filters,
+      take: size,
+      skip: (page - 1) * size,
+      sort,
+    });
 
     return { success: true, data: results, message: "Queried successfully" };
   } catch (error) {
@@ -25,14 +36,11 @@ export async function searchCompaniesQuery(queryParams: {
   }
 }
 
-export async function searchCompaniesCountQuery(queryParams: {
-  query: string;
-}): Promise<{ success: boolean; data: number | null; message: string }> {
+export async function searchCompaniesCountQuery(
+  queryParams: CompanyFilters,
+): Promise<{ success: boolean; data: number | null; message: string }> {
   try {
-    // Destructure query parameters
-    const { query = "" } = queryParams;
-
-    const results = await searchCompaniesCount(query);
+    const results = await searchCompaniesCount(queryParams);
 
     return { success: true, data: results, message: "Queried successfully" };
   } catch (error) {

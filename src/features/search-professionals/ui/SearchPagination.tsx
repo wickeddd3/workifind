@@ -1,32 +1,36 @@
 import { Pagination } from "@/shared/ui/Pagination";
 
+import {
+  buildProfessionalsUrl,
+  type ProfessionalSearchParams,
+} from "../lib/professional-search-url";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  query: string;
+  searchParams: ProfessionalSearchParams;
 }
 
-/** Thin binding of the shared pager to the professional search route. */
+/**
+ * Thin binding of the shared pager to the professionals route.
+ *
+ * `scroll={false}` because this list sits beside a detail pane — jumping to the
+ * top on a page change would move the profile the reader is looking at.
+ */
 export function SearchPagination({
   currentPage,
   totalPages,
-  query,
+  searchParams,
 }: PaginationProps) {
-  function generatePageLink(page: number) {
-    const searchParams = new URLSearchParams({
-      ...(query && { q: query.trim() }),
-      ...(page && { page: page.toString() }),
-    });
-
-    return `/professionals/search?${searchParams.toString()}`;
-  }
-
   return (
     <Pagination
       currentPage={currentPage}
       totalPages={totalPages}
-      getPageHref={generatePageLink}
+      getPageHref={(page) =>
+        buildProfessionalsUrl(searchParams, { page: page.toString() })
+      }
       label="Professional results pages"
+      scroll={false}
     />
   );
 }

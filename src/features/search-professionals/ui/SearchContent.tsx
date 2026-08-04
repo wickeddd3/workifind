@@ -1,44 +1,94 @@
+import { getAuthUser } from "@/shared/lib/clerk.server";
+
 import {
   searchProfessionalsCountQuery,
   searchProfessionalsQuery,
 } from "../api/professional.queries";
+import type { ProfessionalSort } from "../api/professional.service";
+import { ActiveFilters } from "./ActiveFilters";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";
+import { SearchResultsHeader } from "./SearchResultsHeader";
+
+/** Anything the URL offers that we do not implement falls back to recency. */
+function parseSort(sort?: string): ProfessionalSort {
+  if (sort === "availability") return "availability";
+  if (sort === "name") return "name";
+  return "newest";
+}
 
 export async function SearchContent({
   searchParams,
 }: {
   searchParams: Record<string, string>;
 }) {
-  const { q, page } = searchParams;
-  const jobsPerPage = 10;
-  const currentPage = page ? parseInt(page) : 1;
+  const {
+    q,
+    page,
+    location,
+    employmentType,
+    locationType,
+    availability,
+    experienced,
+    sort,
+  } = searchParams;
 
-  const [results, totalResults] = await Promise.all([
+  const perPage = 10;
+  const currentPage = page ? parseInt(page) : 1;
+  const filters = {
+    query: q ?? "",
+    location: location ?? "",
+    employmentType: employmentType ?? "",
+    locationType: locationType ?? "",
+    availability: availability ?? "",
+    experienced: experienced ?? "",
+  };
+
+  // `getAuthUser` is `cache`d per request, so resolving it here as well as in
+  // the detail pane costs one lookup between them.
+  const [results, totalResults, { userId, role }] = await Promise.all([
     searchProfessionalsQuery({
-      query: q,
-      size: jobsPerPage,
+      ...filters,
+      size: perPage,
       page: currentPage,
+      sort: parseSort(sort),
     }),
-    searchProfessionalsCountQuery({ query: q }),
+    searchProfessionalsCountQuery(filters),
+    getAuthUser(),
   ]);
 
-  const hasResults = results.data && results.data?.length > 0;
+  const professionals = results.data ?? [];
+  const total = totalResults.data ?? 0;
 
+  // The chips stay visible on an empty result set — they are both the
+  // explanation for it and the way back out.
   return (
-    <div className="flex h-full w-full flex-col gap-6">
-      {hasResults && (
+    <div className="flex flex-col gap-4">
+      <ActiveFilters searchParams={searchParams} />
+
+      {professionals.length === 0 ? (
+        <EmptyPlaceholder />
+      ) : (
         <>
-          <SearchResults professionals={results.data || []} />
+          <SearchResultsHeader
+            totalResults={total}
+            searchParams={searchParams}
+          />
+          <SearchResults
+            professionals={professionals}
+            searchParams={searchParams}
+            page={currentPage}
+            viewerUserId={userId}
+            viewerRole={role}
+          />
           <SearchPagination
             currentPage={currentPage}
-            totalPages={Math.ceil((totalResults.data || 0) / jobsPerPage)}
-            query={q}
+            totalPages={Math.ceil(total / perPage)}
+            searchParams={searchParams}
           />
         </>
       )}
-      {!hasResults && <EmptyPlaceholder />}
     </div>
   );
 }

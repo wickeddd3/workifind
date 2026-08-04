@@ -2,43 +2,75 @@ import {
   searchCompaniesCountQuery,
   searchCompaniesQuery,
 } from "../api/companies.queries";
+import type { CompanySort } from "../api/companies.service";
+import { ActiveFilters } from "./ActiveFilters";
 import { EmptyPlaceholder } from "./EmptyPlaceholder";
 import { SearchPagination } from "./SearchPagination";
 import { SearchResults } from "./SearchResults";
+import { SearchResultsHeader } from "./SearchResultsHeader";
+
+/** Anything the URL offers that we do not implement falls back to recency. */
+function parseSort(sort?: string): CompanySort {
+  if (sort === "jobs") return "jobs";
+  if (sort === "name") return "name";
+  return "newest";
+}
 
 export async function SearchContent({
   searchParams,
 }: {
   searchParams: Record<string, string>;
 }) {
-  const { q, page } = searchParams;
-  const jobsPerPage = 10;
+  const { q, page, location, industry, hiring, sort } = searchParams;
+
+  const perPage = 10;
   const currentPage = page ? parseInt(page) : 1;
+  const filters = {
+    query: q ?? "",
+    location: location ?? "",
+    industry: industry ?? "",
+    hiring: hiring ?? "",
+  };
 
   const [results, totalResults] = await Promise.all([
     searchCompaniesQuery({
-      query: q,
-      size: jobsPerPage,
+      ...filters,
+      size: perPage,
       page: currentPage,
+      sort: parseSort(sort),
     }),
-    searchCompaniesCountQuery({ query: q }),
+    searchCompaniesCountQuery(filters),
   ]);
 
-  const hasResults = results.data && results.data?.length > 0;
+  const companies = results.data ?? [];
+  const total = totalResults.data ?? 0;
 
+  // The chips stay visible on an empty result set — they are both the
+  // explanation for it and the way back out.
   return (
-    <div className="flex h-full w-full flex-col gap-6">
-      {hasResults && (
+    <div className="flex flex-col gap-4">
+      <ActiveFilters searchParams={searchParams} />
+
+      {companies.length === 0 ? (
+        <EmptyPlaceholder />
+      ) : (
         <>
-          <SearchResults companies={results.data || []} />
+          <SearchResultsHeader
+            totalResults={total}
+            searchParams={searchParams}
+          />
+          <SearchResults
+            companies={companies}
+            searchParams={searchParams}
+            page={currentPage}
+          />
           <SearchPagination
             currentPage={currentPage}
-            totalPages={Math.ceil((totalResults.data || 0) / jobsPerPage)}
-            query={q}
+            totalPages={Math.ceil(total / perPage)}
+            searchParams={searchParams}
           />
         </>
       )}
-      {!hasResults && <EmptyPlaceholder />}
     </div>
   );
 }

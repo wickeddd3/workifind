@@ -1,24 +1,31 @@
-import type { Applicant } from "@prisma/client";
-
 import {
+  type ProfessionalFilters,
+  type ProfessionalSort,
+  type ProfessionalSummaryRow,
   searchProfessionals,
   searchProfessionalsCount,
 } from "./professional.service";
 
-export async function searchProfessionalsQuery(queryParams: {
-  query: string;
-  size?: number;
-  page?: number;
-}): Promise<{ success: boolean; data: Applicant[] | null; message: string }> {
+export async function searchProfessionalsQuery(
+  queryParams: ProfessionalFilters & {
+    size: number;
+    page: number;
+    sort: ProfessionalSort;
+  },
+): Promise<{
+  success: boolean;
+  data: ProfessionalSummaryRow[] | null;
+  message: string;
+}> {
   try {
-    // Destructure query parameters
-    const { query = "", size = 10, page = 1 } = queryParams;
-    // Calculate the number of rows to skip
-    const rowsToSkip = (page - 1) * size;
-    // Parse size to integer
-    const take = size ? size : 10;
+    const { size, page, sort, ...filters } = queryParams;
 
-    const results = await searchProfessionals(query, take, rowsToSkip);
+    const results = await searchProfessionals({
+      ...filters,
+      take: size,
+      skip: (page - 1) * size,
+      sort,
+    });
 
     return { success: true, data: results, message: "Queried successfully" };
   } catch (error) {
@@ -26,14 +33,11 @@ export async function searchProfessionalsQuery(queryParams: {
   }
 }
 
-export async function searchProfessionalsCountQuery(queryParams: {
-  query: string;
-}): Promise<{ success: boolean; data: number | null; message: string }> {
+export async function searchProfessionalsCountQuery(
+  queryParams: ProfessionalFilters,
+): Promise<{ success: boolean; data: number | null; message: string }> {
   try {
-    // Destructure query parameters
-    const { query = "" } = queryParams;
-
-    const results = await searchProfessionalsCount(query);
+    const results = await searchProfessionalsCount(queryParams);
 
     return { success: true, data: results, message: "Queried successfully" };
   } catch (error) {

@@ -54,6 +54,11 @@ model Applicant {
   phoneNumber              String?
   location                 String?
   about                    String?
+  /// Profile picture, in Vercel Blob. Public like the company logo it mirrors:
+  /// it is rendered in an `<img>` on a directory open to every visitor, so
+  /// there is nothing for a proxy route to protect. Which viewers get to see
+  /// it at all is decided in `entities/applicant/model/visibility.ts`.
+  avatarUrl                String?
   profession               String
   experienced              String
   availability             String

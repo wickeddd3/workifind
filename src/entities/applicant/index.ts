@@ -25,6 +25,7 @@ export { ProfileCompleteness } from "./ui/ProfileCompleteness";
 // consumers are client components, which import from `./client`.
 
 /* Model */
+export * from "./model/avatar";
 export {
   getProfileCompleteness,
   type ProfileCompleteness as ProfileCompletenessResult,
@@ -58,6 +59,11 @@ export {
 } from "./lib/record-inputs";
 
 /* API */
+export {
+  resolveAvatarUpload,
+  signAvatarUpload,
+  uploadApplicantAvatar,
+} from "./api/avatar.service";
 export {
   resolveResumeUpload,
   signResumeUpload,

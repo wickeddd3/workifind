@@ -2,7 +2,7 @@
 
 import type { Applicant, Prisma } from "@prisma/client";
 
-import { resolveResumeUpload } from "@/entities/applicant";
+import { resolveAvatarUpload, resolveResumeUpload } from "@/entities/applicant";
 import { requireRole } from "@/shared/lib/clerk.server";
 
 import { mapApplicantSection } from "../model/map-applicant-data";
@@ -53,7 +53,16 @@ export async function updateApplicantSectionAction(
         ? resolveResume(parsed.data as ApplicantSectionValues["resume"], userId)
         : {};
 
-    if (resume === null) {
+    // The avatar column travels the same way, on the identity section.
+    const avatar =
+      payload.section === "identity"
+        ? resolveAvatar(
+            parsed.data as ApplicantSectionValues["identity"],
+            userId,
+          )
+        : {};
+
+    if (resume === null || avatar === null) {
       return {
         success: false,
         data: null,
@@ -61,7 +70,11 @@ export async function updateApplicantSectionAction(
       };
     }
 
-    const applicant = await updateApplicant(userId, { ...data, ...resume });
+    const applicant = await updateApplicant(userId, {
+      ...data,
+      ...resume,
+      ...avatar,
+    });
     if (!applicant) {
       return {
         success: false,
@@ -101,6 +114,27 @@ export async function updateApplicantSectionAction(
  * columns is what revokes access — every route that serves the file reads them
  * first.
  */
+/**
+ * The avatar column to write, or `null` when a reference was submitted that we
+ * will not act on — the same three-way answer `resolveResume` gives, and for
+ * the same reason.
+ *
+ * No token means no change. The identity section is saved whenever a phone
+ * number or a job title changes, so treating an absent token as "remove the
+ * picture" would wipe it on almost every save.
+ */
+function resolveAvatar(
+  values: ApplicantSectionValues["identity"],
+  userId: string,
+): Prisma.ApplicantUpdateInput | null {
+  if (!values.avatarToken) return {};
+
+  const url = resolveAvatarUpload(values.avatarToken, userId);
+  if (!url) return null;
+
+  return { avatarUrl: url };
+}
+
 function resolveResume(
   values: ApplicantSectionValues["resume"],
   userId: string,

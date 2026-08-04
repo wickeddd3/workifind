@@ -1,4 +1,3 @@
-import validator from "validator";
 import { z } from "zod";
 
 import {
@@ -8,13 +7,18 @@ import {
   ApplicantLanguageEntrySchema,
   ApplicantPreferredLocationEntrySchema,
   ApplicantSkillEntrySchema,
+  AvatarUploadSchema,
   ResumeUploadSchema,
   // From `client`, not the full barrel: the section components are
   // `"use client"` and import this file, so the barrel's query re-exports would
   // put PrismaClient in the browser bundle.
 } from "@/entities/applicant/client";
 import { WORK_EXPERIENCE_TYPES } from "@/shared/constants/tags";
-import { optionalAmount, requiredString } from "@/shared/schema/utils";
+import {
+  optionalAmount,
+  optionalPhone,
+  requiredString,
+} from "@/shared/schema/utils";
 
 /* -------------------------------------------------------------------------- */
 /*  Sections                                                                    */
@@ -36,6 +40,12 @@ import { optionalAmount, requiredString } from "@/shared/schema/utils";
  */
 
 export const ApplicantIdentitySchema = z.object({
+  /**
+   * The signed reference the upload route issued, not the file. Absent means
+   * "leave the current picture alone" — this section is saved every time a
+   * phone number changes, and an absent token must not read as "remove it".
+   */
+  avatarToken: AvatarUploadSchema,
   firstName: requiredString.max(100),
   lastName: requiredString.max(100),
   profession: requiredString.max(100),
@@ -44,11 +54,7 @@ export const ApplicantIdentitySchema = z.object({
     "Invalid experience type",
   ),
   email: z.string().trim().max(100).email(),
-  phoneNumber: z
-    .string()
-    .refine(validator.isMobilePhone)
-    .optional()
-    .or(z.literal("")),
+  phoneNumber: optionalPhone,
   location: z.string().trim().max(100).optional(),
 });
 

@@ -49,6 +49,9 @@ export function mapApplicantSection<S extends ApplicantSection>(
   switch (section) {
     case "identity": {
       const v = values as ApplicantSectionValues["identity"];
+      // `avatarToken` is deliberately not here. Like the résumé, the column it
+      // feeds depends on an upload that has to be verified, so the action
+      // resolves it and merges the result in.
       return {
         firstName: v.firstName,
         lastName: v.lastName,

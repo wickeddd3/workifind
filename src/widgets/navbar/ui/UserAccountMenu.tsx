@@ -21,6 +21,7 @@ import {
   accountMenuLinks,
   accountSettingsLinks,
   type MenuLink,
+  visibleMenuLinks,
 } from "../model/navbar-links";
 import { useUserRole } from "../model/use-user-role";
 
@@ -35,7 +36,13 @@ function AccountMenuLink({ title, link, icon: Icon, exact }: MenuLink) {
         aria-current={isActive ? "page" : undefined}
         className={cn(
           "flex w-full cursor-pointer items-center gap-3 px-2 py-2 text-sm font-medium",
-          isActive ? "text-primary" : "text-foreground",
+          // Tinted row rather than tinted text, matching the desktop pill and
+          // the mobile menu. Colour alone was the whole signal, and these rows
+          // now carry the site's own navigation on a phone rather than just
+          // the account's, so which one you are on matters more than it did.
+          isActive
+            ? "bg-primary/10 text-primary focus:bg-primary/15 focus:text-primary"
+            : "text-foreground",
         )}
       >
         <Icon size={16} className="shrink-0" aria-hidden="true" />
@@ -95,6 +102,21 @@ export function UserAccountMenu() {
         </div>
 
         <DropdownMenuSeparator />
+
+        {/* The site's own sections, on small screens only. A signed-in phone
+            had two menus a thumb's width apart — a hamburger holding the site
+            and an avatar holding the account — with nothing to tell you which
+            was which. Folding the site into the avatar leaves one.
+
+            `md:hidden` because the bar itself lists these above that
+            breakpoint, and a menu that repeats what is already on screen beside
+            it is just a second place to keep in sync. */}
+        <DropdownMenuGroup className="md:hidden">
+          {visibleMenuLinks(role).map((item) => (
+            <AccountMenuLink key={item.title} {...item} />
+          ))}
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator className="md:hidden" />
 
         <DropdownMenuGroup>
           {accountMenuLinks(role).map((item) => (

@@ -20,7 +20,9 @@ export function Navbar() {
   return (
     <header className="flex w-full items-center justify-center py-2">
       <nav className="flex w-full max-w-7xl items-center gap-2 rounded-full border border-border bg-card px-4 py-2 shadow-soft lg:py-3">
-        {/* Mobile Menu Links */}
+        {/* The site's links on a phone, and only while signed out — a
+            signed-in visitor gets them from the avatar menu instead, so this
+            renders nothing and the brand leads the bar. */}
         <MobileMenu />
         <Link
           href="/"

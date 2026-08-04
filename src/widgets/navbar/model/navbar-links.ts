@@ -24,9 +24,13 @@ export type MenuLink = {
   exact?: boolean;
 };
 
+/**
+ * Three parallel nouns. "Find jobs" was the odd one out, and left-aligning the
+ * bar put the three side by side where the mismatched verb showed.
+ */
 export const menuLinks: MenuLink[] = [
   {
-    title: "Find jobs",
+    title: "Jobs",
     link: "/jobs",
     icon: BriefcaseBusiness,
   },
@@ -39,9 +43,9 @@ export const menuLinks: MenuLink[] = [
     title: "Professionals",
     link: "/professionals",
     icon: Users,
-    // The candidate directory is a hiring tool, so applicants — and anyone not
-    // signed in — never see it. The pages behind it gate on the server too.
-    roles: ["EMPLOYER"],
+    // Open to everyone, signed out included. What differs by role is how much
+    // of a profile is returned, not whether the directory exists — see
+    // `profileVisibility` in the applicant entity.
   },
 ];
 

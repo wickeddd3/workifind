@@ -1,4 +1,7 @@
+import type { ReactNode } from "react";
+
 import { Badge } from "@/shared/ui/badge";
+import { RedactedField } from "@/shared/ui/RedactedField";
 import { formatMoney } from "@/shared/utils/format-money";
 
 import type { ApplicantPreferredLocation } from "../model/types";
@@ -17,14 +20,16 @@ import type { ApplicantPreferredLocation } from "../model/types";
  * preferences, and repeating it on every row inside said nothing.
  */
 
-function Fact({ label, value }: { label: string; value: string }) {
+function Fact({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
       <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         {label}
       </p>
       {/* Tabular figures so a salary lines up with any other on the page. */}
-      <p className="tabular text-lg font-semibold text-foreground">{value}</p>
+      <div className="tabular text-lg font-semibold text-foreground">
+        {value}
+      </div>
     </div>
   );
 }
@@ -54,14 +59,18 @@ export function ApplicantPreferences({
   preferredLocations,
   availability,
   salaryExpectation,
+  salaryWithheld = false,
 }: {
   preferredEmploymentTypes: string[];
   preferredLocationTypes: string[];
   preferredLocations: ApplicantPreferredLocation[];
   availability: string;
-  salaryExpectation: number;
+  /** Null when unstated, or when the viewer may not read it. */
+  salaryExpectation: number | null;
+  /** An expectation is stated but withheld from this viewer. */
+  salaryWithheld?: boolean;
 }) {
-  const facts: { label: string; value: string }[] = [];
+  const facts: { label: string; value: ReactNode }[] = [];
 
   if (availability) facts.push({ label: "Available", value: availability });
   // Gated on the salary itself, not on availability — the copied condition once
@@ -71,6 +80,19 @@ export function ApplicantPreferences({
     facts.push({
       label: "Salary expectation",
       value: formatMoney(salaryExpectation),
+    });
+  } else if (salaryWithheld) {
+    // Shown as withheld rather than dropped: a candidate who has named a figure
+    // is a different thing from one who has not, and hiding the distinction
+    // would tell an employer the wrong story about the profiles they skip.
+    facts.push({
+      label: "Salary expectation",
+      value: (
+        <RedactedField
+          label="Salary expectation is visible to employers"
+          width="6rem"
+        />
+      ),
     });
   }
 

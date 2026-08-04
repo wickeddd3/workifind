@@ -3,10 +3,26 @@ import Link from "next/link";
 
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { RedactedField } from "@/shared/ui/RedactedField";
 
 import type { Applicant } from "../model/types";
 
 const EDIT_HREF = "/applicant/profile/edit";
+
+/**
+ * Widened from `Applicant` so a redacted profile fits too: the public page
+ * hands this a record whose contact fields were dropped on the server for the
+ * visitor's tier, and `contactWithheld` is what tells the difference between
+ * "not shared with you" and "never filled in".
+ */
+type HeaderApplicant = Pick<
+  Applicant,
+  "firstName" | "lastName" | "profession" | "experienced"
+> & {
+  email?: string | null;
+  phoneNumber?: string | null;
+  location?: string | null;
+};
 
 export function ApplicantHeader({
   applicant: {
@@ -19,11 +35,14 @@ export function ApplicantHeader({
     experienced,
   },
   hasEditButton = false,
+  contactWithheld = false,
   as: NameHeading = "h2",
   orientation = "row",
 }: {
-  applicant: Applicant;
+  applicant: HeaderApplicant;
   hasEditButton?: boolean;
+  /** Contact details exist but this visitor may not read them. */
+  contactWithheld?: boolean;
   as?: "h1" | "h2";
   /**
    * `stacked` centres the avatar over the name and runs the contact details
@@ -38,7 +57,9 @@ export function ApplicantHeader({
   const hasExperience = experienced === "With experience";
   const initials =
     `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();
-  const hasContact = Boolean(email || location || phoneNumber);
+  const hasContact = Boolean(
+    email || location || phoneNumber || contactWithheld,
+  );
 
   const identity = (
     <div
@@ -110,6 +131,14 @@ export function ApplicantHeader({
           <Phone size={15} className="shrink-0" aria-hidden="true" />
           <span className="truncate">{phoneNumber}</span>
         </span>
+      )}
+      {/* Shown in place of the pair, not alongside it: a visitor who may read
+          neither should see one statement about that, not two. */}
+      {contactWithheld && (
+        <RedactedField
+          label="Contact details are visible to employers"
+          width="9rem"
+        />
       )}
     </div>
   );

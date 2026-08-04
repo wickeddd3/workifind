@@ -18,7 +18,11 @@ import { UserAccountMenu } from "./UserAccountMenu";
  */
 export function NavbarAuthActions() {
   return (
-    <div className="flex items-center gap-2 md:gap-3">
+    // `ml-auto` rather than the bar's old `justify-between`: the nav links are
+    // left-aligned against the brand now, so this is the only child that still
+    // needs pushing to the far edge — and it is present at every width, unlike
+    // the desktop link group.
+    <div className="ml-auto flex items-center gap-2 md:gap-3">
       <SignedOut>
         <SignInButton>
           <Button

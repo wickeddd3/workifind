@@ -38,6 +38,14 @@ export type {
   ApplicantExperience,
   ApplicantProfile,
 } from "./model/types";
+export {
+  type ProfileViewer,
+  type ProfileVisibility,
+  profileVisibility,
+  resolveProfileViewer,
+  toVisibleApplicantProfile,
+  type VisibleApplicantProfile,
+} from "./model/visibility";
 
 /* Lib */
 export {

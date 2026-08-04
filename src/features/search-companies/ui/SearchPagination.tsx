@@ -1,32 +1,36 @@
 import { Pagination } from "@/shared/ui/Pagination";
 
+import {
+  buildCompaniesUrl,
+  type CompanySearchParams,
+} from "../lib/company-search-url";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  query: string;
+  searchParams: CompanySearchParams;
 }
 
-/** Thin binding of the shared pager to the company search route. */
+/**
+ * Thin binding of the shared pager to the companies route.
+ *
+ * `scroll={false}` because this list sits beside a detail pane — jumping to the
+ * top on a page change would move the company the reader is looking at.
+ */
 export function SearchPagination({
   currentPage,
   totalPages,
-  query,
+  searchParams,
 }: PaginationProps) {
-  function generatePageLink(page: number) {
-    const searchParams = new URLSearchParams({
-      ...(query && { q: query.trim() }),
-      ...(page && { page: page.toString() }),
-    });
-
-    return `/companies/search?${searchParams.toString()}`;
-  }
-
   return (
     <Pagination
       currentPage={currentPage}
       totalPages={totalPages}
-      getPageHref={generatePageLink}
+      getPageHref={(page) =>
+        buildCompaniesUrl(searchParams, { page: page.toString() })
+      }
       label="Company results pages"
+      scroll={false}
     />
   );
 }

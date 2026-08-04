@@ -1,23 +1,34 @@
-import { BadgeCheck, Mail, MapPin } from "lucide-react";
+import { BadgeCheck, CalendarClock, MapPin } from "lucide-react";
 import Link from "next/link";
 
-import type { Applicant } from "@/entities/applicant";
+import type { ApplicantSummary } from "@/entities/applicant/queries";
 
+/**
+ * One card in the "explore professionals" carousel.
+ *
+ * Takes the narrow summary rather than the record: this renders inside a
+ * `"use client"` carousel, so anything on the object it is handed is serialized
+ * into the page. It used to print the email address, which — now the directory
+ * is public — would have published one for every recent candidate.
+ */
 export function ProfessionalCard({
   professional: {
     id,
     firstName,
     lastName,
     profession,
-    email,
     location,
+    availability,
     experienced,
   },
 }: {
-  professional: Applicant;
+  professional: ApplicantSummary;
 }) {
   const initials =
     `${firstName?.charAt(0) ?? ""}${lastName?.charAt(0) ?? ""}`.toUpperCase();
+  // The badge used to test the column for truthiness, which is set either way —
+  // "No experience" is a value, so every card claimed to be verified.
+  const hasExperience = experienced === "With experience";
 
   return (
     <Link href={`/professionals/${id}`} className="block">
@@ -31,14 +42,14 @@ export function ProfessionalCard({
               <h3 className="min-w-0 truncate text-md font-semibold text-foreground">
                 {`${firstName} ${lastName}`}
               </h3>
-              {experienced && (
+              {hasExperience && (
                 <span className="flex shrink-0 items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
                   <BadgeCheck
                     size={14}
                     className="shrink-0"
                     aria-hidden="true"
                   />
-                  Verified
+                  Experienced
                 </span>
               )}
             </div>
@@ -50,16 +61,22 @@ export function ProfessionalCard({
           </div>
         </div>
         <div className="flex flex-col gap-1 text-muted-foreground">
-          {email && (
-            <p className="flex min-w-0 items-center gap-1.5">
-              <Mail size={16} className="shrink-0" aria-hidden="true" />
-              <span className="min-w-0 truncate text-sm">{email}</span>
-            </p>
-          )}
           {location && (
             <p className="flex min-w-0 items-center gap-1.5">
               <MapPin size={16} className="shrink-0" aria-hidden="true" />
               <span className="min-w-0 truncate text-sm">{location}</span>
+            </p>
+          )}
+          {availability && (
+            <p className="flex min-w-0 items-center gap-1.5">
+              <CalendarClock
+                size={16}
+                className="shrink-0"
+                aria-hidden="true"
+              />
+              <span className="min-w-0 truncate text-sm">
+                Available {availability.toLowerCase()}
+              </span>
             </p>
           )}
         </div>

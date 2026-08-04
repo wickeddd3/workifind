@@ -74,14 +74,41 @@ export const getApplicantProfile = cache(
   },
 );
 
+/**
+ * What a directory card may render.
+ *
+ * A `select`, not a row. The carousel that consumes this is a client component,
+ * so whatever it is handed is serialized into the RSC payload and shipped to
+ * the browser — returning the record put every recent candidate's email, phone
+ * number and résumé blob URL in the page source. The blob is stored with public
+ * access, which makes that URL a permanent bearer token for the document.
+ *
+ * Narrowing here rather than in the card is what makes it hold: a card can be
+ * edited to render one more field, but it cannot render what was never sent.
+ */
+const summarySelect = {
+  id: true,
+  firstName: true,
+  lastName: true,
+  location: true,
+  profession: true,
+  experienced: true,
+  availability: true,
+} satisfies Prisma.ApplicantSelect;
+
+export type ApplicantSummary = Prisma.ApplicantGetPayload<{
+  select: typeof summarySelect;
+}>;
+
 /** Newest applicant profiles, for the professionals carousel. */
 export async function getSuggestedApplicants(
   limit: number,
-): Promise<Applicant[]> {
+): Promise<ApplicantSummary[]> {
   try {
     return await prisma.applicant.findMany({
       orderBy: { createdAt: "desc" },
       take: limit,
+      select: summarySelect,
     });
   } catch (error) {
     return [];

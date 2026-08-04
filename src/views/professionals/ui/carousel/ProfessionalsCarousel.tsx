@@ -6,14 +6,20 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import type { Applicant } from "@/entities/applicant";
+import type { ApplicantSummary } from "@/entities/applicant/queries";
 
 import { ProfessionalCard } from "./ProfessionalCard";
 
+/**
+ * Takes summaries, not records. This is the client boundary — every field on
+ * what crosses it is serialized into the page source, so the query behind it
+ * selects only what a card shows. Type-only import, so `queries.ts` is erased
+ * rather than bundled.
+ */
 export function ProfessionalsCarousel({
   professionals,
 }: {
-  professionals: Applicant[];
+  professionals: ApplicantSummary[];
 }) {
   return (
     <Swiper

@@ -29,7 +29,12 @@ export function MobileMenuNavLink({
         aria-current={isActive ? "page" : undefined}
         className={cn(
           "flex w-full cursor-pointer items-center gap-3 text-sm font-medium",
-          isActive ? "text-primary" : "text-foreground",
+          // Tinted row rather than tinted text, matching the desktop pill —
+          // colour alone was the whole signal, and in a stacked menu it is
+          // easier to miss than in a row of three.
+          isActive
+            ? "bg-primary/10 text-primary focus:bg-primary/15 focus:text-primary"
+            : "text-foreground",
         )}
       >
         {Icon && <Icon size={16} className="shrink-0" aria-hidden="true" />}

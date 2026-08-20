@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { draftToMarkdown } from "markdown-draft-js";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -93,7 +92,7 @@ export function ApplicationForm({
         <FormField
           control={control}
           name="pitch"
-          render={({ field: { value, onChange, ref } }) => (
+          render={({ field: { value, onChange, onBlur, ref } }) => (
             <FormItem>
               <h3 className="text-md font-bold text-foreground md:text-lg">
                 Why you&apos;re a great fit
@@ -105,8 +104,9 @@ export function ApplicationForm({
               </div>
               <FormControl>
                 <RichTextEditor
-                  initialState={value}
-                  onChange={(draft) => onChange(draftToMarkdown(draft))}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                   ref={ref}
                 />
               </FormControl>
